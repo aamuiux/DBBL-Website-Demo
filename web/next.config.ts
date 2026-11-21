@@ -7,7 +7,8 @@ const nextConfig: NextConfig = {
     qualities: [70, 80],
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
-      new URL("https://images.unsplash.com/**"),
+      // Any path, with or without sizing params (?w=…&q=…)
+      { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
       new URL("https://www.dutchbanglabank.com/img/**"),
       new URL("https://www.dutchbanglabank.com/images/**"),
       // Rocket's official app icon, as published on its Google Play listing

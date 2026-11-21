@@ -1,11 +1,12 @@
 "use client";
 
 import { useId, useRef } from "react";
-import { motion, useScroll, useSpring, useTransform } from "motion/react";
-import { Sparkles } from "lucide-react";
+import { motion } from "motion/react";
+import { MoveHorizontal, Sparkles } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
 import { schoolSavers } from "@/lib/content";
+import { StudentSlider } from "./StudentSlider";
 import { Button, Reveal, useReduce } from "./ui";
 
 const stickerTones = ["bg-indigo-950 text-lime", "bg-rocket text-white", "bg-white text-indigo-950", "bg-red-600 text-white"];
@@ -17,12 +18,6 @@ export function Students() {
   const id = useId();
   const ref = useRef<HTMLElement>(null);
   const bn = lang === "bn";
-
-  // The card swings and lifts as the section passes
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const p = useSpring(scrollYProgress, { stiffness: 80, damping: 20 });
-  const rotate = useTransform(p, [0, 1], reduce ? [-8, -8] : [-24, 10]);
-  const y = useTransform(p, [0, 1], reduce ? [0, 0] : [80, -80]);
 
   return (
     <section ref={ref} id="students" aria-labelledby={`${id}-h`} className="relative overflow-hidden bg-lime py-24 text-indigo-950 md:py-32">
@@ -82,30 +77,23 @@ export function Students() {
           </Reveal>
         </div>
 
-        {/* The card that swings with scroll */}
-        <div className="relative grid min-h-[22rem] place-items-center">
-          <motion.div style={{ rotate, y }} className="relative w-[min(26rem,86vw)]">
-            <div className="relative aspect-[1.586/1] overflow-hidden rounded-[1.4rem] bg-indigo-950 p-6 text-white shadow-[0_40px_80px_-30px_rgb(9_11_58/0.6)]">
-              <span aria-hidden className="absolute -right-16 -top-16 size-56 rounded-full bg-rocket" />
-              <span aria-hidden className="absolute -bottom-20 right-10 size-44 rounded-full bg-red-600" />
-              <span aria-hidden className="absolute bottom-6 right-6 size-16 rounded-full bg-lime" />
-              <p className="font-display relative text-lg font-bold">Dutch-Bangla Bank</p>
-              <p className="relative text-xs font-semibold tracking-[0.08em] text-white/70">SCHOOL SAVERS · NEXUS DEBIT</p>
-              <span aria-hidden className="relative mt-6 block h-9 w-12 rounded-md bg-[linear-gradient(135deg,#f3dc8a,#c9a443)]" />
-              <p className="tabular relative mt-5 text-lg font-semibold tracking-[0.14em]">•••• •••• •••• 2026</p>
-              <p className="relative mt-1 text-xs text-white/70">{bn ? "নমুনা কার্ড" : "Sample card"}</p>
-            </div>
-            <motion.span
-              aria-hidden
-              initial={reduce ? false : { scale: 0 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 300, damping: 12, delay: 0.3 }}
-              className="font-display absolute -bottom-8 -left-6 grid size-24 rotate-[-12deg] place-items-center whitespace-pre-line rounded-full bg-red-600 text-center text-sm font-bold leading-tight text-white shadow-[var(--shadow-lift)]"
-            >
-              {bn ? "বয়স\n৬–১৭" : "Ages\n6–17"}
-            </motion.span>
-          </motion.div>
+        {/* Parallax photo strip: drag, swipe or arrow through student life */}
+        <div className="relative -mx-5 min-w-0 sm:-mx-6 lg:ml-0 lg:-mr-6 xl:-mr-[max(2.5rem,calc((100vw-1360px)/2+2.5rem))]">
+          <StudentSlider sectionRef={ref} />
+          <motion.span
+            aria-hidden
+            initial={reduce ? false : { scale: 0 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ type: "spring", stiffness: 300, damping: 12, delay: 0.3 }}
+            className="font-display pointer-events-none absolute -top-12 right-4 z-10 lg:-left-5 lg:right-auto grid size-24 rotate-[10deg] place-items-center whitespace-pre-line rounded-full bg-indigo-950 text-center text-sm font-bold leading-tight text-lime shadow-[var(--shadow-lift)]"
+          >
+            {bn ? "বয়স\n৬–১৭" : "Ages\n6–17"}
+          </motion.span>
+          <p className="mt-2 flex items-center gap-2 px-5 text-sm font-semibold text-indigo-900/75 sm:px-6 lg:px-0">
+            <MoveHorizontal className="size-4" aria-hidden />
+            {bn ? "টেনে দেখো" : "Drag to explore"}
+          </p>
         </div>
       </div>
     </section>

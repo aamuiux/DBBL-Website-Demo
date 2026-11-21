@@ -41,7 +41,7 @@ Every product, figure and link comes from DBBL's public site (checked 2026-11-21
 ## Replace before any real use
 
 - **Logo**: `web/src/components/Logo.tsx` is a placeholder mark. Use DBBL's official logo SVG.
-- **Photography** (Unsplash, free licence): hero slides, Rocket, segments, video backdrop and the Conscience section. Swap for DBBL's own photography.
+- **Photography** (Unsplash, free licence): hero slides, the Students photo slider, segments, video backdrop and the Conscience section. Swap for DBBL's own photography.
 - **App screens**: `web/src/components/PhoneScreens.tsx` is an illustrative mock with demo data (balances, numbers, "Corner Grocery (demo)"). Replace with real NexusPay screenshots.
 - **Rocket logo**: the Rocket section uses Rocket's official app icon, hotlinked from its Google Play listing (`links.rocketLogo`). Get the logo files from DBBL and self-host them. The keypad and app screens in that section are illustrative, and the *322# menu wording may differ from the real one.
 - **3D card face**: painted in code as a concept card, not a real DBBL card design.
