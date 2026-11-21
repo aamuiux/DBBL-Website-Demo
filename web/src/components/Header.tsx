@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useScroll, useSpring, useTransform } from "motion/react";
 import { ChevronDown, Globe, MapPin, Menu, Phone, Search, X, ArrowUpRight, Lock } from "lucide-react";
 import { Logo } from "./Logo";
 import { useLang } from "@/lib/i18n";
@@ -29,10 +29,31 @@ export function Header() {
   const openTimer = useRef<number | null>(null);
   const closeTimer = useRef<number | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
   const baseId = useId();
+  const [hoverKey, setHoverKey] = useState<string | null>(null);
+  // Tone of whatever the island is floating over, sampled from the page under it.
+  const [under, setUnder] = useState<"dark" | "light">("dark");
 
-  // Intelligent header: solid after the hero starts scrolling, hides on the way down, returns on the way up.
+  // Island: 0 = full-width bar at the top of the page, 1 = floating glass pill. Driven by the scroll itself.
+  const { scrollY, scrollYProgress } = useScroll();
+  const kRaw = useTransform(scrollY, [0, 180], [0, 1]);
+  const kSpring = useSpring(kRaw, { stiffness: 260, damping: 34, mass: 0.6 });
+  const k = reduce ? kRaw : kSpring;
+
+  // Intelligent header: hides on the way down, returns on the way up, and reads the tone underneath.
   useEffect(() => {
+    let raf = 0;
+    const sample = () => {
+      raf = 0;
+      // Where the island rests (not where it is now: it may be hidden above the viewport mid-scroll).
+      const bar = barRef.current;
+      const y = 12 + (bar ? bar.offsetHeight : 64) / 2;
+      // Left edge of the page: section grounds, not the cards inside them.
+      const hit = document.elementsFromPoint(6, y).find((el) => !navRef.current?.contains(el));
+      setUnder(isDarkGround(hit) ? "dark" : "light");
+    };
+    let settle: number | undefined;
     const onScroll = () => {
       const y = window.scrollY;
       setScrolled(y > 24);
@@ -40,10 +61,31 @@ export function Header() {
       if (y > 480 && goingDown && Math.abs(y - lastY.current) > 4) setHidden(true);
       else if (!goingDown) setHidden(false);
       lastY.current = y;
+      if (!raf) raf = requestAnimationFrame(sample);
+      // And once more after the page comes to rest (jumps and pinned sections can skip a frame).
+      window.clearTimeout(settle);
+      settle = window.setTimeout(sample, 180);
     };
     onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    // Smooth scrolling and programmatic jumps don't always emit scroll events, so watch the position each
+    // frame and react only when it actually changes (one number compare per frame).
+    let seen = window.scrollY;
+    let watch = 0;
+    const tick = () => {
+      if (window.scrollY !== seen) {
+        seen = window.scrollY;
+        onScroll();
+      }
+      watch = requestAnimationFrame(tick);
+    };
+    watch = requestAnimationFrame(tick);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("resize", onScroll);
+      cancelAnimationFrame(watch);
+      cancelAnimationFrame(raf);
+      window.clearTimeout(settle);
+    };
   }, []);
 
   const clearTimers = () => {
@@ -90,8 +132,12 @@ export function Header() {
     else lenis?.start();
   }, [drawer]);
 
-  const solid = scrolled || open !== null;
   const active = nav.find((n) => n.key === open);
+  // Over the hero the bar is transparent on dark; as an island it takes the tone underneath; an open mega menu is light.
+  const tone: "dark" | "light" = open ? "light" : scrolled ? under : "dark";
+  const lightUi = tone === "light"; // dark text on light glass
+  const bubble = lightUi ? "bg-indigo-50" : "bg-white/14";
+  const bubbleSpring = reduce ? { duration: 0 } : { type: "spring" as const, stiffness: 420, damping: 34 };
 
   return (
     <>
@@ -102,11 +148,12 @@ export function Header() {
         {d.skip}
       </a>
 
-      <header
+      <motion.header
         ref={navRef}
         onMouseLeave={hoverClose}
+        style={{ "--k": k } as React.CSSProperties}
         className={`fixed inset-x-0 top-0 z-50 transition-transform duration-500 ease-[var(--ease-out-expo)] ${
-          hidden && !drawer && !open ? "-translate-y-full" : "translate-y-0"
+          hidden && !drawer && !open ? "-translate-y-[calc(100%+16px)]" : "translate-y-0"
         }`}
       >
         {/* Mobile: the concept label stays visible in the first viewport */}
@@ -166,27 +213,56 @@ export function Header() {
           </div>
         </div>
 
-        {/* Main bar */}
+        {/* Main bar: full width at the top, a floating glass island once the page moves */}
+        <div className="px-[calc(var(--k)*10px)] pt-[calc(var(--k)*10px)] sm:px-[calc(var(--k)*20px)] sm:pt-[calc(var(--k)*12px)]">
         <div
-          className={`relative transition-[background-color,box-shadow,backdrop-filter] duration-500 ${
-            solid ? "bg-white/92 shadow-[0_1px_0_var(--color-line),0_10px_30px_-18px_rgb(13_15_43/0.35)] backdrop-blur-xl" : "bg-transparent"
-          }`}
+          ref={barRef}
+          className="relative mx-auto max-w-[calc(100vw-var(--k)*max(0px,100vw-1240px))]"
         >
-          <div className="mx-auto flex h-[var(--header-h)] max-w-[1360px] items-center gap-6 px-5 sm:px-6 xl:px-10">
+          {/* Glass: fades in with the scroll, light or dark to match the section underneath */}
+          <motion.div
+            aria-hidden
+            style={{ opacity: open ? 1 : k }}
+            className={`pointer-events-none absolute inset-0 overflow-hidden rounded-[calc(var(--k)*30px)] backdrop-blur-xl backdrop-saturate-150 transition-shadow duration-500 ${
+              lightUi
+                ? "shadow-[0_1px_0_var(--color-line),0_18px_40px_-22px_rgb(13_15_43/0.45)] ring-1 ring-inset ring-indigo-950/8"
+                : "shadow-[0_18px_44px_-20px_rgb(0_0_0/0.6)] ring-1 ring-inset ring-white/12"
+            }`}
+          >
+            <span className={`absolute inset-0 bg-white/85 transition-opacity duration-500 ${lightUi ? "opacity-100" : "opacity-0"}`} />
+            <span className={`absolute inset-0 bg-indigo-950/72 transition-opacity duration-500 ${lightUi ? "opacity-0" : "opacity-100"}`} />
+            {/* Reading progress along the island's lower edge */}
+            <motion.span
+              style={{ scaleX: scrollYProgress }}
+              className={`absolute inset-x-[calc(var(--k)*22px)] bottom-0 h-[2px] origin-left rounded-full transition-colors duration-500 ${lightUi ? "bg-indigo-500" : "bg-lime"}`}
+            />
+          </motion.div>
+
+          <div className="relative mx-auto flex h-[calc(var(--header-h)-var(--k)*12px)] max-w-[1360px] items-center gap-6 px-5 sm:px-6 xl:px-10 xl:pr-[calc(2.5rem-var(--k)*1.75rem)] xl:pl-[calc(2.5rem-var(--k)*1rem)]">
             <a href="#top" aria-label="Dutch-Bangla Bank home" className="shrink-0" onClick={close}>
-              <Logo light={!solid} />
+              <Logo light={!lightUi} />
             </a>
 
             <nav aria-label="Main" className="hidden flex-1 lg:block xl:ml-4">
-              <ul className="flex items-center gap-0.5">
-                <li onMouseEnter={hoverClose}>
+              <ul className="flex items-center gap-0.5" onMouseLeave={() => setHoverKey(null)}>
+                <li
+                  onMouseEnter={() => {
+                    hoverClose();
+                    setHoverKey("offers");
+                  }}
+                >
                   <a
                     href="#offers"
                     onClick={close}
-                    className={`relative inline-flex h-11 items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 text-[0.95rem] font-semibold transition-colors xl:px-3.5 ${
-                      solid ? "text-ink hover:bg-indigo-50 hover:text-indigo-700" : "text-white/90 hover:bg-white/10 hover:text-white"
+                    onFocus={() => setHoverKey("offers")}
+                    onBlur={() => setHoverKey(null)}
+                    className={`relative isolate inline-flex h-11 items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 text-[0.95rem] font-semibold transition-colors xl:px-3.5 ${
+                      lightUi ? "text-ink hover:text-indigo-700" : "text-white/90 hover:text-white"
                     }`}
                   >
+                    {hoverKey === "offers" && (
+                      <motion.span layoutId={`${baseId}-bubble`} transition={bubbleSpring} aria-hidden className={`absolute inset-0 -z-10 rounded-full ${bubble}`} />
+                    )}
                     <span className="relative flex size-2" aria-hidden>
                       <span className="absolute inline-flex size-full animate-ping rounded-full bg-red-600 opacity-70 motion-reduce:hidden" />
                       <span className="relative inline-flex size-2 rounded-full bg-red-600" />
@@ -196,24 +272,31 @@ export function Header() {
                 </li>
                 {nav.map((item) => {
                   const isOpen = open === item.key;
+                  // The bubble follows the pointer; with no pointer over the bar it rests on the open item.
+                  const showBubble = hoverKey ? hoverKey === item.key : isOpen;
                   return (
-                    <li key={item.key} onMouseEnter={() => hoverOpen(item.key)}>
+                    <li
+                      key={item.key}
+                      onMouseEnter={() => {
+                        hoverOpen(item.key);
+                        setHoverKey(item.key);
+                      }}
+                    >
                       <button
                         id={`${baseId}-trigger-${item.key}`}
                         type="button"
                         aria-expanded={isOpen}
                         aria-controls={`${baseId}-panel`}
                         onClick={() => setOpen(isOpen ? null : item.key)}
-                        className={`relative inline-flex h-11 items-center gap-1 whitespace-nowrap rounded-full px-2.5 text-[0.95rem] font-semibold transition-colors xl:px-3.5 ${
-                          solid
-                            ? isOpen
-                              ? "bg-indigo-50 text-indigo-700"
-                              : "text-ink hover:bg-indigo-50 hover:text-indigo-700"
-                            : isOpen
-                              ? "bg-white/15 text-white"
-                              : "text-white/90 hover:bg-white/10 hover:text-white"
+                        onFocus={() => setHoverKey(item.key)}
+                        onBlur={() => setHoverKey(null)}
+                        className={`relative isolate inline-flex h-11 items-center gap-1 whitespace-nowrap rounded-full px-2.5 text-[0.95rem] font-semibold transition-colors xl:px-3.5 ${
+                          lightUi ? (isOpen ? "text-indigo-700" : "text-ink hover:text-indigo-700") : "text-white/90 hover:text-white"
                         }`}
                       >
+                        {showBubble && (
+                          <motion.span layoutId={`${baseId}-bubble`} transition={bubbleSpring} aria-hidden className={`absolute inset-0 -z-10 rounded-full ${bubble}`} />
+                        )}
                         {d.nav[item.key]}
                         <ChevronDown
                           className={`size-4 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
@@ -233,7 +316,7 @@ export function Header() {
                 onClick={toggle}
                 aria-label={d.utility.langAria}
                 className={`inline-flex h-11 items-center rounded-full px-3 text-sm font-semibold lg:hidden ${
-                  solid ? "text-indigo-700 ring-1 ring-inset ring-indigo-200" : "text-white ring-1 ring-inset ring-white/35"
+                  lightUi ?"text-indigo-700 ring-1 ring-inset ring-indigo-200" : "text-white ring-1 ring-inset ring-white/35"
                 }`}
               >
                 {lang === "en" ? "বাং" : "EN"}
@@ -244,7 +327,7 @@ export function Header() {
                 rel="noopener noreferrer"
                 aria-label={d.nav.search}
                 className={`hidden size-11 place-items-center rounded-full transition-colors sm:grid lg:hidden xl:grid ${
-                  solid ? "text-ink hover:bg-indigo-50" : "text-white hover:bg-white/10"
+                  lightUi ?"text-ink hover:bg-indigo-50" : "text-white hover:bg-white/10"
                 }`}
               >
                 <Search className="size-[1.15rem]" strokeWidth={2.25} aria-hidden />
@@ -253,8 +336,8 @@ export function Header() {
                 href={links.ibLogin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`hidden h-11 items-center gap-2 whitespace-nowrap rounded-full pl-4 pr-5 text-[0.95rem] font-semibold transition-colors sm:inline-flex ${
-                  solid ? "bg-indigo-600 text-white hover:bg-indigo-700" : "bg-lime text-indigo-950 hover:bg-lime-dark"
+                className={`hidden h-11 items-center gap-2 whitespace-nowrap rounded-full pl-4 pr-5 text-[0.95rem] font-semibold transition-[background-color,color,transform] duration-300 hover:-translate-y-px active:translate-y-0 sm:inline-flex ${
+                  lightUi ?"bg-indigo-600 text-white hover:bg-indigo-700" : "bg-lime text-indigo-950 hover:bg-lime-dark"
                 }`}
               >
                 <Lock className="size-4" strokeWidth={2.25} aria-hidden />
@@ -269,7 +352,7 @@ export function Header() {
                 aria-label={d.nav.menu}
                 aria-expanded={drawer}
                 className={`grid size-11 place-items-center rounded-full lg:hidden ${
-                  solid ? "bg-indigo-50 text-indigo-700" : "bg-white/12 text-white ring-1 ring-inset ring-white/30"
+                  lightUi ?"bg-indigo-50 text-indigo-700" : "bg-white/12 text-white ring-1 ring-inset ring-white/30"
                 }`}
               >
                 <Menu className="size-5" strokeWidth={2.25} aria-hidden />
@@ -290,7 +373,7 @@ export function Header() {
                 exit={reduce ? { opacity: 0 } : { opacity: 0, clipPath: "inset(0 0 100% 0)" }}
                 transition={{ duration: 0.45, ease: easeOut }}
                 onMouseEnter={clearTimers}
-                className="absolute inset-x-0 top-full hidden border-t border-line bg-white shadow-[0_30px_60px_-30px_rgb(13_15_43/0.35)] lg:block"
+                className="absolute inset-x-0 top-full mt-[calc(var(--k)*8px)] hidden overflow-hidden rounded-[calc(var(--k)*28px)] border-t border-line bg-white shadow-[0_30px_60px_-30px_rgb(13_15_43/0.35)] lg:block"
               >
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.div
@@ -353,7 +436,8 @@ export function Header() {
             )}
           </AnimatePresence>
         </div>
-      </header>
+        </div>
+      </motion.header>
 
       {/* Scrim behind the mega menu */}
       <AnimatePresence>
@@ -372,6 +456,21 @@ export function Header() {
       <MobileDrawer open={drawer} onClose={() => setDrawer(false)} />
     </>
   );
+}
+
+/** Walks up from an element to the first solid background and reports whether it is dark. Photos count as dark. */
+function isDarkGround(el: Element | undefined): boolean {
+  for (let n: Element | null = el ?? null; n; n = n.parentElement) {
+    if (n instanceof HTMLImageElement || n instanceof HTMLVideoElement || n instanceof HTMLCanvasElement) return true;
+    const bg = getComputedStyle(n).backgroundColor;
+    if (!/^rgba?\(/.test(bg)) continue; // translucent tints (color-mix/oklab) are never a section ground
+    const m = bg.match(/[\d.]+/g);
+    if (!m) continue;
+    const [r, g, b, a = 1] = m.map(Number);
+    if (a < 0.5) continue;
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b < 140;
+  }
+  return false;
 }
 
 function FeatureGlyph({ tone }: { tone: NavItem["feature"]["tone"] }) {

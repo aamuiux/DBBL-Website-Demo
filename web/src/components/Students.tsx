@@ -80,20 +80,23 @@ export function Students() {
         {/* Parallax photo strip: drag, swipe or arrow through student life */}
         <div className="relative -mx-5 min-w-0 sm:-mx-6 lg:ml-0 lg:-mr-6 xl:-mr-[max(2.5rem,calc((100vw-1360px)/2+2.5rem))]">
           <StudentSlider sectionRef={ref} />
-          <motion.span
-            aria-hidden
-            initial={reduce ? false : { scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 300, damping: 12, delay: 0.3 }}
-            className="font-display pointer-events-none absolute -top-12 right-4 z-10 lg:-left-5 lg:right-auto grid size-24 rotate-[10deg] place-items-center whitespace-pre-line rounded-full bg-indigo-950 text-center text-sm font-bold leading-tight text-lime shadow-[var(--shadow-lift)]"
-          >
-            {bn ? "বয়স\n৬–১৭" : "Ages\n6–17"}
-          </motion.span>
-          <p className="mt-2 flex items-center gap-2 px-5 text-sm font-semibold text-indigo-900/75 sm:px-6 lg:px-0">
-            <MoveHorizontal className="size-4" aria-hidden />
-            {bn ? "টেনে দেখো" : "Drag to explore"}
-          </p>
+          {/* Hint and age sticker sit under the strip, clear of the moving frames */}
+          <div className="flex items-center justify-between gap-4 px-5 sm:px-6 lg:pl-0 lg:pr-16">
+            <p className="flex items-center gap-2 text-sm font-semibold text-indigo-900/75">
+              <MoveHorizontal className="size-4" aria-hidden />
+              {bn ? "টেনে দেখো" : "Drag to explore"}
+            </p>
+            <motion.span
+              aria-hidden
+              initial={reduce ? false : { scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", stiffness: 300, damping: 12, delay: 0.3 }}
+              className="font-display -mt-1 grid size-24 shrink-0 rotate-[10deg] place-items-center whitespace-pre-line rounded-full bg-indigo-950 text-center text-sm font-bold leading-tight text-lime shadow-[var(--shadow-lift)]"
+            >
+              {bn ? "বয়স\n৬–১৭" : "Ages\n6–17"}
+            </motion.span>
+          </div>
         </div>
       </div>
     </section>

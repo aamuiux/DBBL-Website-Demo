@@ -6,14 +6,18 @@ import { animate, motion, useMotionValue, useScroll, useTransform, type Animatio
 import { useLang } from "@/lib/i18n";
 import { useReduce } from "./ui";
 
-/** Student life (Unsplash stand-ins, marked for replacement), each tied to a real School Savers feature. */
+/**
+ * A student's day with their own account: each moment is a real School Savers feature
+ * (savings account, free SMS alerts, free debit card, internet banking, interest).
+ * Unsplash stand-ins, marked for replacement.
+ */
 const slides = [
-  { photo: "photo-1692269725911-87697c558be1", focus: "40% 50%", t: { en: "Start with ৳100", bn: "৳১০০ দিয়ে শুরু" } },
-  { photo: "photo-1572847748080-bac263fae977", focus: "50% 40%", t: { en: "Your own debit card", bn: "নিজের ডেবিট কার্ড" } },
-  { photo: "photo-1692269725827-699e04a11cdf", focus: "35% 50%", t: { en: "Savings that earn interest", bn: "সঞ্চয়ে সুদ" } },
-  { photo: "photo-1542974834-1e8287fc3310", focus: "50% 55%", t: { en: "Free SMS alerts", bn: "ফ্রি এসএমএস অ্যালার্ট" } },
-  { photo: "photo-1569173675610-42c361a86e37", focus: "45% 45%", t: { en: "No maintenance fee", bn: "রক্ষণাবেক্ষণ ফি নেই" } },
-  { photo: "photo-1623303366639-0e330d7c3d9f", focus: "55% 50%", t: { en: "Aim for a DBBL Scholarship", bn: "লক্ষ্য ডিবিবিএল বৃত্তি" } },
+  { photo: "photo-1789579703472-5ff8acb17a41", focus: "50% 50%", when: { en: "7:30 am", bn: "সকাল ৭:৩০" }, t: { en: "Pocket money, saved", bn: "হাতখরচের টাকা, জমা" } },
+  { photo: "photo-1741580298757-9d9b78e63c8d", focus: "50% 40%", when: { en: "8:10 am", bn: "সকাল ৮:১০" }, t: { en: "An SMS for every taka", bn: "প্রতিটি টাকার এসএমএস" } },
+  { photo: "photo-1697465381336-a3e93c5b97b2", focus: "60% 50%", when: { en: "2:00 pm", bn: "দুপুর ২:০০" }, t: { en: "New books, own savings", bn: "নিজের সঞ্চয়ে নতুন বই" } },
+  { photo: "photo-1771527355678-49c169623a58", focus: "55% 60%", when: { en: "4:30 pm", bn: "বিকেল ৪:৩০" }, t: { en: "Cash from a DBBL ATM, with your own card", bn: "নিজের কার্ডে ডিবিবিএল এটিএম থেকে টাকা" } },
+  { photo: "photo-1660982741734-5a7d2730ff28", focus: "45% 50%", when: { en: "9:00 pm", bn: "রাত ৯:০০" }, t: { en: "Balance checked online", bn: "অনলাইনে ব্যালেন্স দেখা" } },
+  { photo: "photo-1773702787707-d7a790aa9f5e", focus: "30% 50%", when: { en: "Month end", bn: "মাস শেষে" }, t: { en: "Savings that earn interest", bn: "সঞ্চয়ে সুদ" } },
 ];
 
 const GAP = 16;
@@ -125,7 +129,7 @@ export function StudentSlider({ sectionRef }: { sectionRef: RefObject<HTMLElemen
       tabIndex={0}
       role="region"
       aria-roledescription={lang === "bn" ? "স্লাইডার" : "slider"}
-      aria-label={lang === "bn" ? "স্কুল সেভার্সে যা পাবে (টেনে বা তীর চিহ্ন দিয়ে সরাও)" : "What School Savers gives you (drag or use the arrow keys)"}
+      aria-label={lang === "bn" ? "স্কুল সেভার্স নিয়ে একটি দিন (টেনে বা তীর চিহ্ন দিয়ে সরাও)" : "A day with School Savers (drag or use the arrow keys)"}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
@@ -149,6 +153,7 @@ export function StudentSlider({ sectionRef }: { sectionRef: RefObject<HTMLElemen
             moving={moving}
             photo={s.photo}
             focus={s.focus}
+            when={s.when[lang]}
             title={s.t[lang]}
           />
         ))}
@@ -169,6 +174,7 @@ function Slide({
   moving,
   photo,
   focus,
+  when,
   title,
 }: {
   i: number;
@@ -182,6 +188,7 @@ function Slide({
   moving: boolean;
   photo: string;
   focus: string;
+  when: string;
   title: string;
 }) {
   // Place on the endless loop, starting a little in from the left edge.
@@ -201,13 +208,11 @@ function Slide({
             draggable={false}
             sizes="(min-width:520px) 400px, 280px"
             quality={70}
-            className="pointer-events-none object-cover"
+            className="pointer-events-none object-cover saturate-[1.2] contrast-[1.04]"
             style={{ objectPosition: focus }}
           />
         </motion.div>
-        <span aria-hidden className="font-display tabular absolute left-3 top-3 grid size-9 place-items-center rounded-full bg-lime text-sm font-bold text-indigo-950">
-          {String(i + 1).padStart(2, "0")}
-        </span>
+        <span className="font-display tabular absolute left-3 top-3 rounded-full bg-lime px-3 py-1.5 text-sm font-bold text-indigo-950">{when}</span>
       </div>
       <p
         className={`font-display mt-3 px-1 text-lg font-semibold leading-tight tracking-[-0.015em] transition-opacity duration-300 [@media(hover:none)]:opacity-100 ${
