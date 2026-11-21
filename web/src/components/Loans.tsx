@@ -1,0 +1,149 @@
+"use client";
+
+import { useId } from "react";
+import { motion } from "motion/react";
+import { ArrowUpRight, Calculator, Car, FileText, Home, Sparkles, Wallet, type LucideIcon } from "lucide-react";
+import { useLang } from "@/lib/i18n";
+import { links } from "@/lib/links";
+import { retailLoans, smeLoans } from "@/lib/content";
+import { Button, Reveal, useReduce } from "./ui";
+
+const loanLook: Record<(typeof retailLoans)[number]["key"], { icon: LucideIcon; tone: string; chip: string }> = {
+  personal: { icon: Wallet, tone: "bg-indigo-600 text-white", chip: "bg-lime text-indigo-950" },
+  home: { icon: Home, tone: "bg-green-600 text-white", chip: "bg-white text-green-700" },
+  car: { icon: Car, tone: "bg-sun text-indigo-950", chip: "bg-indigo-950 text-white" },
+};
+
+export function Loans() {
+  const { lang } = useLang();
+  const reduce = useReduce();
+  const id = useId();
+  const bn = lang === "bn";
+
+  return (
+    <section id="loans" aria-labelledby={`${id}-h`} className="on-dark relative overflow-hidden bg-indigo-950 py-24 text-white md:py-32">
+      <div className="mx-auto max-w-[1360px] px-5 sm:px-6 xl:px-10">
+        <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-end">
+          <Reveal>
+            <h2 id={`${id}-h`} className="font-display text-balance text-[clamp(2.4rem,5.4vw,4.75rem)] font-semibold leading-[0.98] tracking-[-0.04em]">
+              {bn ? (
+                <>
+                  ঋণ, <span className="text-lime">কোনো গোলকধাঁধা ছাড়াই।</span>
+                </>
+              ) : (
+                <>
+                  Loans, <span className="text-lime">minus the maze.</span>
+                </>
+              )}
+            </h2>
+          </Reveal>
+          <Reveal delay={0.06} className="flex flex-col gap-5 lg:items-end">
+            <p className="max-w-[40ch] text-lg text-indigo-200 lg:text-right">
+              {bn ? "অনলাইনে আবেদন করুন, আগে কিস্তি হিসাব করে নিন।" : "Apply online, and work out your monthly instalment before you do."}
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Button href={links.loanApply} tone="lime" size="lg">
+                {bn ? "অনলাইনে আবেদন" : "Apply online"}
+              </Button>
+              <a
+                href={links.emiCalc}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-12 items-center gap-2 rounded-full px-5 font-semibold text-white ring-1 ring-inset ring-white/35 transition-colors hover:bg-white/10"
+              >
+                <Calculator className="size-4" aria-hidden /> {bn ? "ইএমআই ক্যালকুলেটর" : "EMI calculator"}
+                <span className="sr-only">(opens in a new tab)</span>
+              </a>
+            </div>
+          </Reveal>
+        </div>
+
+        {/* Retail loans: three bold tiles */}
+        <ul className="mt-14 grid gap-4 md:grid-cols-3">
+          {retailLoans.map((l, i) => {
+            const look = loanLook[l.key];
+            const Icon = look.icon;
+            return (
+              <motion.li
+                key={l.key}
+                initial={reduce ? false : { opacity: 0, y: 60, rotate: i === 1 ? 0 : i === 0 ? -3 : 3 }}
+                whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ type: "spring", stiffness: 140, damping: 18, delay: i * 0.08 }}
+              >
+                <div className={`group relative flex h-full min-h-80 flex-col justify-between overflow-hidden rounded-[1.75rem] p-7 ${look.tone}`}>
+                  <Icon
+                    aria-hidden
+                    strokeWidth={1.25}
+                    className="pointer-events-none absolute -bottom-8 -right-8 size-56 opacity-15 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-rotate-12 group-hover:scale-110"
+                  />
+                  <span className={`grid size-14 place-items-center rounded-2xl ${look.chip}`}>
+                    <Icon className="size-6" aria-hidden />
+                  </span>
+                  <div className="relative mt-16">
+                    <h3 className="font-display text-[2.25rem] font-semibold leading-none tracking-[-0.035em]">{l.name[lang]}</h3>
+                    <p className="mt-3 max-w-[26ch] text-lg opacity-85">{l.body[lang]}</p>
+                    <div className="mt-7 flex flex-wrap gap-2">
+                      <a
+                        href={links.loanApply}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`inline-flex min-h-11 items-center gap-1.5 rounded-full px-4 text-sm font-bold ${look.chip}`}
+                      >
+                        {bn ? "আবেদন" : "Apply"} <ArrowUpRight className="size-4" aria-hidden />
+                      </a>
+                      <a
+                        href={l.faq}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex min-h-11 items-center gap-1.5 rounded-full px-4 text-sm font-semibold ring-1 ring-inset ring-current/30 hover:bg-current/10"
+                      >
+                        <FileText className="size-4" aria-hidden /> FAQ
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </motion.li>
+            );
+          })}
+        </ul>
+
+        {/* SME loans: chips that pop in */}
+        <div className="mt-16 flex flex-col gap-6 rounded-[1.75rem] bg-white/6 p-7 ring-1 ring-inset ring-white/12 sm:p-9 lg:flex-row lg:items-center lg:gap-10">
+          <div className="lg:w-80 lg:shrink-0">
+            <p className="flex items-center gap-2 font-display text-2xl font-semibold tracking-[-0.02em]">
+              <Sparkles className="size-5 text-lime" aria-hidden /> {bn ? "ব্যবসার জন্য সাতটি ঋণ" : "Seven loans for your business"}
+            </p>
+            <p className="mt-2 text-indigo-200">{bn ? "দুটি তৈরি নারীদের জন্য।" : "Two of them made for women."}</p>
+          </div>
+          <ul className="flex flex-wrap gap-2.5">
+            {smeLoans.map((l, i) => {
+              const women = l.name === "Uthsaho" || l.name === "Shofolota";
+              return (
+                <motion.li
+                  key={l.name}
+                  initial={reduce ? false : { scale: 0.6, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ type: "spring", stiffness: 320, damping: 16, delay: i * 0.05 }}
+                >
+                  <a
+                    href={l.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex min-h-12 items-center gap-2 rounded-full px-4 transition-transform duration-300 hover:-translate-y-0.5 ${
+                      women ? "bg-rocket text-white" : "bg-white text-indigo-950"
+                    }`}
+                  >
+                    <span className="font-display font-semibold">{l.name}</span>
+                    <span className="text-sm opacity-70">{l.note[lang]}</span>
+                  </a>
+                </motion.li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}

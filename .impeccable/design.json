@@ -1,0 +1,812 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-21T12:00:00Z",
+  "title": "Design System: Dutch-Bangla Bank (concept homepage)",
+  "extensions": {
+    "colorMeta": {
+      "indigo-950": {
+        "role": "primary",
+        "displayName": "Midnight Indigo",
+        "canonical": "#090b3a",
+        "tonalRamp": [
+          "#090b3a",
+          "#161a63",
+          "#1e2378",
+          "#252a86",
+          "#3a40a8",
+          "#6a70c9",
+          "#c9ccee",
+          "#f1f2fb"
+        ]
+      },
+      "indigo-900": {
+        "role": "primary",
+        "displayName": "Deep Indigo",
+        "canonical": "#0e1150",
+        "tonalRamp": [
+          "#090b3a",
+          "#161a63",
+          "#1e2378",
+          "#252a86",
+          "#3a40a8",
+          "#6a70c9",
+          "#c9ccee",
+          "#f1f2fb"
+        ]
+      },
+      "indigo-800": {
+        "role": "primary",
+        "displayName": "Indigo 800",
+        "canonical": "#161a63",
+        "tonalRamp": [
+          "#090b3a",
+          "#161a63",
+          "#1e2378",
+          "#252a86",
+          "#3a40a8",
+          "#6a70c9",
+          "#c9ccee",
+          "#f1f2fb"
+        ]
+      },
+      "indigo-700": {
+        "role": "primary",
+        "displayName": "Signal Indigo",
+        "canonical": "#1e2378",
+        "tonalRamp": [
+          "#090b3a",
+          "#161a63",
+          "#1e2378",
+          "#252a86",
+          "#3a40a8",
+          "#6a70c9",
+          "#c9ccee",
+          "#f1f2fb"
+        ]
+      },
+      "indigo-600": {
+        "role": "primary",
+        "displayName": "DBBL Indigo",
+        "canonical": "#252a86",
+        "tonalRamp": [
+          "#090b3a",
+          "#161a63",
+          "#1e2378",
+          "#252a86",
+          "#3a40a8",
+          "#6a70c9",
+          "#c9ccee",
+          "#f1f2fb"
+        ]
+      },
+      "indigo-500": {
+        "role": "primary",
+        "displayName": "Focus Indigo",
+        "canonical": "#3a40a8",
+        "tonalRamp": [
+          "#090b3a",
+          "#161a63",
+          "#1e2378",
+          "#252a86",
+          "#3a40a8",
+          "#6a70c9",
+          "#c9ccee",
+          "#f1f2fb"
+        ]
+      },
+      "indigo-400": {
+        "role": "primary",
+        "displayName": "Quiet Indigo",
+        "canonical": "#6a70c9",
+        "tonalRamp": [
+          "#090b3a",
+          "#161a63",
+          "#1e2378",
+          "#252a86",
+          "#3a40a8",
+          "#6a70c9",
+          "#c9ccee",
+          "#f1f2fb"
+        ]
+      },
+      "indigo-200": {
+        "role": "primary",
+        "displayName": "Indigo Mist",
+        "canonical": "#c9ccee",
+        "tonalRamp": [
+          "#090b3a",
+          "#161a63",
+          "#1e2378",
+          "#252a86",
+          "#3a40a8",
+          "#6a70c9",
+          "#c9ccee",
+          "#f1f2fb"
+        ]
+      },
+      "indigo-100": {
+        "role": "primary",
+        "displayName": "Indigo Tint",
+        "canonical": "#e7e8f7",
+        "tonalRamp": [
+          "#090b3a",
+          "#161a63",
+          "#1e2378",
+          "#252a86",
+          "#3a40a8",
+          "#6a70c9",
+          "#c9ccee",
+          "#f1f2fb"
+        ]
+      },
+      "indigo-50": {
+        "role": "primary",
+        "displayName": "Indigo Wash",
+        "canonical": "#f1f2fb",
+        "tonalRamp": [
+          "#090b3a",
+          "#161a63",
+          "#1e2378",
+          "#252a86",
+          "#3a40a8",
+          "#6a70c9",
+          "#c9ccee",
+          "#f1f2fb"
+        ]
+      },
+      "lime": {
+        "role": "secondary",
+        "displayName": "Citrus Lime",
+        "canonical": "#c8f169",
+        "tonalRamp": [
+          "#3d4a1c",
+          "#5e7225",
+          "#87a332",
+          "#b4e04f",
+          "#c8f169",
+          "#d8f594",
+          "#e8f9bf",
+          "#f6fde6"
+        ]
+      },
+      "lime-dark": {
+        "role": "secondary",
+        "displayName": "Citrus Lime Hover",
+        "canonical": "#b4e04f",
+        "tonalRamp": [
+          "#3d4a1c",
+          "#5e7225",
+          "#87a332",
+          "#b4e04f",
+          "#c8f169",
+          "#d8f594",
+          "#e8f9bf",
+          "#f6fde6"
+        ]
+      },
+      "sun": {
+        "role": "tertiary",
+        "displayName": "Sun",
+        "canonical": "#ffcf3d",
+        "tonalRamp": [
+          "#4d3a05",
+          "#7a5c08",
+          "#b3870c",
+          "#e6b11f",
+          "#ffcf3d",
+          "#ffdc72",
+          "#ffe9a8",
+          "#fff7dc"
+        ]
+      },
+      "green-700": {
+        "role": "tertiary",
+        "displayName": "Deep DBBL Green",
+        "canonical": "#00703a",
+        "tonalRamp": [
+          "#00331a",
+          "#00502a",
+          "#00703a",
+          "#00904a",
+          "#12a65b",
+          "#5cc48a",
+          "#a8e0c0",
+          "#dcf2e5"
+        ]
+      },
+      "green-600": {
+        "role": "tertiary",
+        "displayName": "DBBL Green",
+        "canonical": "#00904a",
+        "tonalRamp": [
+          "#00331a",
+          "#00502a",
+          "#00703a",
+          "#00904a",
+          "#12a65b",
+          "#5cc48a",
+          "#a8e0c0",
+          "#dcf2e5"
+        ]
+      },
+      "green-500": {
+        "role": "tertiary",
+        "displayName": "Bright Green",
+        "canonical": "#12a65b",
+        "tonalRamp": [
+          "#00331a",
+          "#00502a",
+          "#00703a",
+          "#00904a",
+          "#12a65b",
+          "#5cc48a",
+          "#a8e0c0",
+          "#dcf2e5"
+        ]
+      },
+      "green-100": {
+        "role": "tertiary",
+        "displayName": "Safety Mint",
+        "canonical": "#dcf2e5",
+        "tonalRamp": [
+          "#00331a",
+          "#00502a",
+          "#00703a",
+          "#00904a",
+          "#12a65b",
+          "#5cc48a",
+          "#a8e0c0",
+          "#dcf2e5"
+        ]
+      },
+      "rocket": {
+        "role": "tertiary",
+        "displayName": "Rocket Magenta",
+        "canonical": "#8b2f8f",
+        "tonalRamp": [
+          "#3a133c",
+          "#5a1d5d",
+          "#6d1f72",
+          "#8b2f8f",
+          "#a65aa9",
+          "#c48fc6",
+          "#e0c3e1",
+          "#f4e6f4"
+        ]
+      },
+      "rocket-700": {
+        "role": "tertiary",
+        "displayName": "Deep Rocket",
+        "canonical": "#6d1f72",
+        "tonalRamp": [
+          "#3a133c",
+          "#5a1d5d",
+          "#6d1f72",
+          "#8b2f8f",
+          "#a65aa9",
+          "#c48fc6",
+          "#e0c3e1",
+          "#f4e6f4"
+        ]
+      },
+      "rocket-100": {
+        "role": "tertiary",
+        "displayName": "Rocket Blush",
+        "canonical": "#f4e6f4",
+        "tonalRamp": [
+          "#3a133c",
+          "#5a1d5d",
+          "#6d1f72",
+          "#8b2f8f",
+          "#a65aa9",
+          "#c48fc6",
+          "#e0c3e1",
+          "#f4e6f4"
+        ]
+      },
+      "red-600": {
+        "role": "tertiary",
+        "displayName": "Signal Red",
+        "canonical": "#e31b23",
+        "tonalRamp": [
+          "#5c0a0e",
+          "#8f1015",
+          "#b8151c",
+          "#e31b23",
+          "#ec5056",
+          "#f3878b",
+          "#f8bcbe",
+          "#fde8e9"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Cool Paper",
+        "canonical": "#f5f6fa",
+        "tonalRamp": [
+          "#0d0f2b",
+          "#22254a",
+          "#474b6b",
+          "#6b6f8e",
+          "#9a9db5",
+          "#c5c7d6",
+          "#e2e4ee",
+          "#f5f6fa"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#0d0f2b",
+          "#22254a",
+          "#474b6b",
+          "#6b6f8e",
+          "#9a9db5",
+          "#c5c7d6",
+          "#e2e4ee",
+          "#ffffff"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#0d0f2b",
+        "tonalRamp": [
+          "#0d0f2b",
+          "#22254a",
+          "#474b6b",
+          "#6b6f8e",
+          "#9a9db5",
+          "#c5c7d6",
+          "#e2e4ee",
+          "#f5f6fa"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink 2",
+        "canonical": "#474b6b",
+        "tonalRamp": [
+          "#0d0f2b",
+          "#22254a",
+          "#474b6b",
+          "#6b6f8e",
+          "#9a9db5",
+          "#c5c7d6",
+          "#e2e4ee",
+          "#f5f6fa"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Ink 3",
+        "canonical": "#6b6f8e",
+        "tonalRamp": [
+          "#0d0f2b",
+          "#22254a",
+          "#474b6b",
+          "#6b6f8e",
+          "#9a9db5",
+          "#c5c7d6",
+          "#e2e4ee",
+          "#f5f6fa"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#e2e4ee",
+        "tonalRamp": [
+          "#0d0f2b",
+          "#22254a",
+          "#474b6b",
+          "#6b6f8e",
+          "#9a9db5",
+          "#c5c7d6",
+          "#e2e4ee",
+          "#f5f6fa"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero H1 only, balanced, max two lines."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Lead proof statistic and the 16216 hotline; tabular lining figures."
+      },
+      "numeral-tile": {
+        "displayName": "Numeral Tile",
+        "purpose": "Big numbers inside colour tiles (4,100+ ATMs, Fast Track count, 24/7); the UDYOG 5,000 runs larger as the campaign graphic."
+      },
+      "headline-field": {
+        "displayName": "Headline (Field)",
+        "purpose": "Section H2s in the field sections (Offers, Loans, Fast Track, Media); a second phrase often takes the section accent colour."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "SectionHeading H2 for Proof, Needs, Segments and Help, max-width 48rem."
+      },
+      "headline-sm": {
+        "displayName": "Headline Small",
+        "purpose": "Feature product name inside the Needs panel."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card and panel headings, card list items, mobile drawer sections."
+      },
+      "title-sm": {
+        "displayName": "Title Small",
+        "purpose": "Product rows, NexusPay steps, dated firsts."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Paragraph under a section headline, max 60ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text; the page base size."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Nav triggers, dock items, tab pills, buttons."
+      },
+      "label-sm": {
+        "displayName": "Label Small",
+        "purpose": "Utility bar, mega-menu column headings, slide tab names; sentence case."
+      },
+      "body-bangla": {
+        "displayName": "Body (Bangla)",
+        "purpose": "Whole-page text in Bangla mode; display drops to line-height 1.12 and 0 tracking."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card",
+        "value": "0 1px 2px rgb(13 15 43 / 0.04), 0 12px 32px -12px rgb(13 15 43 / 0.14)",
+        "purpose": "Resting white cards on paper, offer tickets and School Savers stickers at rest, the offers ticker."
+      },
+      {
+        "name": "lift",
+        "value": "0 2px 4px rgb(13 15 43 / 0.06), 0 28px 56px -20px rgb(13 15 43 / 0.28)",
+        "purpose": "Hover state of tickets and cards; round stickers and the Fast Track hours sticker."
+      },
+      {
+        "name": "float",
+        "value": "0 4px 10px rgb(9 11 58 / 0.12), 0 32px 64px -24px rgb(9 11 58 / 0.45)",
+        "purpose": "Over dark or photographic grounds: quick-action dock, video card frame, media dialog."
+      },
+      {
+        "name": "header",
+        "value": "0 1px 0 #e2e4ee, 0 10px 30px -18px rgb(13 15 43 / 0.35)",
+        "purpose": "Solid header bar (white at 92% with backdrop-blur-xl)."
+      },
+      {
+        "name": "mega-menu",
+        "value": "0 30px 60px -30px rgb(13 15 43 / 0.35)",
+        "purpose": "Mega menu panel under the header."
+      },
+      {
+        "name": "focus-ring",
+        "value": "outline: 2.5px solid #3a40a8; outline-offset: 3px; border-radius: 6px",
+        "purpose": "Global :focus-visible; outline colour switches to lime inside .on-dark grounds."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "House easing: reveals, panel swaps, arrow-chip slide, hover art, header hide."
+      },
+      {
+        "name": "ease-out-quart",
+        "value": "cubic-bezier(0.25, 1, 0.5, 1)",
+        "purpose": "Button background and press transitions."
+      },
+      {
+        "name": "reveal",
+        "value": "opacity 0 to 1, translateY 24px to 0, 800ms ease-out-expo, once, viewport margin -12% bottom",
+        "purpose": "Default entrance for headings and blocks."
+      },
+      {
+        "name": "rise-stagger",
+        "value": "translateY 28px, 700ms ease-out-expo, 80ms stagger, 50ms delay",
+        "purpose": "Lists and feature checklists."
+      },
+      {
+        "name": "button-state",
+        "value": "300ms ease-out-quart; press scale 0.98",
+        "purpose": "Button background change and press."
+      },
+      {
+        "name": "arrow-chip",
+        "value": "500ms ease-out-expo, arrow exits +24px x while twin enters from -24px",
+        "purpose": "Button hover affordance."
+      },
+      {
+        "name": "panel-swap",
+        "value": "450ms ease-out-expo, y 18px in / -10px out",
+        "purpose": "Needs tab panel and mega-menu clip-path wipe."
+      },
+      {
+        "name": "tab-spring",
+        "value": "spring stiffness 420, damping 36",
+        "purpose": "Selected tab pill moving between tabs."
+      },
+      {
+        "name": "hover-art",
+        "value": "500 to 700ms ease-out-expo",
+        "purpose": "Icon tilts, geometric art, photo zoom (1.2s, scale 1.04)."
+      },
+      {
+        "name": "hero-cycle",
+        "value": "7000ms per slide; 1100ms crossfade; 8s linear zoom 1.12 to 1.02",
+        "purpose": "Hero slider with lime progress rail and pause."
+      },
+      {
+        "name": "counter",
+        "value": "2000ms ease-out-expo",
+        "purpose": "Proof numbers counting up once in view."
+      },
+      {
+        "name": "sticker-pop",
+        "value": "spring stiffness 260-300, damping 12-14; from scale 0 (or 0.4 at triple tilt) to a 6-12deg rest",
+        "purpose": "Sticker badges and School Savers sticker tiles."
+      },
+      {
+        "name": "tile-spring",
+        "value": "spring stiffness 140-200, damping 16-18; from alternating 3-4deg tilts and 40-60px below to a ±1.5deg or 0 rest",
+        "purpose": "Offer tickets, loan tiles, CSR tiles, TV-ad posters, billboards."
+      },
+      {
+        "name": "chip-pop",
+        "value": "spring stiffness 320, damping 16, scale 0.6 to 1, 50ms stagger",
+        "purpose": "SME loan chips."
+      },
+      {
+        "name": "ticket-drag",
+        "value": "drag x, constrained to rail, elastic 0.08; hover rotate 0, y -8px",
+        "purpose": "Offer ticket rail."
+      },
+      {
+        "name": "marquee",
+        "value": "translateX 0 to -50%, linear, infinite, 55s; paused on hover/focus",
+        "purpose": "Offers ticker."
+      },
+      {
+        "name": "dial-type",
+        "value": "700ms first key, then 420ms per key; key spring stiffness 500, damping 20 to scale 0.88",
+        "purpose": "Rocket *322# dial pad, only while in view."
+      },
+      {
+        "name": "nexus-circle",
+        "value": "pin 3.4 viewport heights, scrub 0.8; clip-path circle(31% at 50% 78%) to circle(125% at 50% 78%), power2.inOut",
+        "purpose": "Indigo-700 field spreading from behind the NexusPay phone, then four steps."
+      },
+      {
+        "name": "video-open",
+        "value": "pinned scrub 0.8; 30vw card, -4deg, 24px radius to 100vw by 100vh, 0deg, 0 radius, power2.inOut",
+        "purpose": "Video card frame opening between the split headline."
+      },
+      {
+        "name": "scroll-swing",
+        "value": "spring stiffness 80, damping 20; rotate -24 to 10deg, y 80 to -80px across the section",
+        "purpose": "School Savers card."
+      },
+      {
+        "name": "parallax",
+        "value": "yPercent -10 to 10, scrubbed",
+        "purpose": "CSR background photo."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "all transitions and animations 0.01ms; ticker stopped; reveals static; dial pad shows full code; autoplay off; no pinning, dragging or parallax",
+        "purpose": "prefers-reduced-motion and ?still capture mode."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      },
+      {
+        "name": "container",
+        "value": "1360px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Indigo pill with a lime arrow chip; the primary action on light grounds.",
+      "html": "<a class=\"ds-btn ds-btn-primary\" href=\"#\"><span>Apply for a card</span><span class=\"ds-chip\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></span></a>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; gap: 12px; min-height: 48px; padding: 6px 6px 6px 24px; border-radius: 9999px; font-family: 'Hanken Grotesk', 'Anek Bangla', ui-sans-serif, system-ui, sans-serif; font-size: 1.0625rem; font-weight: 600; text-decoration: none; transition: background-color 300ms cubic-bezier(0.25, 1, 0.5, 1), transform 300ms cubic-bezier(0.25, 1, 0.5, 1); } .ds-btn .ds-chip { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 9999px; transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn:hover .ds-chip svg { transform: translateX(2px); transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn:active { transform: scale(0.98); } .ds-btn:focus-visible { outline: 2.5px solid #3a40a8; outline-offset: 3px; } .ds-btn-primary { background: var(--color-indigo-600, #252a86); color: #fff; } .ds-btn-primary .ds-chip { background: var(--color-lime, #c8f169); color: var(--color-indigo-950, #090b3a); } .ds-btn-primary:hover { background: var(--color-indigo-700, #1e2378); }"
+    },
+    {
+      "name": "Lime Button",
+      "kind": "button",
+      "refersTo": "button-lime",
+      "description": "Citrus pill with an indigo chip; the primary action on dark and photographic grounds.",
+      "html": "<div class=\"ds-dark\"><a class=\"ds-btn-lime\" href=\"#\"><span>Get NexusPay</span><span class=\"ds-chip-l\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 17 17 7\"/><path d=\"M7 7h10v10\"/></svg></span></a></div>",
+      "css": ".ds-dark { background: #090b3a; padding: 24px; border-radius: 16px; } .ds-btn-lime { display: inline-flex; align-items: center; gap: 12px; min-height: 48px; padding: 6px 6px 6px 24px; border-radius: 9999px; background: var(--color-lime, #c8f169); color: var(--color-indigo-950, #090b3a); font-family: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif; font-size: 1.0625rem; font-weight: 600; text-decoration: none; transition: background-color 300ms cubic-bezier(0.25, 1, 0.5, 1), transform 300ms; } .ds-btn-lime:hover { background: var(--color-lime-dark, #b4e04f); } .ds-btn-lime:active { transform: scale(0.98); } .ds-btn-lime:focus-visible { outline: 2.5px solid #c8f169; outline-offset: 3px; } .ds-chip-l { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 9999px; background: #090b3a; color: #c8f169; } .ds-btn-lime:hover .ds-chip-l svg { transform: translate(2px, -2px); transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1); }"
+    },
+    {
+      "name": "Ghost Dark Button",
+      "kind": "button",
+      "refersTo": "button-ghost-dark",
+      "description": "Translucent secondary pill for dark grounds, beside a lime or white primary.",
+      "html": "<div class=\"ds-dark2\"><a class=\"ds-btn-ghost-dark\" href=\"#\"><span>Find an ATM</span><span class=\"ds-chip-w\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></span></a></div>",
+      "css": ".ds-dark2 { background: #090b3a; padding: 24px; border-radius: 16px; } .ds-btn-ghost-dark { display: inline-flex; align-items: center; gap: 12px; min-height: 48px; padding: 6px 6px 6px 24px; border-radius: 9999px; background: rgb(255 255 255 / 0.1); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.3); backdrop-filter: blur(4px); color: #fff; font-family: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif; font-size: 1.0625rem; font-weight: 600; text-decoration: none; transition: background-color 300ms cubic-bezier(0.25, 1, 0.5, 1); } .ds-btn-ghost-dark:hover { background: rgb(255 255 255 / 0.18); } .ds-btn-ghost-dark:focus-visible { outline: 2.5px solid #c8f169; outline-offset: 3px; } .ds-chip-w { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 9999px; background: #fff; color: #090b3a; }"
+    },
+    {
+      "name": "Header Navigation",
+      "kind": "nav",
+      "refersTo": "nav-trigger",
+      "description": "Solid-state header bar: pill triggers with chevrons and the Internet Banking pill.",
+      "html": "<nav class=\"ds-nav\"><span class=\"ds-nav-logo\">Dutch-Bangla Bank</span><button class=\"ds-nav-trigger\" aria-expanded=\"true\">Personal <svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\"><path d=\"m6 9 6 6 6-6\"/></svg></button><button class=\"ds-nav-trigger\">Digital <svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\"><path d=\"m6 9 6 6 6-6\"/></svg></button><a class=\"ds-nav-ib\" href=\"#\"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\"><rect x=\"3\" y=\"11\" width=\"18\" height=\"11\" rx=\"2\"/><path d=\"M7 11V7a5 5 0 0 1 10 0v4\"/></svg>Internet Banking</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 4px; height: 76px; padding: 0 24px; background: rgb(255 255 255 / 0.92); backdrop-filter: blur(24px); box-shadow: 0 1px 0 #e2e4ee, 0 10px 30px -18px rgb(13 15 43 / 0.35); font-family: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif; } .ds-nav-logo { font-family: 'Bricolage Grotesque', ui-sans-serif, sans-serif; font-weight: 700; letter-spacing: -0.02em; color: #1e2378; margin-right: 16px; } .ds-nav-trigger { display: inline-flex; align-items: center; gap: 4px; height: 44px; padding: 0 14px; border: 0; border-radius: 9999px; background: transparent; color: #0d0f2b; font: inherit; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background-color 150ms, color 150ms; } .ds-nav-trigger:hover, .ds-nav-trigger[aria-expanded=\"true\"] { background: #f1f2fb; color: #1e2378; } .ds-nav-trigger[aria-expanded=\"true\"] svg { transform: rotate(180deg); } .ds-nav-trigger svg { transition: transform 300ms; } .ds-nav-trigger:focus-visible, .ds-nav-ib:focus-visible { outline: 2.5px solid #3a40a8; outline-offset: 3px; } .ds-nav-ib { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 20px 0 16px; border-radius: 9999px; background: #252a86; color: #fff; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: background-color 150ms; } .ds-nav-ib:hover { background: #1e2378; }"
+    },
+    {
+      "name": "Product Card List",
+      "kind": "card",
+      "refersTo": "surface-card",
+      "description": "White 16px card on the card shadow holding hairline-divided product rows with a rotating arrow circle.",
+      "html": "<ul class=\"ds-card\"><li><a class=\"ds-row\" href=\"#\"><span><span class=\"ds-row-t\">Savings account</span><span class=\"ds-row-b\">Earn on every taka you keep.</span></span><span class=\"ds-row-a\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M7 17 17 7\"/><path d=\"M7 7h10v10\"/></svg></span></a></li><li><a class=\"ds-row\" href=\"#\"><span><span class=\"ds-row-t\">Term deposit</span><span class=\"ds-row-b\">Lock in a rate for a fixed term.</span></span><span class=\"ds-row-a\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M7 17 17 7\"/><path d=\"M7 7h10v10\"/></svg></span></a></li></ul>",
+      "css": ".ds-card { list-style: none; margin: 0; padding: 0 8px; border-radius: 16px; background: #fff; box-shadow: 0 1px 2px rgb(13 15 43 / 0.04), 0 12px 32px -12px rgb(13 15 43 / 0.14); } .ds-card li + li { border-top: 1px solid #e2e4ee; } .ds-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 96px; padding: 20px; border-radius: 12px; text-decoration: none; transition: background-color 150ms; } .ds-row:hover { background: #f5f6fa; } .ds-row:focus-visible { outline: 2.5px solid #3a40a8; outline-offset: 3px; } .ds-row-t { display: block; font-family: 'Bricolage Grotesque', ui-sans-serif, sans-serif; font-size: 1.25rem; font-weight: 600; letter-spacing: -0.015em; color: #0d0f2b; } .ds-row:hover .ds-row-t { color: #1e2378; } .ds-row-b { display: block; margin-top: 4px; font-family: 'Hanken Grotesk', ui-sans-serif, sans-serif; color: #474b6b; } .ds-row-a { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; border-radius: 9999px; background: #f1f2fb; color: #252a86; transition: background-color 500ms cubic-bezier(0.16, 1, 0.3, 1), color 500ms, transform 500ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-row:hover .ds-row-a { background: #252a86; color: #fff; transform: rotate(45deg); }"
+    },
+    {
+      "name": "Quick-Action Dock",
+      "kind": "custom",
+      "refersTo": "quick-dock",
+      "description": "Signature white dock on the float shadow with coloured icon tiles; overlaps the hero's bottom edge.",
+      "html": "<nav class=\"ds-dock\"><a class=\"ds-dock-i\" href=\"#\"><span class=\"ds-dock-ic ds-ic-indigo\"><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/></svg></span>ATM / Branch</a><a class=\"ds-dock-i\" href=\"#\"><span class=\"ds-dock-ic ds-ic-green\"><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"9\" cy=\"7\" r=\"4\"/><path d=\"M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2\"/><path d=\"M19 8v6M22 11h-6\"/></svg></span>Open account</a><a class=\"ds-dock-i\" href=\"#\"><span class=\"ds-dock-ic ds-ic-rocket\"><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1Z\"/><path d=\"M12 15 9 12a22 22 0 0 1 2-3.9A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2Z\"/></svg></span>Rocket</a></nav>",
+      "css": ".ds-dock { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 8px; border-radius: 16px; background: #fff; box-shadow: 0 4px 10px rgb(9 11 58 / 0.12), 0 32px 64px -24px rgb(9 11 58 / 0.45); font-family: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif; } .ds-dock-i { display: flex; align-items: center; gap: 12px; min-height: 64px; padding: 12px 16px; border-radius: 12px; color: #0d0f2b; font-size: 0.95rem; font-weight: 600; line-height: 1.375; text-decoration: none; transition: background-color 150ms; } .ds-dock-i:hover { background: #f5f6fa; } .ds-dock-i:focus-visible { outline: 2.5px solid #3a40a8; outline-offset: 3px; } .ds-dock-ic { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-dock-i:hover .ds-dock-ic { transform: rotate(-6deg) scale(1.1); } .ds-ic-indigo { background: #f1f2fb; color: #252a86; } .ds-ic-green { background: #dcf2e5; color: #00703a; } .ds-ic-rocket { background: #f4e6f4; color: #8b2f8f; }"
+    },
+    {
+      "name": "Offers Ticker",
+      "kind": "custom",
+      "refersTo": "offers-ticker",
+      "description": "Full-bleed lime strip tilted -1deg; offers slide left forever and pause on hover or focus.",
+      "html": "<div class=\"ds-marquee\"><div class=\"ds-marquee-track\"><a href=\"#\"><span></span>US-Bangla Airlines · 10% off your flight</a><a href=\"#\"><span></span>Star Cineplex · Movie discount with Mastercard</a><a href=\"#\"><span></span>Walton · Electronics discount</a><a href=\"#\" aria-hidden=\"true\" tabindex=\"-1\"><span></span>US-Bangla Airlines · 10% off your flight</a><a href=\"#\" aria-hidden=\"true\" tabindex=\"-1\"><span></span>Star Cineplex · Movie discount with Mastercard</a><a href=\"#\" aria-hidden=\"true\" tabindex=\"-1\"><span></span>Walton · Electronics discount</a></div></div>",
+      "css": "@keyframes ds-marquee { to { transform: translateX(-50%); } } .ds-marquee { overflow: hidden; transform: rotate(-1deg); background: var(--color-lime, #c8f169); color: var(--color-indigo-950, #090b3a); padding: 14px 0; box-shadow: 0 1px 2px rgb(13 15 43 / 0.04), 0 12px 32px -12px rgb(13 15 43 / 0.14); } .ds-marquee-track { display: flex; width: max-content; gap: 40px; white-space: nowrap; animation: ds-marquee 20s linear infinite; } .ds-marquee:hover .ds-marquee-track, .ds-marquee:focus-within .ds-marquee-track { animation-play-state: paused; } .ds-marquee a { display: inline-flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; font-family: 'Bricolage Grotesque', ui-sans-serif, sans-serif; font-size: 1.125rem; font-weight: 600; letter-spacing: -0.01em; } .ds-marquee a span { width: 8px; height: 8px; border-radius: 9999px; background: currentColor; } .ds-marquee a:focus-visible { outline: 2.5px solid #3a40a8; outline-offset: 3px; } @media (prefers-reduced-motion: reduce) { .ds-marquee-track { animation: none; } }"
+    },
+    {
+      "name": "Offer Ticket",
+      "kind": "card",
+      "refersTo": "offer-ticket",
+      "description": "Ticket-shaped 24px offer card with paper notches and a dashed tear line; rests tilted, straightens and rises on hover.",
+      "html": "<div class=\"ds-ticket-wrap\"><a class=\"ds-ticket\" href=\"#\"><span class=\"ds-notch ds-notch-l\"></span><span class=\"ds-notch ds-notch-r\"></span><span class=\"ds-tear\"></span><span class=\"ds-ticket-top\"><span class=\"ds-tag\">Travel</span><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z\"/></svg></span><span class=\"ds-ticket-mid\"><span class=\"ds-partner\">US-Bangla Airlines</span><span class=\"ds-ticket-t\">10% off your flight</span></span><span class=\"ds-ticket-foot\">Terms &amp; FAQ (PDF) ↗</span></a></div>",
+      "css": ".ds-ticket-wrap { background: #f5f6fa; padding: 24px; } .ds-ticket { position: relative; display: flex; flex-direction: column; justify-content: space-between; width: 256px; height: 320px; padding: 24px; border-radius: 24px; overflow: hidden; background: var(--color-lime, #c8f169); color: var(--color-indigo-950, #090b3a); text-decoration: none; font-family: 'Hanken Grotesk', ui-sans-serif, sans-serif; transform: rotate(-1.5deg); box-shadow: 0 1px 2px rgb(13 15 43 / 0.04), 0 12px 32px -12px rgb(13 15 43 / 0.14); transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms; } .ds-ticket:hover { transform: rotate(0) translateY(-8px); box-shadow: 0 2px 4px rgb(13 15 43 / 0.06), 0 28px 56px -20px rgb(13 15 43 / 0.28); } .ds-ticket:focus-visible { outline: 2.5px solid #3a40a8; outline-offset: 3px; } .ds-notch { position: absolute; bottom: 60px; width: 24px; height: 24px; border-radius: 9999px; background: #f5f6fa; } .ds-notch-l { left: -12px; } .ds-notch-r { right: -12px; } .ds-tear { position: absolute; left: 24px; right: 24px; bottom: 71px; border-top: 2px dashed currentColor; opacity: 0.25; } .ds-ticket-top { display: flex; align-items: center; justify-content: space-between; } .ds-tag { padding: 4px 12px; border-radius: 9999px; background: rgb(9 11 58 / 0.1); box-shadow: inset 0 0 0 1px rgb(9 11 58 / 0.2); font-size: 0.75rem; font-weight: 700; } .ds-ticket-mid { margin-bottom: 40px; } .ds-partner { display: block; font-size: 0.875rem; font-weight: 600; opacity: 0.75; } .ds-ticket-t { display: block; margin-top: 4px; font-family: 'Bricolage Grotesque', ui-sans-serif, sans-serif; font-size: 1.65rem; font-weight: 600; line-height: 1.05; letter-spacing: -0.025em; } .ds-ticket-foot { font-size: 0.875rem; font-weight: 600; }"
+    },
+    {
+      "name": "Sticker Badge",
+      "kind": "custom",
+      "refersTo": "sticker-badge",
+      "description": "Round sun sticker in bold display text, tilted on the lift shadow; pops in on a spring.",
+      "html": "<div class=\"ds-sticker-ground\"><span class=\"ds-sticker\">56 districts</span></div>",
+      "css": "@keyframes ds-pop { from { transform: scale(0) rotate(20deg); } to { transform: scale(1) rotate(12deg); } } .ds-sticker-ground { background: var(--color-red-600, #e31b23); padding: 32px; border-radius: 32px; } .ds-sticker { display: grid; place-items: center; width: 96px; height: 96px; border-radius: 9999px; background: var(--color-sun, #ffcf3d); color: var(--color-indigo-950, #090b3a); text-align: center; font-family: 'Bricolage Grotesque', ui-sans-serif, sans-serif; font-size: 0.875rem; font-weight: 700; line-height: 1.2; transform: rotate(12deg); box-shadow: 0 2px 4px rgb(13 15 43 / 0.06), 0 28px 56px -20px rgb(13 15 43 / 0.28); animation: ds-pop 600ms cubic-bezier(0.34, 1.56, 0.64, 1) both; transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1); } .ds-sticker:hover { transform: rotate(0) scale(1.04); } @media (prefers-reduced-motion: reduce) { .ds-sticker { animation: none; } }"
+    },
+    {
+      "name": "Colour Tile",
+      "kind": "card",
+      "refersTo": "color-tile",
+      "description": "28px full-colour loan tile: icon chip, display name, body, solid and outline pills; an oversized icon bleeds off the corner and turns on hover.",
+      "html": "<div class=\"ds-ctile\"><svg class=\"ds-ctile-bg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.25\"><path d=\"M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z\"/></svg><span class=\"ds-ctile-ic\"><svg viewBox=\"0 0 24 24\" width=\"24\" height=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z\"/></svg></span><div class=\"ds-ctile-body\"><h3>Home loan</h3><p>Buy, build or renovate your home.</p><div class=\"ds-ctile-acts\"><a class=\"ds-ctile-apply\" href=\"#\">Apply ↗</a><a class=\"ds-ctile-faq\" href=\"#\">FAQ</a></div></div></div>",
+      "css": ".ds-ctile { position: relative; display: flex; flex-direction: column; justify-content: space-between; min-height: 320px; max-width: 360px; padding: 28px; border-radius: 28px; overflow: hidden; background: var(--color-green-600, #00904a); color: #fff; font-family: 'Hanken Grotesk', ui-sans-serif, sans-serif; } .ds-ctile-bg { position: absolute; right: -32px; bottom: -32px; width: 224px; height: 224px; opacity: 0.15; pointer-events: none; transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-ctile:hover .ds-ctile-bg { transform: rotate(-12deg) scale(1.1); } .ds-ctile-ic { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 16px; background: #fff; color: var(--color-green-700, #00703a); } .ds-ctile-body { position: relative; margin-top: 64px; } .ds-ctile h3 { margin: 0; font-family: 'Bricolage Grotesque', ui-sans-serif, sans-serif; font-size: 2.25rem; font-weight: 600; line-height: 1; letter-spacing: -0.035em; } .ds-ctile p { margin: 12px 0 0; font-size: 1.125rem; opacity: 0.85; } .ds-ctile-acts { display: flex; gap: 8px; margin-top: 28px; } .ds-ctile-acts a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 9999px; font-size: 0.875rem; text-decoration: none; color: inherit; } .ds-ctile-apply { background: #fff; color: #00703a !important; font-weight: 700; } .ds-ctile-faq { font-weight: 600; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.3); } .ds-ctile-faq:hover { background: rgb(255 255 255 / 0.1); } .ds-ctile-acts a:focus-visible { outline: 2.5px solid #c8f169; outline-offset: 3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Indigo Rails",
+    "overview": "DBBL built the country's digital rails (the first ATM network, the first mobile bank, NexusPay), and the system is the visual voice of a bank that does not need to shout, now turned up for Gen Z. It plays the consumer-bank category standard straight, at Revolut and Monzo craft: deep indigo is the base (the hero, Loans, Media, the NexusPay story and every dark band), and full-colour section fields carry the energy, one per section, each with a job. Lime is the Students field and the offers ticker, Rocket magenta is the Rocket field, DBBL green is the CSR field and the Fast Track and ATM accent, red is the live campaign. Sun yellow is the sticker colour and never a ground. Paper and white sections sit between the fields so the colour reads as rhythm, not noise. Persuasion comes from real proof and live campaigns (counted numbers, a dated set of firsts, the UDYOG feature, real offer terms) set in big, tight Bricolage Grotesque.\n\nDensity is generous: sections breathe at 96 to 128px of vertical padding inside a 1360px container, headlines are left-aligned and large, and each section has one job. Rounding scales with the object: 16px for interface surfaces, 24px for tickets and stickers, 28 to 32px for the big colour tiles and the campaign feature. Shadows stay ambient and indigo-tinted. Photography is full-bleed and graded with indigo or green, never a grey scrim. Motion has two registers: calm and expensive for structure (long ease-out-expo curves, 24px rises, pinned scroll stories), and springy for the Gen Z layer (stickers that pop in tilted, tickets you can drag, a ticker that never stops, a dial pad that types itself). All of it turns off under reduced motion.\n\nThe system rejects the cluttered link-farm bank portal (the mega menu holds the depth so the page does not have to) and the novelty-world gimmick alike. It is bilingual by construction: every display and text stack falls back to Anek Bangla, and Bangla mode loosens line height and drops negative tracking.",
+    "keyCharacteristics": [
+      "Indigo base with one full-colour field per section, each colour owning a job: lime (students, offers), magenta (Rocket), green (CSR, Fast Track, ATMs), red (live campaigns), sun (stickers only).",
+      "Lime is still the primary action on every dark ground.",
+      "Bricolage Grotesque display set tight (-0.03 to -0.05em) and big; Hanken Grotesk text at 17px.",
+      "Pill buttons with a circular arrow chip whose arrow slides through on hover.",
+      "Radius scales with size: 16px surfaces, 24px tickets and stickers, 28 to 32px colour tiles and features.",
+      "Sticker badges, ticket-shaped offer cards, colour tiles with oversized numerals.",
+      "Two signature scroll moments: the indigo circle spreading from the NexusPay phone, and the tilted card frame opening to full-screen video.",
+      "Bilingual (English and Bangla) with Anek Bangla as a first-class fallback in every stack."
+    ],
+    "rules": [
+      {
+        "name": "The One Field Per Section Rule",
+        "body": "Each section takes one ground: indigo-950, paper, white, or one full-colour field (lime for Students, rocket for Rocket, green-700 for CSR). Colour tiles and stickers inside a section may mix the palette; the ground does not.",
+        "section": "colors"
+      },
+      {
+        "name": "The Colour Has A Job Rule",
+        "body": "Lime means students, offers and the action on dark; magenta means Rocket; green means growth, safety, Fast Track, ATMs and CSR; red means a live campaign or an alert; sun means a sticker or accent. Inside a multi-colour set (offer tickets, stickers, firsts) the colours rotate freely, but no colour becomes a section ground outside its job.",
+        "section": "colors"
+      },
+      {
+        "name": "The Sun Never Grounds Rule",
+        "body": "Sun fills stickers, badges, tiles and icon chips, and colours an accent word on magenta. It is never a section background.",
+        "section": "colors"
+      },
+      {
+        "name": "The Citrus On Dark Rule",
+        "body": "On indigo, magenta, green or a photograph, the primary action is lime (or white on a colour field). On paper or white the primary action is indigo-600 (green-600 in the Fast Track section), never a lime button or lime text. On the lime Students field the action is indigo-950.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tinted Scrim Rule",
+        "body": "Photographs are graded with indigo-950 or green-700-family gradients that run from the text side outward. Never a neutral grey or black scrim.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tight Display Rule",
+        "body": "Display type is always semibold or bold with negative tracking between -0.015em (small titles) and -0.06em (the campaign numeral); line height never exceeds 1.04 on headlines.",
+        "section": "typography"
+      },
+      {
+        "name": "The Bangla Breathing Rule",
+        "body": "In Bangla mode the whole page switches to Anek Bangla, body line height rises to 1.7, display line height to 1.12 and display tracking resets to 0. Never apply Latin negative tracking to Bangla script.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Money Rule",
+        "body": "Every number that represents money, a count, a phone number, a USSD code or a card number uses tabular lining figures.",
+        "section": "typography"
+      },
+      {
+        "name": "The Overlap Rule",
+        "body": "Exactly one element bridges the hero and the page: the white quick-action dock, pulled up 64px on the float shadow.",
+        "section": "layout"
+      },
+      {
+        "name": "The Lift-On-Hover Rule",
+        "body": "Cards and tickets rest at Card and move to Lift on hover; nothing gains a shadow it did not need to separate from its ground.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep indigo as the base: indigo-950 for dark bands and photo grades, indigo-600 for the primary action on light grounds.",
+      "Do give each section one ground, and give each full-colour field its job: lime for Students and the offers ticker, rocket for Rocket, green-700 for CSR, red-600 for the live campaign card.",
+      "Do use lime (#c8f169) as the primary action on every dark or colour ground.",
+      "Do use sun (#ffcf3d) for stickers, badges, tiles and accents only.",
+      "Do scale radius with the object: 16px surfaces, 24px tickets and stickers, 28 to 32px colour tiles and features, full pills for controls.",
+      "Do let stickers and tickets tilt and spring, and straighten them on hover.",
+      "Do grade every photograph with an indigo-950 or green gradient from the text side.",
+      "Do set headlines in Bricolage Grotesque 600 with negative tracking and line height at or below 1.04.",
+      "Do set every money, count, phone, code and card number in tabular lining figures.",
+      "Do rest cards on the Card shadow and move them to Lift on hover.",
+      "Do turn off every loop, spring, drag, pin and parallax under reduced motion, leaving the final state in place.",
+      "Do keep every stack falling back to Anek Bangla and switch to the Bangla rhythm (1.7 body, 1.12 display, 0 tracking) in Bangla mode."
+    ],
+    "donts": [
+      "Don't use sun as a section ground.",
+      "Don't use rocket magenta as a section ground outside the Rocket section, or red outside live campaigns, alerts and the offer set.",
+      "Don't put two full-colour fields in one section, or place two field sections back to back without the colour having a job.",
+      "Don't put lime text or lime buttons on paper or white grounds.",
+      "Don't use grey or black scrims over photography.",
+      "Don't use hard offset shadows or visible card borders; separate with ground and ambient shadow.",
+      "Don't add uppercase tracked eyebrows or kickers above headlines; the headline leads.",
+      "Don't apply negative Latin tracking to Bangla text.",
+      "Don't turn the homepage into a link farm; depth belongs in the mega menu and footer."
+    ],
+    "placeholders": [
+      "Logo mark (web/src/components/Logo.tsx) is a concept stand-in; replace with DBBL's official logo SVG.",
+      "Hero, CSR and other lifestyle photography is Unsplash stand-in imagery for DBBL's own shoots; the Fast Track photo, TV-ad posters and billboards are DBBL's own published assets.",
+      "Phone screens, the dial pad, the Rocket notification, the sample card number and amounts are illustrative synthetic demo data."
+    ]
+  }
+}

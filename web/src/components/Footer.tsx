@@ -1,0 +1,164 @@
+﻿"use client";
+
+import { MapPin, Phone } from "lucide-react";
+import { useLang } from "@/lib/i18n";
+import { links, phone } from "@/lib/links";
+import { Logo } from "./Logo";
+import { StoreBadges } from "./AppStory";
+import { FacebookIcon, LinkedinIcon, YoutubeIcon } from "./SocialIcons";
+
+export function Footer() {
+  const { d, lang } = useLang();
+  const bn = lang === "bn";
+
+  const cols: { title: string; items: [string, string][] }[] = [
+    {
+      title: d.footer.cols.bank,
+      items: [
+        [bn ? "ব্যক্তিগত অ্যাকাউন্ট" : "Personal accounts", links.personalAccounts],
+        [bn ? "মেয়াদি আমানত" : "Term deposits", links.termDeposits],
+        [bn ? "কার্ড" : "Cards", links.debitCards],
+        [bn ? "রিটেইল ঋণ" : "Retail loans", links.retailLoan],
+        [bn ? "এসএমই ব্যাংকিং" : "SME banking", links.smeLenden],
+        [bn ? "কর্পোরেট ব্যাংকিং" : "Corporate banking", links.corporate],
+        [bn ? "অফশোর ব্যাংকিং" : "Offshore banking", links.offshore],
+      ],
+    },
+    {
+      title: d.footer.cols.digital,
+      items: [
+        [bn ? "নেক্সাসপে" : "NexusPay", links.nexusPay],
+        [bn ? "রকেট" : "Rocket", links.rocket],
+        [bn ? "ইন্টারনেট ব্যাংকিং" : "Internet banking", links.ibFeatures],
+        [bn ? "এজেন্ট ব্যাংকিং" : "Agent banking", links.agentBanking],
+        [bn ? "পেমেন্ট গেটওয়ে" : "Payment gateway", links.ipg],
+        [bn ? "এসএমএস অ্যালার্ট" : "SMS alert", links.smsAlert],
+      ],
+    },
+    {
+      title: d.footer.cols.about,
+      items: [
+        [bn ? "সংক্ষিপ্ত ইতিহাস" : "Brief history", links.history],
+        [bn ? "পরিচালনা পর্ষদ" : "Board of Directors", links.board],
+        [bn ? "বিনিয়োগকারী" : "Investor relations", links.financialStatements],
+        [bn ? "সামাজিক কার্যক্রম" : "Social causes", links.socialCause],
+        [bn ? "ক্যারিয়ার" : "Careers", links.careers],
+        [bn ? "নিউজ রুম" : "News room", links.newsroom],
+        [bn ? "দরপত্র" : "Tender notices", links.tender],
+      ],
+    },
+    {
+      title: d.footer.cols.help,
+      items: [
+        [bn ? "এটিএম / সিআরএম লোকেশন" : "ATM / CRM locations", links.atmLocator],
+        [bn ? "শাখা লোকেশন" : "Branch locations", links.branchLocator],
+        [bn ? "উপশাখা" : "Sub-branches", links.subBranch],
+        [bn ? "সাধারণ প্রশ্ন" : "FAQ", links.faq],
+        [bn ? "অভিযোগ সেল" : "Complaint cell", links.complaint],
+        [bn ? "নাগরিক সনদ" : "Citizen's charter", links.citizensCharter],
+        [bn ? "চার্জ ও ফি" : "Charges & fees", links.charges],
+      ],
+    },
+  ];
+
+  const legal: [string, string][] = [
+    [bn ? "জাতীয় শুদ্ধাচার কৌশল" : "National Integrity Strategy", links.nis],
+    [bn ? "আর্থিক সাক্ষরতা" : "Financial literacy", links.financialLiteracy],
+    [bn ? "টেকসই অর্থায়ন" : "Sustainable finance", links.sustainableFinance],
+    [bn ? "দাবিহীন আমানত" : "Unclaimed deposits", links.unclaimed],
+    [bn ? "ঝুঁকিভিত্তিক মূলধন" : "Basel disclosures", links.riskCapital],
+  ];
+
+  const social = [
+    { href: links.facebook, icon: FacebookIcon, label: "Facebook" },
+    { href: links.youtube, icon: YoutubeIcon, label: "YouTube" },
+    { href: links.linkedin, icon: LinkedinIcon, label: "LinkedIn" },
+  ];
+
+  return (
+    <footer className="on-dark bg-indigo-950 text-indigo-200">
+      <div className="mx-auto max-w-[1360px] px-5 pt-20 sm:px-6 xl:px-10">
+        <div className="grid gap-12 border-b border-white/10 pb-14 lg:grid-cols-[1.1fr_2fr]">
+          <div>
+            <Logo light />
+            <div className="mt-8 space-y-3 text-[0.95rem]">
+              <a href={`tel:${phone.hotline}`} className="flex flex-wrap items-center gap-x-3 gap-y-1 hover:text-white">
+                <Phone className="size-4 text-lime" aria-hidden />
+                <span className="tabular font-semibold text-white">16216</span>
+                <span className="tabular text-indigo-300">+880 9666 716216</span>
+              </a>
+              <a href={links.contact} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 hover:text-white">
+                <MapPin className="mt-1 size-4 shrink-0 text-lime" aria-hidden />
+                <span>
+                  {d.footer.address}
+                  <span className="mt-1 block text-indigo-300">{d.footer.swift}</span>
+                </span>
+              </a>
+            </div>
+            <p className="mt-10 text-sm font-semibold text-white">{d.footer.getApp}</p>
+            <div className="mt-3 flex flex-wrap gap-3">
+              <StoreBadges />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-4">
+            {cols.map((c) => (
+              <nav key={c.title} aria-label={c.title}>
+                <h2 className="text-sm font-semibold text-white">{c.title}</h2>
+                <ul className="mt-4 space-y-1">
+                  {c.items.map(([label, href]) => (
+                    <li key={href + label}>
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex min-h-9 items-center text-[0.95rem] transition-colors hover:text-white hover:underline"
+                      >
+                        {label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-6 border-b border-white/10 py-8 md:flex-row md:items-center md:justify-between">
+          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            {legal.map(([label, href]) => (
+              <li key={label}>
+                <a href={href} target="_blank" rel="noopener noreferrer" className="hover:text-white hover:underline">
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <ul className="flex items-center gap-2" aria-label={d.footer.follow}>
+            {social.map(({ href, icon: Icon, label }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${label} (opens in a new tab)`}
+                  className="grid size-11 place-items-center rounded-full bg-white/8 text-white transition-colors hover:bg-lime hover:text-indigo-950"
+                >
+                  <Icon className="size-[1.1rem]" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="grid gap-4 py-8 text-sm text-indigo-300 md:grid-cols-[1fr_1.4fr]">
+          <p>© Dutch-Bangla Bank PLC. {d.footer.legal}</p>
+          <p className="md:text-right">
+            <span className="mr-2 inline-block rounded-full bg-lime px-2.5 py-0.5 text-xs font-bold text-indigo-950">{d.concept}</span>
+            {d.footer.disclaimer}
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+}

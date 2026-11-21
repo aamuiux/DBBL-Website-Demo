@@ -1,0 +1,169 @@
+@import "tailwindcss";
+
+@theme {
+  --color-indigo-950: #090b3a;
+  --color-indigo-900: #0e1150;
+  --color-indigo-800: #161a63;
+  --color-indigo-700: #1e2378;
+  --color-indigo-600: #252a86;
+  --color-indigo-500: #3a40a8;
+  --color-indigo-400: #6a70c9;
+  --color-indigo-200: #c9ccee;
+  --color-indigo-100: #e7e8f7;
+  --color-indigo-50: #f1f2fb;
+
+  --color-green-700: #00703a;
+  --color-green-600: #00904a;
+  --color-green-500: #12a65b;
+  --color-green-100: #dcf2e5;
+
+  --color-red-600: #e31b23;
+  --color-lime: #c8f169;
+  --color-lime-dark: #b4e04f;
+  --color-sun: #ffcf3d;
+  --color-rocket: #8a288f; /* sampled from Rocket's official app icon */
+  --color-rocket-700: #6d1f72;
+  --color-rocket-ink: #1d0a20;
+  --color-rocket-100: #f4e6f4;
+
+  --color-paper: #f5f6fa;
+  --color-ink: #0d0f2b;
+  --color-ink-2: #474b6b;
+  --color-ink-3: #6b6f8e;
+  --color-line: #e2e4ee;
+
+  --font-display: var(--font-bricolage), var(--font-anek), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-hanken), var(--font-anek), ui-sans-serif, system-ui, sans-serif;
+  --font-bangla: var(--font-anek), ui-sans-serif, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+
+  --shadow-card: 0 1px 2px rgb(13 15 43 / 0.04), 0 12px 32px -12px rgb(13 15 43 / 0.14);
+  --shadow-lift: 0 2px 4px rgb(13 15 43 / 0.06), 0 28px 56px -20px rgb(13 15 43 / 0.28);
+  --shadow-float: 0 4px 10px rgb(9 11 58 / 0.12), 0 32px 64px -24px rgb(9 11 58 / 0.45);
+}
+
+:root {
+  color-scheme: light;
+  --header-h: 76px;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Bangla mode: Anek Bangla carries both scripts' rhythm; give it more line height. */
+html[lang="bn"] body {
+  font-family: var(--font-bangla);
+  line-height: 1.7;
+}
+html[lang="bn"] .font-display {
+  font-family: var(--font-bangla);
+  letter-spacing: 0 !important;
+  line-height: 1.12 !important;
+}
+
+::selection {
+  background: var(--color-lime);
+  color: var(--color-indigo-950);
+}
+
+:focus-visible {
+  outline: 2.5px solid var(--color-indigo-500);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+.on-dark :focus-visible,
+.on-dark:focus-visible {
+  outline-color: var(--color-lime);
+}
+
+a {
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1.5px;
+}
+
+/* Scrollbar themed from the palette */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-indigo-200) transparent;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-indigo-200);
+  border-radius: 999px;
+  border: 3px solid var(--color-paper);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* Hide scrollbar on horizontal rails while keeping them scrollable */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ticker: two copies of the track slide by half their width, forever */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
