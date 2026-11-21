@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useId, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import { gsap } from "gsap";
@@ -167,14 +167,9 @@ export function VideoStory() {
         <div className="absolute inset-0 grid place-items-center bg-indigo-950 p-8 text-center text-white" role="alert">
           <div>
             <p className="max-w-md text-lg text-indigo-100">{d.video.error}</p>
-            <a
-              href={links.youtube}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-flex h-12 items-center gap-2 rounded-full bg-lime px-6 font-semibold text-indigo-950"
-            >
-              <YoutubeIcon className="size-5" /> {d.video.youtube}
-            </a>
+            <Button href={links.youtube} tone="lime" className="mt-6" icon={YoutubeIcon}>
+              {d.video.youtube}
+            </Button>
           </div>
         </div>
       )}

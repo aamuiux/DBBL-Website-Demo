@@ -7,17 +7,19 @@ import { useLang } from "@/lib/i18n";
 import { useReduce } from "./ui";
 
 /**
- * A student's day with their own account: each moment is a real School Savers feature
- * (savings account, free SMS alerts, free debit card, internet banking, interest).
- * Unsplash stand-ins, marked for replacement.
+ * A college/university student's day with DBBL: each moment is a real DBBL service
+ * (SMS alerts, debit card, Rocket send money, NexusPay's 10-minute card numbers and free send money,
+ * the ATM network, savings interest). Unsplash stand-ins photographed in Bangladesh (Dhaka, incl. Dhaka
+ * University's Curzon Hall, Gazipur and Cox's Bazar), marked for replacement.
  */
 const slides = [
-  { photo: "photo-1789579703472-5ff8acb17a41", focus: "50% 50%", when: { en: "7:30 am", bn: "সকাল ৭:৩০" }, t: { en: "Pocket money, saved", bn: "হাতখরচের টাকা, জমা" } },
-  { photo: "photo-1741580298757-9d9b78e63c8d", focus: "50% 40%", when: { en: "8:10 am", bn: "সকাল ৮:১০" }, t: { en: "An SMS for every taka", bn: "প্রতিটি টাকার এসএমএস" } },
-  { photo: "photo-1697465381336-a3e93c5b97b2", focus: "60% 50%", when: { en: "2:00 pm", bn: "দুপুর ২:০০" }, t: { en: "New books, own savings", bn: "নিজের সঞ্চয়ে নতুন বই" } },
-  { photo: "photo-1771527355678-49c169623a58", focus: "55% 60%", when: { en: "4:30 pm", bn: "বিকেল ৪:৩০" }, t: { en: "Cash from a DBBL ATM, with your own card", bn: "নিজের কার্ডে ডিবিবিএল এটিএম থেকে টাকা" } },
-  { photo: "photo-1660982741734-5a7d2730ff28", focus: "45% 50%", when: { en: "9:00 pm", bn: "রাত ৯:০০" }, t: { en: "Balance checked online", bn: "অনলাইনে ব্যালেন্স দেখা" } },
-  { photo: "photo-1773702787707-d7a790aa9f5e", focus: "30% 50%", when: { en: "Month end", bn: "মাস শেষে" }, t: { en: "Savings that earn interest", bn: "সঞ্চয়ে সুদ" } },
+  { photo: "photo-1658839128300-901b7070c97b", focus: "50% 35%", when: { en: "8:00 am", bn: "সকাল ৮:০০" }, t: { en: "An SMS for every taka", bn: "প্রতিটি টাকার এসএমএস" } },
+  { photo: "photo-1582749247950-14c6b0014ec7", focus: "50% 40%", when: { en: "9:30 am", bn: "সকাল ৯:৩০" }, t: { en: "Your own debit card, on campus", bn: "ক্যাম্পাসে নিজের ডেবিট কার্ড" } },
+  { photo: "photo-1649298173699-c754c53c4340", focus: "50% 45%", when: { en: "1:00 pm", bn: "দুপুর ১:০০" }, t: { en: "Lunch split, sent by Rocket", bn: "রকেটে লাঞ্চের ভাগ পাঠানো" } },
+  { photo: "photo-1630072923380-982b7356bd69", focus: "60% 50%", when: { en: "3:30 pm", bn: "বিকেল ৩:৩০" }, t: { en: "Online shopping with a 10-minute card number", bn: "১০ মিনিটের কার্ড নম্বরে অনলাইন কেনাকাটা" } },
+  { photo: "photo-1679211744287-4fde44b9cd30", focus: "50% 35%", when: { en: "5:00 pm", bn: "বিকেল ৫:০০" }, t: { en: "Cash from 4,100+ DBBL ATMs", bn: "৪,১০০+ ডিবিবিএল এটিএমে টাকা" } },
+  { photo: "photo-1599409275684-f2381fde0c6a", focus: "50% 45%", when: { en: "7:00 pm", bn: "সন্ধ্যা ৭:০০" }, t: { en: "Send money free with NexusPay", bn: "নেক্সাসপে-তে ফ্রি টাকা পাঠানো" } },
+  { photo: "photo-1662267486436-c2e8bd95c2d4", focus: "50% 35%", when: { en: "Month end", bn: "মাস শেষে" }, t: { en: "Savings that earn interest", bn: "সঞ্চয়ে সুদ" } },
 ];
 
 const GAP = 16;
@@ -38,8 +40,8 @@ export function StudentSlider({ sectionRef }: { sectionRef: RefObject<HTMLElemen
   const boxRef = useRef<HTMLDivElement>(null);
   const [cw, setCw] = useState(600);
   const [moving, setMoving] = useState(false);
-  const slideW = cw < 520 ? 168 : cw < 620 ? 216 : 240;
-  const slideH = Math.round((slideW * 16) / 10);
+  const slideW = cw < 520 ? 184 : cw < 620 ? 228 : 252;
+  const slideH = Math.round(slideW * 2.15); // tall portrait frames
   const step = slideW + GAP;
   const total = step * slides.length;
 
@@ -129,7 +131,7 @@ export function StudentSlider({ sectionRef }: { sectionRef: RefObject<HTMLElemen
       tabIndex={0}
       role="region"
       aria-roledescription={lang === "bn" ? "স্লাইডার" : "slider"}
-      aria-label={lang === "bn" ? "স্কুল সেভার্স নিয়ে একটি দিন (টেনে বা তীর চিহ্ন দিয়ে সরাও)" : "A day with School Savers (drag or use the arrow keys)"}
+      aria-label={lang === "bn" ? "ডিবিবিএলের সাথে একজন শিক্ষার্থীর দিন (টেনে বা তীর চিহ্ন দিয়ে সরাও)" : "A student's day with DBBL (drag or use the arrow keys)"}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}

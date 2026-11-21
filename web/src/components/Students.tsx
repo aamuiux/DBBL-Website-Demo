@@ -62,18 +62,12 @@ export function Students() {
           </ul>
 
           <Reveal delay={0.15} className="mt-10 flex flex-wrap gap-3">
-            <Button href={links.personalAccounts} tone="primary" size="lg" className="!bg-indigo-950 hover:!bg-indigo-800">
+            <Button href={links.personalAccounts} tone="ink" size="lg">
               {bn ? "অ্যাকাউন্টের বিস্তারিত" : "See account details"}
             </Button>
-            <a
-              href={links.scholarship}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-12 items-center gap-2 rounded-full px-5 font-semibold ring-2 ring-inset ring-indigo-950/80 transition-colors hover:bg-indigo-950 hover:text-lime"
-            >
-              <Sparkles className="size-4" aria-hidden /> {bn ? "ডিবিবিএল বৃত্তি" : "DBBL Scholarship"}
-              <span className="sr-only">(opens in a new tab)</span>
-            </a>
+            <Button href={links.scholarship} tone="ghost-light" size="lg" icon={Sparkles}>
+              {bn ? "ডিবিবিএল বৃত্তি" : "DBBL Scholarship"}
+            </Button>
           </Reveal>
         </div>
 

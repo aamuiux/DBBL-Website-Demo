@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion, useScroll, useSpring, useTransform } from "motion/react";
-import { ChevronDown, Globe, MapPin, Menu, Phone, Search, X, ArrowUpRight, Lock } from "lucide-react";
+import { ChevronDown, Globe, MapPin, Menu, Phone, X, ArrowUpRight, Lock } from "lucide-react";
 import { Logo } from "./Logo";
 import { useLang } from "@/lib/i18n";
 import { nav, type NavItem } from "@/lib/nav";
@@ -146,36 +146,36 @@ export function Header() {
         style={{ "--k": k } as React.CSSProperties}
         className="fixed inset-x-0 top-0 z-50"
       >
-        {/* Main bar: full width at the top, a floating glass island once the page moves */}
-        <div className="px-[calc(var(--k)*10px)] pt-[calc(var(--k)*10px)] sm:px-[calc(var(--k)*20px)] sm:pt-[calc(var(--k)*12px)]">
+        {/* Main bar: always a floating, rounded glass island; it tightens as the page scrolls */}
+        <div className="px-3 pt-3 sm:px-5 sm:pt-4">
         <div
           ref={barRef}
-          className="relative mx-auto max-w-[calc(100vw-var(--k)*max(0px,100vw-1240px))]"
+          className="relative mx-auto max-w-[calc(1320px-var(--k)*150px)]"
         >
-          {/* Background: solid at the top, glass once it floats, light or dark to match the section underneath */}
+          {/* Background: translucent glass, light or dark to match the section underneath */}
           <div
             aria-hidden
-            className={`pointer-events-none absolute inset-0 overflow-hidden rounded-[calc(var(--k)*30px)] backdrop-blur-xl backdrop-saturate-150 transition-shadow duration-500 ${
+            className={`pointer-events-none absolute inset-0 overflow-hidden rounded-[28px] backdrop-blur-xl backdrop-saturate-150 transition-shadow duration-500 ${
               lightUi
                 ? "shadow-[0_1px_0_var(--color-line),0_18px_40px_-22px_rgb(13_15_43/0.45)] ring-1 ring-inset ring-indigo-950/8"
                 : "shadow-[0_18px_44px_-20px_rgb(0_0_0/0.6)] ring-1 ring-inset ring-white/12"
             }`}
           >
-            <span className={`absolute inset-0 bg-white/90 transition-opacity duration-500 ${lightUi ? "opacity-100" : "opacity-0"}`} />
+            <span className={`absolute inset-0 bg-white/78 transition-opacity duration-500 ${lightUi ? "opacity-100" : "opacity-0"}`} />
             <span className={`absolute inset-0 bg-indigo-950/72 transition-opacity duration-500 ${lightUi ? "opacity-0" : "opacity-100"}`} />
             {/* Reading progress along the island's lower edge */}
             <motion.span
               style={{ scaleX: scrollYProgress }}
-              className={`absolute inset-x-[calc(var(--k)*22px)] bottom-0 h-[2px] origin-left rounded-full transition-colors duration-500 ${lightUi ? "bg-indigo-500" : "bg-lime"}`}
+              className={`absolute inset-x-6 bottom-0 h-[2px] origin-left rounded-full transition-colors duration-500 ${lightUi ? "bg-indigo-500" : "bg-lime"}`}
             />
           </div>
 
-          <div className="relative mx-auto flex h-[calc(var(--header-h)-var(--k)*12px)] max-w-[1360px] items-center gap-6 px-5 sm:px-6 xl:px-10 xl:pr-[calc(2.5rem-var(--k)*1.75rem)] xl:pl-[calc(2.5rem-var(--k)*1rem)]">
+          <div className="relative flex h-[calc(var(--header-h)-var(--k)*10px)] items-center gap-3 pl-4 pr-2.5 sm:pl-5 xl:pl-6">
             <a href="#top" aria-label="Dutch-Bangla Bank home" className="shrink-0" onClick={close}>
               <Logo light={!lightUi} />
             </a>
 
-            <nav aria-label="Main" className="hidden flex-1 lg:block xl:ml-4">
+            <nav aria-label="Main" className="hidden flex-1 lg:flex lg:justify-center">
               <ul className="flex items-center gap-0.5" onMouseLeave={() => setHoverKey(null)}>
                 <li
                   onMouseEnter={() => {
@@ -242,57 +242,71 @@ export function Header() {
               </ul>
             </nav>
 
-            <div className="ml-auto flex items-center gap-2">
-              <button
-                type="button"
-                onClick={toggle}
-                aria-label={d.utility.langAria}
-                lang={lang === "en" ? "bn" : "en"}
-                className={`inline-flex h-11 items-center gap-1.5 rounded-full px-3 text-sm font-semibold transition-colors ${
-                  lightUi ? "text-indigo-700 ring-1 ring-inset ring-indigo-200 hover:bg-indigo-50" : "text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
-                }`}
+            <div className="ml-auto flex items-center">
+              {/* Language switch: folds away as the page scrolls (driven by the same scroll value as the bar) */}
+              <div
+                aria-hidden={scrolled || undefined}
+                className="flex max-w-[calc((1-var(--k))*7rem)] items-center overflow-hidden opacity-[calc(1-var(--k)*1.8)]"
               >
-                <Globe className="hidden size-4 xl:block" aria-hidden />
-                {lang === "en" ? (
-                  <>
-                    <span className="xl:hidden">বাং</span>
-                    <span className="hidden xl:inline">বাংলা</span>
-                  </>
-                ) : (
-                  "EN"
-                )}
-              </button>
-              <a
-                href={links.faq}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={d.nav.search}
-                className={`hidden size-11 place-items-center rounded-full transition-colors sm:grid lg:hidden xl:grid ${
-                  lightUi ?"text-ink hover:bg-indigo-50" : "text-white hover:bg-white/10"
-                }`}
-              >
-                <Search className="size-[1.15rem]" strokeWidth={2.25} aria-hidden />
-              </a>
+                <button
+                  type="button"
+                  onClick={toggle}
+                  tabIndex={scrolled ? -1 : undefined}
+                  aria-label={d.utility.langAria}
+                  lang={lang === "en" ? "bn" : "en"}
+                  className={`mr-2 inline-flex h-11 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-3 text-sm font-semibold transition-colors ${
+                    lightUi ? "text-indigo-700 ring-1 ring-inset ring-indigo-200 hover:bg-indigo-50" : "text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
+                  }`}
+                >
+                  <Globe className="hidden size-4 xl:block" aria-hidden />
+                  {lang === "en" ? (
+                    <>
+                      <span className="xl:hidden">বাং</span>
+                      <span className="hidden xl:inline">বাংলা</span>
+                    </>
+                  ) : (
+                    "EN"
+                  )}
+                </button>
+              </div>
+              {/* Internet Banking: the same fill-sweep hover as every other button */}
               <a
                 href={links.ibLogin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`hidden h-11 items-center gap-2 whitespace-nowrap rounded-full pl-4 pr-5 text-[0.95rem] font-semibold transition-[background-color,color,transform] duration-300 hover:-translate-y-px active:translate-y-0 sm:inline-flex ${
-                  lightUi ?"bg-indigo-600 text-white hover:bg-indigo-700" : "bg-lime text-indigo-950 hover:bg-lime-dark"
+                className={`group relative isolate hidden h-12 items-center overflow-hidden whitespace-nowrap rounded-full text-[0.95rem] font-semibold ring-1 ring-inset transition-colors sm:inline-flex ${
+                  lightUi ? "bg-indigo-50/80 text-indigo-950 ring-indigo-100" : "bg-white/10 text-white ring-white/20"
                 }`}
               >
-                <Lock className="size-4" strokeWidth={2.25} aria-hidden />
-                {/* Full label everywhere except the tight 1024–1279px band, where "Log in" keeps the bar on one line */}
-                <span aria-hidden className="lg:hidden xl:inline">{d.nav.ib}</span>
-                <span aria-hidden className="hidden lg:inline xl:hidden">{d.nav.ibShort}</span>
-                <span className="sr-only">{d.nav.ib} (opens in a new tab)</span>
+                <span
+                  aria-hidden
+                  className={`absolute inset-y-[3px] left-[3px] -z-10 w-[calc(3rem-6px)] rounded-full transition-[width,background-color] duration-[480ms] ease-[cubic-bezier(0.65,0,0.076,1)] group-hover:w-[calc(100%-6px)] group-focus-visible:w-[calc(100%-6px)] motion-reduce:transition-none ${
+                    lightUi ? "bg-indigo-600" : "bg-lime"
+                  }`}
+                />
+                <span
+                  aria-hidden
+                  className={`grid size-12 shrink-0 place-items-center transition-transform duration-[480ms] ease-[cubic-bezier(0.65,0,0.076,1)] group-hover:translate-x-1 motion-reduce:transition-none ${
+                    lightUi ? "text-white" : "text-indigo-950"
+                  }`}
+                >
+                  <Lock className="size-4" strokeWidth={2.4} />
+                </span>
+                <span
+                  className={`pl-1 pr-5 transition-colors duration-300 ${lightUi ? "group-hover:text-white group-focus-visible:text-white" : "group-hover:text-indigo-950 group-focus-visible:text-indigo-950"}`}
+                >
+                  {/* Full label everywhere except the tight 1024–1279px band, where "Log in" keeps the bar on one line */}
+                  <span aria-hidden className="lg:hidden xl:inline">{d.nav.ib}</span>
+                  <span aria-hidden className="hidden lg:inline xl:hidden">{d.nav.ibShort}</span>
+                  <span className="sr-only">{d.nav.ib} (opens in a new tab)</span>
+                </span>
               </a>
               <button
                 type="button"
                 onClick={() => setDrawer(true)}
                 aria-label={d.nav.menu}
                 aria-expanded={drawer}
-                className={`grid size-11 place-items-center rounded-full lg:hidden ${
+                className={`ml-2 grid size-11 place-items-center rounded-full lg:hidden ${
                   lightUi ?"bg-indigo-50 text-indigo-700" : "bg-white/12 text-white ring-1 ring-inset ring-white/30"
                 }`}
               >
@@ -314,7 +328,7 @@ export function Header() {
                 exit={reduce ? { opacity: 0 } : { opacity: 0, clipPath: "inset(0 0 100% 0)" }}
                 transition={{ duration: 0.45, ease: easeOut }}
                 onMouseEnter={clearTimers}
-                className="absolute inset-x-0 top-full mt-[calc(var(--k)*8px)] hidden overflow-hidden rounded-[calc(var(--k)*28px)] border-t border-line bg-white shadow-[0_30px_60px_-30px_rgb(13_15_43/0.35)] lg:block"
+                className="absolute inset-x-0 top-full mt-2 hidden overflow-hidden rounded-[28px] border-t border-line bg-white shadow-[0_30px_60px_-30px_rgb(13_15_43/0.35)] lg:block"
               >
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.div

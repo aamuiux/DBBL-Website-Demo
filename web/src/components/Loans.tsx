@@ -2,16 +2,16 @@
 
 import { useId } from "react";
 import { motion } from "motion/react";
-import { ArrowUpRight, Calculator, Car, FileText, Home, Sparkles, Wallet, type LucideIcon } from "lucide-react";
+import { Calculator, Car, FileText, Home, Sparkles, Wallet, type LucideIcon } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
 import { retailLoans, smeLoans } from "@/lib/content";
-import { Button, Reveal, useReduce } from "./ui";
+import { Button, Reveal, useReduce, type Tone } from "./ui";
 
-const loanLook: Record<(typeof retailLoans)[number]["key"], { icon: LucideIcon; tone: string; chip: string }> = {
-  personal: { icon: Wallet, tone: "bg-indigo-600 text-white", chip: "bg-lime text-indigo-950" },
-  home: { icon: Home, tone: "bg-green-600 text-white", chip: "bg-white text-green-700" },
-  car: { icon: Car, tone: "bg-sun text-indigo-950", chip: "bg-indigo-950 text-white" },
+const loanLook: Record<(typeof retailLoans)[number]["key"], { icon: LucideIcon; tone: string; chip: string; apply: Tone; faq: Tone }> = {
+  personal: { icon: Wallet, tone: "bg-indigo-600 text-white", chip: "bg-lime text-indigo-950", apply: "lime", faq: "ghost-dark" },
+  home: { icon: Home, tone: "bg-green-600 text-white", chip: "bg-white text-green-700", apply: "white", faq: "ghost-dark" },
+  car: { icon: Car, tone: "bg-sun text-indigo-950", chip: "bg-indigo-950 text-white", apply: "ink", faq: "ghost-light" },
 };
 
 export function Loans() {
@@ -45,15 +45,9 @@ export function Loans() {
               <Button href={links.loanApply} tone="lime" size="lg">
                 {bn ? "অনলাইনে আবেদন" : "Apply online"}
               </Button>
-              <a
-                href={links.emiCalc}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-12 items-center gap-2 rounded-full px-5 font-semibold text-white ring-1 ring-inset ring-white/35 transition-colors hover:bg-white/10"
-              >
-                <Calculator className="size-4" aria-hidden /> {bn ? "ইএমআই ক্যালকুলেটর" : "EMI calculator"}
-                <span className="sr-only">(opens in a new tab)</span>
-              </a>
+              <Button href={links.emiCalc} tone="ghost-dark" size="lg" icon={Calculator}>
+                {bn ? "ইএমআই ক্যালকুলেটর" : "EMI calculator"}
+              </Button>
             </div>
           </Reveal>
         </div>
@@ -84,22 +78,12 @@ export function Loans() {
                     <h3 className="font-display text-[2.25rem] font-semibold leading-none tracking-[-0.035em]">{l.name[lang]}</h3>
                     <p className="mt-3 max-w-[26ch] text-lg opacity-85">{l.body[lang]}</p>
                     <div className="mt-7 flex flex-wrap gap-2">
-                      <a
-                        href={links.loanApply}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`inline-flex min-h-11 items-center gap-1.5 rounded-full px-4 text-sm font-bold ${look.chip}`}
-                      >
-                        {bn ? "আবেদন" : "Apply"} <ArrowUpRight className="size-4" aria-hidden />
-                      </a>
-                      <a
-                        href={l.faq}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex min-h-11 items-center gap-1.5 rounded-full px-4 text-sm font-semibold ring-1 ring-inset ring-current/30 hover:bg-current/10"
-                      >
-                        <FileText className="size-4" aria-hidden /> FAQ
-                      </a>
+                      <Button href={links.loanApply} tone={look.apply} size="sm">
+                        {bn ? "আবেদন" : "Apply"}
+                      </Button>
+                      <Button href={l.faq} tone={look.faq} size="sm" icon={FileText}>
+                        FAQ
+                      </Button>
                     </div>
                   </div>
                 </div>

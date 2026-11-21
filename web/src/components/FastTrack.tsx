@@ -46,18 +46,12 @@ export function FastTrack() {
                 : "ATMs, deposit machines and staff to help, under one roof. Away from the branch, open into the evening."}
             </p>
             <div className="flex flex-wrap gap-3">
-              <Button href={links.fastTrackLocator} tone="primary" size="lg" className="!bg-green-600 hover:!bg-green-700">
+              <Button href={links.fastTrackLocator} tone="green" size="lg">
                 {bn ? "ফাস্ট ট্র্যাক খুঁজুন" : "Find a Fast Track"}
               </Button>
-              <a
-                href={links.atmLocator}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-12 items-center gap-2 rounded-full px-5 font-semibold text-ink ring-1 ring-inset ring-line transition-colors hover:bg-paper"
-              >
-                <MapPin className="size-4 text-green-600" aria-hidden /> {bn ? "এটিএম খুঁজুন" : "Find an ATM"}
-                <span className="sr-only">(opens in a new tab)</span>
-              </a>
+              <Button href={links.atmLocator} tone="ghost-light" size="lg" icon={MapPin}>
+                {bn ? "এটিএম খুঁজুন" : "Find an ATM"}
+              </Button>
             </div>
           </Reveal>
         </div>

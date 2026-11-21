@@ -20,7 +20,7 @@ Next.js 16 (App Router, static), TypeScript, Tailwind CSS 4, Motion (Framer Moti
 
 ## What's on the page
 
-1. Sticky header, always visible: solid white at the top, then a floating glass island that takes the tone of the section underneath, with a reading-progress line, a gliding hover bubble, mega menus with a featured panel, a বাংলা/EN switch, and a full-screen drawer on mobile.
+1. Sticky header, always visible: a rounded, slightly transparent glass bar floating below the top edge. On scroll it tightens and the বাংলা/EN switch folds away; it takes the tone of the section underneath, with a reading-progress line, a gliding hover bubble, mega menus with a featured panel, and a full-screen drawer on mobile. Buttons across the page share one hover: an icon circle whose fill sweeps across the pill.
 2. Hero slider: three photographic slides, crossfade and slow zoom, progress rail, pause button, pointer parallax.
 3. Quick-action dock: ATM/branch, open an account, NexusPay, Rocket, call 16216, each with an animated glyph on hover and a pointer spotlight.
 4. "What do you want to do?": needs-based tabs (save, spend, borrow, send, business) with a lead product and related products.

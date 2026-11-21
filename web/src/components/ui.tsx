@@ -1,8 +1,8 @@
-﻿"use client";
+"use client";
 
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps, ComponentType, CSSProperties, ReactNode } from "react";
 
 export const easeOut = [0.16, 1, 0.3, 1] as const;
 
@@ -52,23 +52,78 @@ export const rise: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easeOut } },
 };
 
-type Tone = "primary" | "lime" | "ghost-dark" | "ghost-light" | "white";
+export type Tone = "primary" | "green" | "ink" | "lime" | "white" | "ghost-dark" | "ghost-light";
 
-const tones: Record<Tone, string> = {
-  primary: "bg-indigo-600 text-white hover:bg-indigo-700 [--chip:var(--color-lime)] [--chip-fg:var(--color-indigo-950)]",
-  lime: "bg-lime text-indigo-950 hover:bg-lime-dark [--chip:var(--color-indigo-950)] [--chip-fg:var(--color-lime)]",
-  white: "bg-white text-indigo-950 hover:bg-indigo-50 [--chip:var(--color-indigo-600)] [--chip-fg:white]",
-  "ghost-dark": "bg-white/10 text-white ring-1 ring-inset ring-white/30 hover:bg-white/18 backdrop-blur-sm [--chip:white] [--chip-fg:var(--color-indigo-950)]",
-  "ghost-light": "bg-transparent text-indigo-700 ring-1 ring-inset ring-indigo-200 hover:bg-indigo-50 [--chip:var(--color-indigo-600)] [--chip-fg:white]",
+/**
+ * surface = the pill at rest, fill = the circle that sweeps across on hover, on = icon colour over the fill,
+ * over = the label colour once the fill covers it (written out in full so Tailwind generates it).
+ */
+const tones: Record<Tone, { surface: string; fill: string; on: string; over: string }> = {
+  primary: {
+    surface: "bg-indigo-50/90 text-indigo-950 ring-indigo-100",
+    fill: "bg-indigo-600",
+    on: "text-white",
+    over: "group-hover:text-white group-focus-visible:text-white",
+  },
+  green: {
+    surface: "bg-green-100 text-indigo-950 ring-green-600/15",
+    fill: "bg-green-600",
+    on: "text-white",
+    over: "group-hover:text-white group-focus-visible:text-white",
+  },
+  ink: {
+    surface: "bg-white/70 text-indigo-950 ring-indigo-950/10",
+    fill: "bg-indigo-950",
+    on: "text-lime",
+    over: "group-hover:text-white group-focus-visible:text-white",
+  },
+  lime: {
+    surface: "bg-white/12 text-white ring-white/25",
+    fill: "bg-lime",
+    on: "text-indigo-950",
+    over: "group-hover:text-indigo-950 group-focus-visible:text-indigo-950",
+  },
+  white: {
+    surface: "bg-white/16 text-white ring-white/30",
+    fill: "bg-white",
+    on: "text-indigo-950",
+    over: "group-hover:text-indigo-950 group-focus-visible:text-indigo-950",
+  },
+  "ghost-dark": {
+    surface: "bg-transparent text-white ring-white/35",
+    fill: "bg-white",
+    on: "text-indigo-950",
+    over: "group-hover:text-indigo-950 group-focus-visible:text-indigo-950",
+  },
+  "ghost-light": {
+    surface: "bg-transparent text-indigo-950 ring-indigo-950/20",
+    fill: "bg-indigo-950",
+    on: "text-white",
+    over: "group-hover:text-white group-focus-visible:text-white",
+  },
 };
 
-/** Pill CTA with an arrow chip that slides on hover. External links open in a new tab and say so. */
+const sizes = {
+  sm: { h: "2.75rem", text: "text-sm", pad: "pl-1 pr-5", icon: "size-4" },
+  md: { h: "3rem", text: "text-base", pad: "pl-1.5 pr-6", icon: "size-[1.1rem]" },
+  lg: { h: "3.5rem", text: "text-[1.0625rem]", pad: "pl-1.5 pr-7", icon: "size-5" },
+};
+
+/** The sweep shared by every button: a sharp ease-in-out, as in the reference. */
+const sweep = "duration-[480ms] ease-[cubic-bezier(0.65,0,0.076,1)] motion-reduce:transition-none";
+
+/**
+ * Pill CTA. An icon sits in a filled circle on the left; on hover or keyboard focus the fill sweeps across
+ * the whole pill, the icon nudges forward and the label flips to the fill's text colour.
+ * External links open in a new tab and say so.
+ */
 export function Button({
   href,
   children,
   tone = "primary",
   external,
   size = "md",
+  icon,
   className = "",
   ...rest
 }: {
@@ -76,31 +131,30 @@ export function Button({
   children: ReactNode;
   tone?: Tone;
   external?: boolean;
-  size?: "md" | "lg";
+  size?: "sm" | "md" | "lg";
+  icon?: ComponentType<{ className?: string; strokeWidth?: number }>;
   className?: string;
 } & Omit<ComponentProps<"a">, "href" | "children">) {
   const isExternal = external ?? /^https?:/.test(href);
-  const Icon = isExternal ? ArrowUpRight : ArrowRight;
+  const Icon = icon ?? (isExternal ? ArrowUpRight : ArrowRight);
+  const t = tones[tone];
+  const s = sizes[size];
   return (
     <a
       href={href}
       {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className={`group inline-flex min-h-12 items-center gap-3 rounded-full font-semibold transition-[background-color,box-shadow,transform] duration-300 ease-[var(--ease-out-quart)] active:scale-[0.98] ${
-        size === "lg" ? "pl-6 pr-1.5 py-1.5 text-[1.0625rem]" : "pl-5 pr-1.5 py-1.5 text-base"
-      } ${tones[tone]} ${className}`}
+      style={{ "--h": s.h } as CSSProperties}
+      className={`group relative isolate inline-flex h-[var(--h)] items-center overflow-hidden whitespace-nowrap rounded-full font-semibold ring-1 ring-inset backdrop-blur-md transition-transform duration-200 active:scale-[0.97] ${s.text} ${t.surface} ${className}`}
       {...rest}
     >
-      <span>{children}</span>
       <span
         aria-hidden
-        className="relative grid size-9 place-items-center overflow-hidden rounded-full bg-[var(--chip)] text-[var(--chip-fg)]"
-      >
-        <Icon className="size-4 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:translate-x-6 group-hover:-translate-y-0" strokeWidth={2.25} />
-        <Icon
-          className="absolute size-4 -translate-x-6 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:translate-x-0"
-          strokeWidth={2.25}
-        />
+        className={`absolute inset-y-[3px] left-[3px] -z-10 w-[calc(var(--h)-6px)] rounded-full shadow-[inset_0_0_0_1px_rgb(255_255_255/0.12)] transition-[width] group-hover:w-[calc(100%-6px)] group-focus-visible:w-[calc(100%-6px)] ${sweep} ${t.fill}`}
+      />
+      <span aria-hidden className={`grid size-[var(--h)] shrink-0 place-items-center transition-transform group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5 ${sweep} ${t.on}`}>
+        <Icon className={s.icon} strokeWidth={2.25} />
       </span>
+      <span className={`${s.pad} transition-colors duration-300 ${t.over}`}>{children}</span>
       {isExternal && <span className="sr-only">(opens in a new tab)</span>}
     </a>
   );

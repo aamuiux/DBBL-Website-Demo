@@ -13,6 +13,8 @@ export const links = {
   /** "DBBL Rocket" on the App Store, developer Dutch-Bangla Bank. */
   rocketAppStore: "https://apps.apple.com/app/dbbl-rocket/id1194003397",
   rocket: `${B}/rocket/rocket.html`,
+  /** Rocket fees: cash-out 0.9% at DBBL ATMs, 1.67% at agents (general consumer product). */
+  rocketCharges: `${B}/rocket/charges-and-fees.html`,
   /** Rocket's official app icon (Google Play listing for com.dbbl.mbs.apps.main). */
   rocketLogo: "https://play-lh.googleusercontent.com/hcRpk0BWUTNPwr1bRWzNVKGZd2lbtdtNS9d__2w6glKwAUE_xvTh8FjkipEnzrlbEVCGsQ-75UwA5HRAYzHEdw=s512",
   agentBanking: `${B}/agent-banking/agentbanking.html`,

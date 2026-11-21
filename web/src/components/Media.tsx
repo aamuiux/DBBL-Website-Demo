@@ -3,11 +3,11 @@
 import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
 import { motion } from "motion/react";
-import { ArrowRight, ArrowUpRight, Newspaper, Play, X } from "lucide-react";
+import { ArrowRight, Newspaper, Play, X } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
 import { billboards, tvAds } from "@/lib/content";
-import { Reveal, useReduce } from "./ui";
+import { Button, Reveal, useReduce } from "./ui";
 
 /** Media: DBBL's own TV commercials (play in a full-screen dialog) and its billboard series. */
 export function Media() {
@@ -57,15 +57,9 @@ export function Media() {
               { href: links.allBillboards, label: bn ? "সব বিলবোর্ড" : "All billboards" },
               { href: links.allPrintAds, label: bn ? "প্রিন্ট বিজ্ঞাপন" : "Print ads" },
             ].map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center gap-1.5 rounded-full px-4 text-sm font-semibold ring-1 ring-inset ring-white/30 transition-colors hover:bg-white hover:text-indigo-950"
-              >
-                {l.label} <ArrowUpRight className="size-4" aria-hidden />
-              </a>
+              <Button key={l.href} href={l.href} tone="ghost-dark" size="sm">
+                {l.label}
+              </Button>
             ))}
           </Reveal>
         </div>

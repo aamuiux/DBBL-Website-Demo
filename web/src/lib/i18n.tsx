@@ -35,6 +35,13 @@ const en = {
     slide: "Slide",
     slides: [
       {
+        title: "Bangladesh's lowest cash out charge",
+        body: "Cash out from your Rocket account at any DBBL ATM for just 0.9%. That's ৳9 on ৳1,000.",
+        cta: "Get Rocket",
+        cta2: "See all charges",
+        tag: "Rocket cash out",
+      },
+      {
         title: "Got an idea? Get it funded.",
         body: "UDYOG is looking for 5,000 young entrepreneurs across every upazila of 56 districts. Applications run 1 to 30 November 2026.",
         cta: "Get the form",
@@ -227,6 +234,13 @@ const bn: Dict = {
     play: "স্লাইডশো চালান",
     slide: "স্লাইড",
     slides: [
+      {
+        title: "বাংলাদেশে সবচেয়ে কম ক্যাশ আউট চার্জ",
+        body: "যেকোনো ডিবিবিএল এটিএম থেকে রকেট অ্যাকাউন্টের টাকা তুলুন মাত্র ০.৯% চার্জে। ১,০০০ টাকায় মাত্র ৯ টাকা।",
+        cta: "রকেট নিন",
+        cta2: "সব চার্জ দেখুন",
+        tag: "রকেট ক্যাশ আউট",
+      },
       {
         title: "আইডিয়া আছে? অর্থায়ন নিন।",
         body: "৫৬ জেলার সকল উপজেলায় ৫,০০০ তরুণ উদ্যোক্তা খুঁজছে উদ্যোগ। আবেদন ১ থেকে ৩০ নভেম্বর ২০২৬।",
