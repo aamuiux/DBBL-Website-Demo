@@ -10,6 +10,8 @@ export const links = {
   nexusPayPlay: "https://play.google.com/store/apps/details?id=com.dbbl.nexus.pay",
   nexusPayAppStore: "https://apps.apple.com/app/nexuspay/id1309057095",
   rocketPlay: "https://play.google.com/store/apps/details?id=com.dbbl.mbs.apps.main",
+  /** "DBBL Rocket" on the App Store, developer Dutch-Bangla Bank. */
+  rocketAppStore: "https://apps.apple.com/app/dbbl-rocket/id1194003397",
   rocket: `${B}/rocket/rocket.html`,
   /** Rocket's official app icon (Google Play listing for com.dbbl.mbs.apps.main). */
   rocketLogo: "https://play-lh.googleusercontent.com/hcRpk0BWUTNPwr1bRWzNVKGZd2lbtdtNS9d__2w6glKwAUE_xvTh8FjkipEnzrlbEVCGsQ-75UwA5HRAYzHEdw=s512",

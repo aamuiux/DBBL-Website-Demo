@@ -276,7 +276,20 @@ function NetworkCorners() {
   );
 }
 
-export function StoreBadges({ light = false, outline = false }: { light?: boolean; outline?: boolean }) {
+export function StoreBadges({
+  light = false,
+  outline = false,
+  play = links.nexusPayPlay,
+  appStore = links.nexusPayAppStore,
+  app,
+}: {
+  light?: boolean;
+  outline?: boolean;
+  play?: string;
+  appStore?: string;
+  /** App name for screen readers, e.g. "Rocket". */
+  app?: string;
+}) {
   const base = `group inline-flex h-14 items-center gap-3 rounded-2xl pl-4 pr-5 transition-colors ${
     outline
       ? "rounded-full text-white ring-1 ring-inset ring-white/70 hover:bg-white hover:text-indigo-950"
@@ -286,7 +299,7 @@ export function StoreBadges({ light = false, outline = false }: { light?: boolea
   }`;
   return (
     <>
-      <a href={links.nexusPayPlay} target="_blank" rel="noopener noreferrer" className={base}>
+      <a href={play} target="_blank" rel="noopener noreferrer" className={base}>
         <svg viewBox="0 0 24 24" className="size-6" aria-hidden>
           <path d="M3.6 2.3 13.4 12l-9.8 9.7c-.4-.2-.6-.6-.6-1.1V3.4c0-.5.2-.9.6-1.1Z" fill="#00904a" />
           <path d="m16.8 8.6-3.4 3.4-9.8-9.7c.3-.2.8-.2 1.2 0l12 6.3Z" fill="#3a40a8" />
@@ -297,9 +310,9 @@ export function StoreBadges({ light = false, outline = false }: { light?: boolea
           <span className="block text-[11px] opacity-70">Get it on</span>
           <span className="block font-semibold">Google Play</span>
         </span>
-        <span className="sr-only">(opens in a new tab)</span>
+        <span className="sr-only">{app ? ` (${app})` : ""} (opens in a new tab)</span>
       </a>
-      <a href={links.nexusPayAppStore} target="_blank" rel="noopener noreferrer" className={base}>
+      <a href={appStore} target="_blank" rel="noopener noreferrer" className={base}>
         <svg viewBox="0 0 24 24" className="size-6" aria-hidden fill="currentColor">
           <path d="M16.4 12.6c0-2.5 2-3.7 2.1-3.8-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8s2 .8 3.3.8c1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.8-1-2.8-4.2ZM14 5.2c.7-.8 1.2-2 1-3.2-1 .1-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.5 2.9-1.3Z" />
         </svg>
@@ -307,7 +320,7 @@ export function StoreBadges({ light = false, outline = false }: { light?: boolea
           <span className="block text-[11px] opacity-70">Download on the</span>
           <span className="block font-semibold">App Store</span>
         </span>
-        <span className="sr-only">(opens in a new tab)</span>
+        <span className="sr-only">{app ? ` (${app})` : ""} (opens in a new tab)</span>
       </a>
     </>
   );

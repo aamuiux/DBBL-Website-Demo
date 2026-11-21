@@ -10,11 +10,12 @@ import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
 import { rocketFeatures } from "@/lib/content";
 import { Button, Reveal, useReduce } from "./ui";
+import { StoreBadges } from "./AppStory";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const useIsoLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
-const MQ = "(min-width: 1024px) and (min-height: 700px) and (pointer: fine)";
+const MQ = "(min-width: 1024px) and (min-height: 760px) and (pointer: fine)";
 function subscribeMq(cb: () => void) {
   const mq = window.matchMedia(MQ);
   mq.addEventListener("change", cb);
@@ -248,7 +249,7 @@ export function RocketBand() {
 
         <div
           className={`relative mx-auto grid max-w-[1360px] gap-12 px-5 sm:px-6 lg:grid-cols-[1fr_1.1fr] lg:items-center xl:px-10 ${
-            pinned ? "h-full py-10" : "py-24 md:py-28"
+            pinned ? "h-full pb-6 pt-[calc(var(--header-h)+0.75rem)]" : "py-24 md:py-28"
           }`}
         >
           {/* Story copy */}
@@ -263,17 +264,20 @@ export function RocketBand() {
               </span>
             </div>
 
-            <h2 data-copy id={`${id}-h`} className="font-display mt-7 text-balance text-[clamp(2.5rem,4.6vw,4.5rem)] font-semibold leading-[0.95] tracking-[-0.045em]">
+            <h2 data-copy id={`${id}-h`} className="font-display mt-5 text-balance text-[clamp(2.5rem,4.2vw,4.25rem)] font-semibold leading-[0.95] tracking-[-0.045em]">
               {bn ? "বাংলাদেশের" : "Bangladesh's"} <span className="text-sun">{bn ? "১ নম্বর নিরাপদ এমএফএস" : "#1 secure MFS"}</span>
             </h2>
-            <p data-copy className="mt-5 max-w-[46ch] text-pretty text-lg text-white/85">
+            <p data-copy className="mt-4 max-w-[46ch] text-pretty text-lg text-white/85">
               {bn
                 ? "রকেট দেশের প্রথম মোবাইল আর্থিক সেবা। অ্যাপ লাগে না, স্মার্টফোনও না: *৩২২# ডায়াল করলেই চলে।"
                 : "Rocket was Bangladesh's first mobile financial service. No app, no smartphone needed: dial *322# and you're banking."}
             </p>
+            <div data-copy className="mt-6 flex flex-wrap gap-3">
+              <StoreBadges outline play={links.rocketPlay} appStore={links.rocketAppStore} app="Rocket" />
+            </div>
 
             {/* What to do: pick a service */}
-            <div data-copy className="mt-7 flex flex-wrap gap-2" role="group" aria-label={bn ? "একটি সেবা বেছে নিন" : "Pick a service"}>
+            <div data-copy className="mt-6 flex flex-wrap gap-2" role="group" aria-label={bn ? "একটি সেবা বেছে নিন" : "Pick a service"}>
               {services.map((s, i) => (
                 <button
                   key={s.key}
@@ -290,7 +294,7 @@ export function RocketBand() {
             </div>
 
             {/* The four steps; the active one tracks the scroll (or the tap) */}
-            <ol data-copy className="mt-6 space-y-1.5">
+            <ol data-copy className="mt-4 space-y-1">
               {steps.map((s, i) => {
                 const active = step === i;
                 const done = i < step || sent;
@@ -300,7 +304,7 @@ export function RocketBand() {
                       type="button"
                       onClick={() => goStep(i)}
                       aria-current={active ? "step" : undefined}
-                      className={`flex min-h-12 w-full max-w-md items-center gap-3 rounded-2xl px-3 text-left font-semibold transition-colors duration-300 ${
+                      className={`flex min-h-11 w-full max-w-md items-center gap-3 rounded-2xl px-3 text-left font-semibold transition-colors duration-300 ${
                         active ? "bg-white text-rocket-ink" : "text-white/80 hover:bg-white/10"
                       }`}
                     >
@@ -531,10 +535,7 @@ export function RocketBand() {
 
           <div className="mt-10 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex flex-wrap gap-3">
-              <Button href={links.rocketPlay} tone="white" size="lg">
-                {bn ? "রকেট অ্যাপ নিন" : "Get the Rocket app"}
-              </Button>
-              <Button href={links.rocket} tone="ghost-dark" size="lg">
+              <Button href={links.rocket} tone="white" size="lg">
                 {bn ? "রকেট সম্পর্কে" : "All about Rocket"}
               </Button>
             </div>

@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main id="main" tabIndex={-1} className="outline-none">
+      <main id="main" tabIndex={-1} className="pt-[var(--header-h)] outline-none">
         <Hero />
         <QuickDock />
         <OffersTicker />

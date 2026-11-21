@@ -9,7 +9,6 @@ import { nav, type NavItem } from "@/lib/nav";
 import { links, phone } from "@/lib/links";
 import { easeOut, useReduce } from "./ui";
 
-const segmentHrefs = [links.personalAccounts, links.vip, links.smeLenden, links.corporate, links.offshore];
 
 const featureTone: Record<NavItem["feature"]["tone"], string> = {
   indigo: "bg-indigo-600 text-white",
@@ -22,10 +21,8 @@ export function Header() {
   const { d, lang, toggle } = useLang();
   const reduce = useReduce();
   const [scrolled, setScrolled] = useState(false);
-  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState<NavItem["key"] | null>(null);
   const [drawer, setDrawer] = useState(false);
-  const lastY = useRef(0);
   const openTimer = useRef<number | null>(null);
   const closeTimer = useRef<number | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
@@ -41,12 +38,12 @@ export function Header() {
   const kSpring = useSpring(kRaw, { stiffness: 260, damping: 34, mass: 0.6 });
   const k = reduce ? kRaw : kSpring;
 
-  // Intelligent header: hides on the way down, returns on the way up, and reads the tone underneath.
+  // Always-visible sticky header that reads the tone of the page underneath it.
   useEffect(() => {
     let raf = 0;
     const sample = () => {
       raf = 0;
-      // Where the island rests (not where it is now: it may be hidden above the viewport mid-scroll).
+      // Where the island rests once it has floated free of the top edge.
       const bar = barRef.current;
       const y = 12 + (bar ? bar.offsetHeight : 64) / 2;
       // Left edge of the page: section grounds, not the cards inside them.
@@ -55,12 +52,7 @@ export function Header() {
     };
     let settle: number | undefined;
     const onScroll = () => {
-      const y = window.scrollY;
-      setScrolled(y > 24);
-      const goingDown = y > lastY.current;
-      if (y > 480 && goingDown && Math.abs(y - lastY.current) > 4) setHidden(true);
-      else if (!goingDown) setHidden(false);
-      lastY.current = y;
+      setScrolled(window.scrollY > 24);
       if (!raf) raf = requestAnimationFrame(sample);
       // And once more after the page comes to rest (jumps and pinned sections can skip a frame).
       window.clearTimeout(settle);
@@ -133,8 +125,8 @@ export function Header() {
   }, [drawer]);
 
   const active = nav.find((n) => n.key === open);
-  // Over the hero the bar is transparent on dark; as an island it takes the tone underneath; an open mega menu is light.
-  const tone: "dark" | "light" = open ? "light" : scrolled ? under : "dark";
+  // A solid white bar at the top of the page; as an island it takes the tone underneath; an open mega menu is light.
+  const tone: "dark" | "light" = open || !scrolled ? "light" : under;
   const lightUi = tone === "light"; // dark text on light glass
   const bubble = lightUi ? "bg-indigo-50" : "bg-white/14";
   const bubbleSpring = reduce ? { duration: 0 } : { type: "spring" as const, stiffness: 420, damping: 34 };
@@ -152,91 +144,31 @@ export function Header() {
         ref={navRef}
         onMouseLeave={hoverClose}
         style={{ "--k": k } as React.CSSProperties}
-        className={`fixed inset-x-0 top-0 z-50 transition-transform duration-500 ease-[var(--ease-out-expo)] ${
-          hidden && !drawer && !open ? "-translate-y-[calc(100%+16px)]" : "translate-y-0"
-        }`}
+        className="fixed inset-x-0 top-0 z-50"
       >
-        {/* Mobile: the concept label stays visible in the first viewport */}
-        <div
-          className={`overflow-hidden bg-lime text-center text-xs font-bold text-indigo-950 transition-[max-height] duration-500 ease-[var(--ease-out-expo)] lg:hidden ${
-            scrolled ? "max-h-0" : "max-h-7"
-          }`}
-        >
-          <p className="flex h-7 items-center justify-center px-4">{d.conceptNote}</p>
-        </div>
-
-        {/* Utility bar: segments, hotline, locator, language */}
-        <div
-          className={`on-dark hidden overflow-hidden bg-indigo-950 text-[0.8125rem] text-indigo-200 transition-[max-height] duration-500 ease-[var(--ease-out-expo)] lg:block ${
-            scrolled ? "max-h-0" : "max-h-10"
-          }`}
-        >
-          <div className="mx-auto flex h-10 max-w-[1360px] items-center justify-between px-6 xl:px-10">
-            <nav aria-label="Customer segments">
-              <ul className="flex items-center gap-1">
-                {d.utility.segments.map((seg, i) => (
-                  <li key={seg}>
-                    <a
-                      href={segmentHrefs[i]}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`rounded-full px-3 py-1.5 transition-colors hover:bg-white/10 hover:text-white ${i === 0 ? "text-white" : ""}`}
-                    >
-                      {seg}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-            <div className="flex items-center gap-5">
-              <span className="rounded-full bg-lime px-2.5 py-0.5 text-xs font-bold text-indigo-950">{d.conceptNote}</span>
-              <a href={`tel:${phone.hotline}`} className="inline-flex items-center gap-1.5 hover:text-white">
-                <Phone className="size-3.5" aria-hidden />
-                <span>{d.utility.hotline}</span>
-                <span className="tabular font-semibold text-white">16216</span>
-              </a>
-              <a href={links.atmLocator} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-white">
-                <MapPin className="size-3.5" aria-hidden />
-                {d.utility.locate}
-              </a>
-              <button
-                type="button"
-                onClick={toggle}
-                aria-label={d.utility.langAria}
-                lang={lang === "en" ? "bn" : "en"}
-                className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-semibold text-white ring-1 ring-white/25 hover:bg-white/10"
-              >
-                <Globe className="size-3.5" aria-hidden />
-                {d.utility.langLabel}
-              </button>
-            </div>
-          </div>
-        </div>
-
         {/* Main bar: full width at the top, a floating glass island once the page moves */}
         <div className="px-[calc(var(--k)*10px)] pt-[calc(var(--k)*10px)] sm:px-[calc(var(--k)*20px)] sm:pt-[calc(var(--k)*12px)]">
         <div
           ref={barRef}
           className="relative mx-auto max-w-[calc(100vw-var(--k)*max(0px,100vw-1240px))]"
         >
-          {/* Glass: fades in with the scroll, light or dark to match the section underneath */}
-          <motion.div
+          {/* Background: solid at the top, glass once it floats, light or dark to match the section underneath */}
+          <div
             aria-hidden
-            style={{ opacity: open ? 1 : k }}
             className={`pointer-events-none absolute inset-0 overflow-hidden rounded-[calc(var(--k)*30px)] backdrop-blur-xl backdrop-saturate-150 transition-shadow duration-500 ${
               lightUi
                 ? "shadow-[0_1px_0_var(--color-line),0_18px_40px_-22px_rgb(13_15_43/0.45)] ring-1 ring-inset ring-indigo-950/8"
                 : "shadow-[0_18px_44px_-20px_rgb(0_0_0/0.6)] ring-1 ring-inset ring-white/12"
             }`}
           >
-            <span className={`absolute inset-0 bg-white/85 transition-opacity duration-500 ${lightUi ? "opacity-100" : "opacity-0"}`} />
+            <span className={`absolute inset-0 bg-white/90 transition-opacity duration-500 ${lightUi ? "opacity-100" : "opacity-0"}`} />
             <span className={`absolute inset-0 bg-indigo-950/72 transition-opacity duration-500 ${lightUi ? "opacity-0" : "opacity-100"}`} />
             {/* Reading progress along the island's lower edge */}
             <motion.span
               style={{ scaleX: scrollYProgress }}
               className={`absolute inset-x-[calc(var(--k)*22px)] bottom-0 h-[2px] origin-left rounded-full transition-colors duration-500 ${lightUi ? "bg-indigo-500" : "bg-lime"}`}
             />
-          </motion.div>
+          </div>
 
           <div className="relative mx-auto flex h-[calc(var(--header-h)-var(--k)*12px)] max-w-[1360px] items-center gap-6 px-5 sm:px-6 xl:px-10 xl:pr-[calc(2.5rem-var(--k)*1.75rem)] xl:pl-[calc(2.5rem-var(--k)*1rem)]">
             <a href="#top" aria-label="Dutch-Bangla Bank home" className="shrink-0" onClick={close}>
@@ -315,11 +247,20 @@ export function Header() {
                 type="button"
                 onClick={toggle}
                 aria-label={d.utility.langAria}
-                className={`inline-flex h-11 items-center rounded-full px-3 text-sm font-semibold lg:hidden ${
-                  lightUi ?"text-indigo-700 ring-1 ring-inset ring-indigo-200" : "text-white ring-1 ring-inset ring-white/35"
+                lang={lang === "en" ? "bn" : "en"}
+                className={`inline-flex h-11 items-center gap-1.5 rounded-full px-3 text-sm font-semibold transition-colors ${
+                  lightUi ? "text-indigo-700 ring-1 ring-inset ring-indigo-200 hover:bg-indigo-50" : "text-white ring-1 ring-inset ring-white/35 hover:bg-white/10"
                 }`}
               >
-                {lang === "en" ? "বাং" : "EN"}
+                <Globe className="hidden size-4 xl:block" aria-hidden />
+                {lang === "en" ? (
+                  <>
+                    <span className="xl:hidden">বাং</span>
+                    <span className="hidden xl:inline">বাংলা</span>
+                  </>
+                ) : (
+                  "EN"
+                )}
               </button>
               <a
                 href={links.faq}

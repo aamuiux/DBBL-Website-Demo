@@ -96,7 +96,7 @@ export function Hero() {
       id="top"
       aria-roledescription="carousel"
       aria-label="Highlights"
-      className="on-dark relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-indigo-950 text-white"
+      className="on-dark relative isolate flex min-h-[calc(100svh-var(--header-h))] flex-col overflow-hidden bg-indigo-950 text-white"
       onPointerMove={(e) => {
         if (reduce || e.pointerType !== "mouse") return;
         const r = e.currentTarget.getBoundingClientRect();
@@ -138,7 +138,7 @@ export function Hero() {
         className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgb(9_11_58/0.86)_0%,rgb(9_11_58/0.55)_42%,rgb(9_11_58/0.05)_75%),linear-gradient(0deg,rgb(9_11_58/0.9)_0%,rgb(9_11_58/0)_45%),linear-gradient(180deg,rgb(9_11_58/0.55)_0%,rgb(9_11_58/0)_22%)]"
       />
 
-      <div className="mx-auto flex w-full max-w-[1360px] flex-1 flex-col justify-end px-5 pb-36 pt-40 sm:px-6 sm:pb-40 xl:px-10">
+      <div className="mx-auto flex w-full max-w-[1360px] flex-1 flex-col justify-end px-5 pb-36 pt-24 sm:px-6 sm:pb-40 xl:px-10">
         <div className="max-w-[44rem]" aria-live={playing ? "off" : "polite"}>
           <AnimatePresence mode="wait" initial={false}>
             <motion.div

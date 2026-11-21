@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useId } from "react";
-import { motion } from "motion/react";
+import { useId, useRef } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { Check, Clock3, MapPin } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
@@ -16,6 +16,11 @@ export function FastTrack() {
   const reduce = useReduce();
   const id = useId();
   const bn = lang === "bn";
+  // The photo eases from a slight zoom to rest while it crosses the viewport.
+  const photoRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: photoRef, offset: ["start end", "end start"] });
+  const photoScale = useTransform(scrollYProgress, [0, 1], reduce ? [1, 1] : [1.18, 1.02]);
+  const photoY = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["-4%", "4%"]);
 
   return (
     <section id="fast-track" aria-labelledby={`${id}-h`} className="relative overflow-hidden bg-white py-24 md:py-32">
@@ -58,16 +63,30 @@ export function FastTrack() {
         </div>
 
         <div className="mt-14 grid gap-4 lg:grid-cols-[1.5fr_1fr]">
-          {/* Real Fast Track photo with the opening hours pinned on it */}
-          <Reveal className="relative min-h-[26rem] overflow-hidden rounded-[1.75rem] lg:min-h-80">
-            <Image
-              src={links.fastTrackPhoto}
-              alt={bn ? "একটি ডিবিবিএল ফাস্ট ট্র্যাক: সারি করে এটিএম আর সাহায্যের ডেস্ক" : "Inside a DBBL Fast Track: a row of ATMs and a help desk"}
-              fill
-              sizes="(min-width:1024px) 60vw, 100vw"
-              quality={80}
-              className="object-cover"
-            />
+          {/* Self-service banking photo (stand-in) that eases in as it scrolls, with the opening hours pinned on it */}
+          <Reveal className="relative min-h-[26rem] overflow-hidden rounded-[1.75rem] bg-indigo-950 lg:min-h-80">
+            <div ref={photoRef} className="absolute inset-0">
+              <motion.div style={{ scale: photoScale, y: photoY }} className="absolute inset-0">
+                <Image
+                  src="https://images.unsplash.com/photo-1682344059600-a869f15f3ace?w=1600&q=80&auto=format"
+                  alt={bn ? "পাশাপাশি দুটি আধুনিক এটিএম, উজ্জ্বল নীল স্ক্রিন" : "Two modern ATMs side by side with glowing blue screens"}
+                  fill
+                  sizes="(min-width:1024px) 60vw, 100vw"
+                  quality={80}
+                  className="object-cover"
+                />
+              </motion.div>
+            </div>
+            <span aria-hidden className="absolute inset-0 bg-[linear-gradient(200deg,transparent_45%,rgb(9_11_58/0.55))]" />
+            <motion.p
+              initial={reduce ? false : { opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ type: "spring", stiffness: 180, damping: 20, delay: 0.35 }}
+              className="absolute right-5 top-5 rounded-full bg-white/15 px-4 py-2 text-sm font-semibold text-white ring-1 ring-inset ring-white/30 backdrop-blur-md sm:right-7 sm:top-7"
+            >
+              {fastTrack.perTrack[lang]}
+            </motion.p>
             <motion.div
               initial={reduce ? false : { opacity: 0, y: 30, rotate: -6 }}
               whileInView={{ opacity: 1, y: 0, rotate: -3 }}
@@ -101,7 +120,7 @@ export function FastTrack() {
               <div className="mt-4">
                 <p className="text-lg font-semibold">{bn ? "ফাস্ট ট্র্যাক" : "Fast Tracks"}</p>
                 <p className="text-indigo-200">
-                  {fastTrack.perTrack[lang]} · {fastTrack.launched[lang]}
+                  {fastTrack.launched[lang]}
                 </p>
               </div>
             </Reveal>

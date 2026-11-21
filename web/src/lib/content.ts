@@ -84,6 +84,46 @@ export const fastTrack = {
 };
 
 /* ───────── Media: DBBL's own TV commercials and billboards ───────── */
+/* ───────── Cards: DBBL's own card faces, as published on its debit, credit and prepaid card pages ───────── */
+const card = (path: string, name: string) => ({ src: `${B}/images/${path}`, name });
+export const cardGroups = [
+  {
+    key: "debit",
+    href: "debitCards",
+    cards: [
+      card("debit-card/1.png", "Instant Debit Card"),
+      card("debit-card/2.png", "VISA Debit Card"),
+      card("debit-card/3.png", "MasterCard Debit Card"),
+      card("debit-card/4.png", "VISA International Debit Card"),
+      card("debit-card/5.png", "MasterCard International Debit Card"),
+    ],
+  },
+  {
+    key: "credit",
+    href: "creditCards",
+    cards: [
+      card("debit-card/9.png", "VISA Gold International Credit Card"),
+      card("debit-card/13.png", "MasterCard Gold International Credit Card"),
+      card("debit-card/VISA_Platinum_Front_Card_Face.jpg", "VISA Platinum Credit Card"),
+      card("debit-card/Mastercard_Titanium_Front_Card_Face.jpg", "Mastercard Titanium Credit Card"),
+      card("debit-card/visa-sig.jpg", "VISA Signature Credit Card"),
+      card("debit-card/mastercardworld.jpg", "MasterCard World Credit Card"),
+    ],
+  },
+  {
+    key: "prepaid",
+    href: "prepaidCards",
+    cards: [
+      card("prepaid-card/Travel_Card.jpg", "Travel Card"),
+      card("prepaid-card/Hajj_Card.jpg", "Hajj Card"),
+      card("prepaid-card/Femina_Card.jpg", "Femina Card"),
+      card("prepaid-card/Gift_Card.jpg", "Gift Card"),
+      card("prepaid-card/Payroll_Card.jpg", "Payroll Card"),
+      card("prepaid-card/Campus_Card.jpg", "Campus Card"),
+    ],
+  },
+] as const;
+
 export const tvAds = [60, 61, 62, 63, 64, 65].map((n) => ({
   id: n,
   poster: `${B}/img/poster/videoimg${n}.jpg`,
