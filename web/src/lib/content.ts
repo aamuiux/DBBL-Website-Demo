@@ -84,42 +84,52 @@ export const fastTrack = {
 };
 
 /* ───────── Media: DBBL's own TV commercials and billboards ───────── */
-/* ───────── Cards: DBBL's own card faces, as published on its debit, credit and prepaid card pages ───────── */
-const card = (path: string, name: string) => ({ src: `${B}/images/${path}`, name });
+/* ───────── Cards: illustrative designs (not DBBL's actual card faces). Names are DBBL's product names. ───────── */
+export type CardSpec = {
+  name: string;
+  /** Short tier line printed on the card */
+  tier: string;
+  network: "visa" | "mastercard" | "none";
+  bg: string;
+  /** "light" text for dark cards, "dark" for gold/silver */
+  ink: "light" | "dark";
+  accent: string;
+};
+const card = (name: string, tier: string, network: CardSpec["network"], bg: string, ink: CardSpec["ink"], accent: string): CardSpec => ({ name, tier, network, bg, ink, accent });
 export const cardGroups = [
   {
     key: "debit",
     href: "debitCards",
     cards: [
-      card("debit-card/1.png", "Instant Debit Card"),
-      card("debit-card/2.png", "VISA Debit Card"),
-      card("debit-card/3.png", "MasterCard Debit Card"),
-      card("debit-card/4.png", "VISA International Debit Card"),
-      card("debit-card/5.png", "MasterCard International Debit Card"),
+      card("Nexus Debit Card", "Nexus Debit", "none", "linear-gradient(135deg,#1e2378,#090b3a)", "light", "#c8f169"),
+      card("VISA Debit Card", "Debit", "visa", "linear-gradient(135deg,#3a40a8,#161a63)", "light", "#ffffff"),
+      card("MasterCard Debit Card", "Debit", "mastercard", "linear-gradient(135deg,#c1272d,#3a0d18)", "light", "#ffcf3d"),
+      card("VISA International Debit Card", "International Debit", "visa", "linear-gradient(135deg,#00904a,#0e1150)", "light", "#c8f169"),
+      card("MasterCard International Debit Card", "International Debit", "mastercard", "linear-gradient(135deg,#f08a24,#a3201f)", "light", "#ffffff"),
     ],
   },
   {
     key: "credit",
     href: "creditCards",
     cards: [
-      card("debit-card/9.png", "VISA Gold International Credit Card"),
-      card("debit-card/13.png", "MasterCard Gold International Credit Card"),
-      card("debit-card/VISA_Platinum_Front_Card_Face.jpg", "VISA Platinum Credit Card"),
-      card("debit-card/Mastercard_Titanium_Front_Card_Face.jpg", "Mastercard Titanium Credit Card"),
-      card("debit-card/visa-sig.jpg", "VISA Signature Credit Card"),
-      card("debit-card/mastercardworld.jpg", "MasterCard World Credit Card"),
+      card("VISA Gold International Credit Card", "Gold", "visa", "linear-gradient(135deg,#f0d27a,#a97c1e)", "dark", "#6b4a06"),
+      card("MasterCard Gold International Credit Card", "Gold", "mastercard", "linear-gradient(135deg,#f4d98a,#b6862a)", "dark", "#6b4a06"),
+      card("VISA Platinum Credit Card", "Platinum", "visa", "linear-gradient(135deg,#eceef5,#9aa0b6)", "dark", "#3a3f58"),
+      card("Mastercard Titanium Credit Card", "Titanium", "mastercard", "linear-gradient(135deg,#585c6e,#1b1d2a)", "light", "#d7dae6"),
+      card("VISA Signature Credit Card", "Signature", "visa", "linear-gradient(135deg,#1b1c33,#05060f)", "light", "#e6c15a"),
+      card("MasterCard World Credit Card", "World", "mastercard", "linear-gradient(135deg,#161a63,#02030f)", "light", "#c8f169"),
     ],
   },
   {
     key: "prepaid",
     href: "prepaidCards",
     cards: [
-      card("prepaid-card/Travel_Card.jpg", "Travel Card"),
-      card("prepaid-card/Hajj_Card.jpg", "Hajj Card"),
-      card("prepaid-card/Femina_Card.jpg", "Femina Card"),
-      card("prepaid-card/Gift_Card.jpg", "Gift Card"),
-      card("prepaid-card/Payroll_Card.jpg", "Payroll Card"),
-      card("prepaid-card/Campus_Card.jpg", "Campus Card"),
+      card("Travel Card", "Prepaid · Travel", "none", "linear-gradient(135deg,#2aa7e0,#1e2378)", "light", "#ffffff"),
+      card("Hajj Card", "Prepaid · Hajj", "none", "linear-gradient(135deg,#0b8a52,#0a3b2a)", "light", "#ffe9a3"),
+      card("Femina Card", "Prepaid · Femina", "none", "linear-gradient(135deg,#e0568f,#7a2a8f)", "light", "#ffffff"),
+      card("Gift Card", "Prepaid · Gift", "none", "linear-gradient(135deg,#e31b23,#f7a41d)", "light", "#ffffff"),
+      card("Payroll Card", "Prepaid · Payroll", "none", "linear-gradient(135deg,#00a38a,#0e1150)", "light", "#c8f169"),
+      card("Campus Card", "Prepaid · Campus", "none", "linear-gradient(135deg,#ff9d2e,#d11f2a)", "light", "#ffffff"),
     ],
   },
 ] as const;

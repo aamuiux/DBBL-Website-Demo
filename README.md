@@ -26,7 +26,7 @@ Next.js 16 (App Router, static), TypeScript, Tailwind CSS 4, Motion (Framer Moti
 4. "What do you want to do?": needs-based tabs (save, spend, borrow, send, business) with a lead product and related products.
 5. NexusPay story: on desktop the section pins and scrolling walks an illustrative phone through four real NexusPay features; tap-through on touch screens.
 6. Rocket: a scroll story of a keypad phone dialling *322# and sending money, with Google Play and App Store links.
-7. Cards: pinned on desktop; the scroll deals, fans and swaps DBBL's real debit, credit and prepaid card faces (tabs on phones).
+7. Cards: pinned on desktop; the scroll deals, fans and swaps illustrative debit, credit and prepaid card designs (tabs on phones).
 8. Video: the frame opens to full bleed on scroll; plays one of DBBL's own TV commercials on request, with loading and error states.
 9. Segments: Personal, VIP, SME, Corporate, NRB & Offshore.
 10. Proof: DBBL's published figures, its firsts, and a diagram of the ATM network shared with Bangladesh Bank and 23 banks.
@@ -44,7 +44,7 @@ Every product, figure and link comes from DBBL's public site (checked 2026-11-21
 - **Photography** (Unsplash, free licence): hero slides, the Students photo slider, segments, video backdrop and the Conscience section. Swap for DBBL's own photography.
 - **App screens**: `web/src/components/PhoneScreens.tsx` is an illustrative mock with demo data (balances, numbers, "Corner Grocery (demo)"). Replace with real NexusPay screenshots.
 - **Rocket logo**: the Rocket section uses Rocket's official app icon, hotlinked from its Google Play listing (`links.rocketLogo`). Get the logo files from DBBL and self-host them. The keypad and app screens in that section are illustrative, and the *322# menu wording may differ from the real one.
-- **Card faces**: DBBL's own card images, hotlinked from dutchbanglabank.com/images. Self-host them for production.
+- **Card faces**: illustrative concept designs drawn in code (not DBBL's actual card faces), so there is nothing to hotlink or self-host.
 - **Fast Track photo**: an Unsplash stand-in (modern ATMs). Swap for a photo of a real DBBL Fast Track.
 - **TV commercial**: streamed from dutchbanglabank.com (`video1/video60.webm`). Self-host a compressed MP4/WebM with a poster for production.
 - **Bangla copy**: written for the concept; have it reviewed by a native copywriter.

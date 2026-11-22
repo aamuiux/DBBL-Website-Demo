@@ -8,7 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
-import { cardGroups } from "@/lib/content";
+import { cardGroups, type CardSpec } from "@/lib/content";
 import { Button, useReduce } from "./ui";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -179,12 +179,12 @@ export function Cards() {
               <div key={g.key} data-deck className="absolute inset-0" aria-hidden={gi !== step}>
                 {g.cards.map((c, i) => (
                   <div key={c.name} data-card className="absolute left-[46%] top-[44%] w-[min(21rem,26vw)] -translate-x-1/2" style={{ zIndex: i }}>
-                    <CardFace src={c.src} name={c.name} />
+                    <CardFace spec={c} />
                   </div>
                 ))}
               </div>
             ))}
-            <p className="absolute inset-x-0 bottom-6 text-center text-sm text-ink-3">{bn ? "কার্ডের ছবি dutchbanglabank.com থেকে" : "Card faces from dutchbanglabank.com"}</p>
+            <p className="absolute inset-x-0 bottom-6 text-center text-sm text-ink-3">{bn ? "চিত্রণমূলক কার্ড ডিজাইন, আসল কার্ড নয়" : "Illustrative card designs, not actual DBBL cards"}</p>
           </div>
         </div>
       </section>
@@ -213,7 +213,7 @@ export function Cards() {
                 className="absolute left-1/2 top-[40%] w-[min(17rem,54vw)] -translate-x-1/2"
                 style={{ zIndex: i, transformOrigin: PIVOT }}
               >
-                <CardFace src={c.src} name={c.name} />
+                <CardFace spec={c} />
               </motion.div>
             );
           })}
@@ -223,15 +223,60 @@ export function Cards() {
   );
 }
 
-/** A real DBBL card face. Hover lifts it and names it. */
-function CardFace({ src, name }: { src: string; name: string }) {
+/** An illustrative card design (not a real DBBL card face). Hover lifts it and names it. */
+function CardFace({ spec }: { spec: CardSpec }) {
+  const light = spec.ink === "light";
+  const text = light ? "text-white" : "text-[#1d1a10]";
   return (
     <div className="group relative transition-transform duration-500 ease-[var(--ease-out-expo)] hover:-translate-y-6">
-      <div className="relative aspect-[1.586/1] overflow-hidden rounded-[0.9rem] bg-white shadow-[0_24px_50px_-22px_rgb(9_11_58/0.55)] ring-1 ring-black/5">
-        <Image src={src} alt={name} fill sizes="(min-width:1024px) 340px, 280px" quality={80} className="scale-[1.04] object-cover" />
+      <div
+        role="img"
+        aria-label={spec.name}
+        className={`@container relative aspect-[1.586/1] overflow-hidden rounded-[0.9rem] shadow-[0_24px_50px_-22px_rgb(9_11_58/0.55)] ring-1 ring-black/10 ${text}`}
+        style={{ background: spec.bg }}
+      >
+        {/* Decorative arcs and a soft sheen */}
+        <span aria-hidden className="absolute -right-[18%] -top-[45%] size-[85%] rounded-full border-[2.2cqw] opacity-25" style={{ borderColor: spec.accent }} />
+        <span aria-hidden className="absolute -right-[4%] -top-[30%] size-[85%] rounded-full border-[1cqw] opacity-20" style={{ borderColor: spec.accent }} />
+        <span aria-hidden className="absolute inset-0 bg-[linear-gradient(115deg,rgb(255_255_255/0.22),transparent_38%,transparent_70%,rgb(255_255_255/0.08))]" />
+
+        {/* Top row: DBBL mark and the tier */}
+        <div className="absolute inset-x-[6%] top-[8%] flex items-start justify-between">
+          <span className="flex items-center gap-[2cqw]">
+            <span className="grid h-[11cqw] w-[15cqw] place-items-center rounded-[1.6cqw] bg-white/90">
+              <Image src="/dbbl-mark.svg" alt="" width={80} height={50} className="w-[10.5cqw]" />
+            </span>
+            <span className="font-display text-[4.4cqw] font-bold leading-none tracking-[-0.01em]">Dutch-Bangla Bank</span>
+          </span>
+          <span className="rounded-full px-[2.6cqw] py-[1cqw] text-[3.2cqw] font-semibold" style={{ background: light ? "rgb(255 255 255 / 0.16)" : "rgb(0 0 0 / 0.1)" }}>
+            {spec.tier}
+          </span>
+        </div>
+
+        {/* Chip and contactless */}
+        <div className="absolute left-[6%] top-[38%] flex items-center gap-[4cqw]">
+          <span className="relative block h-[12cqw] w-[16.5cqw] overflow-hidden rounded-[2cqw] bg-[linear-gradient(135deg,#f3dc8a,#b98f2e)] shadow-sm">
+            <span className="absolute inset-x-0 top-1/2 h-px bg-black/25" />
+            <span className="absolute inset-y-0 left-1/3 w-px bg-black/25" />
+            <span className="absolute inset-y-0 left-2/3 w-px bg-black/25" />
+          </span>
+          <svg viewBox="0 0 24 24" className="size-[7cqw] opacity-80" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+            <path d="M8 6a8 8 0 0 1 0 12M12 3.5a12 12 0 0 1 0 17M16 1a16 16 0 0 1 0 22" transform="scale(.9) translate(1 1)" />
+          </svg>
+        </div>
+
+        {/* Number, name, network */}
+        <div className="absolute inset-x-[6%] bottom-[8%]">
+          <p className="tabular text-[5.6cqw] font-semibold tracking-[0.12em] opacity-90">•••• •••• •••• 0000</p>
+          <div className="mt-[2.4cqw] flex items-end justify-between">
+            <span className="text-[3.2cqw] font-medium uppercase tracking-[0.14em] opacity-80">Your Name</span>
+            {spec.network === "visa" && <span className="font-display text-[8cqw] font-extrabold italic leading-none tracking-[-0.04em]">VISA</span>}
+            {spec.network === "mastercard" && <span className="text-[4.6cqw] font-bold leading-none tracking-[-0.02em]">mastercard</span>}
+          </div>
+        </div>
       </div>
       <span className="pointer-events-none absolute -bottom-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-indigo-950 px-3 py-1 text-xs font-semibold text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        {name}
+        {spec.name}
       </span>
     </div>
   );
