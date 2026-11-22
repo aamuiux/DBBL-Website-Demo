@@ -10,6 +10,7 @@ import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
 import { rocketFeatures } from "@/lib/content";
 import { Button, Reveal, useReduce } from "./ui";
+import { BrandSwooshes, swooshTones } from "./BrandSwooshes";
 import { StoreBadges } from "./AppStory";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -228,8 +229,9 @@ export function RocketBand() {
   const amount = bd(`৳${service.amount}`, bn);
 
   return (
-    <section id="rocket" aria-labelledby={`${id}-h`} className="on-dark relative bg-[linear-gradient(135deg,#9a2fa0_0%,#8a288f_40%,#5d1860_100%)] text-white">
+    <section id="rocket" aria-labelledby={`${id}-h`} className="on-dark relative bg-[linear-gradient(135deg,var(--k-rocket-a)_0%,var(--color-rocket)_40%,var(--k-rocket-b)_100%)] text-white">
       <div ref={stageRef} className={`relative isolate overflow-hidden ${pinned ? "h-svh" : ""}`}>
+        <BrandSwooshes brandOnly colors={swooshTones.rocket} opacity={0.45} className="top-0 h-full min-h-[36rem] -right-[55%] sm:-right-[30%] lg:-right-[12%]" />
         {/* Intro (pinned only): Rocket's own icon, then a zoom through it */}
         {pinned && (
           <div data-intro aria-hidden className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-10 bg-rocket-ink">
@@ -246,7 +248,7 @@ export function RocketBand() {
         )}
 
         <span aria-hidden className="pointer-events-none absolute -left-40 -top-40 size-[34rem] rounded-full bg-[radial-gradient(circle,rgb(255_255_255/0.2),transparent_65%)]" />
-        <span aria-hidden className="pointer-events-none absolute -bottom-40 -right-32 size-[40rem] rounded-full bg-[radial-gradient(circle,rgb(255_207_61/0.22),transparent_62%)]" />
+        <span aria-hidden className="pointer-events-none absolute -bottom-40 -right-32 size-[40rem] rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--color-sun)_22%,transparent),transparent_62%)]" />
 
         <div
           className={`relative mx-auto grid max-w-[1360px] gap-12 px-5 sm:px-6 lg:grid-cols-[1fr_1.1fr] lg:items-center xl:px-10 ${
@@ -447,7 +449,7 @@ export function RocketBand() {
                       animate={{ y: 0, opacity: 1 }}
                       exit={reduce ? undefined : { y: "-140%", opacity: 0 }}
                       transition={{ delay: reduce ? 0 : 1.2, type: "spring", stiffness: 260, damping: 22 }}
-                      className="absolute inset-x-[4cqw] top-[12cqw] flex items-center gap-[3cqw] rounded-[5cqw] bg-white p-[3.5cqw] shadow-[0_12px_30px_-10px_rgb(29_10_32/0.45)]"
+                      className="absolute inset-x-[4cqw] top-[12cqw] flex items-center gap-[3cqw] rounded-[5cqw] bg-white p-[3.5cqw] shadow-[0_12px_30px_-10px_color-mix(in_srgb,var(--color-rocket-ink)_45%,transparent)]"
                     >
                       <span className="relative size-[11cqw] shrink-0 overflow-hidden rounded-[3cqw]">
                         <Image src={links.rocketLogo} alt="" fill sizes="36px" quality={70} className="object-cover" />
@@ -470,7 +472,7 @@ export function RocketBand() {
                   <motion.path
                     d={`M${(P0[0] * box.w) / 100} ${(P0[1] * box.h) / 100} Q${(P1[0] * box.w) / 100} ${(P1[1] * box.h) / 100} ${(P2[0] * box.w) / 100} ${(P2[1] * box.h) / 100}`}
                     fill="none"
-                    stroke="rgb(255 207 61 / 0.75)"
+                    stroke="color-mix(in srgb, var(--color-sun) 75%, transparent)"
                     strokeWidth="3"
                     strokeLinecap="round"
                     initial={{ pathLength: 0, opacity: 0 }}
@@ -520,7 +522,7 @@ export function RocketBand() {
                   whileInView={{ opacity: 1, y: 0, rotate: 0 }}
                   viewport={{ once: true, amount: 0.6 }}
                   transition={{ type: "spring", stiffness: 170, damping: 18, delay: (i % 3) * 0.06 }}
-                  className="group relative isolate flex items-start gap-4 overflow-hidden rounded-2xl bg-white/10 p-5 ring-1 ring-inset ring-white/15 transition-[background-color,transform,box-shadow] duration-500 ease-[var(--ease-out-expo)] hover:z-10 hover:scale-[1.04] hover:bg-white/15 hover:shadow-[0_30px_60px_-30px_rgb(20_0_25/0.8)]"
+                  className="group relative isolate flex items-start gap-4 overflow-hidden rounded-2xl bg-white/10 p-5 ring-1 ring-inset ring-white/15 transition-[background-color,transform,box-shadow] duration-500 ease-[var(--ease-out-expo)] hover:z-10 hover:scale-[1.04] hover:bg-white/15 hover:shadow-[0_30px_60px_-30px_color-mix(in_srgb,var(--color-rocket-ink)_80%,transparent)]"
                 >
                   {/* On hover the card zooms and its related photo comes up behind the text */}
                   {f.img && (
@@ -533,7 +535,7 @@ export function RocketBand() {
                         quality={75}
                         className="-z-20 scale-110 object-cover opacity-0 transition-[opacity,transform] duration-700 ease-[var(--ease-out-expo)] group-hover:scale-100 group-hover:opacity-100"
                       />
-                      <span aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(0deg,rgb(29_10_32/0.85),rgb(29_10_32/0.35))] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                      <span aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(0deg,color-mix(in_srgb,var(--color-rocket-ink)_85%,transparent),color-mix(in_srgb,var(--color-rocket-ink)_35%,transparent))] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                     </>
                   )}
                   <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-sun text-rocket-ink transition-transform duration-500 group-hover:-rotate-12">
@@ -571,7 +573,7 @@ export function RocketBand() {
 function KeypadPhone({ screen, keypad }: { screen: React.ReactNode; keypad: React.ReactNode }) {
   return (
     <div className="@container w-[clamp(8.5rem,38vw,12.5rem)] lg:w-[min(14rem,calc((100svh-14rem)*0.36))]">
-      <div className="rounded-[10cqw] bg-rocket-ink p-[7cqw] pb-[9cqw] shadow-[0_50px_90px_-30px_rgb(20_0_25/0.85)] ring-1 ring-white/10">
+      <div className="rounded-[10cqw] bg-rocket-ink p-[7cqw] pb-[9cqw] shadow-[0_50px_90px_-30px_color-mix(in_srgb,var(--color-rocket-ink)_85%,transparent)] ring-1 ring-white/10">
         <span aria-hidden className="mx-auto mb-[5cqw] block h-[2.4cqw] w-[26cqw] rounded-full bg-white/15" />
         <div className="@container aspect-[1/0.92] overflow-hidden rounded-[2.5cqw] bg-white text-rocket-ink">
           <div className="h-full p-[7cqw]">{screen}</div>
@@ -595,7 +597,7 @@ function Keys({ pressed, bn }: { pressed: string | null; bn: boolean }) {
           return (
             <motion.span
               key={k}
-              animate={on ? { scale: 0.86, backgroundColor: "#ffcf3d", color: "#1d0a20" } : { scale: 1, backgroundColor: "rgba(255,255,255,0.1)", color: "#ffffff" }}
+              animate={on ? { scale: 0.86, backgroundColor: "var(--color-sun)", color: "var(--color-rocket-ink)" } : { scale: 1, backgroundColor: "rgba(255,255,255,0.1)", color: "#ffffff" }}
               transition={{ type: "spring", stiffness: 500, damping: 20 }}
               className="flex h-[13cqw] flex-col items-center justify-center rounded-[5cqw] leading-none"
             >
@@ -612,7 +614,7 @@ function Keys({ pressed, bn }: { pressed: string | null; bn: boolean }) {
 function SmartPhone({ children }: { children: React.ReactNode }) {
   return (
     <div className="@container w-[clamp(9.5rem,44vw,15rem)] lg:w-[min(17.5rem,calc((100svh-14rem)*0.42))]">
-      <div className="rounded-[15cqw] bg-rocket-ink p-[3.5cqw] shadow-[0_50px_90px_-30px_rgb(20_0_25/0.85)] ring-1 ring-white/10">
+      <div className="rounded-[15cqw] bg-rocket-ink p-[3.5cqw] shadow-[0_50px_90px_-30px_color-mix(in_srgb,var(--color-rocket-ink)_85%,transparent)] ring-1 ring-white/10">
         <div className="relative aspect-[9/18.5] overflow-hidden rounded-[12cqw] bg-paper px-[6cqw] pt-[13cqw] text-rocket-ink">
           <span aria-hidden className="absolute left-1/2 top-[3.5cqw] h-[5cqw] w-[24cqw] -translate-x-1/2 rounded-full bg-rocket-ink" />
           {children}
@@ -624,10 +626,10 @@ function SmartPhone({ children }: { children: React.ReactNode }) {
 
 function PaperPlane() {
   return (
-    <svg viewBox="0 0 40 40" className="size-full drop-shadow-[0_6px_10px_rgb(29_10_32/0.45)]">
+    <svg viewBox="0 0 40 40" className="size-full drop-shadow-[0_6px_10px_color-mix(in_srgb,var(--color-rocket-ink)_45%,transparent)]">
       <path d="M3 19 37 5 26 35 19 23Z" fill="#ffffff" />
-      <path d="M19 23 37 5 15 30Z" fill="#ffcf3d" />
-      <path d="M19 23 15 30 15 21Z" fill="#e7d3e8" />
+      <path d="M19 23 37 5 15 30Z" className="fill-sun" />
+      <path d="M19 23 15 30 15 21Z" style={{ fill: "var(--k-wing)" }} />
     </svg>
   );
 }

@@ -9,12 +9,12 @@ export function Phone({ step }: { step: number }) {
   const reduce = useReduce();
   return (
     <div className="relative mx-auto aspect-[9/19] w-[min(19rem,72vw)]">
-      <div className="absolute inset-0 rounded-[3rem] bg-[#0b0d26] p-[10px] shadow-[0_2px_0_1px_rgb(255_255_255/0.08)_inset,0_50px_100px_-30px_rgb(0_0_0/0.7),0_30px_60px_-30px_rgb(37_42_134/0.8)] ring-1 ring-white/10">
+      <div className="absolute inset-0 rounded-[3rem] bg-[var(--k-device)] p-[10px] shadow-[0_2px_0_1px_rgb(255_255_255/0.08)_inset,0_50px_100px_-30px_rgb(0_0_0/0.7),0_30px_60px_-30px_rgb(37_42_134/0.8)] ring-1 ring-white/10">
         <div className="relative h-full overflow-hidden rounded-[2.4rem] bg-paper">
           {/* status bar */}
           <div className="flex h-11 items-center justify-between px-6 text-[11px] font-semibold text-ink">
             <span className="tabular">9:41</span>
-            <span className="absolute left-1/2 top-2.5 h-6 w-24 -translate-x-1/2 rounded-full bg-[#0b0d26]" />
+            <span className="absolute left-1/2 top-2.5 h-6 w-24 -translate-x-1/2 rounded-full bg-[var(--k-device)]" />
             <span className="flex items-center gap-1">
               <Signal className="size-3" aria-hidden />
               <Wifi className="size-3" aria-hidden />
@@ -114,7 +114,7 @@ function QrScreen() {
           <QrCode className="size-[70%] text-indigo-950" strokeWidth={1.4} aria-hidden />
         </div>
         <motion.span
-          className="absolute inset-x-4 h-0.5 rounded-full bg-lime shadow-[0_0_14px_2px_rgb(200_241_105/0.7)]"
+          className="absolute inset-x-4 h-0.5 rounded-full bg-lime shadow-[0_0_14px_2px_color-mix(in_srgb,var(--color-lime)_70%,transparent)]"
           animate={reduce ? undefined : { top: ["12%", "86%", "12%"] }}
           transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
           style={{ top: "50%" }}
@@ -169,7 +169,7 @@ function VirtualCardScreen() {
   return (
     <div className="flex h-full flex-col">
       <TopBar title="Temporary Card" />
-      <div className="relative mx-4 aspect-[1.6/1] overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#252a86,#0e1150)] p-4 text-white">
+      <div className="relative mx-4 aspect-[1.6/1] overflow-hidden rounded-2xl bg-[linear-gradient(135deg,var(--color-indigo-600),var(--color-indigo-900))] p-4 text-white">
         <span className="absolute -right-10 -top-12 size-36 rounded-full border-[18px] border-white/8" />
         <p className="text-[10px] font-semibold text-indigo-200">Online-only · single use</p>
         <p className="tabular mt-6 text-[15px] font-bold tracking-[0.14em]">5412 •••• •••• 7730</p>

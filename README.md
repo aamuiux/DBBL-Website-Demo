@@ -33,6 +33,16 @@ Next.js 16 (App Router, static), TypeScript, Tailwind CSS 4, Motion (Framer Moti
 12. Conscience: the bank's social causes and scholarship.
 13. Footer: clean light footer with all major links, locators, contact, apps, social, legal and the concept disclaimer.
 
+## Brand colours: `/new-design`
+
+http://localhost:3000/new-design is the same homepage as `/`, section for section, recoloured with DBBL's logo colour guideline: blue C100 M100 (`#2D3192`), red M100 Y100 (`#ED1B24`), green C100 Y100 K10 (`#00984B`), black, and the K50-to-white silver gradient.
+
+- **How it works:** both routes render `components/HomePage.tsx`. `app/new-design/layout.tsx` wraps the page in `.brand2`, and `globals.css` redefines the colour tokens under `:root:has(.brand2)`. Fixing a section fixes both versions.
+- **Colour mapping:** the indigo scale becomes the guideline blue. Lime, the light accent, becomes silver, and lime fields get the brushed-silver gradient. Sun, used for stickers, becomes white. NexusPay red and the gold or cream accents map to guideline red and silver. Rocket keeps its own magenta. The 3D loan icons go silver, and each card face has a guideline version (`bg2` / `accent2` in `content.ts`).
+- **Logo swooshes:** the blue, red and green swooshes of DBBL's mark (`lib/dbbl-mark.ts`, drawn by `components/BrandSwooshes.tsx`) sit behind the Loans, Rocket and Media sections in tones of each section's colour, on `/new-design` only. The "Rise & Run" hero slide, on both routes, uses them in the logo colours.
+- **Not recoloured:** photos, DBBL's own billboards and TV ads, and the real Rocket app screenshot and logo keep their own colours.
+- **Switch:** the footer links between the two colourways.
+
 ## Content sources
 
 Every product, figure and link comes from DBBL's public site (checked 2026-11-21): 64,120,000+ customers, 4,100+ ATMs, first fully automated bank (2003), Rocket as the first mobile financial service, NexusPay as the first app-based digital banking solution, 23 partner banks on the ATM network, NexusPay at 10,000+ shops, credit cards accepted at 40M+ merchants. Product claims are condensed from DBBL's own descriptions. Links go to DBBL's live pages.

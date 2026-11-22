@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useId, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
 import { motion } from "motion/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -232,12 +232,12 @@ function CardFace({ spec }: { spec: CardSpec }) {
       <div
         role="img"
         aria-label={spec.name}
-        className={`@container relative aspect-[1.586/1] overflow-hidden rounded-[0.9rem] shadow-[0_24px_50px_-22px_rgb(9_11_58/0.55)] ring-1 ring-black/10 ${text}`}
-        style={{ background: spec.bg }}
+        className={`card-face @container relative aspect-[1.586/1] overflow-hidden rounded-[0.9rem] shadow-[0_24px_50px_-22px_rgb(9_11_58/0.55)] ring-1 ring-black/10 ${text}`}
+        style={{ "--cbg": spec.bg, "--cbg2": spec.bg2 } as CSSProperties}
       >
         {/* Decorative arcs and a soft sheen */}
-        <span aria-hidden className="absolute -right-[18%] -top-[45%] size-[85%] rounded-full border-[2.2cqw] opacity-25" style={{ borderColor: spec.accent }} />
-        <span aria-hidden className="absolute -right-[4%] -top-[30%] size-[85%] rounded-full border-[1cqw] opacity-20" style={{ borderColor: spec.accent }} />
+        <span aria-hidden className="card-arc absolute -right-[18%] -top-[45%] size-[85%] rounded-full border-[2.2cqw] opacity-25" style={{ "--cac": spec.accent, "--cac2": spec.accent2 } as CSSProperties} />
+        <span aria-hidden className="card-arc absolute -right-[4%] -top-[30%] size-[85%] rounded-full border-[1cqw] opacity-20" style={{ "--cac": spec.accent, "--cac2": spec.accent2 } as CSSProperties} />
         <span aria-hidden className="absolute inset-0 bg-[linear-gradient(115deg,rgb(255_255_255/0.22),transparent_38%,transparent_70%,rgb(255_255_255/0.08))]" />
 
         {/* Top row: DBBL mark and the tier */}
@@ -255,7 +255,7 @@ function CardFace({ spec }: { spec: CardSpec }) {
 
         {/* Chip and contactless */}
         <div className="absolute left-[6%] top-[38%] flex items-center gap-[4cqw]">
-          <span className="relative block h-[12cqw] w-[16.5cqw] overflow-hidden rounded-[2cqw] bg-[linear-gradient(135deg,#f3dc8a,#b98f2e)] shadow-sm">
+          <span className="relative block h-[12cqw] w-[16.5cqw] overflow-hidden rounded-[2cqw] bg-[linear-gradient(135deg,var(--k-gold-a),var(--k-gold-b))] shadow-sm">
             <span className="absolute inset-x-0 top-1/2 h-px bg-black/25" />
             <span className="absolute inset-y-0 left-1/3 w-px bg-black/25" />
             <span className="absolute inset-y-0 left-2/3 w-px bg-black/25" />

@@ -264,7 +264,7 @@ function NetworkCorners() {
         <line key={i} x1={nodes[a][0]} y1={nodes[a][1]} x2={nodes[b][0]} y2={nodes[b][1]} stroke="rgb(255 255 255 / 0.1)" strokeWidth="1.2" />
       ))}
       {nodes.map(([x, y], i) => (
-        <circle key={i} cx={x} cy={y} r={i === 2 ? 5 : 3.2} fill={i === 2 ? "#c8f169" : "rgb(255 255 255 / 0.28)"} />
+        <circle key={i} cx={x} cy={y} r={i === 2 ? 5 : 3.2} style={{ fill: i === 2 ? "var(--color-lime)" : "rgb(255 255 255 / 0.28)" }} />
       ))}
     </svg>
   );

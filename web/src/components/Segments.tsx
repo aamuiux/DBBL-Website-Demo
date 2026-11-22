@@ -86,7 +86,7 @@ export function Segments() {
 /** Personal: a young man smiling at his phone, on the warm cream of the loan campaign it is drawn from. */
 function PersonalPhoto() {
   return (
-    <div aria-hidden={false} className="absolute inset-0 -z-20 overflow-hidden bg-[linear-gradient(120deg,#fffaf0,#fbeed2)]">
+    <div aria-hidden={false} className="absolute inset-0 -z-20 overflow-hidden bg-[linear-gradient(120deg,var(--k-cream-a),var(--k-cream-b))]">
       <span className="absolute -left-24 top-0 size-[30rem] rounded-full bg-[radial-gradient(circle,rgb(255_255_255/0.9),transparent_65%)]" />
       <div className="absolute inset-y-0 right-0 w-[min(52%,23rem)] [mask-image:linear-gradient(90deg,transparent,#000_28%)]">
         <Image

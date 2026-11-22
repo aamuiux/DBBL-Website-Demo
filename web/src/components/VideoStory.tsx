@@ -226,7 +226,7 @@ export function VideoStory() {
         >
           {film}
           <div data-chip aria-hidden className="pointer-events-none absolute left-[6%] top-[9%] flex items-center gap-3">
-            <span className="block h-[2.4vw] w-[3.2vw] rounded-md bg-[linear-gradient(135deg,#f3dc8a,#c9a443)] shadow-sm" />
+            <span className="block h-[2.4vw] w-[3.2vw] rounded-md bg-[linear-gradient(135deg,var(--k-gold-a),var(--k-gold-c))] shadow-sm" />
             <span className="font-display text-[1.05vw] font-bold text-white drop-shadow">Dutch-Bangla Bank</span>
           </div>
         </div>

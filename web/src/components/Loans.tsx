@@ -7,6 +7,7 @@ import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
 import { retailLoans, smeLoans } from "@/lib/content";
 import { Button, Reveal, useReduce, type Tone } from "./ui";
+import { BrandSwooshes, swooshTones } from "./BrandSwooshes";
 import { CarIcon3D, CoinsIcon3D, HouseIcon3D } from "./Icons3D";
 import { Pattern } from "./Patterns";
 
@@ -26,7 +27,8 @@ export function Loans() {
   const bn = lang === "bn";
 
   return (
-    <section id="loans" aria-labelledby={`${id}-h`} className="on-dark relative overflow-hidden bg-indigo-950 py-24 text-white md:py-32">
+    <section id="loans" aria-labelledby={`${id}-h`} className="on-dark relative isolate overflow-hidden bg-indigo-950 py-24 text-white md:py-32">
+      <BrandSwooshes brandOnly colors={swooshTones.indigo} opacity={0.7} className="top-0 h-full min-h-[36rem] -right-[55%] sm:-right-[30%] lg:-right-[12%]" />
       <div className="mx-auto max-w-[1360px] px-5 sm:px-6 xl:px-10">
         <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-end">
           <Reveal>
@@ -119,7 +121,7 @@ export function Loans() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`inline-flex min-h-12 items-center gap-2 rounded-full px-4 transition-transform duration-300 hover:-translate-y-0.5 ${
-                      women ? "bg-rocket text-white" : "bg-white text-indigo-950"
+                      women ? "brand-red bg-rocket text-white" : "bg-white text-indigo-950"
                     }`}
                   >
                     <span className="font-display font-semibold">{l.name}</span>

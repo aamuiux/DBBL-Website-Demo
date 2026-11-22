@@ -53,7 +53,7 @@ export function Students() {
                 whileHover={reduce ? undefined : { rotate: 0, scale: 1.04 }}
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ type: "spring", stiffness: 260, damping: 14, delay: i * 0.08 }}
-                className={`rounded-3xl p-5 shadow-[var(--shadow-card)] sm:p-6 ${stickerTones[i]}`}
+                className={`rounded-3xl p-5 shadow-[var(--shadow-card)] sm:p-6 ${stickerTones[i]} saver-tone-${i % 4}`}
               >
                 <p className="font-display text-[clamp(2rem,4vw,2.75rem)] font-bold leading-none tracking-[-0.04em]">{f.big[lang]}</p>
                 <p className="mt-2 text-[0.95rem] font-semibold leading-snug opacity-85">{f.small[lang]}</p>

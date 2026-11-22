@@ -125,7 +125,7 @@ export function Network() {
         {nodes.map((n) => (
           <line key={`l${n.i}`} x1={cx} y1={cy} x2={n.x} y2={n.y} stroke="rgb(255 255 255 / 0.14)" strokeWidth="1" />
         ))}
-        <line x1={cx} y1={cy} x2={bb.x} y2={bb.y} stroke="#c8f169" strokeWidth="2" />
+        <line x1={cx} y1={cy} x2={bb.x} y2={bb.y} className="stroke-lime" strokeWidth="2" />
         {/* pulses: motion only where money moves */}
         {!reduce &&
           inView &&
@@ -135,7 +135,7 @@ export function Network() {
               <motion.circle
                 key={`p${n.i}`}
                 r="3.5"
-                fill="#c8f169"
+                className="fill-lime"
                 initial={{ cx, cy, opacity: 0 }}
                 animate={{ cx: [cx, n.x], cy: [cy, n.y], opacity: [0, 1, 0] }}
                 transition={{ duration: 1.8, repeat: Infinity, repeatDelay: 1.2 + (k % 3) * 0.5, delay: k * 0.35, ease: "easeInOut" }}
@@ -147,7 +147,7 @@ export function Network() {
             cx={n.x}
             cy={n.y}
             r="9"
-            fill="#252a86"
+            className="fill-indigo-600"
             stroke="rgb(255 255 255 / 0.55)"
             strokeWidth="1.5"
             initial={reduce ? false : { scale: 0, opacity: 0 }}
@@ -157,10 +157,10 @@ export function Network() {
           />
         ))}
         <g>
-          <circle cx={bb.x} cy={bb.y} r="20" fill="#00904a" />
+          <circle cx={bb.x} cy={bb.y} r="20" className="fill-green-600" />
         </g>
-        <circle cx={cx} cy={cy} r="58" fill="#c8f169" />
-        <text x={cx} y={cy + 9} textAnchor="middle" fill="#090b3a" fontSize="26" fontWeight="700">
+        <circle cx={cx} cy={cy} r="58" className="fill-lime" />
+        <text x={cx} y={cy + 9} textAnchor="middle" className="fill-indigo-950" fontSize="26" fontWeight="700">
           DBBL
         </text>
       </svg>

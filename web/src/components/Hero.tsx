@@ -6,14 +6,24 @@ import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from
 import { Pause, Play } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
+import { dbblSwoosh } from "@/lib/dbbl-mark";
 import { Button, easeOut, useReduce } from "./ui";
 
 // Unsplash photography (free licence), chosen as stand-ins for DBBL's own lifestyle shoots.
 // Every slide has a prominent colour field. Photo slides sit under an indigo wash; the Rocket slide is a magenta
 // field with a screenshot of the real Rocket app in a phone frame; the NexusPay slide is NexusPay red with its
 // zigzag line pattern and a NexusPay login screen in a phone frame.
-type Slide = { tint: "indigo" | "rocket" | "nexus"; art?: "atm"; src: string; alt: string; position: string; cta: string; cta2: string };
+// The "Rise & Run" slide is DBBL's campaign look: a bright sky with brand swooshes and the tri-colour rule, dark text.
+type Slide = { tint: "indigo" | "rocket" | "nexus" | "sky"; art?: "atm"; src: string; alt: string; position: string; cta: string; cta2: string };
 const slides: Slide[] = [
+  {
+    tint: "sky",
+    src: "https://images.unsplash.com/photo-1599768793949-2da217e9f093",
+    alt: "White clouds in a bright blue sky",
+    position: "30% 70%",
+    cta: links.personalAccounts,
+    cta2: links.history,
+  },
   {
     tint: "rocket",
     src: "/rocket-app.webp",
@@ -106,13 +116,14 @@ export function Hero() {
 
   const slide = slides[index];
   const copy = d.hero.slides[index];
+  const sky = slide.tint === "sky";
 
   return (
     <section
       id="top"
       aria-roledescription="carousel"
       aria-label="Highlights"
-      className="on-dark relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-indigo-950 text-white"
+      className={`relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-indigo-950 text-white ${sky ? "" : "on-dark"}`}
       onPointerMove={(e) => {
         if (reduce || e.pointerType !== "mouse") return;
         const r = e.currentTarget.getBoundingClientRect();
@@ -140,7 +151,7 @@ export function Hero() {
             ) : slide.tint === "rocket" ? (
               <div className="absolute inset-0 bg-rocket">
                 {/* depth: a soft light behind the phone, deeper magenta toward the text */}
-                <span className="absolute inset-0 bg-[radial-gradient(ellipse_at_72%_45%,rgb(255_255_255/0.22),transparent_55%),linear-gradient(90deg,rgb(109_31_114/0.8),transparent_60%)]" />
+                <span className="absolute inset-0 bg-[radial-gradient(ellipse_at_72%_45%,rgb(255_255_255/0.22),transparent_55%),linear-gradient(90deg,color-mix(in_srgb,var(--color-rocket-700)_80%,transparent),transparent_60%)]" />
               </div>
             ) : (
               <Image
@@ -154,6 +165,10 @@ export function Hero() {
                 style={{ objectPosition: slide.position }}
               />
             )}
+            {/* Sky: a soft white haze over the photo, brightest behind the text, as in DBBL's campaign artwork */}
+            {slide.tint === "sky" && (
+              <span className="absolute inset-0 bg-[linear-gradient(90deg,rgb(255_255_255/0.62)_0%,rgb(255_255_255/0.35)_45%,rgb(255_255_255/0.1)_75%),linear-gradient(180deg,rgb(120_190_235/0.25)_0%,rgb(255_255_255/0)_40%,rgb(255_255_255/0.5)_100%)]" />
+            )}
           </motion.div>
         </AnimatePresence>
       </motion.div>
@@ -166,7 +181,7 @@ export function Hero() {
       />
       <div
         aria-hidden
-        className={`absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgb(109_31_114/0.92)_0%,rgb(138_40_143/0.7)_42%,rgb(138_40_143/0.2)_78%),linear-gradient(0deg,rgb(29_10_32/0.85)_0%,rgb(29_10_32/0)_45%),linear-gradient(180deg,rgb(29_10_32/0.5)_0%,rgb(29_10_32/0)_22%)] transition-opacity duration-1000 ${
+        className={`absolute inset-0 -z-10 bg-[linear-gradient(90deg,color-mix(in_srgb,var(--color-rocket-700)_92%,transparent)_0%,color-mix(in_srgb,var(--color-rocket)_70%,transparent)_42%,color-mix(in_srgb,var(--color-rocket)_20%,transparent)_78%),linear-gradient(0deg,color-mix(in_srgb,var(--color-rocket-ink)_85%,transparent)_0%,color-mix(in_srgb,var(--color-rocket-ink)_0%,transparent)_45%),linear-gradient(180deg,color-mix(in_srgb,var(--color-rocket-ink)_50%,transparent)_0%,color-mix(in_srgb,var(--color-rocket-ink)_0%,transparent)_22%)] transition-opacity duration-1000 ${
           slide.tint === "rocket" ? "opacity-100" : "opacity-0"
         }`}
       />
@@ -178,6 +193,7 @@ export function Hero() {
       <AnimatePresence>{slide.tint === "rocket" && <RocketPhone key="rocket-phone" src={slide.src} alt={slide.alt} reduce={!!reduce} />}</AnimatePresence>
       <AnimatePresence>{slide.tint === "nexus" && <NexusPhone key="nexus-phone" reduce={!!reduce} />}</AnimatePresence>
       <AnimatePresence>{slide.art === "atm" && <AtmArt key="atm-art" reduce={!!reduce} />}</AnimatePresence>
+      <AnimatePresence>{sky && <SkyArt key="sky-art" reduce={!!reduce} />}</AnimatePresence>
 
       <div className="mx-auto flex w-full max-w-[1360px] flex-1 flex-col justify-end px-5 pb-36 pt-[calc(var(--header-h)+4rem)] sm:px-6 sm:pb-40 xl:px-10">
         <div className="max-w-[44rem]" aria-live={playing ? "off" : "polite"}>
@@ -193,22 +209,45 @@ export function Hero() {
                 exit: { transition: { staggerChildren: 0.03 } },
               }}
             >
-              <h1 className="font-display text-balance text-[clamp(2.9rem,7.2vw,6rem)] font-semibold leading-[0.98] tracking-[-0.035em]">
-                <motion.span variants={lineVariants(reduce)} className="block">
-                  {copy.title}
-                </motion.span>
-              </h1>
-              <motion.p
-                variants={lineVariants(reduce)}
-                className={`mt-6 max-w-[34rem] text-pretty text-lg sm:text-xl ${slide.tint === "indigo" ? "text-indigo-100" : "text-white/95"}`}
-              >
-                {copy.body}
-              </motion.p>
+              {sky ? (
+                <>
+                  {/* Campaign lockup: the red panel with the Bangla line, then "from Good to Great" */}
+                  <h1 className="font-display">
+                    <motion.span
+                      variants={lineVariants(reduce)}
+                      className="inline-flex flex-col rounded-2xl bg-red-600 px-7 pb-4 pt-3 text-white shadow-[0_24px_48px_-20px_color-mix(in_srgb,var(--color-red-600)_70%,transparent)] sm:px-9"
+                    >
+                      <span className="text-[clamp(2.9rem,7.2vw,6rem)] font-semibold leading-[1] tracking-[-0.035em]">{copy.title}</span>
+                      <span lang="bn" className="font-bangla mt-1 text-[clamp(1.05rem,1.8vw,1.5rem)] font-semibold leading-snug">
+                        জেগে উঠুন, নতুন ভাবে
+                      </span>
+                    </motion.span>
+                  </h1>
+                  <motion.p variants={lineVariants(reduce)} className="font-display mt-6 flex items-baseline gap-3 leading-none tracking-[-0.03em]">
+                    <span className="text-[clamp(1.25rem,2vw,1.75rem)] font-semibold text-green-600">from</span>
+                    <span className="text-[clamp(2rem,4.4vw,3.75rem)] font-bold text-indigo-600">Good to Great</span>
+                  </motion.p>
+                </>
+              ) : (
+                <>
+                  <h1 className="font-display text-balance text-[clamp(2.9rem,7.2vw,6rem)] font-semibold leading-[0.98] tracking-[-0.035em]">
+                    <motion.span variants={lineVariants(reduce)} className="block">
+                      {copy.title}
+                    </motion.span>
+                  </h1>
+                  <motion.p
+                    variants={lineVariants(reduce)}
+                    className={`mt-6 max-w-[34rem] text-pretty text-lg sm:text-xl ${slide.tint === "indigo" ? "text-indigo-100" : "text-white/95"}`}
+                  >
+                    {copy.body}
+                  </motion.p>
+                </>
+              )}
               <motion.div variants={lineVariants(reduce)} className="mt-9 flex flex-wrap items-center gap-3">
-                <Button href={slide.cta} tone="lime" size="lg">
+                <Button href={slide.cta} tone={sky ? "primary" : "lime"} size="lg">
                   {copy.cta}
                 </Button>
-                <Button href={slide.cta2} tone="ghost-dark" size="lg">
+                <Button href={slide.cta2} tone={sky ? "ghost-light" : "ghost-dark"} size="lg">
                   {copy.cta2}
                 </Button>
               </motion.div>
@@ -217,10 +256,10 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Slide controls */}
-      <div className="absolute inset-x-0 bottom-0 z-10 hidden md:block">
-        <div className="mx-auto flex max-w-[1360px] items-end justify-end gap-3 px-6 pb-28 xl:px-10">
-          <ul className="flex items-stretch gap-2" role="tablist" aria-label="Choose slide">
+      {/* Slide controls: dots only (the active one is a pill that fills with the slide's progress), plus pause */}
+      <div className="absolute inset-x-0 bottom-24 z-10 md:bottom-0">
+        <div className="mx-auto flex max-w-[1360px] items-center justify-start gap-3 px-5 sm:px-6 md:justify-end md:pb-28 xl:px-10">
+          <ul className="flex items-center gap-1" role="tablist" aria-label="Choose slide">
             {d.hero.slides.map((s, i) => (
               <li key={s.tag} role="presentation">
                 <button
@@ -229,15 +268,20 @@ export function Hero() {
                   aria-selected={i === index}
                   aria-label={`${d.hero.slide} ${i + 1}: ${s.tag}`}
                   onClick={() => go(i)}
-                  className="group flex w-40 flex-col gap-2.5 rounded-xl px-2 py-2 text-left text-[0.8125rem] font-semibold text-white/70 transition-colors hover:text-white aria-selected:text-white"
+                  className="group grid h-11 min-w-6 place-items-center px-1"
                 >
-                  <span className="relative h-[3px] w-full overflow-hidden rounded-full bg-white/25">
-                    <span
-                      className="absolute inset-y-0 left-0 rounded-full bg-lime"
-                      style={{ width: i === index ? `${(reduce || !playing ? 1 : progress) * 100}%` : i < index ? "100%" : "0%", opacity: i < index ? 0.5 : 1 }}
-                    />
+                  <span
+                    className={`relative block h-2 overflow-hidden rounded-full transition-all duration-500 ${
+                      i === index ? "w-10" : "w-2 group-hover:scale-125"
+                    } ${sky ? "bg-indigo-950/25" : "bg-white/45"}`}
+                  >
+                    {i === index && (
+                      <span
+                        className={`absolute inset-y-0 left-0 rounded-full ${sky ? "bg-indigo-600" : "bg-lime"}`}
+                        style={{ width: `${(reduce || !playing ? 1 : progress) * 100}%` }}
+                      />
+                    )}
                   </span>
-                  <span className="truncate">{s.tag}</span>
                 </button>
               </li>
             ))}
@@ -246,28 +290,13 @@ export function Hero() {
             type="button"
             onClick={() => setPlaying((p) => !p)}
             aria-label={playing ? d.hero.pause : d.hero.play}
-            className="mb-1 grid size-11 place-items-center rounded-full bg-white/12 text-white ring-1 ring-inset ring-white/30 backdrop-blur-md hover:bg-white/20"
+            className={`hidden size-11 place-items-center rounded-full ring-1 ring-inset backdrop-blur-md transition-colors duration-700 md:grid ${
+              sky ? "bg-white/50 text-indigo-950 ring-indigo-950/20 hover:bg-white/80" : "bg-white/12 text-white ring-white/30 hover:bg-white/20"
+            }`}
           >
             {playing ? <Pause className="size-4" fill="currentColor" aria-hidden /> : <Play className="size-4" fill="currentColor" aria-hidden />}
           </button>
         </div>
-      </div>
-
-      {/* Mobile dots */}
-      <div className="absolute inset-x-0 bottom-24 flex justify-start gap-2 px-5 md:hidden" role="tablist" aria-label="Choose slide">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            role="tab"
-            aria-selected={i === index}
-            aria-label={`${d.hero.slide} ${i + 1}`}
-            onClick={() => go(i)}
-            className="grid h-11 place-items-center"
-          >
-            <span className={`block h-1.5 rounded-full transition-all duration-500 ${i === index ? "w-8 bg-lime" : "w-1.5 bg-white/50"}`} />
-          </button>
-        ))}
       </div>
     </section>
   );
@@ -309,7 +338,7 @@ function RocketLogoArt({ reduce }: { reduce: boolean }) {
 function NexusField() {
   const rows = Array.from({ length: 11 }, (_, k) => (k - 5) * 14);
   return (
-    <div className="absolute inset-0 bg-[#ea3e44]">
+    <div className="absolute inset-0 bg-[var(--k-nexus)]">
       <svg aria-hidden className="absolute inset-0 size-full">
         <defs>
           <pattern id="nexus-zig" width="140" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(-8)">
@@ -348,14 +377,14 @@ function NexusPhone({ reduce }: { reduce: boolean }) {
             <div className="relative flex size-full flex-col items-center overflow-hidden rounded-[10.6cqw] bg-white px-[8cqw] pt-[24cqw] text-ink">
               <span className="absolute left-1/2 top-[3.2cqw] h-[6cqw] w-[26cqw] -translate-x-1/2 rounded-full bg-[#111]" />
               <span className="absolute right-[6cqw] top-[10cqw] flex items-center gap-[1cqw] rounded-full bg-black/5 px-[2cqw] py-[1cqw] text-[3cqw] font-semibold">
-                <span className="rounded-full bg-white px-[1.6cqw] text-[#e8272f]">ENG</span>
+                <span className="rounded-full bg-white px-[1.6cqw] text-[var(--k-nexus-ink)]">ENG</span>
                 <span>বাং</span>
               </span>
               <span className="mt-[10cqw] grid size-[19cqw] place-items-center rounded-[5cqw] bg-[#ececee]">
                 <Image src="/dbbl-mark.svg" alt="" width={80} height={50} className="w-[12cqw]" />
               </span>
               <span className="mt-[4cqw] text-[4.4cqw] font-medium">{bn ? "স্বাগতম" : "Welcome To"}</span>
-              <span className="font-display text-[10cqw] font-bold leading-none text-[#e8272f]">NexusPay</span>
+              <span className="font-display text-[10cqw] font-bold leading-none text-[var(--k-nexus-ink)]">NexusPay</span>
               <span className="mt-[5cqw] text-[3.6cqw] text-ink-3">{bn ? "আপনার নেক্সাসপে অ্যাকাউন্টে লগইন করুন" : "Please login to your NexusPay account"}</span>
               <span className="tabular mt-[3cqw] text-[5.4cqw] font-semibold">0100 000 0000</span>
               <span className="mt-[7cqw] w-full text-[3.4cqw] text-ink-2">{bn ? "নেক্সাসপে পিন দিন" : "Enter NexusPay PIN"}</span>
@@ -367,7 +396,7 @@ function NexusPhone({ reduce }: { reduce: boolean }) {
                   ))}
                 </span>
               </span>
-              <span className="mt-[7cqw] grid h-[12cqw] w-full place-items-center rounded-[1.6cqw] bg-[#e8272f] text-[4.2cqw] font-semibold text-white">
+              <span className="mt-[7cqw] grid h-[12cqw] w-full place-items-center rounded-[1.6cqw] bg-[var(--k-nexus-ink)] text-[4.2cqw] font-semibold text-white">
                 {bn ? "লগইন" : "Login"}
               </span>
               <span className="absolute inset-x-0 bottom-0 flex justify-around px-[6cqw] pb-[6cqw] text-[2.8cqw] text-ink-3">
@@ -410,6 +439,61 @@ function AtmArt({ reduce }: { reduce: boolean }) {
   );
 }
 
+/** DBBL campaign artwork for the sky slide: the swooshes of DBBL's own mark, oversized and faint on the right inside
+ *  the mark's oval, white wind lines low left, and the blue / red / green rule along the bottom. */
+function SkyArt({ reduce }: { reduce: boolean }) {
+  const swooshes = [
+    { d: dbblSwoosh.blue, c: "var(--color-indigo-600)" },
+    { d: dbblSwoosh.red, c: "var(--color-red-600)" },
+    { d: dbblSwoosh.green, c: "var(--color-green-600)" },
+  ];
+  const winds = [0, 18, 36, 54];
+  return (
+    <motion.div
+      aria-hidden
+      className="pointer-events-none absolute inset-0 -z-10"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 0.6 } }}
+    >
+      {/* The logo's blue, red and green swooshes only (no oval), oversized and sweeping up on the right */}
+      <motion.div
+        className="absolute -right-[70%] top-0 aspect-[205/172] h-[100%] sm:-right-[30%] lg:-right-[12%]"
+        initial={reduce ? false : { x: 80, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+      >
+        <svg className="size-full overflow-visible" viewBox="76 94 205 172">
+          {swooshes.map((s) => (
+            <path key={s.c} d={s.d} style={{ fill: s.c, fillOpacity: 0.38 }} />
+          ))}
+        </svg>
+      </motion.div>
+      <svg className="absolute inset-0 size-full" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+        {/* Wind lines */}
+        {winds.map((dy, i) => (
+          <motion.path
+            key={dy}
+            d={`M-40 ${780 + dy} C 120 ${650 + dy}, 230 ${900 + dy}, 400 ${760 + dy} S 640 ${640 + dy}, 820 ${790 + dy}`}
+            fill="none"
+            stroke="#fff"
+            strokeWidth={1.6}
+            strokeOpacity={0.85 - i * 0.15}
+            initial={reduce ? false : { pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 2.2, ease: "easeOut", delay: 0.3 + i * 0.1 }}
+          />
+        ))}
+      </svg>
+      <div className="absolute inset-x-0 bottom-0 flex h-2 gap-1.5 bg-white">
+        <span className="flex-1 bg-indigo-600" />
+        <span className="flex-1 bg-red-600" />
+        <span className="flex-1 bg-green-600" />
+      </div>
+    </motion.div>
+  );
+}
+
 function RocketPhone({ src, alt, reduce }: { src: string; alt: string; reduce: boolean }) {
   return (
     <motion.div
@@ -425,7 +509,7 @@ function RocketPhone({ src, alt, reduce }: { src: string; alt: string; reduce: b
           transition={{ type: "spring", stiffness: 80, damping: 15, delay: 0.3 }}
           className="absolute right-[5%] top-[46%] aspect-[738/1600] h-[min(34rem,60vh)] -translate-y-1/2"
         >
-          <div className="size-full rounded-[2.6rem] bg-rocket-ink p-[0.6rem] shadow-[0_50px_90px_-30px_rgb(20_0_25/0.8)] ring-1 ring-white/15">
+          <div className="size-full rounded-[2.6rem] bg-rocket-ink p-[0.6rem] shadow-[0_50px_90px_-30px_color-mix(in_srgb,var(--color-rocket-ink)_80%,transparent)] ring-1 ring-white/15">
             <div className="relative size-full overflow-hidden rounded-[2.1rem]">
               <Image src={src} alt={alt} fill sizes="320px" quality={85} preload className="object-cover object-top" />
             </div>

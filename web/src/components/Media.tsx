@@ -8,6 +8,7 @@ import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
 import { billboards, tvAds } from "@/lib/content";
 import { Button, Reveal, useReduce } from "./ui";
+import { BrandSwooshes, swooshTones } from "./BrandSwooshes";
 
 /** Media: DBBL's own TV commercials (play in a full-screen dialog) and its billboard series. */
 export function Media() {
@@ -35,7 +36,8 @@ export function Media() {
   }, [current]);
 
   return (
-    <section id="media" aria-labelledby={`${id}-h`} className="on-dark relative overflow-hidden bg-indigo-950 py-24 text-white md:py-32">
+    <section id="media" aria-labelledby={`${id}-h`} className="on-dark relative isolate overflow-hidden bg-indigo-950 py-24 text-white md:py-32">
+      <BrandSwooshes brandOnly colors={swooshTones.indigo} opacity={0.7} className="top-0 h-full min-h-[36rem] -right-[55%] sm:-right-[30%] lg:-right-[12%]" />
       <div className="mx-auto max-w-[1360px] px-5 sm:px-6 xl:px-10">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <Reveal>

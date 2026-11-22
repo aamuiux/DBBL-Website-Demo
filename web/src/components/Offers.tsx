@@ -144,7 +144,7 @@ export function Offers() {
                     target="_blank"
                     rel="noopener noreferrer"
                     draggable={false}
-                    className={`relative flex h-80 w-64 flex-col justify-between overflow-hidden rounded-3xl p-6 shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-lift)] ${o.tone}`}
+                    className={`relative flex h-80 w-64 flex-col justify-between overflow-hidden rounded-3xl p-6 shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-lift)] ${o.tone} offer-tone-${i % 4}`}
                   >
                     {/* ticket notches */}
                     <span aria-hidden className="absolute -left-3 bottom-[3.75rem] size-6 rounded-full bg-paper" />

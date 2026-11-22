@@ -95,42 +95,46 @@ export type CardSpec = {
   /** "light" text for dark cards, "dark" for gold/silver */
   ink: "light" | "dark";
   accent: string;
+  /** The same card in the brand-guideline palette (/new-design) */
+  bg2: string;
+  accent2: string;
 };
-const card = (name: string, tier: string, network: CardSpec["network"], bg: string, ink: CardSpec["ink"], accent: string): CardSpec => ({ name, tier, network, bg, ink, accent });
+const card = (name: string, tier: string, network: CardSpec["network"], bg: string, ink: CardSpec["ink"], accent: string, bg2: string, accent2: string): CardSpec => ({ name, tier, network, bg, ink, accent, bg2, accent2 });
+const g2 = (a: string, b: string) => `linear-gradient(135deg,${a},${b})`;
 export const cardGroups = [
   {
     key: "debit",
     href: "debitCards",
     cards: [
-      card("Nexus Debit Card", "Nexus Debit", "none", "linear-gradient(135deg,#1e2378,#090b3a)", "light", "#c8f169"),
-      card("VISA Debit Card", "Debit", "visa", "linear-gradient(135deg,#3a40a8,#161a63)", "light", "#ffffff"),
-      card("MasterCard Debit Card", "Debit", "mastercard", "linear-gradient(135deg,#c1272d,#3a0d18)", "light", "#ffcf3d"),
-      card("VISA International Debit Card", "International Debit", "visa", "linear-gradient(135deg,#00904a,#0e1150)", "light", "#c8f169"),
-      card("MasterCard International Debit Card", "International Debit", "mastercard", "linear-gradient(135deg,#f08a24,#a3201f)", "light", "#ffffff"),
+      card("Nexus Debit Card", "Nexus Debit", "none", "linear-gradient(135deg,#1e2378,#090b3a)", "light", "#c8f169", g2("#2d3192", "#0f1145"), "#dfe0e2"),
+      card("VISA Debit Card", "Debit", "visa", "linear-gradient(135deg,#3a40a8,#161a63)", "light", "#ffffff", g2("#4347a8", "#1f2274"), "#ffffff"),
+      card("MasterCard Debit Card", "Debit", "mastercard", "linear-gradient(135deg,#c1272d,#3a0d18)", "light", "#ffcf3d", g2("#ed1b24", "#7a0a10"), "#ffffff"),
+      card("VISA International Debit Card", "International Debit", "visa", "linear-gradient(135deg,#00904a,#0e1150)", "light", "#c8f169", g2("#00984b", "#0f1145"), "#dfe0e2"),
+      card("MasterCard International Debit Card", "International Debit", "mastercard", "linear-gradient(135deg,#f08a24,#a3201f)", "light", "#ffffff", g2("#ed1b24", "#2d3192"), "#ffffff"),
     ],
   },
   {
     key: "credit",
     href: "creditCards",
     cards: [
-      card("VISA Gold International Credit Card", "Gold", "visa", "linear-gradient(135deg,#f0d27a,#a97c1e)", "dark", "#6b4a06"),
-      card("MasterCard Gold International Credit Card", "Gold", "mastercard", "linear-gradient(135deg,#f4d98a,#b6862a)", "dark", "#6b4a06"),
-      card("VISA Platinum Credit Card", "Platinum", "visa", "linear-gradient(135deg,#eceef5,#9aa0b6)", "dark", "#3a3f58"),
-      card("Mastercard Titanium Credit Card", "Titanium", "mastercard", "linear-gradient(135deg,#585c6e,#1b1d2a)", "light", "#d7dae6"),
-      card("VISA Signature Credit Card", "Signature", "visa", "linear-gradient(135deg,#1b1c33,#05060f)", "light", "#e6c15a"),
-      card("MasterCard World Credit Card", "World", "mastercard", "linear-gradient(135deg,#161a63,#02030f)", "light", "#c8f169"),
+      card("VISA Gold International Credit Card", "Gold", "visa", "linear-gradient(135deg,#f0d27a,#a97c1e)", "dark", "#6b4a06", g2("#f1f1f2", "#a6a8ab"), "#5d5e62"),
+      card("MasterCard Gold International Credit Card", "Gold", "mastercard", "linear-gradient(135deg,#f4d98a,#b6862a)", "dark", "#6b4a06", g2("#e7e8ea", "#939598"), "#46474c"),
+      card("VISA Platinum Credit Card", "Platinum", "visa", "linear-gradient(135deg,#eceef5,#9aa0b6)", "dark", "#3a3f58", g2("#ffffff", "#c5c6ca"), "#2d3192"),
+      card("Mastercard Titanium Credit Card", "Titanium", "mastercard", "linear-gradient(135deg,#585c6e,#1b1d2a)", "light", "#d7dae6", g2("#5d5e62", "#1b1c20"), "#dfe0e2"),
+      card("VISA Signature Credit Card", "Signature", "visa", "linear-gradient(135deg,#1b1c33,#05060f)", "light", "#e6c15a", g2("#1b1c20", "#000000"), "#c5c6ca"),
+      card("MasterCard World Credit Card", "World", "mastercard", "linear-gradient(135deg,#161a63,#02030f)", "light", "#c8f169", g2("#1f2274", "#05061a"), "#dfe0e2"),
     ],
   },
   {
     key: "prepaid",
     href: "prepaidCards",
     cards: [
-      card("Travel Card", "Prepaid · Travel", "none", "linear-gradient(135deg,#2aa7e0,#1e2378)", "light", "#ffffff"),
-      card("Hajj Card", "Prepaid · Hajj", "none", "linear-gradient(135deg,#0b8a52,#0a3b2a)", "light", "#ffe9a3"),
-      card("Femina Card", "Prepaid · Femina", "none", "linear-gradient(135deg,#e0568f,#7a2a8f)", "light", "#ffffff"),
-      card("Gift Card", "Prepaid · Gift", "none", "linear-gradient(135deg,#e31b23,#f7a41d)", "light", "#ffffff"),
-      card("Payroll Card", "Prepaid · Payroll", "none", "linear-gradient(135deg,#00a38a,#0e1150)", "light", "#c8f169"),
-      card("Campus Card", "Prepaid · Campus", "none", "linear-gradient(135deg,#ff9d2e,#d11f2a)", "light", "#ffffff"),
+      card("Travel Card", "Prepaid · Travel", "none", "linear-gradient(135deg,#2aa7e0,#1e2378)", "light", "#ffffff", g2("#4347a8", "#1f2274"), "#ffffff"),
+      card("Hajj Card", "Prepaid · Hajj", "none", "linear-gradient(135deg,#0b8a52,#0a3b2a)", "light", "#ffe9a3", g2("#00984b", "#00502a"), "#dfe0e2"),
+      card("Femina Card", "Prepaid · Femina", "none", "linear-gradient(135deg,#e0568f,#7a2a8f)", "light", "#ffffff", g2("#ed1b24", "#2d3192"), "#ffffff"),
+      card("Gift Card", "Prepaid · Gift", "none", "linear-gradient(135deg,#e31b23,#f7a41d)", "light", "#ffffff", g2("#ed1b24", "#a10d14"), "#ffffff"),
+      card("Payroll Card", "Prepaid · Payroll", "none", "linear-gradient(135deg,#00a38a,#0e1150)", "light", "#c8f169", g2("#00984b", "#1f2274"), "#dfe0e2"),
+      card("Campus Card", "Prepaid · Campus", "none", "linear-gradient(135deg,#ff9d2e,#d11f2a)", "light", "#ffffff", g2("#2d3192", "#ed1b24"), "#ffffff"),
     ],
   },
 ] as const;

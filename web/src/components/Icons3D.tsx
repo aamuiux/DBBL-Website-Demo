@@ -16,7 +16,7 @@ export function CoinsIcon3D({ className = "" }: { className?: string }): ReactEl
     </g>
   );
   return (
-    <svg aria-hidden viewBox="0 0 160 160" className={className}>
+    <svg aria-hidden viewBox="0 0 160 160" className={`icon3d ${className}`}>
       <defs>
         <linearGradient id="c3-top" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stopColor="#fff0a8" />
@@ -48,7 +48,7 @@ export function CoinsIcon3D({ className = "" }: { className?: string }): ReactEl
 
 export function HouseIcon3D({ className = "" }: { className?: string }): ReactElement {
   return (
-    <svg aria-hidden viewBox="0 0 160 160" className={className}>
+    <svg aria-hidden viewBox="0 0 160 160" className={`icon3d ${className}`}>
       <defs>
         <linearGradient id="h3-front" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#ffffff" />
@@ -94,7 +94,7 @@ export function HouseIcon3D({ className = "" }: { className?: string }): ReactEl
 
 export function CarIcon3D({ className = "" }: { className?: string }): ReactElement {
   return (
-    <svg aria-hidden viewBox="0 0 160 160" className={className}>
+    <svg aria-hidden viewBox="0 0 160 160" className={`icon3d ${className}`}>
       <defs>
         <linearGradient id="k3-body" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#5a63e0" />

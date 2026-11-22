@@ -50,7 +50,7 @@ export function QuickDock() {
         <span
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover/dock:opacity-100"
-          style={{ background: "radial-gradient(260px circle at var(--mx,50%) var(--my,50%), rgb(200 241 105 / 0.35), transparent 70%)" }}
+          style={{ background: "radial-gradient(260px circle at var(--mx,50%) var(--my,50%), color-mix(in srgb, var(--color-lime) 35%, transparent), transparent 70%)" }}
         />
         <ul className="no-scrollbar relative flex snap-x gap-1 overflow-x-auto md:grid md:grid-cols-5 md:overflow-visible">
           {items.map(({ key, href, tile, sub }, i) => {
@@ -165,7 +165,7 @@ function RocketGlyph() {
         transition={{ duration: 0.9, ease: "easeInOut" }}
       >
         <path d="M3 19 37 5 26 35 19 23Z" fill="#ffffff" />
-        <path d="M19 23 37 5 15 30Z" fill="#ffcf3d" />
+        <path d="M19 23 37 5 15 30Z" className="fill-sun" />
       </motion.svg>
     </>
   );

@@ -88,26 +88,26 @@ export function Help() {
 /** Flowing brand-colour bands (indigo, lime, green): a blurred copy underneath for the glow, a crisp one on top. */
 function Ribbons() {
   const paths = [
-    { d: "M-120 640 C 220 760 520 560 820 600 C 1120 640 1300 460 1740 520", w: 96, o: 0.9, c: "url(#rib-indigo)", g: "#3a40a8" },
-    { d: "M-100 760 C 260 860 560 700 880 730 C 1160 756 1360 620 1740 660", w: 28, o: 0.85, c: "url(#rib-lime)", g: "#c8f169" },
-    { d: "M-140 300 C 180 120 480 220 760 140 C 1040 60 1300 160 1740 40", w: 70, o: 0.75, c: "url(#rib-indigo)", g: "#252a86" },
-    { d: "M-120 410 C 220 250 520 340 800 270 C 1080 200 1320 280 1740 170", w: 20, o: 0.7, c: "url(#rib-green)", g: "#12a65b" },
+    { d: "M-120 640 C 220 760 520 560 820 600 C 1120 640 1300 460 1740 520", w: 96, o: 0.9, c: "url(#rib-indigo)", g: "var(--color-indigo-500)" },
+    { d: "M-100 760 C 260 860 560 700 880 730 C 1160 756 1360 620 1740 660", w: 28, o: 0.85, c: "url(#rib-lime)", g: "var(--color-lime)" },
+    { d: "M-140 300 C 180 120 480 220 760 140 C 1040 60 1300 160 1740 40", w: 70, o: 0.75, c: "url(#rib-indigo)", g: "var(--color-indigo-600)" },
+    { d: "M-120 410 C 220 250 520 340 800 270 C 1080 200 1320 280 1740 170", w: 20, o: 0.7, c: "url(#rib-green)", g: "var(--color-green-500)" },
   ];
   return (
     <svg aria-hidden viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 -z-20 size-full">
       <defs>
         <linearGradient id="rib-indigo" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#252a86" />
-          <stop offset="0.5" stopColor="#4a51c4" />
-          <stop offset="1" stopColor="#252a86" />
+          <stop offset="0" style={{ stopColor: "var(--color-indigo-600)" }} />
+          <stop offset="0.5" style={{ stopColor: "var(--k-glow)" }} />
+          <stop offset="1" style={{ stopColor: "var(--color-indigo-600)" }} />
         </linearGradient>
         <linearGradient id="rib-lime" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#b4e04f" />
-          <stop offset="1" stopColor="#c8f169" />
+          <stop offset="0" style={{ stopColor: "var(--color-lime-dark)" }} />
+          <stop offset="1" style={{ stopColor: "var(--color-lime)" }} />
         </linearGradient>
         <linearGradient id="rib-green" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#00904a" />
-          <stop offset="1" stopColor="#12a65b" />
+          <stop offset="0" style={{ stopColor: "var(--color-green-600)" }} />
+          <stop offset="1" style={{ stopColor: "var(--color-green-500)" }} />
         </linearGradient>
         <filter id="rib-blur" x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="26" />
@@ -115,7 +115,7 @@ function Ribbons() {
       </defs>
       <g fill="none" strokeLinecap="round">
         {paths.map((p, i) => (
-          <path key={`g${i}`} d={p.d} stroke={p.g} strokeWidth={p.w * 1.8} opacity={p.o * 0.28} filter="url(#rib-blur)" />
+          <path key={`g${i}`} d={p.d} style={{ stroke: p.g }} strokeWidth={p.w * 1.8} opacity={p.o * 0.28} filter="url(#rib-blur)" />
         ))}
         {paths.map((p, i) => (
           <path key={i} d={p.d} stroke={p.c} strokeWidth={p.w} opacity={p.o * 0.5} />

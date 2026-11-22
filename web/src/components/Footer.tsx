@@ -1,5 +1,7 @@
-﻿"use client";
+"use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { MapPin, Phone } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { links, phone } from "@/lib/links";
@@ -10,6 +12,8 @@ import { FacebookIcon, LinkedinIcon, YoutubeIcon } from "./SocialIcons";
 export function Footer() {
   const { d, lang } = useLang();
   const bn = lang === "bn";
+  // The same page lives at / (concept colours) and /new-design (brand-guideline colours); link across.
+  const brand = usePathname()?.startsWith("/new-design") ?? false;
 
   const cols: { title: string; items: [string, string][] }[] = [
     {
@@ -149,7 +153,12 @@ export function Footer() {
               </li>
             ))}
           </ul>
-          <p className="text-sm text-ink-3 md:text-right">© {d.footer.legal}</p>
+          <div className="flex flex-wrap items-center gap-4 md:justify-end">
+            <Link href={brand ? "/" : "/new-design"} className="inline-flex items-center gap-2 rounded-full bg-indigo-50 px-4 py-2 text-sm font-semibold text-indigo-700 transition-colors hover:bg-indigo-600 hover:text-white">
+              {brand ? (bn ? "কনসেপ্ট রঙে দেখুন" : "View in concept colours") : bn ? "ব্র্যান্ড রঙে দেখুন" : "View in brand colours"} →
+            </Link>
+            <p className="text-sm text-ink-3 md:text-right">© {d.footer.legal}</p>
+          </div>
         </div>
       </div>
     </footer>

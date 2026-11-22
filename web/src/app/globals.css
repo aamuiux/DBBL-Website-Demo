@@ -44,6 +44,123 @@
   --shadow-float: 0 4px 10px rgb(9 11 58 / 0.12), 0 32px 64px -24px rgb(9 11 58 / 0.45);
 }
 
+/* ─────────────── Colour skin ───────────────
+   Colours that live outside the Tailwind theme (artwork, gradients, SVG fills). Concept values here;
+   the brand-guideline values are swapped in below. */
+:root {
+  --k-nexus: #ea3e44; /* NexusPay red in the hero slide */
+  --k-nexus-ink: #e8272f;
+  --k-gold-a: #f3dc8a; /* card chips */
+  --k-gold-b: #b98f2e;
+  --k-gold-c: #c9a443;
+  --k-cream-a: #fffaf0; /* SME tile */
+  --k-cream-b: #fbeed2;
+  --k-wing: #e7d3e8; /* Rocket plane wing */
+  --k-glow: #4a51c4; /* Help ribbons */
+  --k-device: #0b0d26; /* phone bezel */
+  --k-rocket-a: #9a2fa0; /* Rocket section gradient */
+  --k-rocket-b: #5d1860;
+}
+
+/* ─────────────── Brand-guideline skin (/new-design) ───────────────
+   The same page in DBBL's logo colour values: blue C100 M100 #2D3192, red M100 Y100 #ED1B24,
+   green C100 Y100 K10 #00984B, black K100 and the K50-to-white silver gradient. Set on :root while the
+   page carries .brand2, so the body, the preloader and anything portalled to <body> switch too.
+   Concept colours outside the guideline map to the nearest guideline role: lime (light accent) to light
+   silver, sun (stickers) to white. Rocket keeps its own magenta. */
+:root:has(.brand2) {
+  --color-indigo-950: #0f1145;
+  --color-indigo-900: #161960;
+  --color-indigo-800: #1f2274;
+  --color-indigo-700: #272a86;
+  --color-indigo-600: #2d3192;
+  --color-indigo-500: #4347a8;
+  --color-indigo-400: #7073c4;
+  --color-indigo-200: #c6c8e9;
+  --color-indigo-100: #e5e6f5;
+  --color-indigo-50: #f2f2fa;
+
+  --color-green-700: #007a3c;
+  --color-green-600: #00984b;
+  --color-green-500: #1aaa5f;
+  --color-green-100: #dcf1e5;
+
+  --color-red-600: #ed1b24;
+  --color-lime: #dfe0e2;
+  --color-lime-dark: #c5c6ca;
+  --color-sun: #ffffff;
+  /* Rocket keeps its own magenta: it is a sub-brand with its own colour */
+
+  --color-paper: #f4f5f6;
+  --color-ink: #0d0d10;
+  --color-ink-2: #4a4b51;
+  --color-ink-3: #6c6d73;
+  --color-line: #e2e3e6;
+
+  --k-nexus: #ed1b24;
+  --k-nexus-ink: #ed1b24;
+  --k-gold-a: #f6f6f7;
+  --k-gold-b: #939598;
+  --k-gold-c: #a6a8ab;
+  --k-cream-a: #ffffff;
+  --k-cream-b: #e7e8ea;
+  --k-glow: #5458bd;
+  --k-device: #0b0b0f;
+}
+/* Light-silver fields carry the guideline's brushed gradient rather than a flat grey */
+:root:has(.brand2) .bg-lime {
+  background-image: linear-gradient(100deg, #b9babe 0%, #e7e8ea 18%, #ffffff 30%, #d2d3d6 46%, #f2f2f3 62%, #c5c6ca 80%, #eeeff0 100%);
+}
+/* Offer tickets and the School Savers cards run through the guideline colours in turn: blue, green, red, silver */
+:root:has(.brand2) .offer-tone-0,
+:root:has(.brand2) .saver-tone-0 {
+  background: var(--color-indigo-600);
+  color: #fff;
+}
+:root:has(.brand2) .offer-tone-1,
+:root:has(.brand2) .saver-tone-1 {
+  background: var(--color-green-600);
+  color: #fff;
+}
+:root:has(.brand2) .offer-tone-2,
+:root:has(.brand2) .saver-tone-2 {
+  background: var(--color-red-600);
+  color: #fff;
+}
+:root:has(.brand2) .offer-tone-3,
+:root:has(.brand2) .saver-tone-3 {
+  background: linear-gradient(100deg, #b9babe 0%, #e7e8ea 18%, #ffffff 30%, #d2d3d6 46%, #f2f2f3 62%, #c5c6ca 80%, #eeeff0 100%);
+  color: var(--color-indigo-950);
+}
+/* Logo-swoosh backgrounds that belong to the brand-colour page only */
+.brand-only {
+  display: none;
+}
+:root:has(.brand2) .brand-only {
+  display: block;
+}
+/* Magenta used as a plain accent (not for Rocket) becomes guideline red */
+:root:has(.brand2) .brand-red {
+  background: var(--color-red-600);
+}
+/* The 3D loan icons go silver */
+:root:has(.brand2) .icon3d {
+  filter: grayscale(1) contrast(1.08);
+}
+/* Card faces: every card has a guideline version (content.ts bg2 / accent2) */
+.card-face {
+  background: var(--cbg);
+}
+.card-arc {
+  border-color: var(--cac);
+}
+:root:has(.brand2) .card-face {
+  background: var(--cbg2, var(--cbg));
+}
+:root:has(.brand2) .card-arc {
+  border-color: var(--cac2, var(--cac));
+}
+
 :root {
   color-scheme: light;
   --header-h: 76px;

@@ -35,6 +35,13 @@ const en = {
     slide: "Slide",
     slides: [
       {
+        title: "Rise & Run",
+        body: "from Good to Great",
+        cta: "Open an account",
+        cta2: "Our story",
+        tag: "Rise & Run",
+      },
+      {
         title: "Bangladesh's lowest cash out charge",
         body: "Cash out from your Rocket account at any DBBL ATM for just 0.9%. That's ৳9 on ৳1,000.",
         cta: "Get Rocket",
@@ -240,6 +247,13 @@ const bn: Dict = {
     play: "স্লাইডশো চালান",
     slide: "স্লাইড",
     slides: [
+      {
+        title: "Rise & Run",
+        body: "from Good to Great",
+        cta: "অ্যাকাউন্ট খুলুন",
+        cta2: "আমাদের গল্প",
+        tag: "জেগে উঠুন, নতুন ভাবে",
+      },
       {
         title: "বাংলাদেশে সবচেয়ে কম ক্যাশ আউট চার্জ",
         body: "যেকোনো ডিবিবিএল এটিএম থেকে রকেট অ্যাকাউন্টের টাকা তুলুন মাত্র ০.৯% চার্জে। ১,০০০ টাকায় মাত্র ৯ টাকা।",
