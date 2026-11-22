@@ -44,7 +44,7 @@ export function Segments() {
               quality={80}
               className="-z-20 object-cover object-[72%_35%] transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-[1.05]"
             />
-            <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgb(0_80_41/0.96)_0%,rgb(0_80_41/0.82)_48%,rgb(0_80_41/0)_85%),linear-gradient(0deg,rgb(0_80_41/0.6),transparent_45%)]" />
+            <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgb(0_80_41/0.96)_0%,rgb(0_80_41/0.84)_38%,rgb(0_80_41/0)_62%)]" />
             <TileCopy name={it.sme.name} body={it.sme.body} cta={d.segments.cta} narrow />
           </Tile>
         </Reveal>
