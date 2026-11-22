@@ -12,6 +12,9 @@ import { Button, Reveal, useReduce } from "./ui";
 gsap.registerPlugin(ScrollTrigger);
 
 const useIsoLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
+// At rest the card and headline are centred in the space below the floating header, not in the raw viewport;
+// the card eases back to true centre as it opens to full screen.
+const restOffset = () => Math.max(0, Math.min(24, (window.innerHeight - 700) / 4));
 const MQ = "(min-width: 1024px) and (min-height: 640px) and (pointer: fine)";
 function subscribeMq(cb: () => void) {
   const mq = window.matchMedia(MQ);
@@ -80,8 +83,8 @@ export function VideoStory() {
         .fromTo(q("[data-under]"), { y: 0, autoAlpha: 1 }, { y: 40, autoAlpha: 0, duration: 0.3 }, 0)
         .fromTo(
           panel,
-          { xPercent: -50, yPercent: -50, width: "30vw", height: () => (window.innerWidth * 0.3) / 1.586, borderRadius: 24, rotate: -4 },
-          { xPercent: -50, yPercent: -50, width: "100vw", height: () => window.innerHeight, borderRadius: 0, rotate: 0, duration: 1, ease: "power2.inOut" },
+          { xPercent: -50, yPercent: -50, y: () => restOffset(), width: "30vw", height: () => (window.innerWidth * 0.3) / 1.586, borderRadius: 24, rotate: -4 },
+          { xPercent: -50, yPercent: -50, y: 0, width: "100vw", height: () => window.innerHeight, borderRadius: 0, rotate: 0, duration: 1, ease: "power2.inOut" },
           0,
         )
         .fromTo(q("[data-chip]"), { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.25 }, 0.05);
@@ -199,7 +202,7 @@ export function VideoStory() {
         </h2>
 
         {/* Headline split around the card-shaped frame */}
-        <div aria-hidden className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 items-center px-6 xl:px-10">
+        <div aria-hidden className="absolute inset-x-0 top-[calc(50%+clamp(0px,(100svh-700px)/4,24px))] flex -translate-y-1/2 items-center px-6 xl:px-10">
           <p data-word-a className="font-display flex-1 text-right text-[clamp(2.6rem,5.2vw,5.5rem)] font-semibold leading-[0.95] tracking-[-0.04em] text-ink">
             {d.video.titleA}
           </p>
