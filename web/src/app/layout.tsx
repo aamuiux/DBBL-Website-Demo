@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Anek_Bangla, Bricolage_Grotesque, Hanken_Grotesk } from "next/font/google";
 import { LanguageProvider } from "@/lib/i18n";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { Preloader } from "@/components/Preloader";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${bricolage.variable} ${hanken.variable} ${anek.variable}`}>
       <body>
         <LanguageProvider>
+          <Preloader />
           <SmoothScroll />
           {children}
         </LanguageProvider>
