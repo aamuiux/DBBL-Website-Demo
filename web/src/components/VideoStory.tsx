@@ -83,8 +83,8 @@ export function VideoStory() {
         .fromTo(q("[data-under]"), { y: 0, autoAlpha: 1 }, { y: 40, autoAlpha: 0, duration: 0.3 }, 0)
         .fromTo(
           panel,
-          { xPercent: -50, yPercent: -50, y: () => restOffset(), width: "30vw", height: () => (window.innerWidth * 0.3) / 1.586, borderRadius: 24, rotate: -4 },
-          { xPercent: -50, yPercent: -50, y: 0, width: "100vw", height: () => window.innerHeight, borderRadius: 0, rotate: 0, duration: 1, ease: "power2.inOut" },
+          { xPercent: -50, yPercent: -50, x: 0, y: () => restOffset(), width: "30vw", height: () => (window.innerWidth * 0.3) / 1.586, borderRadius: 24, rotate: -4 },
+          { xPercent: -50, yPercent: -50, x: 0, y: 0, width: "100vw", height: () => window.innerHeight, borderRadius: 0, rotate: 0, duration: 1, ease: "power2.inOut" },
           0,
         )
         .fromTo(q("[data-chip]"), { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.25 }, 0.05);
@@ -222,7 +222,7 @@ export function VideoStory() {
         {/* The frame: a card at rest, the screen when open */}
         <div
           ref={panelRef}
-          className="on-dark absolute left-1/2 top-1/2 h-[calc(30vw/1.586)] w-[30vw] overflow-hidden rounded-3xl bg-indigo-950 shadow-[var(--shadow-float)] will-change-[width,height] [transform:translate(-50%,-50%)_rotate(-4deg)]"
+          className="on-dark absolute left-1/2 top-1/2 h-[calc(30vw/1.586)] w-[30vw] overflow-hidden rounded-3xl bg-indigo-950 shadow-[var(--shadow-float)] will-change-[width,height]"
         >
           {film}
           <div data-chip aria-hidden className="pointer-events-none absolute left-[6%] top-[9%] flex items-center gap-3">
