@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useId } from "react";
 import { ArrowUpRight, Building2, Crown } from "lucide-react";
 import { useLang } from "@/lib/i18n";
@@ -18,10 +19,9 @@ export function Segments() {
       <div className="mt-12 grid auto-rows-[minmax(15rem,auto)] gap-4 md:grid-cols-6 lg:grid-cols-12">
         {/* Personal: photographic, the widest tile */}
         <Reveal className="md:col-span-6 lg:col-span-7 lg:row-span-2">
-          <Tile href={links.personalAccounts} label={it.personal.name} className="min-h-[24rem] text-white lg:min-h-full">
-            <FinanceArt />
-            <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(0deg,rgb(9_11_58/0.85),rgb(9_11_58/0)_60%)]" />
-            <TileCopy name={it.personal.name} body={it.personal.body} cta={d.segments.cta} big />
+          <Tile href={links.personalAccounts} label={it.personal.name} className="min-h-[24rem] text-indigo-950 lg:min-h-full">
+            <PersonalPhoto />
+            <TileCopy name={it.personal.name} body={it.personal.body} cta={d.segments.cta} big dark />
           </Tile>
         </Reveal>
 
@@ -72,66 +72,21 @@ export function Segments() {
   );
 }
 
-/** Illustrative personal-finance scene (not a photo): a phone with a savings goal, a growth chart and coins. */
-function FinanceArt() {
+/** Personal: a young man smiling at his phone, on the warm cream of the loan campaign it is drawn from. */
+function PersonalPhoto() {
   return (
-    <div aria-hidden className="absolute inset-0 -z-20 overflow-hidden bg-[linear-gradient(135deg,#252a86,#090b3a)]">
-      <span className="absolute -right-24 -top-28 size-[34rem] rounded-full bg-[radial-gradient(circle,rgb(200_241_105/0.28),transparent_65%)]" />
-      <span className="absolute -left-20 bottom-0 size-[26rem] rounded-full bg-[radial-gradient(circle,rgb(106_112_201/0.35),transparent_65%)]" />
-      <svg viewBox="0 0 760 520" preserveAspectRatio="xMaxYMin slice" className="absolute inset-0 size-full transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-[1.03]">
-        <defs>
-          <linearGradient id="fa-coin" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#ffe08a" />
-            <stop offset="1" stopColor="#e0a21c" />
-          </linearGradient>
-          <linearGradient id="fa-area" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#c8f169" stopOpacity="0.5" />
-            <stop offset="1" stopColor="#c8f169" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        {/* growth chart card, behind the phone */}
-        <g transform="translate(482 60) rotate(6)">
-          <rect width="270" height="170" rx="20" fill="white" fillOpacity="0.1" stroke="white" strokeOpacity="0.25" />
-          <path d="M20 135 L65 112 L105 122 L150 82 L195 92 L250 40 L250 150 L20 150 Z" fill="url(#fa-area)" />
-          <path d="M20 135 L65 112 L105 122 L150 82 L195 92 L250 40" fill="none" stroke="#c8f169" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-          <circle cx="250" cy="40" r="7" fill="#c8f169" stroke="#090b3a" strokeWidth="3" />
-          <rect x="22" y="18" width="70" height="8" rx="4" fill="white" fillOpacity="0.55" />
-        </g>
-        {/* phone */}
-        <g transform="translate(452 105) rotate(-8)">
-          <rect width="190" height="370" rx="32" fill="#0d0f2b" stroke="white" strokeOpacity="0.25" strokeWidth="2" />
-          <rect x="9" y="9" width="172" height="352" rx="25" fill="#f5f6fa" />
-          <rect x="68" y="18" width="54" height="12" rx="6" fill="#0d0f2b" />
-          <rect x="24" y="52" width="80" height="9" rx="4.5" fill="#6b6f8e" fillOpacity="0.5" />
-          <rect x="24" y="68" width="120" height="16" rx="6" fill="#0d0f2b" />
-          {/* savings goal ring */}
-          <circle cx="95" cy="168" r="46" fill="none" stroke="#e7e8f7" strokeWidth="14" />
-          <circle cx="95" cy="168" r="46" fill="none" stroke="#252a86" strokeWidth="14" strokeLinecap="round" strokeDasharray="208 289" transform="rotate(-90 95 168)" />
-          <text x="95" y="177" textAnchor="middle" fontSize="26" fontWeight="700" fill="#0d0f2b">৳</text>
-          <rect x="52" y="232" width="86" height="9" rx="4.5" fill="#6b6f8e" fillOpacity="0.5" />
-          {/* list rows */}
-          {[0, 1, 2].map((i) => (
-            <g key={i} transform={`translate(22 ${258 + i * 30})`}>
-              <rect width="146" height="24" rx="8" fill="white" />
-              <circle cx="14" cy="12" r="6" fill={["#00904a", "#252a86", "#e31b23"][i]} />
-              <rect x="28" y="8" width={[54, 44, 62][i]} height="8" rx="4" fill="#0d0f2b" fillOpacity="0.7" />
-              <rect x="112" y="8" width="24" height="8" rx="4" fill="#6b6f8e" fillOpacity="0.45" />
-            </g>
-          ))}
-        </g>
-        {/* coins */}
-        {[
-          [440, 130, 38],
-          [706, 330, 32],
-          [640, 452, 26],
-        ].map(([x, y, r], i) => (
-          <g key={i}>
-            <circle cx={x} cy={y} r={r} fill="url(#fa-coin)" stroke="#b67a0a" strokeOpacity="0.5" strokeWidth="3" />
-            <circle cx={x} cy={y} r={r * 0.72} fill="none" stroke="#b67a0a" strokeOpacity="0.35" strokeWidth="2" />
-            <text x={x} y={y + r * 0.32} textAnchor="middle" fontSize={r * 0.95} fontWeight="700" fill="#8a5a05">৳</text>
-          </g>
-        ))}
-      </svg>
+    <div aria-hidden={false} className="absolute inset-0 -z-20 overflow-hidden bg-[linear-gradient(120deg,#fffaf0,#fbeed2)]">
+      <span className="absolute -left-24 top-0 size-[30rem] rounded-full bg-[radial-gradient(circle,rgb(255_255_255/0.9),transparent_65%)]" />
+      <div className="absolute inset-y-0 right-0 w-[min(52%,23rem)] [mask-image:linear-gradient(90deg,transparent,#000_28%)]">
+        <Image
+          src="/personal-finance.webp"
+          alt="A young man smiling at his phone after a quick, easy approval"
+          fill
+          sizes="(min-width:1024px) 23rem, 52vw"
+          quality={85}
+          className="object-cover object-[50%_20%] transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-[1.04]"
+        />
+      </div>
     </div>
   );
 }
