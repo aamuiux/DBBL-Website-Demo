@@ -56,7 +56,8 @@ export const schoolSavers = [
 ];
 
 /* ───────── Rocket (Rocket page) ───────── */
-export const rocketFeatures = [
+/** `img` is an optional photo in /public shown when the card is hovered. */
+export const rocketFeatures: { t: L; d: L; img?: string }[] = [
   { t: s("Cash in", "ক্যাশ ইন"), d: s("Deposit at any Rocket agent.", "যেকোনো রকেট এজেন্টে জমা দিন।") },
   { t: s("Cash out", "ক্যাশ আউট"), d: s("At agents or a DBBL ATM, no card needed.", "এজেন্ট বা ডিবিবিএল এটিএমে, কার্ড ছাড়াই।") },
   { t: s("Send money", "টাকা পাঠান"), d: s("Person to person, in seconds.", "একজন থেকে আরেকজনে, মুহূর্তে।") },

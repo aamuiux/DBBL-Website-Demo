@@ -288,10 +288,11 @@ function RocketLogoArt({ reduce }: { reduce: boolean }) {
         className="relative size-[min(28rem,48vh)]"
       >
         <span className="absolute -inset-[18%] rounded-full bg-[radial-gradient(circle,rgb(255_255_255/0.28),transparent_62%)]" />
-        <span className="absolute -inset-[7%] rounded-[30%] ring-1 ring-white/25" />
-        <span className="absolute -inset-[16%] rounded-[34%] ring-1 ring-white/12" />
-        <span className="relative block size-full overflow-hidden rounded-[22%] shadow-[0_40px_90px_-30px_rgb(20_0_25/0.8)] ring-4 ring-white/20">
-          <Image src={links.rocketLogo} alt="" fill sizes="28rem" quality={90} preload className="object-cover" />
+                <span className="relative block size-full overflow-hidden rounded-[22%] bg-rocket shadow-[0_30px_80px_-34px_rgb(20_0_25/0.7)] ring-[3px] ring-white/45">
+          <Image src={links.rocketLogo} alt="" fill sizes="28rem" quality={90} preload className="object-cover opacity-90" />
+          {/* melt the edges into the magenta field behind it */}
+          <span aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_50%_46%,transparent_48%,rgb(138_40_143/0.6)_100%)]" />
+          <span aria-hidden className="absolute inset-0 rounded-[22%] ring-1 ring-inset ring-white/25" />
         </span>
       </motion.div>
     </motion.div>

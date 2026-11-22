@@ -520,8 +520,22 @@ export function RocketBand() {
                   whileInView={{ opacity: 1, y: 0, rotate: 0 }}
                   viewport={{ once: true, amount: 0.6 }}
                   transition={{ type: "spring", stiffness: 170, damping: 18, delay: (i % 3) * 0.06 }}
-                  className="group flex items-start gap-4 rounded-2xl bg-white/10 p-5 ring-1 ring-inset ring-white/15 transition-colors hover:bg-white/15"
+                  className="group relative isolate flex items-start gap-4 overflow-hidden rounded-2xl bg-white/10 p-5 ring-1 ring-inset ring-white/15 transition-[background-color,transform,box-shadow] duration-500 ease-[var(--ease-out-expo)] hover:z-10 hover:scale-[1.04] hover:bg-white/15 hover:shadow-[0_30px_60px_-30px_rgb(20_0_25/0.8)]"
                 >
+                  {/* On hover the card zooms and its related photo comes up behind the text */}
+                  {f.img && (
+                    <>
+                      <Image
+                        src={f.img}
+                        alt=""
+                        fill
+                        sizes="(min-width:1024px) 30vw, 50vw"
+                        quality={75}
+                        className="-z-20 scale-110 object-cover opacity-0 transition-[opacity,transform] duration-700 ease-[var(--ease-out-expo)] group-hover:scale-100 group-hover:opacity-100"
+                      />
+                      <span aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(0deg,rgb(29_10_32/0.85),rgb(29_10_32/0.35))] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                    </>
+                  )}
                   <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-sun text-rocket-ink transition-transform duration-500 group-hover:-rotate-12">
                     <Icon className="size-5" aria-hidden />
                   </span>

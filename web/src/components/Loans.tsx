@@ -14,9 +14,9 @@ const loanLook: Record<
   (typeof retailLoans)[number]["key"],
   { Art: (p: { className?: string }) => React.ReactElement; icon: LucideIcon; chip: string; tone: string; pattern: string; apply: Tone; faq: Tone }
 > = {
-  personal: { Art: CoinsIcon3D, icon: Wallet, chip: "bg-lime text-indigo-950", tone: "bg-indigo-600 text-white", pattern: "text-white/[0.07]", apply: "lime", faq: "ghost-dark" },
-  home: { Art: HouseIcon3D, icon: Home, chip: "bg-white text-green-700", tone: "bg-green-600 text-white", pattern: "text-white/[0.08]", apply: "white", faq: "ghost-dark" },
-  car: { Art: CarIcon3D, icon: Car, chip: "bg-indigo-950 text-white", tone: "bg-sun text-indigo-950", pattern: "text-indigo-950/[0.07]", apply: "ink", faq: "ghost-light" },
+  personal: { Art: CoinsIcon3D, icon: Wallet, chip: "bg-lime text-indigo-950", tone: "bg-indigo-600 text-white", pattern: "text-white/[0.035]", apply: "lime", faq: "ghost-dark" },
+  home: { Art: HouseIcon3D, icon: Home, chip: "bg-white text-green-700", tone: "bg-green-600 text-white", pattern: "text-white/[0.04]", apply: "white", faq: "ghost-dark" },
+  car: { Art: CarIcon3D, icon: Car, chip: "bg-indigo-950 text-white", tone: "bg-sun text-indigo-950", pattern: "text-indigo-950/[0.035]", apply: "ink", faq: "ghost-light" },
 };
 
 export function Loans() {
