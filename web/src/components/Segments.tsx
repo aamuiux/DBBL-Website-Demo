@@ -36,7 +36,14 @@ export function Segments() {
         {/* SME */}
         <Reveal delay={0.1} className="md:col-span-3 lg:col-span-5">
           <Tile href={links.smeLenden} label={it.sme.name} className="text-white">
-            <StoreArt />
+            <Image
+              src="/sme-boutique.webp"
+              alt="A smiling boutique owner with a measuring tape, leaning on her sewing machine in her shop"
+              fill
+              sizes="(min-width:1024px) 42vw, 50vw"
+              quality={80}
+              className="-z-20 object-cover object-[72%_35%] transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-[1.05]"
+            />
             <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgb(0_80_41/0.96)_0%,rgb(0_80_41/0.82)_48%,rgb(0_80_41/0)_85%),linear-gradient(0deg,rgb(0_80_41/0.6),transparent_45%)]" />
             <TileCopy name={it.sme.name} body={it.sme.body} cta={d.segments.cta} narrow />
           </Tile>
@@ -87,82 +94,6 @@ function PersonalPhoto() {
           className="object-cover object-[50%_20%] transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-[1.04]"
         />
       </div>
-    </div>
-  );
-}
-
-/** Illustrative storefront (not a photo): a striped awning, lit windows full of goods, an open sign and planters. */
-function StoreArt() {
-  const stripes = Array.from({ length: 10 }, (_, i) => i);
-  return (
-    <div aria-hidden className="absolute inset-0 -z-20 overflow-hidden bg-[linear-gradient(180deg,#0b7a47,#00502a)]">
-      <svg viewBox="0 0 520 420" preserveAspectRatio="xMaxYMid meet" className="absolute inset-0 size-full transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-[1.04]">
-        <defs>
-          <linearGradient id="sa-glow" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#fff2c2" />
-            <stop offset="1" stopColor="#ffd37a" />
-          </linearGradient>
-        </defs>
-        {/* string lights */}
-        <path d="M60 24 Q 290 70 520 20" fill="none" stroke="white" strokeOpacity="0.4" strokeWidth="2" />
-        {[100, 170, 240, 310, 380, 450].map((x, i) => (
-          <circle key={x} cx={x} cy={24 + Math.sin((x - 60) / 460 * Math.PI) * 30 + 6} r="5" fill="#ffe08a" opacity={i % 2 ? 0.9 : 0.6} />
-        ))}
-        {/* building */}
-        <rect x="70" y="92" width="410" height="330" rx="10" fill="#f6efe2" />
-        <rect x="70" y="92" width="410" height="26" fill="#e7dcc6" />
-        <rect x="205" y="102" width="140" height="30" rx="8" fill="#0d0f2b" />
-        <text x="275" y="123" textAnchor="middle" fontSize="19" fontWeight="700" fill="#ffd37a" letterSpacing="3">BAZAAR</text>
-        {/* awning */}
-        <g transform="translate(60 140)">
-          {stripes.map((i) => (
-            <path key={i} d={`M${i * 42} 0 h42 v34 a21 21 0 0 1 -42 0 z`} fill={i % 2 ? "#ffffff" : "#c8f169"} />
-          ))}
-          <rect y="-8" width="420" height="10" fill="#0b7a47" opacity="0.35" />
-        </g>
-        {/* windows full of goods */}
-        {[
-          { x: 92, w: 168 },
-          { x: 372, w: 90 },
-        ].map((w, k) => (
-          <g key={k}>
-            <rect x={w.x} y="216" width={w.w} height="150" rx="8" fill="url(#sa-glow)" />
-            <rect x={w.x} y="216" width={w.w} height="150" rx="8" fill="none" stroke="#c9b98f" strokeWidth="4" />
-            <rect x={w.x + 6} y="290" width={w.w - 12} height="5" fill="#b9a273" />
-            <rect x={w.x + 6} y="338" width={w.w - 12} height="5" fill="#b9a273" />
-          </g>
-        ))}
-        {/* goods: jars, bags, a plant */}
-        <g>
-          <rect x="106" y="256" width="26" height="34" rx="5" fill="#e31b23" />
-          <rect x="138" y="262" width="24" height="28" rx="5" fill="#252a86" />
-          <rect x="168" y="250" width="30" height="40" rx="6" fill="#ffcf3d" />
-          <path d="M205 290 q4 -34 22 -34 q18 0 22 34 z" fill="#00904a" />
-          <rect x="108" y="304" width="40" height="34" rx="6" fill="#8a288f" />
-          <rect x="156" y="310" width="44" height="28" rx="6" fill="#f08a24" />
-          <circle cx="226" cy="324" r="16" fill="#e0568f" />
-          <rect x="384" y="262" width="22" height="28" rx="5" fill="#e31b23" />
-          <rect x="412" y="256" width="26" height="34" rx="5" fill="#252a86" />
-          <rect x="388" y="306" width="50" height="32" rx="6" fill="#00a38a" />
-        </g>
-        {/* door */}
-        <rect x="280" y="216" width="80" height="206" rx="6" fill="#0d6b3f" />
-        <rect x="290" y="228" width="60" height="120" rx="4" fill="url(#sa-glow)" opacity="0.9" />
-        <circle cx="346" cy="330" r="4" fill="#ffe08a" />
-        <g transform="translate(298 262) rotate(-4)">
-          <rect width="44" height="22" rx="5" fill="#e31b23" />
-          <text x="22" y="15" textAnchor="middle" fontSize="12" fontWeight="700" fill="white" letterSpacing="1">OPEN</text>
-        </g>
-        {/* planters */}
-        {[84, 430].map((x) => (
-          <g key={x}>
-            <rect x={x} y="392" width="36" height="30" rx="5" fill="#b9582f" />
-            <circle cx={x + 18} cy="380" r="18" fill="#12a65b" />
-            <circle cx={x + 8} cy="372" r="11" fill="#00904a" />
-            <circle cx={x + 28} cy="374" r="12" fill="#00a85a" />
-          </g>
-        ))}
-      </svg>
     </div>
   );
 }
