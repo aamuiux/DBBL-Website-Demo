@@ -12,7 +12,7 @@ import { Button, easeOut, useReduce } from "./ui";
 // Every slide has a prominent colour field. Photo slides sit under an indigo wash; the Rocket slide is a magenta
 // field with a screenshot of the real Rocket app in a phone frame; the NexusPay slide is NexusPay red with its
 // zigzag line pattern and a NexusPay login screen in a phone frame.
-type Slide = { tint: "indigo" | "rocket" | "nexus"; src: string; alt: string; position: string; cta: string; cta2: string };
+type Slide = { tint: "indigo" | "rocket" | "nexus"; art?: "atm"; src: string; alt: string; position: string; cta: string; cta2: string };
 const slides: Slide[] = [
   {
     tint: "rocket",
@@ -40,6 +40,7 @@ const slides: Slide[] = [
   },
   {
     tint: "indigo",
+    art: "atm",
     src: "https://images.unsplash.com/photo-1780345493576-ed325a2dd2d6",
     alt: "An elevated highway interchange crossing green Dhaka at dawn",
     position: "50% 60%",
@@ -176,6 +177,7 @@ export function Hero() {
       {/* The real Rocket app, in a phone (large screens) */}
       <AnimatePresence>{slide.tint === "rocket" && <RocketPhone key="rocket-phone" src={slide.src} alt={slide.alt} reduce={!!reduce} />}</AnimatePresence>
       <AnimatePresence>{slide.tint === "nexus" && <NexusPhone key="nexus-phone" reduce={!!reduce} />}</AnimatePresence>
+      <AnimatePresence>{slide.art === "atm" && <AtmArt key="atm-art" reduce={!!reduce} />}</AnimatePresence>
 
       <div className="mx-auto flex w-full max-w-[1360px] flex-1 flex-col justify-end px-5 pb-36 pt-[calc(var(--header-h)+4rem)] sm:px-6 sm:pb-40 xl:px-10">
         <div className="max-w-[44rem]" aria-live={playing ? "off" : "polite"}>
@@ -378,6 +380,30 @@ function NexusPhone({ reduce }: { reduce: boolean }) {
               </span>
             </div>
           </div>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
+/** DBBL's ATMs and a location pin on the right of the "Largest ATM network" slide; the photo behind is untouched. */
+function AtmArt({ reduce }: { reduce: boolean }) {
+  return (
+    <motion.div
+      aria-hidden
+      className="pointer-events-none absolute inset-0 hidden lg:block"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 0.4 } }}
+    >
+      <div className="relative mx-auto h-full max-w-[1360px]">
+        <motion.div
+          initial={reduce ? false : { y: 60, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 70, damping: 16, delay: 0.25 }}
+          className="absolute right-[5%] top-[47%] aspect-[1400/1220] h-[min(32rem,58vh)] -translate-y-1/2"
+        >
+          <Image src="/atm-network.webp" alt="" fill sizes="40rem" quality={90} className="object-contain drop-shadow-[0_30px_40px_rgba(9,11,58,0.45)]" />
         </motion.div>
       </div>
     </motion.div>
