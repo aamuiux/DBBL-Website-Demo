@@ -115,10 +115,10 @@ function Ribbons() {
       </defs>
       <g fill="none" strokeLinecap="round">
         {paths.map((p, i) => (
-          <path key={`g${i}`} d={p.d} stroke={p.g} strokeWidth={p.w * 1.8} opacity={p.o * 0.5} filter="url(#rib-blur)" />
+          <path key={`g${i}`} d={p.d} stroke={p.g} strokeWidth={p.w * 1.8} opacity={p.o * 0.28} filter="url(#rib-blur)" />
         ))}
         {paths.map((p, i) => (
-          <path key={i} d={p.d} stroke={p.c} strokeWidth={p.w} opacity={p.o} />
+          <path key={i} d={p.d} stroke={p.c} strokeWidth={p.w} opacity={p.o * 0.5} />
         ))}
       </g>
     </svg>

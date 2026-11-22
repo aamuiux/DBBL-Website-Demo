@@ -248,7 +248,7 @@ export function RocketBand() {
 
         <span aria-hidden className="pointer-events-none absolute -left-40 -top-40 size-[34rem] rounded-full bg-[radial-gradient(circle,rgb(255_255_255/0.2),transparent_65%)]" />
         <span aria-hidden className="pointer-events-none absolute -bottom-40 -right-32 size-[40rem] rounded-full bg-[radial-gradient(circle,rgb(255_207_61/0.22),transparent_62%)]" />
-        <Pattern variant="waves" className="text-white/[0.13]" />
+        <Pattern variant="waves" className="text-white/[0.06]" />
 
         <div
           className={`relative mx-auto grid max-w-[1360px] gap-12 px-5 sm:px-6 lg:grid-cols-[1fr_1.1fr] lg:items-center xl:px-10 ${

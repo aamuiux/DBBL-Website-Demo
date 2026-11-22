@@ -307,7 +307,7 @@ function NexusField() {
         <defs>
           <pattern id="nexus-zig" width="140" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(-8)">
             {rows.map((y) => (
-              <path key={y} d={`M0 ${y + 30} L40 ${y - 30} L140 ${y + 30}`} fill="none" stroke="white" strokeOpacity="0.28" strokeWidth="1" />
+              <path key={y} d={`M0 ${y + 30} L40 ${y - 30} L140 ${y + 30}`} fill="none" stroke="white" strokeOpacity="0.12" strokeWidth="1" />
             ))}
           </pattern>
         </defs>

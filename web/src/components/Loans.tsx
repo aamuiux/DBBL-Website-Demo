@@ -14,9 +14,9 @@ const loanLook: Record<
   (typeof retailLoans)[number]["key"],
   { Art: (p: { className?: string }) => React.ReactElement; tone: string; pattern: string; apply: Tone; faq: Tone }
 > = {
-  personal: { Art: CoinsIcon3D, tone: "bg-indigo-600 text-white", pattern: "text-white/15", apply: "lime", faq: "ghost-dark" },
-  home: { Art: HouseIcon3D, tone: "bg-green-600 text-white", pattern: "text-white/20", apply: "white", faq: "ghost-dark" },
-  car: { Art: CarIcon3D, tone: "bg-sun text-indigo-950", pattern: "text-indigo-950/15", apply: "ink", faq: "ghost-light" },
+  personal: { Art: CoinsIcon3D, tone: "bg-indigo-600 text-white", pattern: "text-white/[0.07]", apply: "lime", faq: "ghost-dark" },
+  home: { Art: HouseIcon3D, tone: "bg-green-600 text-white", pattern: "text-white/[0.08]", apply: "white", faq: "ghost-dark" },
+  car: { Art: CarIcon3D, tone: "bg-sun text-indigo-950", pattern: "text-indigo-950/[0.07]", apply: "ink", faq: "ghost-light" },
 };
 
 export function Loans() {
@@ -72,10 +72,10 @@ export function Loans() {
               >
                 <div className={`group relative isolate flex h-full min-h-80 flex-col justify-between overflow-hidden rounded-[1.75rem] p-7 ${look.tone}`}>
                   <Pattern variant={l.key === "home" ? "rings" : l.key === "car" ? "zigzag" : "waves"} className={look.pattern} />
-                  <Art className="relative -ml-4 -mt-4 size-44 drop-shadow-[0_18px_22px_rgba(0,0,0,0.25)] transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-translate-y-2 group-hover:rotate-[-6deg] group-hover:scale-105" />
-                  <div className="relative mt-16">
+                  <Art className="pointer-events-none absolute -bottom-7 -right-7 size-48 drop-shadow-[0_18px_22px_rgba(0,0,0,0.25)] transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-rotate-6 group-hover:scale-105" />
+                  <div className="relative mt-auto pt-36">
                     <h3 className="font-display text-[2.25rem] font-semibold leading-none tracking-[-0.035em]">{l.name[lang]}</h3>
-                    <p className="mt-3 max-w-[26ch] text-lg opacity-85">{l.body[lang]}</p>
+                    <p className="mt-3 max-w-[23ch] text-lg opacity-85">{l.body[lang]}</p>
                     <div className="mt-7 flex flex-wrap gap-2">
                       <Button href={links.loanApply} tone={look.apply} size="sm">
                         {bn ? "আবেদন" : "Apply"}
