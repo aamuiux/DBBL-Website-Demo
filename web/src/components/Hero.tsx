@@ -285,9 +285,9 @@ function RocketLogoArt({ reduce }: { reduce: boolean }) {
         initial={reduce ? false : { scale: 0.8, rotate: 8, opacity: 0 }}
         animate={{ scale: 1, rotate: -3, opacity: 1 }}
         transition={{ type: "spring", stiffness: 70, damping: 16, delay: 0.2 }}
-        className="relative size-[min(30rem,52vh)]"
+        className="relative size-[min(28rem,50vh)]"
       >
-        <span className="absolute -inset-[12%] rounded-full bg-[radial-gradient(circle,rgb(255_255_255/0.18),transparent_62%)]" />
+        <span className="absolute -inset-[12%] rounded-full bg-[radial-gradient(circle,rgb(255_255_255/0.08),transparent_62%)]" />
         {/* White Rocket logo on a transparent background: no frame, it sits straight on the magenta field */}
         <Image
           src="/rocket-logo.png"
@@ -296,7 +296,7 @@ function RocketLogoArt({ reduce }: { reduce: boolean }) {
           sizes="30rem"
           quality={90}
           preload
-          className="object-contain drop-shadow-[0_18px_36px_rgba(60,0,70,0.35)]"
+          className="object-contain opacity-[0.22]"
         />
       </motion.div>
     </motion.div>
