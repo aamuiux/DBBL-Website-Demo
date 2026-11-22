@@ -9,7 +9,6 @@ import { ArrowDownToLine, ArrowUpFromLine, Check, Lock, Receipt, Send, Smartphon
 import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
 import { rocketFeatures } from "@/lib/content";
-import { Pattern } from "./Patterns";
 import { Button, Reveal, useReduce } from "./ui";
 import { StoreBadges } from "./AppStory";
 
@@ -248,7 +247,6 @@ export function RocketBand() {
 
         <span aria-hidden className="pointer-events-none absolute -left-40 -top-40 size-[34rem] rounded-full bg-[radial-gradient(circle,rgb(255_255_255/0.2),transparent_65%)]" />
         <span aria-hidden className="pointer-events-none absolute -bottom-40 -right-32 size-[40rem] rounded-full bg-[radial-gradient(circle,rgb(255_207_61/0.22),transparent_62%)]" />
-        <Pattern variant="waves" className="text-white/[0.06]" />
 
         <div
           className={`relative mx-auto grid max-w-[1360px] gap-12 px-5 sm:px-6 lg:grid-cols-[1fr_1.1fr] lg:items-center xl:px-10 ${
@@ -559,7 +557,7 @@ export function RocketBand() {
 function KeypadPhone({ screen, keypad }: { screen: React.ReactNode; keypad: React.ReactNode }) {
   return (
     <div className="@container w-[clamp(8.5rem,38vw,12.5rem)] lg:w-[min(14rem,calc((100svh-14rem)*0.36))]">
-      <div className="rounded-[10cqw_10cqw_15cqw_15cqw] bg-rocket-ink p-[7cqw] pb-[9cqw] shadow-[0_50px_90px_-30px_rgb(20_0_25/0.85)] ring-1 ring-white/10">
+      <div className="rounded-[10cqw] bg-rocket-ink p-[7cqw] pb-[9cqw] shadow-[0_50px_90px_-30px_rgb(20_0_25/0.85)] ring-1 ring-white/10">
         <span aria-hidden className="mx-auto mb-[5cqw] block h-[2.4cqw] w-[26cqw] rounded-full bg-white/15" />
         <div className="@container aspect-[1/0.92] overflow-hidden rounded-[2.5cqw] bg-white text-rocket-ink">
           <div className="h-full p-[7cqw]">{screen}</div>

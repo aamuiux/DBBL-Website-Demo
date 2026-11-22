@@ -119,7 +119,7 @@ export function Footer() {
           <div className="grid grid-cols-2 gap-x-8 gap-y-8 md:grid-cols-4">
             {cols.map((c) => (
               <nav key={c.title} aria-label={c.title}>
-                <h2 className="text-sm font-semibold text-ink">{c.title}</h2>
+                <h2 className="text-lg font-semibold tracking-[-0.01em] text-ink">{c.title}</h2>
                 <ul className="mt-3 space-y-0">
                   {c.items.map(([label, href]) => (
                     <li key={href + label}>
