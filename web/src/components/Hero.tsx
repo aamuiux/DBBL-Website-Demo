@@ -271,7 +271,7 @@ export function Hero() {
   );
 }
 
-/** The Rocket logo, large and glowing, behind the phone. */
+/** The Rocket logo, large, behind the phone. */
 function RocketLogoArt({ reduce }: { reduce: boolean }) {
   return (
     <motion.div
@@ -279,21 +279,25 @@ function RocketLogoArt({ reduce }: { reduce: boolean }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 0.4 } }}
-      className="pointer-events-none absolute inset-y-0 right-[-12%] hidden items-center sm:flex lg:right-[22%]"
+      className="pointer-events-none absolute inset-y-0 right-[-12%] hidden items-center sm:flex lg:right-[26%]"
     >
       <motion.div
         initial={reduce ? false : { scale: 0.8, rotate: 8, opacity: 0 }}
-        animate={{ scale: 1, rotate: -6, opacity: 1 }}
+        animate={{ scale: 1, rotate: -3, opacity: 1 }}
         transition={{ type: "spring", stiffness: 70, damping: 16, delay: 0.2 }}
-        className="relative size-[min(28rem,48vh)]"
+        className="relative size-[min(30rem,52vh)]"
       >
-        <span className="absolute -inset-[18%] rounded-full bg-[radial-gradient(circle,rgb(255_255_255/0.28),transparent_62%)]" />
-                <span className="relative block size-full overflow-hidden rounded-[22%] bg-rocket shadow-[0_30px_80px_-34px_rgb(20_0_25/0.7)] ring-[3px] ring-white/45">
-          <Image src={links.rocketLogo} alt="" fill sizes="28rem" quality={90} preload className="object-cover opacity-90" />
-          {/* melt the edges into the magenta field behind it */}
-          <span aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_50%_46%,transparent_48%,rgb(138_40_143/0.6)_100%)]" />
-          <span aria-hidden className="absolute inset-0 rounded-[22%] ring-1 ring-inset ring-white/25" />
-        </span>
+        <span className="absolute -inset-[12%] rounded-full bg-[radial-gradient(circle,rgb(255_255_255/0.18),transparent_62%)]" />
+        {/* White Rocket logo on a transparent background: no frame, it sits straight on the magenta field */}
+        <Image
+          src="/rocket-logo.png"
+          alt=""
+          fill
+          sizes="30rem"
+          quality={90}
+          preload
+          className="object-contain drop-shadow-[0_18px_36px_rgba(60,0,70,0.35)]"
+        />
       </motion.div>
     </motion.div>
   );
