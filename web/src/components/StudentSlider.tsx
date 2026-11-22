@@ -13,6 +13,7 @@ import { useReduce } from "./ui";
  */
 const slides = [
   { src: "/students/campus.webp", focus: "50% 42%", when: { en: "9:30 am", bn: "সকাল ৯:৩০" }, t: { en: "Your own debit card, on campus", bn: "ক্যাম্পাসে নিজের ডেবিট কার্ড" } },
+  { src: "/students/fees.webp", focus: "40% 58%", when: { en: "11:00 am", bn: "সকাল ১১:০০" }, t: { en: "Education fees, paid from your phone", bn: "ফোন থেকে শিক্ষা ফি পরিশোধ" } },
   { src: "/students/canteen.webp", focus: "50% 50%", when: { en: "1:00 pm", bn: "দুপুর ১:০০" }, t: { en: "Lunch, paid by Rocket", bn: "রকেটে লাঞ্চের বিল" } },
   { src: "/students/home.webp", focus: "50% 48%", when: { en: "3:30 pm", bn: "বিকেল ৩:৩০" }, t: { en: "Online shopping with a 10-minute card number", bn: "১০ মিনিটের কার্ড নম্বরে অনলাইন কেনাকাটা" } },
   { src: "/students/shop.webp", focus: "46% 52%", when: { en: "5:00 pm", bn: "বিকেল ৫:০০" }, t: { en: "A quick shop run, paid by QR with NexusPay", bn: "নেক্সাসপে-তে কিউআর দিয়ে দোকানে পেমেন্ট" } },
