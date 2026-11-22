@@ -76,9 +76,9 @@ export function Footer() {
   ];
 
   return (
-    <footer className="border-t border-line bg-white text-ink-2">
+    <footer className="rounded-t-[2rem] border-t border-line bg-white text-ink-2 shadow-[0_-12px_40px_-24px_rgb(9_11_58/0.25)] sm:rounded-t-[2.5rem]">
       <div className="mx-auto max-w-[1360px] px-5 pt-20 sm:px-6 xl:px-10">
-        <div className="grid gap-12 border-b border-line pb-14 lg:grid-cols-[1.1fr_2fr]">
+        <div className="grid gap-12 border-b border-line pb-12 lg:grid-cols-[1.1fr_2fr]">
           <div>
             <Logo />
             <div className="mt-8 space-y-3 text-[0.95rem]">
@@ -99,20 +99,35 @@ export function Footer() {
             <div className="mt-3 flex flex-wrap gap-3">
               <StoreBadges light />
             </div>
+            <ul className="mt-6 flex items-center gap-2" aria-label={d.footer.follow}>
+              {social.map(({ href, icon: Icon, label }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${label} (opens in a new tab)`}
+                    className="grid size-11 place-items-center rounded-full bg-indigo-50 text-indigo-700 transition-colors hover:bg-indigo-600 hover:text-white"
+                  >
+                    <Icon className="size-[1.1rem]" />
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-8 md:grid-cols-4">
             {cols.map((c) => (
               <nav key={c.title} aria-label={c.title}>
                 <h2 className="text-sm font-semibold text-ink">{c.title}</h2>
-                <ul className="mt-4 space-y-1">
+                <ul className="mt-3 space-y-0">
                   {c.items.map(([label, href]) => (
                     <li key={href + label}>
                       <a
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex min-h-9 items-center text-[0.95rem] transition-colors hover:text-indigo-700 hover:underline"
+                        className="inline-flex min-h-7 items-center text-[0.92rem] transition-colors hover:text-indigo-700 hover:underline"
                       >
                         {label}
                       </a>
@@ -124,7 +139,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-6 border-b border-line py-8 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-4 py-8 md:flex-row md:items-center md:justify-between">
           <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
             {legal.map(([label, href]) => (
               <li key={label}>
@@ -134,29 +149,7 @@ export function Footer() {
               </li>
             ))}
           </ul>
-          <ul className="flex items-center gap-2" aria-label={d.footer.follow}>
-            {social.map(({ href, icon: Icon, label }) => (
-              <li key={label}>
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${label} (opens in a new tab)`}
-                  className="grid size-11 place-items-center rounded-full bg-indigo-50 text-indigo-700 transition-colors hover:bg-indigo-600 hover:text-white"
-                >
-                  <Icon className="size-[1.1rem]" />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="grid gap-4 py-8 text-sm text-ink-3 md:grid-cols-[1fr_1.4fr]">
-          <p>© Dutch-Bangla Bank PLC. {d.footer.legal}</p>
-          <p className="md:text-right">
-            <span className="mr-2 inline-block rounded-full bg-indigo-50 px-2.5 py-0.5 text-xs font-bold text-indigo-700">{d.concept}</span>
-            {d.footer.disclaimer}
-          </p>
+          <p className="text-sm text-ink-3 md:text-right">© {d.footer.legal}</p>
         </div>
       </div>
     </footer>
