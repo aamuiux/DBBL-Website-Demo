@@ -6,7 +6,7 @@ import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from
 import { Pause, Play } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
-import { BD_CITIES, BD_PATH, BD_VIEWBOX } from "@/lib/bangladeshMap";
+import { BD_DOTS, BD_PATH, BD_VIEWBOX } from "@/lib/bangladeshMap";
 import { Button, easeOut, useReduce } from "./ui";
 
 // Unsplash photography (free licence), chosen as stand-ins for DBBL's own lifestyle shoots.
@@ -268,7 +268,7 @@ export function Hero() {
   );
 }
 
-/** All of Bangladesh behind the Rocket slide: a dotted country, with DBBL ATM cities pulsing across it. */
+/** All of Bangladesh behind the Rocket slide: a dotted country with points pulsing everywhere, because Rocket is used in every corner. */
 function BangladeshMap({ reduce }: { reduce: boolean }) {
   return (
     <motion.div
@@ -289,17 +289,17 @@ function BangladeshMap({ reduce }: { reduce: boolean }) {
         <path d={BD_PATH} fill="white" fillOpacity="0.18" filter="url(#bd-glow)" />
         <path d={BD_PATH} fill="url(#bd-dots)" />
         <path d={BD_PATH} fill="white" fillOpacity="0.07" stroke="white" strokeOpacity="0.55" strokeWidth="2" strokeLinejoin="round" />
-        {BD_CITIES.map((c, i) => {
-          const hub = c.name === "Dhaka";
+        {BD_DOTS.map(([x, y], i) => {
+          const delay = `${((i * 0.61) % 3.6).toFixed(2)}s`;
           return (
-            <g key={c.name} transform={`translate(${c.x} ${c.y})`}>
+            <g key={i} transform={`translate(${x} ${y})`}>
               {!reduce && (
-                <circle r={hub ? 14 : 9} fill="none" stroke="#c8f169" strokeWidth="2">
-                  <animate attributeName="r" values={hub ? "6;30" : "4;20"} dur="2.8s" begin={`${(i * 0.37) % 2.8}s`} repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="0.9;0" dur="2.8s" begin={`${(i * 0.37) % 2.8}s`} repeatCount="indefinite" />
+                <circle r="4" fill="none" stroke="#c8f169" strokeWidth="1.5">
+                  <animate attributeName="r" values="3;16" dur="3.6s" begin={delay} repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0.8;0" dur="3.6s" begin={delay} repeatCount="indefinite" />
                 </circle>
               )}
-              <circle r={hub ? 7 : 4.5} fill="#c8f169" stroke="#6d1f72" strokeWidth="2" />
+              <circle r="3.2" fill="#c8f169" />
             </g>
           );
         })}
