@@ -13,7 +13,7 @@ import { useReduce } from "./ui";
  */
 const slides = [
   { src: "/students/campus.webp", focus: "50% 42%", when: { en: "9:30 am", bn: "সকাল ৯:৩০" }, t: { en: "Your own debit card, on campus", bn: "ক্যাম্পাসে নিজের ডেবিট কার্ড" } },
-  { src: "/students/fees.webp", focus: "40% 58%", when: { en: "11:00 am", bn: "সকাল ১১:০০" }, t: { en: "Education fees, paid from your phone", bn: "ফোন থেকে শিক্ষা ফি পরিশোধ" } },
+  { src: "/students/fees.webp", fit: "whole", focus: "50% 50%", when: { en: "11:00 am", bn: "সকাল ১১:০০" }, t: { en: "Education fees, paid from your phone", bn: "ফোন থেকে শিক্ষা ফি পরিশোধ" } },
   { src: "/students/canteen.webp", focus: "50% 50%", when: { en: "1:00 pm", bn: "দুপুর ১:০০" }, t: { en: "Lunch, paid by Rocket", bn: "রকেটে লাঞ্চের বিল" } },
   { src: "/students/home.webp", focus: "50% 48%", when: { en: "3:30 pm", bn: "বিকেল ৩:৩০" }, t: { en: "Online shopping with a 10-minute card number", bn: "১০ মিনিটের কার্ড নম্বরে অনলাইন কেনাকাটা" } },
   { src: "/students/shop.webp", focus: "46% 52%", when: { en: "5:00 pm", bn: "বিকেল ৫:০০" }, t: { en: "A quick shop run, paid by QR with NexusPay", bn: "নেক্সাসপে-তে কিউআর দিয়ে দোকানে পেমেন্ট" } },
@@ -152,6 +152,7 @@ export function StudentSlider({ sectionRef }: { sectionRef: RefObject<HTMLElemen
             reduce={reduce}
             moving={moving}
             src={s.src}
+            whole={"fit" in s && s.fit === "whole"}
             focus={s.focus}
             when={s.when[lang]}
             title={s.t[lang]}
@@ -173,6 +174,7 @@ function Slide({
   reduce,
   moving,
   src,
+  whole,
   focus,
   when,
   title,
@@ -187,6 +189,7 @@ function Slide({
   reduce: boolean;
   moving: boolean;
   src: string;
+  whole: boolean;
   focus: string;
   when: string;
   title: string;
@@ -199,19 +202,27 @@ function Slide({
   return (
     <motion.li style={{ x: left, width: w }} className="group absolute left-0 top-0">
       <div className="relative overflow-hidden rounded-3xl bg-indigo-950/10 shadow-[0_24px_50px_-24px_rgb(9_11_58/0.55)]" style={{ height: h }}>
-        <motion.div style={{ x: drift }} className="absolute inset-y-0 -left-[30%] -right-[30%]">
-          <Image
-            src={src}
-            alt=""
-            fill
-            loading="eager"
-            draggable={false}
-            sizes="(min-width:520px) 400px, 280px"
-            quality={70}
-            className="pointer-events-none object-cover saturate-[1.2] contrast-[1.04]"
-            style={{ objectPosition: focus }}
-          />
-        </motion.div>
+        {whole ? (
+          /* Shown whole, never cropped: a blurred copy fills the spare height above and below */
+          <>
+            <Image src={src} alt="" fill loading="eager" draggable={false} sizes="400px" quality={40} className="pointer-events-none scale-125 object-cover blur-2xl saturate-[1.2]" />
+            <Image src={src} alt="" fill loading="eager" draggable={false} sizes="(min-width:520px) 400px, 280px" quality={75} className="pointer-events-none object-contain saturate-[1.1]" />
+          </>
+        ) : (
+          <motion.div style={{ x: drift }} className="absolute inset-y-0 -left-[30%] -right-[30%]">
+            <Image
+              src={src}
+              alt=""
+              fill
+              loading="eager"
+              draggable={false}
+              sizes="(min-width:520px) 400px, 280px"
+              quality={70}
+              className="pointer-events-none object-cover saturate-[1.2] contrast-[1.04]"
+              style={{ objectPosition: focus }}
+            />
+          </motion.div>
+        )}
         <span className="font-display tabular absolute left-3 top-3 rounded-full bg-lime px-3 py-1.5 text-sm font-bold text-indigo-950">{when}</span>
       </div>
       <p
