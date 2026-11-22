@@ -6,6 +6,7 @@ import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from
 import { Pause, Play } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
+import { BD_CITIES, BD_PATH, BD_VIEWBOX } from "@/lib/bangladeshMap";
 import { Button, easeOut, useReduce } from "./ui";
 
 // Unsplash photography (free licence), chosen as stand-ins for DBBL's own lifestyle shoots.
@@ -167,6 +168,9 @@ export function Hero() {
         }`}
       />
 
+      {/* All of Bangladesh behind the Rocket slide, above the colour wash so the ATM points stay bright */}
+      <AnimatePresence>{slide.tint === "rocket" && <BangladeshMap key="bd-map" reduce={!!reduce} />}</AnimatePresence>
+
       {/* The real Rocket app, in a phone (large screens) */}
       <AnimatePresence>{slide.tint === "rocket" && <RocketPhone key="rocket-phone" src={slide.src} alt={slide.alt} reduce={!!reduce} />}</AnimatePresence>
 
@@ -264,6 +268,46 @@ export function Hero() {
   );
 }
 
+/** All of Bangladesh behind the Rocket slide: a dotted country, with DBBL ATM cities pulsing across it. */
+function BangladeshMap({ reduce }: { reduce: boolean }) {
+  return (
+    <motion.div
+      aria-hidden
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 0.4 } }}
+      className="pointer-events-none absolute inset-y-0 right-[-18%] flex items-center pb-24 pt-[calc(var(--header-h)+1rem)] sm:right-[-8%] lg:right-[20%]">
+      <svg viewBox={BD_VIEWBOX} className="h-full w-auto overflow-visible">
+        <defs>
+          <pattern id="bd-dots" width="9" height="9" patternUnits="userSpaceOnUse">
+            <circle cx="4.5" cy="4.5" r="1.7" fill="white" fillOpacity="0.5" />
+          </pattern>
+          <filter id="bd-glow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="10" />
+          </filter>
+        </defs>
+        <path d={BD_PATH} fill="white" fillOpacity="0.18" filter="url(#bd-glow)" />
+        <path d={BD_PATH} fill="url(#bd-dots)" />
+        <path d={BD_PATH} fill="white" fillOpacity="0.07" stroke="white" strokeOpacity="0.55" strokeWidth="2" strokeLinejoin="round" />
+        {BD_CITIES.map((c, i) => {
+          const hub = c.name === "Dhaka";
+          return (
+            <g key={c.name} transform={`translate(${c.x} ${c.y})`}>
+              {!reduce && (
+                <circle r={hub ? 14 : 9} fill="none" stroke="#c8f169" strokeWidth="2">
+                  <animate attributeName="r" values={hub ? "6;30" : "4;20"} dur="2.8s" begin={`${(i * 0.37) % 2.8}s`} repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0.9;0" dur="2.8s" begin={`${(i * 0.37) % 2.8}s`} repeatCount="indefinite" />
+                </circle>
+              )}
+              <circle r={hub ? 7 : 4.5} fill="#c8f169" stroke="#6d1f72" strokeWidth="2" />
+            </g>
+          );
+        })}
+      </svg>
+    </motion.div>
+  );
+}
+
 function RocketPhone({ src, alt, reduce }: { src: string; alt: string; reduce: boolean }) {
   return (
     <motion.div
@@ -277,7 +321,7 @@ function RocketPhone({ src, alt, reduce }: { src: string; alt: string; reduce: b
           initial={reduce ? false : { y: 120, rotate: 6, opacity: 0 }}
           animate={{ y: 0, rotate: -6, opacity: 1 }}
           transition={{ type: "spring", stiffness: 80, damping: 15, delay: 0.3 }}
-          className="absolute right-[9%] top-[46%] aspect-[738/1600] h-[min(36rem,62vh)] -translate-y-1/2"
+          className="absolute right-[5%] top-[46%] aspect-[738/1600] h-[min(34rem,60vh)] -translate-y-1/2"
         >
           <div className="size-full rounded-[2.6rem] bg-rocket-ink p-[0.6rem] shadow-[0_50px_90px_-30px_rgb(20_0_25/0.8)] ring-1 ring-white/15">
             <div className="relative size-full overflow-hidden rounded-[2.1rem]">
