@@ -52,6 +52,9 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-padding-top: calc(var(--header-h) + 16px);
+  /* No sideways page scroll. `clip` (unlike `hidden`) keeps position: sticky and the GSAP pins working.
+     Several full-bleed blocks are sized from 100vw, which includes the vertical scrollbar on Windows. */
+  overflow-x: clip;
 }
 
 html.lenis,
@@ -66,6 +69,7 @@ html.lenis body {
 }
 
 body {
+  overflow-x: clip;
   background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans);
