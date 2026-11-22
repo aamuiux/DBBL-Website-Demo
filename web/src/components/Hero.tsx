@@ -401,9 +401,9 @@ function AtmArt({ reduce }: { reduce: boolean }) {
           initial={reduce ? false : { y: 60, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: "spring", stiffness: 70, damping: 16, delay: 0.25 }}
-          className="absolute right-[5%] top-[47%] aspect-[1400/1220] h-[min(32rem,58vh)] -translate-y-1/2"
+          className="absolute right-[8%] top-[46%] aspect-[1400/1220] h-[min(26rem,48vh)] -translate-y-1/2 [mask-image:linear-gradient(180deg,#000_62%,transparent_100%)]"
         >
-          <Image src="/atm-network.webp" alt="" fill sizes="40rem" quality={90} className="object-contain drop-shadow-[0_30px_40px_rgba(9,11,58,0.45)]" />
+          <Image src="/atm-network.webp" alt="" fill sizes="40rem" quality={90} className="object-contain opacity-[0.86] saturate-[0.9] brightness-[0.94]" />
         </motion.div>
       </div>
     </motion.div>
