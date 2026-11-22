@@ -11,8 +11,9 @@ import { Button, easeOut, useReduce } from "./ui";
 
 // Unsplash photography (free licence), chosen as stand-ins for DBBL's own lifestyle shoots.
 // Every slide has a prominent colour field. Photo slides sit under an indigo wash; the Rocket slide is a magenta
-// field with a screenshot of the real Rocket app in a phone frame.
-type Slide = { tint: "indigo" | "rocket"; src: string; alt: string; position: string; cta: string; cta2: string };
+// field with a screenshot of the real Rocket app in a phone frame; the NexusPay slide is NexusPay red with its
+// zigzag line pattern and a NexusPay login screen in a phone frame.
+type Slide = { tint: "indigo" | "rocket" | "nexus"; src: string; alt: string; position: string; cta: string; cta2: string };
 const slides: Slide[] = [
   {
     tint: "rocket",
@@ -31,10 +32,10 @@ const slides: Slide[] = [
     cta2: "#offers",
   },
   {
-    tint: "indigo",
-    src: "https://images.unsplash.com/photo-1772215228995-85b163d768ed",
-    alt: "A young woman smiling in front of a bright pink door",
-    position: "60% 35%",
+    tint: "nexus",
+    src: "",
+    alt: "",
+    position: "50% 50%",
     cta: links.nexusPay,
     cta2: "#app",
   },
@@ -134,7 +135,9 @@ export function Hero() {
             exit={{ opacity: 0 }}
             transition={{ opacity: { duration: 1.1, ease: "easeInOut" }, scale: { duration: 8, ease: "linear" } }}
           >
-            {slide.tint === "rocket" ? (
+            {slide.tint === "nexus" ? (
+              <NexusField />
+            ) : slide.tint === "rocket" ? (
               <div className="absolute inset-0 bg-rocket">
                 {/* depth: a soft light behind the phone, deeper magenta toward the text */}
                 <span className="absolute inset-0 bg-[radial-gradient(ellipse_at_72%_45%,rgb(255_255_255/0.22),transparent_55%),linear-gradient(90deg,rgb(109_31_114/0.8),transparent_60%)]" />
@@ -158,7 +161,7 @@ export function Hero() {
       <div
         aria-hidden
         className={`absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgb(9_11_58/0.86)_0%,rgb(9_11_58/0.55)_42%,rgb(9_11_58/0.05)_75%),linear-gradient(0deg,rgb(9_11_58/0.9)_0%,rgb(9_11_58/0)_45%),linear-gradient(180deg,rgb(9_11_58/0.55)_0%,rgb(9_11_58/0)_22%)] transition-opacity duration-1000 ${
-          slide.tint === "rocket" ? "opacity-0" : "opacity-100"
+          slide.tint === "indigo" ? "opacity-100" : "opacity-0"
         }`}
       />
       <div
@@ -173,6 +176,7 @@ export function Hero() {
 
       {/* The real Rocket app, in a phone (large screens) */}
       <AnimatePresence>{slide.tint === "rocket" && <RocketPhone key="rocket-phone" src={slide.src} alt={slide.alt} reduce={!!reduce} />}</AnimatePresence>
+      <AnimatePresence>{slide.tint === "nexus" && <NexusPhone key="nexus-phone" reduce={!!reduce} />}</AnimatePresence>
 
       <div className="mx-auto flex w-full max-w-[1360px] flex-1 flex-col justify-end px-5 pb-36 pt-[calc(var(--header-h)+4rem)] sm:px-6 sm:pb-40 xl:px-10">
         <div className="max-w-[44rem]" aria-live={playing ? "off" : "polite"}>
@@ -195,7 +199,7 @@ export function Hero() {
               </h1>
               <motion.p
                 variants={lineVariants(reduce)}
-                className={`mt-6 max-w-[34rem] text-pretty text-lg sm:text-xl ${slide.tint === "rocket" ? "text-white/90" : "text-indigo-100"}`}
+                className={`mt-6 max-w-[34rem] text-pretty text-lg sm:text-xl ${slide.tint === "indigo" ? "text-indigo-100" : "text-white/95"}`}
               >
                 {copy.body}
               </motion.p>
@@ -304,6 +308,87 @@ function BangladeshMap({ reduce }: { reduce: boolean }) {
           );
         })}
       </svg>
+    </motion.div>
+  );
+}
+
+/** NexusPay red with its signature zigzag lines (steep up, shallow down), deeper red toward the text. */
+function NexusField() {
+  const rows = Array.from({ length: 11 }, (_, k) => (k - 5) * 14);
+  return (
+    <div className="absolute inset-0 bg-[#ea3e44]">
+      <svg aria-hidden className="absolute inset-0 size-full">
+        <defs>
+          <pattern id="nexus-zig" width="140" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(-8)">
+            {rows.map((y) => (
+              <path key={y} d={`M0 ${y + 30} L40 ${y - 30} L140 ${y + 30}`} fill="none" stroke="white" strokeOpacity="0.28" strokeWidth="1" />
+            ))}
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#nexus-zig)" />
+      </svg>
+      <span className="absolute inset-0 bg-[radial-gradient(ellipse_at_74%_45%,rgb(255_255_255/0.14),transparent_55%),linear-gradient(90deg,rgb(150_18_28/0.62),transparent_62%),linear-gradient(0deg,rgb(120_10_20/0.45),transparent_40%)]" />
+    </div>
+  );
+}
+
+/** An illustrative NexusPay login screen in a tilted phone. Synthetic demo data only. */
+function NexusPhone({ reduce }: { reduce: boolean }) {
+  const { lang } = useLang();
+  const bn = lang === "bn";
+  return (
+    <motion.div
+      className="pointer-events-none absolute inset-0 hidden lg:block"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 0.4 } }}
+    >
+      <div className="relative mx-auto h-full max-w-[1360px]">
+        <motion.div
+          aria-hidden
+          initial={reduce ? false : { y: 120, rotate: 8, opacity: 0 }}
+          animate={{ y: 0, rotate: -9, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 80, damping: 15, delay: 0.3 }}
+          className="@container absolute right-[9%] top-[46%] aspect-[9/18.5] h-[min(36rem,62vh)] -translate-y-1/2"
+        >
+          <div className="size-full rounded-[13cqw] bg-[#2a2a2e] p-[2.6cqw] shadow-[0_50px_90px_-30px_rgb(90_0_10/0.8)] ring-1 ring-white/20">
+            <div className="relative flex size-full flex-col items-center overflow-hidden rounded-[10.6cqw] bg-white px-[8cqw] pt-[24cqw] text-ink">
+              <span className="absolute left-1/2 top-[3.2cqw] h-[6cqw] w-[26cqw] -translate-x-1/2 rounded-full bg-[#111]" />
+              <span className="absolute right-[6cqw] top-[10cqw] flex items-center gap-[1cqw] rounded-full bg-black/5 px-[2cqw] py-[1cqw] text-[3cqw] font-semibold">
+                <span className="rounded-full bg-white px-[1.6cqw] text-[#e8272f]">ENG</span>
+                <span>বাং</span>
+              </span>
+              <span className="mt-[10cqw] grid size-[19cqw] place-items-center rounded-[5cqw] bg-[#ececee]">
+                <Image src="/dbbl-mark.svg" alt="" width={80} height={50} className="w-[12cqw]" />
+              </span>
+              <span className="mt-[4cqw] text-[4.4cqw] font-medium">{bn ? "স্বাগতম" : "Welcome To"}</span>
+              <span className="font-display text-[10cqw] font-bold leading-none text-[#e8272f]">NexusPay</span>
+              <span className="mt-[5cqw] text-[3.6cqw] text-ink-3">{bn ? "আপনার নেক্সাসপে অ্যাকাউন্টে লগইন করুন" : "Please login to your NexusPay account"}</span>
+              <span className="tabular mt-[3cqw] text-[5.4cqw] font-semibold">0100 000 0000</span>
+              <span className="mt-[7cqw] w-full text-[3.4cqw] text-ink-2">{bn ? "নেক্সাসপে পিন দিন" : "Enter NexusPay PIN"}</span>
+              <span className="mt-[1.5cqw] flex h-[13cqw] w-full items-center gap-[3cqw] rounded-[2.5cqw] bg-[#f4f4f6] px-[3cqw]">
+                <span className="size-[5cqw] rounded-[1.2cqw] border-2 border-ink-2" />
+                <span className="flex gap-[2.4cqw]">
+                  {[0, 1, 2, 3, 4, 5].map((i) => (
+                    <span key={i} className="size-[2.6cqw] rounded-full bg-ink" />
+                  ))}
+                </span>
+              </span>
+              <span className="mt-[7cqw] grid h-[12cqw] w-full place-items-center rounded-[1.6cqw] bg-[#e8272f] text-[4.2cqw] font-semibold text-white">
+                {bn ? "লগইন" : "Login"}
+              </span>
+              <span className="absolute inset-x-0 bottom-0 flex justify-around px-[6cqw] pb-[6cqw] text-[2.8cqw] text-ink-3">
+                {(bn ? ["এটিএম লোকেশন", "সহায়তা", "নেক্সাসপে তথ্য"] : ["ATM Location", "Help & Support", "NexusPay Info"]).map((t) => (
+                  <span key={t} className="flex flex-col items-center gap-[1.5cqw]">
+                    <span className="size-[6cqw] rounded-[1.4cqw] bg-ink-3/25" />
+                    {t}
+                  </span>
+                ))}
+              </span>
+            </div>
+          </div>
+        </motion.div>
+      </div>
     </motion.div>
   );
 }
