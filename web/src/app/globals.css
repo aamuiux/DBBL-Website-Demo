@@ -143,50 +143,25 @@
 :root:has(.brand2) .brand-red {
   background: var(--color-red-600);
 }
-/* CTAs: the main action in each pair is a solid guideline colour, the second stays an outline (ghost tones) */
-:root:has(.brand2) .btn-lime {
+/* CTAs keep their light pill; the arrow circle carries the button's own colour and sweeps across the pill on hover.
+   Main actions: red on dark, blue on light, green for Fast Track; the outline (ghost) buttons stay neutral. */
+:root:has(.brand2) .btn-lime .btn-fill {
   background: var(--color-red-600);
+}
+:root:has(.brand2) .btn-lime .btn-on,
+:root:has(.brand2) .btn-lime:hover .btn-label,
+:root:has(.brand2) .btn-lime:focus-visible .btn-label {
   color: #fff;
-  --tw-ring-color: transparent;
-}
-:root:has(.brand2) .btn-primary {
-  background: var(--color-indigo-600);
-  color: #fff;
-  --tw-ring-color: transparent;
-}
-:root:has(.brand2) .btn-primary .btn-fill {
-  background: var(--color-indigo-950);
-}
-:root:has(.brand2) .btn-green {
-  background: var(--color-green-600);
-  color: #fff;
-  --tw-ring-color: transparent;
-}
-:root:has(.brand2) .btn-green .btn-fill {
-  background: var(--color-green-700);
-}
-:root:has(.brand2) .btn-ink {
-  background: var(--color-indigo-950);
-  color: #fff;
-  --tw-ring-color: transparent;
-}
-:root:has(.brand2) .btn-ink .btn-fill {
-  background: var(--color-indigo-600);
-}
-:root:has(.brand2) .btn-ink .btn-on {
-  color: #fff;
-}
-:root:has(.brand2) .btn-white {
-  background: #fff;
-  color: var(--color-indigo-950);
-  --tw-ring-color: transparent;
 }
 :root:has(.brand2) .btn-white .btn-fill {
-  background: var(--color-indigo-950);
+  background: var(--color-indigo-600);
 }
 :root:has(.brand2) .btn-white .btn-on,
 :root:has(.brand2) .btn-white:hover .btn-label,
 :root:has(.brand2) .btn-white:focus-visible .btn-label {
+  color: #fff;
+}
+:root:has(.brand2) .btn-ink .btn-on {
   color: #fff;
 }
 /* Cards section: a full-width brushed silver, the logo's K50-to-white, kept light so the card faces lead */

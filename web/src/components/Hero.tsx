@@ -8,13 +8,15 @@ import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
 import { dbblSwoosh } from "@/lib/dbbl-mark";
 import { Button, easeOut, useReduce } from "./ui";
+import { swooshTones } from "./BrandSwooshes";
 
 // Unsplash photography (free licence), chosen as stand-ins for DBBL's own lifestyle shoots.
 // Every slide has a prominent colour field. Photo slides sit under an indigo wash; the Rocket slide is a magenta
 // field with a screenshot of the real Rocket app in a phone frame; the NexusPay slide is NexusPay red with its
 // zigzag line pattern and a NexusPay login screen in a phone frame.
-// The "Rise & Run" slide is DBBL's campaign look: a bright sky with brand swooshes and the tri-colour rule, dark text.
-type Slide = { tint: "indigo" | "rocket" | "nexus" | "sky"; art?: "atm"; src: string; alt: string; position: string; cta: string; cta2: string };
+// The "Rise & Run" slide is DBBL's campaign look: a drifting sky with the logo swooshes and dark text. The Agent Banking
+// slide is light too: a sky-blue field with DBBL's own Agent Banking badge.
+type Slide = { tint: "indigo" | "rocket" | "nexus" | "sky" | "agent"; art?: "atm"; src: string; alt: string; position: string; cta: string; cta2: string };
 const slides: Slide[] = [
   {
     tint: "sky",
@@ -50,12 +52,12 @@ const slides: Slide[] = [
     cta2: links.personalAccounts,
   },
   {
-    tint: "indigo",
-    src: "https://images.unsplash.com/photo-1667655861998-46fe4c29a4cf",
-    alt: "A young man in Dhaka holding his phone and smiling",
-    position: "62% 30%",
-    cta: links.udyogForm,
-    cta2: "#offers",
+    tint: "agent",
+    src: "/agent-banking.webp",
+    alt: "",
+    position: "50% 50%",
+    cta: links.agentRegistration,
+    cta2: links.agentBanking,
   },
 ];
 
@@ -117,13 +119,14 @@ export function Hero() {
   const slide = slides[index];
   const copy = d.hero.slides[index];
   const sky = slide.tint === "sky";
+  const light = sky || slide.tint === "agent"; // dark text and controls
 
   return (
     <section
       id="top"
       aria-roledescription="carousel"
       aria-label="Highlights"
-      className={`relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-indigo-950 text-white ${sky ? "" : "on-dark"}`}
+      className={`relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-indigo-950 text-white ${light ? "" : "on-dark"}`}
       onPointerMove={(e) => {
         if (reduce || e.pointerType !== "mouse") return;
         const r = e.currentTarget.getBoundingClientRect();
@@ -152,6 +155,10 @@ export function Hero() {
               <div className="absolute inset-0 bg-rocket">
                 {/* depth: a soft light behind the phone, deeper magenta toward the text */}
                 <span className="absolute inset-0 bg-[radial-gradient(ellipse_at_72%_45%,rgb(255_255_255/0.22),transparent_55%),linear-gradient(90deg,color-mix(in_srgb,var(--color-rocket-700)_80%,transparent),transparent_60%)]" />
+              </div>
+            ) : slide.tint === "agent" ? (
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,#6f9fd3_0%,#a9c6e6_45%,#e4edf8_100%)]">
+                <span className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_50%,rgb(255_255_255/0.45),transparent_60%),linear-gradient(90deg,rgb(255_255_255/0.4),transparent_55%)]" />
               </div>
             ) : slide.tint === "sky" ? (
               /* The clouds drift slowly sideways: the photo is wider than the hero and pans back and forth */
@@ -195,14 +202,14 @@ export function Hero() {
         }`}
       />
 
-      {/* The Rocket logo behind the phone, above the colour wash */}
-      <AnimatePresence>{slide.tint === "rocket" && <RocketLogoArt key="rocket-logo" reduce={!!reduce} />}</AnimatePresence>
 
       {/* The real Rocket app, in a phone (large screens) */}
       <AnimatePresence>{slide.tint === "rocket" && <RocketPhone key="rocket-phone" src={slide.src} alt={slide.alt} reduce={!!reduce} />}</AnimatePresence>
       <AnimatePresence>{slide.tint === "nexus" && <NexusPhone key="nexus-phone" reduce={!!reduce} />}</AnimatePresence>
       <AnimatePresence>{slide.art === "atm" && <AtmArt key="atm-art" reduce={!!reduce} />}</AnimatePresence>
       <AnimatePresence>{sky && <SkyArt key="sky-art" reduce={!!reduce} />}</AnimatePresence>
+      <AnimatePresence>{!sky && <HeroSwooshes key={`swooshes-${slide.tint}`} tint={slide.tint} reduce={!!reduce} />}</AnimatePresence>
+      <AnimatePresence>{slide.tint === "agent" && <AgentArt key="agent-art" reduce={!!reduce} />}</AnimatePresence>
 
       <div className="mx-auto flex w-full max-w-[1360px] flex-1 flex-col justify-end px-5 pb-36 pt-[calc(var(--header-h)+4rem)] sm:px-6 sm:pb-40 xl:px-10">
         <div className="max-w-[44rem]" aria-live={playing ? "off" : "polite"}>
@@ -239,24 +246,24 @@ export function Hero() {
                 </>
               ) : (
                 <>
-                  <h1 className="font-display text-balance text-[clamp(2.9rem,7.2vw,6rem)] font-semibold leading-[0.98] tracking-[-0.035em]">
+                  <h1 className={`font-display text-balance text-[clamp(2.9rem,7.2vw,6rem)] font-semibold leading-[0.98] tracking-[-0.035em] ${light ? "text-indigo-950" : ""}`}>
                     <motion.span variants={lineVariants(reduce)} className="block">
                       {copy.title}
                     </motion.span>
                   </h1>
                   <motion.p
                     variants={lineVariants(reduce)}
-                    className={`mt-6 max-w-[34rem] text-pretty text-lg sm:text-xl ${slide.tint === "indigo" ? "text-indigo-100" : "text-white/95"}`}
+                    className={`mt-6 max-w-[34rem] text-pretty text-lg sm:text-xl ${light ? "text-indigo-900" : slide.tint === "indigo" ? "text-indigo-100" : "text-white/95"}`}
                   >
                     {copy.body}
                   </motion.p>
                 </>
               )}
               <motion.div variants={lineVariants(reduce)} className="mt-9 flex flex-wrap items-center gap-3">
-                <Button href={slide.cta} tone={sky ? "primary" : slide.tint === "indigo" ? "lime" : "white"} size="lg">
+                <Button href={slide.cta} tone={light ? "primary" : slide.tint === "indigo" ? "lime" : "white"} size="lg">
                   {copy.cta}
                 </Button>
-                <Button href={slide.cta2} tone={sky ? "ghost-light" : "ghost-dark"} size="lg">
+                <Button href={slide.cta2} tone={light ? "ghost-light" : "ghost-dark"} size="lg">
                   {copy.cta2}
                 </Button>
               </motion.div>
@@ -282,11 +289,11 @@ export function Hero() {
                   <span
                     className={`relative block h-2 overflow-hidden rounded-full transition-all duration-500 ${
                       i === index ? "w-10" : "w-2 group-hover:scale-125"
-                    } ${sky ? "bg-indigo-950/25" : "bg-white/45"}`}
+                    } ${light ? "bg-indigo-950/25" : "bg-white/45"}`}
                   >
                     {i === index && (
                       <span
-                        className={`absolute inset-y-0 left-0 rounded-full ${sky ? "bg-indigo-600" : "bg-lime"}`}
+                        className={`absolute inset-y-0 left-0 rounded-full ${light ? "bg-indigo-600" : "bg-lime"}`}
                         style={{ width: `${(reduce || !playing ? 1 : progress) * 100}%` }}
                       />
                     )}
@@ -300,7 +307,7 @@ export function Hero() {
             onClick={() => setPlaying((p) => !p)}
             aria-label={playing ? d.hero.pause : d.hero.play}
             className={`hidden size-11 place-items-center rounded-full ring-1 ring-inset backdrop-blur-md transition-colors duration-700 md:grid ${
-              sky ? "bg-white/50 text-indigo-950 ring-indigo-950/20 hover:bg-white/80" : "bg-white/12 text-white ring-white/30 hover:bg-white/20"
+              light ? "bg-white/50 text-indigo-950 ring-indigo-950/20 hover:bg-white/80" : "bg-white/12 text-white ring-white/30 hover:bg-white/20"
             }`}
           >
             {playing ? <Pause className="size-4" fill="currentColor" aria-hidden /> : <Play className="size-4" fill="currentColor" aria-hidden />}
@@ -308,38 +315,6 @@ export function Hero() {
         </div>
       </div>
     </section>
-  );
-}
-
-/** The Rocket logo, large, behind the phone. */
-function RocketLogoArt({ reduce }: { reduce: boolean }) {
-  return (
-    <motion.div
-      aria-hidden
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 0.4 } }}
-      className="pointer-events-none absolute inset-y-0 right-[-12%] hidden items-center sm:flex lg:right-[26%]"
-    >
-      <motion.div
-        initial={reduce ? false : { scale: 0.8, rotate: 8, opacity: 0 }}
-        animate={{ scale: 1, rotate: -3, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 70, damping: 16, delay: 0.2 }}
-        className="relative size-[min(28rem,50vh)]"
-      >
-        <span className="absolute -inset-[12%] rounded-full bg-[radial-gradient(circle,rgb(255_255_255/0.08),transparent_62%)]" />
-        {/* White Rocket logo on a transparent background: no frame, it sits straight on the magenta field */}
-        <Image
-          src="/rocket-logo.png"
-          alt=""
-          fill
-          sizes="30rem"
-          quality={90}
-          preload
-          className="object-contain opacity-[0.22]"
-        />
-      </motion.div>
-    </motion.div>
   );
 }
 
@@ -448,8 +423,60 @@ function AtmArt({ reduce }: { reduce: boolean }) {
   );
 }
 
-/** DBBL campaign artwork for the sky slide: the swooshes of DBBL's own mark, oversized and faint on the right inside
- *  the mark's oval, white wind lines low left, and the blue / red / green rule along the bottom. */
+/** The first slide's logo swooshes, in the same place, for the other slides (Rocket, NexusPay, ATM, Agent Banking).
+ *  Drawn under the phones and ATM art. */
+function HeroSwooshes({ tint, reduce }: { tint: Slide["tint"]; reduce: boolean }) {
+  // Rocket and NexusPay get tones of their own field so the swooshes sit inside it; the rest use the logo colours.
+  const tonal: Partial<Record<Slide["tint"], readonly string[]>> = {
+    rocket: swooshTones.rocket,
+    nexus: ["color-mix(in srgb, var(--k-nexus) 65%, white)", "rgb(150 14 24)", "color-mix(in srgb, var(--k-nexus) 45%, white)"],
+  };
+  const fills = tonal[tint] ?? ["var(--color-indigo-600)", "var(--color-red-600)", "var(--color-green-600)"];
+  const strength = tonal[tint] ? 0.4 : 0.32;
+  return (
+    <motion.div
+      aria-hidden
+      className="pointer-events-none absolute -right-[70%] top-0 -z-10 aspect-[205/172] h-[125%] sm:-right-[40%] lg:-right-[26%]"
+      initial={reduce ? { opacity: 0 } : { x: 80, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 0.5 } }}
+      transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+    >
+      <svg className="size-full overflow-visible" viewBox="76 94 205 172">
+        {[dbblSwoosh.blue, dbblSwoosh.red, dbblSwoosh.green].map((d, i) => (
+          <path key={i} d={d} style={{ fill: fills[i], fillOpacity: strength }} />
+        ))}
+      </svg>
+    </motion.div>
+  );
+}
+
+/** DBBL Agent Banking: the programme's own badge (supplied by DBBL) on the right of the slide. */
+function AgentArt({ reduce }: { reduce: boolean }) {
+  return (
+    <motion.div
+      aria-hidden
+      className="pointer-events-none absolute inset-0 hidden lg:block"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 0.4 } }}
+    >
+      <div className="relative mx-auto h-full max-w-[1360px]">
+        <motion.div
+          initial={reduce ? false : { y: 90, rotate: 8, opacity: 0 }}
+          animate={{ y: 0, rotate: 4, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 80, damping: 15, delay: 0.3 }}
+          className="absolute right-[8%] top-[48%] aspect-[427/416] h-[min(27rem,50vh)] -translate-y-1/2 overflow-hidden rounded-[11%] shadow-[0_50px_90px_-30px_rgb(15_17_69/0.55)] ring-4 ring-white"
+        >
+          <Image src="/agent-banking.webp" alt="" fill sizes="28rem" quality={92} className="scale-[1.02] object-cover" />
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
+/** DBBL campaign artwork for the sky slide: the swooshes of DBBL's own mark, oversized and faint on the right, and
+ *  white wind lines low left. */
 function SkyArt({ reduce }: { reduce: boolean }) {
   const swooshes = [
     { d: dbblSwoosh.blue, c: "var(--color-indigo-600)" },

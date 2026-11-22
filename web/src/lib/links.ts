@@ -18,6 +18,7 @@ export const links = {
   /** Rocket's official app icon (Google Play listing for com.dbbl.mbs.apps.main). */
   rocketLogo: "https://play-lh.googleusercontent.com/hcRpk0BWUTNPwr1bRWzNVKGZd2lbtdtNS9d__2w6glKwAUE_xvTh8FjkipEnzrlbEVCGsQ-75UwA5HRAYzHEdw=s512",
   agentBanking: `${B}/agent-banking/agentbanking.html`,
+  agentRegistration: `${B}/agent-banking/registration.html`,
   atmLocator: "http://app.dutchbanglabank.com/dbblwebapp/atmCrmListCrmViewAction",
   branchLocator: "https://app.dutchbanglabank.com/DBBLWeb/BranchLocation",
   subBranch: `${B}/sub-branch/sub-branch.html`,

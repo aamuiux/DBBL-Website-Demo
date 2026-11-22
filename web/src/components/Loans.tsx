@@ -28,7 +28,7 @@ export function Loans() {
 
   return (
     <section id="loans" aria-labelledby={`${id}-h`} className="on-dark relative isolate overflow-hidden bg-indigo-950 py-24 text-white md:py-32">
-      <BrandSwooshes brandOnly colors={swooshTones.indigo} opacity={0.7} className="top-0 h-[150%] min-h-[54rem] -right-[90%] sm:-right-[60%] lg:-right-[38%]" />
+      <BrandSwooshes brandOnly colors={swooshTones.indigo} opacity={0.35} className="top-0 h-[150%] min-h-[54rem] -right-[90%] sm:-right-[60%] lg:-right-[38%]" />
       <div className="mx-auto max-w-[1360px] px-5 sm:px-6 xl:px-10">
         <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-end">
           <Reveal>

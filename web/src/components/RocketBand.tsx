@@ -231,7 +231,7 @@ export function RocketBand() {
   return (
     <section id="rocket" aria-labelledby={`${id}-h`} className="on-dark relative bg-[linear-gradient(135deg,var(--k-rocket-a)_0%,var(--color-rocket)_40%,var(--k-rocket-b)_100%)] text-white">
       <div ref={stageRef} className={`relative isolate overflow-hidden ${pinned ? "h-svh" : ""}`}>
-        <BrandSwooshes brandOnly colors={swooshTones.rocket} opacity={0.45} className="top-0 h-[150%] min-h-[54rem] -right-[90%] sm:-right-[60%] lg:-right-[38%]" />
+        <BrandSwooshes brandOnly colors={swooshTones.rocket} opacity={0.22} className="top-0 h-[150%] min-h-[54rem] -right-[90%] sm:-right-[60%] lg:-right-[38%]" />
         {/* Intro (pinned only): Rocket's own icon, then a zoom through it */}
         {pinned && (
           <div data-intro aria-hidden className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-10 bg-rocket-ink">

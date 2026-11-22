@@ -29,7 +29,8 @@ export function Students() {
         {bn ? "শিক্ষার্থী" : "student"}
       </span>
 
-      <div className="relative mx-auto grid max-w-[1360px] items-center gap-14 px-5 sm:px-6 lg:grid-cols-[1.15fr_1fr] xl:px-10">
+      {/* Top row: the pitch on the left, the account's key facts and actions on the right */}
+      <div className="relative mx-auto grid max-w-[1360px] items-center gap-12 px-5 sm:px-6 lg:grid-cols-[1fr_1.05fr] lg:gap-16 xl:px-10">
         <div>
           <Reveal>
             <h2 id={`${id}-h`} className="font-display text-balance text-[clamp(2.6rem,6vw,5.25rem)] font-semibold leading-[0.95] tracking-[-0.045em]">
@@ -43,8 +44,10 @@ export function Students() {
                 : "The DBBL School Savers Account, for Bangladeshi students aged 6 to under 18. It earns interest at the Savings Deposit Plus rate."}
             </p>
           </Reveal>
+        </div>
 
-          <ul className="mt-10 grid grid-cols-2 gap-3 sm:gap-4">
+        <div>
+          <ul className="grid grid-cols-2 gap-3 sm:gap-4">
             {schoolSavers.map((f, i) => (
               <motion.li
                 key={f.small.en}
@@ -70,27 +73,27 @@ export function Students() {
             </Button>
           </Reveal>
         </div>
+      </div>
 
-        {/* Parallax photo strip: drag, swipe or arrow through student life */}
-        <div className="relative -mx-5 min-w-0 sm:-mx-6 lg:ml-0 lg:-mr-6 xl:-mr-[max(2.5rem,calc((100vw-1360px)/2+2.5rem))]">
-          <StudentSlider sectionRef={ref} />
-          {/* Hint and age sticker sit under the strip, clear of the moving frames */}
-          <div className="flex items-center justify-between gap-4 px-5 sm:px-6 lg:pl-0 lg:pr-16">
-            <p className="flex items-center gap-2 text-sm font-semibold text-indigo-900/75">
-              <MoveHorizontal className="size-4" aria-hidden />
-              {bn ? "টেনে দেখো" : "Drag to explore"}
-            </p>
-            <motion.span
-              aria-hidden
-              initial={reduce ? false : { scale: 0 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 300, damping: 12, delay: 0.3 }}
-              className="font-display -mt-1 grid size-24 shrink-0 rotate-[10deg] place-items-center whitespace-pre-line rounded-full bg-indigo-950 text-center text-sm font-bold leading-tight text-lime shadow-[var(--shadow-lift)]"
-            >
-              {bn ? "বয়স\n৬–১৭" : "Ages\n6–17"}
-            </motion.span>
-          </div>
+      {/* Parallax photo strip, full width under both columns: drag, swipe or arrow through student life */}
+      <div className="relative mt-16 md:mt-20">
+        <StudentSlider sectionRef={ref} />
+        {/* Hint and age sticker sit under the strip, clear of the moving frames */}
+        <div className="mx-auto flex max-w-[1360px] items-center justify-between gap-4 px-5 sm:px-6 xl:px-10">
+          <p className="flex items-center gap-2 text-sm font-semibold text-indigo-900/75">
+            <MoveHorizontal className="size-4" aria-hidden />
+            {bn ? "টেনে দেখো" : "Drag to explore"}
+          </p>
+          <motion.span
+            aria-hidden
+            initial={reduce ? false : { scale: 0 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ type: "spring", stiffness: 300, damping: 12, delay: 0.3 }}
+            className="font-display -mt-1 grid size-24 shrink-0 rotate-[10deg] place-items-center whitespace-pre-line rounded-full bg-indigo-950 text-center text-sm font-bold leading-tight text-lime shadow-[var(--shadow-lift)]"
+          >
+            {bn ? "বয়স\n৬–১৭" : "Ages\n6–17"}
+          </motion.span>
         </div>
       </div>
     </section>
