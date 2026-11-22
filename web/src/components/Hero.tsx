@@ -9,15 +9,15 @@ import { links } from "@/lib/links";
 import { Button, easeOut, useReduce } from "./ui";
 
 // Unsplash photography (free licence), chosen as stand-ins for DBBL's own lifestyle shoots.
-// Every slide is a full-bleed photograph under a brand colour wash; the Rocket slide uses Rocket magenta.
+// Every slide has a prominent colour field. Photo slides sit under an indigo wash; the Rocket slide is a magenta
+// field with a screenshot of the real Rocket app in a phone frame.
 type Slide = { tint: "indigo" | "rocket"; src: string; alt: string; position: string; cta: string; cta2: string };
 const slides: Slide[] = [
   {
     tint: "rocket",
-    // A young man photographed in Bangladesh (Unsplash, @priogaming)
-    src: "https://images.unsplash.com/photo-1625012612550-622fe6a78a05",
-    alt: "",
-    position: "62% 22%",
+    src: "/rocket-app.webp",
+    alt: "The Rocket mobile banking app home screen",
+    position: "50% 50%",
     cta: links.rocketPlay,
     cta2: links.rocketCharges,
   },
@@ -133,16 +133,23 @@ export function Hero() {
             exit={{ opacity: 0 }}
             transition={{ opacity: { duration: 1.1, ease: "easeInOut" }, scale: { duration: 8, ease: "linear" } }}
           >
-            <Image
-              src={slide.src}
-              alt={slide.alt}
-              fill
-              sizes="100vw"
-              quality={80}
-              preload={index === 0}
-              className="object-cover"
-              style={{ objectPosition: slide.position }}
-            />
+            {slide.tint === "rocket" ? (
+              <div className="absolute inset-0 bg-rocket">
+                {/* depth: a soft light behind the phone, deeper magenta toward the text */}
+                <span className="absolute inset-0 bg-[radial-gradient(ellipse_at_72%_45%,rgb(255_255_255/0.22),transparent_55%),linear-gradient(90deg,rgb(109_31_114/0.8),transparent_60%)]" />
+              </div>
+            ) : (
+              <Image
+                src={slide.src}
+                alt={slide.alt}
+                fill
+                sizes="100vw"
+                quality={80}
+                preload={index === 0}
+                className="object-cover"
+                style={{ objectPosition: slide.position }}
+              />
+            )}
           </motion.div>
         </AnimatePresence>
       </motion.div>
@@ -159,6 +166,9 @@ export function Hero() {
           slide.tint === "rocket" ? "opacity-100" : "opacity-0"
         }`}
       />
+
+      {/* The real Rocket app, in a phone (large screens) */}
+      <AnimatePresence>{slide.tint === "rocket" && <RocketPhone key="rocket-phone" src={slide.src} alt={slide.alt} reduce={!!reduce} />}</AnimatePresence>
 
       <div className="mx-auto flex w-full max-w-[1360px] flex-1 flex-col justify-end px-5 pb-36 pt-[calc(var(--header-h)+4rem)] sm:px-6 sm:pb-40 xl:px-10">
         <div className="max-w-[44rem]" aria-live={playing ? "off" : "polite"}>
@@ -251,6 +261,32 @@ export function Hero() {
         ))}
       </div>
     </section>
+  );
+}
+
+function RocketPhone({ src, alt, reduce }: { src: string; alt: string; reduce: boolean }) {
+  return (
+    <motion.div
+      className="pointer-events-none absolute inset-0 hidden lg:block"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 0.4 } }}
+    >
+      <div className="relative mx-auto h-full max-w-[1360px]">
+        <motion.div
+          initial={reduce ? false : { y: 120, rotate: 6, opacity: 0 }}
+          animate={{ y: 0, rotate: -6, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 80, damping: 15, delay: 0.3 }}
+          className="absolute right-[9%] top-[46%] aspect-[738/1600] h-[min(36rem,62vh)] -translate-y-1/2"
+        >
+          <div className="size-full rounded-[2.6rem] bg-rocket-ink p-[0.6rem] shadow-[0_50px_90px_-30px_rgb(20_0_25/0.8)] ring-1 ring-white/15">
+            <div className="relative size-full overflow-hidden rounded-[2.1rem]">
+              <Image src={src} alt={alt} fill sizes="320px" quality={85} preload className="object-cover object-top" />
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
   );
 }
 
