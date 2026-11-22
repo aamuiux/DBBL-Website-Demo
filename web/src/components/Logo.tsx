@@ -1,7 +1,7 @@
 /** DBBL's mark (client-supplied SVG in /public) with the wordmark set beside it. */
 export function Logo({ light = false, className = "" }: { light?: boolean; className?: string }) {
   return (
-    <span className={`inline-flex items-center gap-2.5 ${className}`}>
+    <span className={`inline-flex items-center gap-2.5 leading-none ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element -- a small static SVG; no optimisation needed */}
       <img src="/dbbl-mark.svg" alt="" width={58} height={36} className="h-9 w-auto shrink-0" />
       <span className={`flex flex-col leading-none ${light ? "text-white" : "text-indigo-700"}`}>

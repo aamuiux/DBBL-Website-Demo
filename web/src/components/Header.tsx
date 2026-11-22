@@ -171,7 +171,7 @@ export function Header() {
           </div>
 
           <div className="relative flex h-[calc(var(--header-h)-var(--k)*10px)] items-center gap-3 pl-4 pr-2.5 sm:pl-5 xl:pl-6">
-            <a href="#top" aria-label="Dutch-Bangla Bank home" className="shrink-0" onClick={close}>
+            <a href="#top" aria-label="Dutch-Bangla Bank home" className="flex shrink-0 items-center leading-none" onClick={close}>
               <Logo light={!lightUi} />
             </a>
 
