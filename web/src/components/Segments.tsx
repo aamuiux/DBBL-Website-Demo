@@ -6,6 +6,7 @@ import { ArrowUpRight, Building2, Crown } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
 import { Reveal, SectionHeading } from "./ui";
+import { Pattern } from "./Patterns";
 
 export function Segments() {
   const { d } = useLang();
@@ -28,6 +29,7 @@ export function Segments() {
         {/* VIP */}
         <Reveal delay={0.06} className="md:col-span-3 lg:col-span-5">
           <Tile href={links.vip} label={it.vip.name} className="bg-indigo-950 text-white">
+            <Pattern variant="waves" className="text-lime/25" />
             <Crown className="relative size-8 text-lime transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-rotate-12" aria-hidden />
             <TileCopy name={it.vip.name} body={it.vip.body} cta={d.segments.cta} />
           </Tile>
@@ -52,6 +54,7 @@ export function Segments() {
         {/* Corporate */}
         <Reveal delay={0.06} className="md:col-span-3 lg:col-span-6">
           <Tile href={links.corporate} label={it.corporate.name} className="bg-indigo-600 text-white">
+            <Pattern variant="rings" className="text-white/20" />
             <Building2 className="relative size-8 text-lime transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-translate-y-1" aria-hidden />
             <TileCopy name={it.corporate.name} body={it.corporate.body} cta={d.segments.cta} />
           </Tile>
@@ -60,6 +63,7 @@ export function Segments() {
         {/* NRB & Offshore */}
         <Reveal delay={0.1} className="md:col-span-3 lg:col-span-6">
           <Tile href={links.offshore} label={it.nrb.name} className="bg-lime text-indigo-950">
+            <Pattern variant="zigzag" className="text-indigo-950/20" />
             <ul className="relative flex flex-wrap gap-2" aria-label="Offshore currencies">
               {["USD", "EUR", "GBP", "CAD", "AUD"].map((c, i) => (
                 <li

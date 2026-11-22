@@ -2,16 +2,21 @@
 
 import { useId } from "react";
 import { motion } from "motion/react";
-import { Calculator, Car, FileText, Home, Sparkles, Wallet, type LucideIcon } from "lucide-react";
+import { Calculator, FileText, Sparkles } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
 import { retailLoans, smeLoans } from "@/lib/content";
 import { Button, Reveal, useReduce, type Tone } from "./ui";
+import { CarIcon3D, CoinsIcon3D, HouseIcon3D } from "./Icons3D";
+import { Pattern } from "./Patterns";
 
-const loanLook: Record<(typeof retailLoans)[number]["key"], { icon: LucideIcon; tone: string; chip: string; apply: Tone; faq: Tone }> = {
-  personal: { icon: Wallet, tone: "bg-indigo-600 text-white", chip: "bg-lime text-indigo-950", apply: "lime", faq: "ghost-dark" },
-  home: { icon: Home, tone: "bg-green-600 text-white", chip: "bg-white text-green-700", apply: "white", faq: "ghost-dark" },
-  car: { icon: Car, tone: "bg-sun text-indigo-950", chip: "bg-indigo-950 text-white", apply: "ink", faq: "ghost-light" },
+const loanLook: Record<
+  (typeof retailLoans)[number]["key"],
+  { Art: (p: { className?: string }) => React.ReactElement; tone: string; pattern: string; apply: Tone; faq: Tone }
+> = {
+  personal: { Art: CoinsIcon3D, tone: "bg-indigo-600 text-white", pattern: "text-white/15", apply: "lime", faq: "ghost-dark" },
+  home: { Art: HouseIcon3D, tone: "bg-green-600 text-white", pattern: "text-white/20", apply: "white", faq: "ghost-dark" },
+  car: { Art: CarIcon3D, tone: "bg-sun text-indigo-950", pattern: "text-indigo-950/15", apply: "ink", faq: "ghost-light" },
 };
 
 export function Loans() {
@@ -56,7 +61,7 @@ export function Loans() {
         <ul className="mt-14 grid gap-4 md:grid-cols-3">
           {retailLoans.map((l, i) => {
             const look = loanLook[l.key];
-            const Icon = look.icon;
+            const Art = look.Art;
             return (
               <motion.li
                 key={l.key}
@@ -65,15 +70,9 @@ export function Loans() {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ type: "spring", stiffness: 140, damping: 18, delay: i * 0.08 }}
               >
-                <div className={`group relative flex h-full min-h-80 flex-col justify-between overflow-hidden rounded-[1.75rem] p-7 ${look.tone}`}>
-                  <Icon
-                    aria-hidden
-                    strokeWidth={1.25}
-                    className="pointer-events-none absolute -bottom-8 -right-8 size-56 opacity-15 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-rotate-12 group-hover:scale-110"
-                  />
-                  <span className={`grid size-14 place-items-center rounded-2xl ${look.chip}`}>
-                    <Icon className="size-6" aria-hidden />
-                  </span>
+                <div className={`group relative isolate flex h-full min-h-80 flex-col justify-between overflow-hidden rounded-[1.75rem] p-7 ${look.tone}`}>
+                  <Pattern variant={l.key === "home" ? "rings" : l.key === "car" ? "zigzag" : "waves"} className={look.pattern} />
+                  <Art className="relative -ml-4 -mt-4 size-44 drop-shadow-[0_18px_22px_rgba(0,0,0,0.25)] transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-translate-y-2 group-hover:rotate-[-6deg] group-hover:scale-105" />
                   <div className="relative mt-16">
                     <h3 className="font-display text-[2.25rem] font-semibold leading-none tracking-[-0.035em]">{l.name[lang]}</h3>
                     <p className="mt-3 max-w-[26ch] text-lg opacity-85">{l.body[lang]}</p>
