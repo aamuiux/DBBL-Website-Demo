@@ -166,7 +166,7 @@ export function Cards() {
   /* ───────── Pinned: decks dealt by the scroll ───────── */
   if (pinned) {
     return (
-      <section ref={sectionRef} aria-labelledby={`${id}-h`} className="relative h-svh overflow-hidden bg-paper">
+      <section ref={sectionRef} aria-labelledby={`${id}-h`} className="cards-bg relative h-svh overflow-hidden bg-[linear-gradient(180deg,var(--color-indigo-50)_0%,var(--color-indigo-100)_100%)]">
         <div className="mx-auto grid h-full max-w-[1360px] grid-cols-[1fr_1.15fr] items-center gap-12 px-6 pt-[var(--header-h)] xl:px-10">
           <div>
             {heading}
@@ -193,7 +193,7 @@ export function Cards() {
 
   /* ───────── Static: tabs, and the chosen deck fans out ───────── */
   return (
-    <section ref={sectionRef} aria-labelledby={`${id}-h`} className="relative overflow-hidden bg-paper py-24 md:py-32">
+    <section ref={sectionRef} aria-labelledby={`${id}-h`} className="cards-bg relative overflow-hidden bg-[linear-gradient(180deg,var(--color-indigo-50)_0%,var(--color-indigo-100)_100%)] py-24 md:py-32">
       <div className="mx-auto grid max-w-[1360px] items-center gap-12 px-5 sm:px-6 lg:grid-cols-[1fr_1.1fr] xl:px-10">
         <div>
           {heading}

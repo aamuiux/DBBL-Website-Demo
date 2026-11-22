@@ -132,9 +132,9 @@ export function Offers() {
               return (
                 <motion.li
                   key={o.href}
-                  initial={reduce ? false : { opacity: 0, y: 40, rotate: i % 2 ? 4 : -4 }}
-                  whileInView={{ opacity: 1, y: 0, rotate: i % 2 ? 1.5 : -1.5 }}
-                  whileHover={reduce ? undefined : { rotate: 0, y: -8 }}
+                  initial={reduce ? false : { opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  whileHover={reduce ? undefined : { y: -8 }}
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ type: "spring", stiffness: 200, damping: 18, delay: Math.min(i * 0.05, 0.4) }}
                   className="shrink-0"

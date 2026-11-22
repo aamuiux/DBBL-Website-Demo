@@ -144,17 +144,17 @@ export function Button({
       href={href}
       {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       style={{ "--h": s.h } as CSSProperties}
-      className={`group relative isolate inline-flex h-[var(--h)] items-center overflow-hidden whitespace-nowrap rounded-full font-semibold ring-1 ring-inset backdrop-blur-md transition-transform duration-200 active:scale-[0.97] ${s.text} ${t.surface} ${className}`}
+      className={`btn-${tone} group relative isolate inline-flex h-[var(--h)] items-center overflow-hidden whitespace-nowrap rounded-full font-semibold ring-1 ring-inset backdrop-blur-md transition-transform duration-200 active:scale-[0.97] ${s.text} ${t.surface} ${className}`}
       {...rest}
     >
       <span
         aria-hidden
-        className={`absolute inset-y-[3px] left-[3px] -z-10 w-[calc(var(--h)-6px)] rounded-full shadow-[inset_0_0_0_1px_rgb(255_255_255/0.12)] transition-[width] group-hover:w-[calc(100%-6px)] group-focus-visible:w-[calc(100%-6px)] ${sweep} ${t.fill}`}
+        className={`btn-fill absolute inset-y-[3px] left-[3px] -z-10 w-[calc(var(--h)-6px)] rounded-full shadow-[inset_0_0_0_1px_rgb(255_255_255/0.12)] transition-[width] group-hover:w-[calc(100%-6px)] group-focus-visible:w-[calc(100%-6px)] ${sweep} ${t.fill}`}
       />
-      <span aria-hidden className={`grid size-[var(--h)] shrink-0 place-items-center transition-transform group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5 ${sweep} ${t.on}`}>
+      <span aria-hidden className={`btn-on grid size-[var(--h)] shrink-0 place-items-center transition-transform group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5 ${sweep} ${t.on}`}>
         <Icon className={s.icon} strokeWidth={2.25} />
       </span>
-      <span className={`${s.pad} transition-colors duration-300 ${t.over}`}>{children}</span>
+      <span className={`btn-label ${s.pad} transition-colors duration-300 ${t.over}`}>{children}</span>
       {isExternal && <span className="sr-only">(opens in a new tab)</span>}
     </a>
   );

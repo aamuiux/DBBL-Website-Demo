@@ -33,14 +33,6 @@ const slides: Slide[] = [
     cta2: links.rocketCharges,
   },
   {
-    tint: "indigo",
-    src: "https://images.unsplash.com/photo-1667655861998-46fe4c29a4cf",
-    alt: "A young man in Dhaka holding his phone and smiling",
-    position: "62% 30%",
-    cta: links.udyogForm,
-    cta2: "#offers",
-  },
-  {
     tint: "nexus",
     src: "",
     alt: "",
@@ -56,6 +48,14 @@ const slides: Slide[] = [
     position: "50% 60%",
     cta: links.atmLocator,
     cta2: links.personalAccounts,
+  },
+  {
+    tint: "indigo",
+    src: "https://images.unsplash.com/photo-1667655861998-46fe4c29a4cf",
+    alt: "A young man in Dhaka holding his phone and smiling",
+    position: "62% 30%",
+    cta: links.udyogForm,
+    cta2: "#offers",
   },
 ];
 
@@ -153,6 +153,15 @@ export function Hero() {
                 {/* depth: a soft light behind the phone, deeper magenta toward the text */}
                 <span className="absolute inset-0 bg-[radial-gradient(ellipse_at_72%_45%,rgb(255_255_255/0.22),transparent_55%),linear-gradient(90deg,color-mix(in_srgb,var(--color-rocket-700)_80%,transparent),transparent_60%)]" />
               </div>
+            ) : slide.tint === "sky" ? (
+              /* The clouds drift slowly sideways: the photo is wider than the hero and pans back and forth */
+              <motion.div
+                className="absolute inset-y-0 left-0 w-[125%]"
+                animate={reduce ? undefined : { x: ["0%", "-18%"] }}
+                transition={{ duration: 45, ease: "linear", repeat: Infinity, repeatType: "mirror" }}
+              >
+                <Image src={slide.src} alt={slide.alt} fill sizes="125vw" quality={80} preload={index === 0} className="object-cover" style={{ objectPosition: slide.position }} />
+              </motion.div>
             ) : (
               <Image
                 src={slide.src}
@@ -244,7 +253,7 @@ export function Hero() {
                 </>
               )}
               <motion.div variants={lineVariants(reduce)} className="mt-9 flex flex-wrap items-center gap-3">
-                <Button href={slide.cta} tone={sky ? "primary" : "lime"} size="lg">
+                <Button href={slide.cta} tone={sky ? "primary" : slide.tint === "indigo" ? "lime" : "white"} size="lg">
                   {copy.cta}
                 </Button>
                 <Button href={slide.cta2} tone={sky ? "ghost-light" : "ghost-dark"} size="lg">
@@ -458,7 +467,7 @@ function SkyArt({ reduce }: { reduce: boolean }) {
     >
       {/* The logo's blue, red and green swooshes only (no oval), oversized and sweeping up on the right */}
       <motion.div
-        className="absolute -right-[70%] top-0 aspect-[205/172] h-[100%] sm:-right-[30%] lg:-right-[12%]"
+        className="absolute -right-[70%] top-0 aspect-[205/172] h-[125%] sm:-right-[40%] lg:-right-[26%]"
         initial={reduce ? false : { x: 80, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
@@ -485,11 +494,6 @@ function SkyArt({ reduce }: { reduce: boolean }) {
           />
         ))}
       </svg>
-      <div className="absolute inset-x-0 bottom-0 flex h-2 gap-1.5 bg-white">
-        <span className="flex-1 bg-indigo-600" />
-        <span className="flex-1 bg-red-600" />
-        <span className="flex-1 bg-green-600" />
-      </div>
     </motion.div>
   );
 }

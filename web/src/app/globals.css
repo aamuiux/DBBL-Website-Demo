@@ -143,6 +143,58 @@
 :root:has(.brand2) .brand-red {
   background: var(--color-red-600);
 }
+/* CTAs: the main action in each pair is a solid guideline colour, the second stays an outline (ghost tones) */
+:root:has(.brand2) .btn-lime {
+  background: var(--color-red-600);
+  color: #fff;
+  --tw-ring-color: transparent;
+}
+:root:has(.brand2) .btn-primary {
+  background: var(--color-indigo-600);
+  color: #fff;
+  --tw-ring-color: transparent;
+}
+:root:has(.brand2) .btn-primary .btn-fill {
+  background: var(--color-indigo-950);
+}
+:root:has(.brand2) .btn-green {
+  background: var(--color-green-600);
+  color: #fff;
+  --tw-ring-color: transparent;
+}
+:root:has(.brand2) .btn-green .btn-fill {
+  background: var(--color-green-700);
+}
+:root:has(.brand2) .btn-ink {
+  background: var(--color-indigo-950);
+  color: #fff;
+  --tw-ring-color: transparent;
+}
+:root:has(.brand2) .btn-ink .btn-fill {
+  background: var(--color-indigo-600);
+}
+:root:has(.brand2) .btn-ink .btn-on {
+  color: #fff;
+}
+:root:has(.brand2) .btn-white {
+  background: #fff;
+  color: var(--color-indigo-950);
+  --tw-ring-color: transparent;
+}
+:root:has(.brand2) .btn-white .btn-fill {
+  background: var(--color-indigo-950);
+}
+:root:has(.brand2) .btn-white .btn-on,
+:root:has(.brand2) .btn-white:hover .btn-label,
+:root:has(.brand2) .btn-white:focus-visible .btn-label {
+  color: #fff;
+}
+/* Cards section: a full-width brushed silver, the logo's K50-to-white, kept light so the card faces lead */
+:root:has(.brand2) .cards-bg {
+  background:
+    radial-gradient(ellipse 60% 70% at 72% 50%, rgb(255 255 255 / 0.9), transparent 70%),
+    linear-gradient(115deg, #d9dadd 0%, #f1f2f3 22%, #ffffff 38%, #e2e3e6 56%, #f6f6f7 72%, #cfd0d4 100%);
+}
 /* The 3D loan icons go silver */
 :root:has(.brand2) .icon3d {
   filter: grayscale(1) contrast(1.08);
