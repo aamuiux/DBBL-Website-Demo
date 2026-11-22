@@ -177,31 +177,6 @@ export function Header() {
 
             <nav aria-label="Main" className="hidden flex-1 lg:flex lg:justify-center">
               <ul className="flex items-center gap-0.5" onMouseLeave={() => setHoverKey(null)}>
-                <li
-                  onMouseEnter={() => {
-                    hoverClose();
-                    setHoverKey("offers");
-                  }}
-                >
-                  <a
-                    href="#offers"
-                    onClick={close}
-                    onFocus={() => setHoverKey("offers")}
-                    onBlur={() => setHoverKey(null)}
-                    className={`relative isolate inline-flex h-11 items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 text-[0.95rem] font-semibold transition-colors xl:px-3.5 ${
-                      lightUi ? "text-ink hover:text-indigo-700" : "text-white/90 hover:text-white"
-                    }`}
-                  >
-                    {hoverKey === "offers" && (
-                      <motion.span layoutId={`${baseId}-bubble`} transition={bubbleSpring} aria-hidden className={`absolute inset-0 -z-10 rounded-full ${bubble}`} />
-                    )}
-                    <span className="relative flex size-2" aria-hidden>
-                      <span className="absolute inline-flex size-full animate-ping rounded-full bg-red-600 opacity-70 motion-reduce:hidden" />
-                      <span className="relative inline-flex size-2 rounded-full bg-red-600" />
-                    </span>
-                    {d.nav.offers}
-                  </a>
-                </li>
                 {nav.map((item) => {
                   const isOpen = open === item.key;
                   // The bubble follows the pointer; with no pointer over the bar it rests on the open item.
@@ -490,16 +465,6 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
 
           <nav aria-label="Main" className="flex-1 px-5">
             <ul className="divide-y divide-line border-y border-line">
-              <li>
-                <a
-                  href="#offers"
-                  onClick={onClose}
-                  className="font-display flex w-full items-center gap-3 py-4 text-2xl font-semibold tracking-[-0.02em] text-ink"
-                >
-                  <span className="size-2.5 rounded-full bg-red-600" aria-hidden />
-                  {d.nav.offers}
-                </a>
-              </li>
               {nav.map((item) => {
                 const isOpen = section === item.key;
                 return (

@@ -76,35 +76,35 @@ export function Footer() {
   ];
 
   return (
-    <footer className="on-dark bg-indigo-950 text-indigo-200">
+    <footer className="border-t border-line bg-white text-ink-2">
       <div className="mx-auto max-w-[1360px] px-5 pt-20 sm:px-6 xl:px-10">
-        <div className="grid gap-12 border-b border-white/10 pb-14 lg:grid-cols-[1.1fr_2fr]">
+        <div className="grid gap-12 border-b border-line pb-14 lg:grid-cols-[1.1fr_2fr]">
           <div>
-            <Logo light />
+            <Logo />
             <div className="mt-8 space-y-3 text-[0.95rem]">
-              <a href={`tel:${phone.hotline}`} className="flex flex-wrap items-center gap-x-3 gap-y-1 hover:text-white">
-                <Phone className="size-4 text-lime" aria-hidden />
-                <span className="tabular font-semibold text-white">16216</span>
-                <span className="tabular text-indigo-300">+880 9666 716216</span>
+              <a href={`tel:${phone.hotline}`} className="flex flex-wrap items-center gap-x-3 gap-y-1 hover:text-indigo-700">
+                <Phone className="size-4 text-indigo-600" aria-hidden />
+                <span className="tabular font-semibold text-ink">16216</span>
+                <span className="tabular text-ink-3">+880 9666 716216</span>
               </a>
-              <a href={links.contact} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 hover:text-white">
-                <MapPin className="mt-1 size-4 shrink-0 text-lime" aria-hidden />
+              <a href={links.contact} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 hover:text-indigo-700">
+                <MapPin className="mt-1 size-4 shrink-0 text-indigo-600" aria-hidden />
                 <span>
                   {d.footer.address}
-                  <span className="mt-1 block text-indigo-300">{d.footer.swift}</span>
+                  <span className="mt-1 block text-ink-3">{d.footer.swift}</span>
                 </span>
               </a>
             </div>
-            <p className="mt-10 text-sm font-semibold text-white">{d.footer.getApp}</p>
+            <p className="mt-10 text-sm font-semibold text-ink">{d.footer.getApp}</p>
             <div className="mt-3 flex flex-wrap gap-3">
-              <StoreBadges />
+              <StoreBadges light />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-4">
             {cols.map((c) => (
               <nav key={c.title} aria-label={c.title}>
-                <h2 className="text-sm font-semibold text-white">{c.title}</h2>
+                <h2 className="text-sm font-semibold text-ink">{c.title}</h2>
                 <ul className="mt-4 space-y-1">
                   {c.items.map(([label, href]) => (
                     <li key={href + label}>
@@ -112,7 +112,7 @@ export function Footer() {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex min-h-9 items-center text-[0.95rem] transition-colors hover:text-white hover:underline"
+                        className="inline-flex min-h-9 items-center text-[0.95rem] transition-colors hover:text-indigo-700 hover:underline"
                       >
                         {label}
                       </a>
@@ -124,11 +124,11 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-6 border-b border-white/10 py-8 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-6 border-b border-line py-8 md:flex-row md:items-center md:justify-between">
           <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
             {legal.map(([label, href]) => (
               <li key={label}>
-                <a href={href} target="_blank" rel="noopener noreferrer" className="hover:text-white hover:underline">
+                <a href={href} target="_blank" rel="noopener noreferrer" className="hover:text-indigo-700 hover:underline">
                   {label}
                 </a>
               </li>
@@ -142,7 +142,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${label} (opens in a new tab)`}
-                  className="grid size-11 place-items-center rounded-full bg-white/8 text-white transition-colors hover:bg-lime hover:text-indigo-950"
+                  className="grid size-11 place-items-center rounded-full bg-indigo-50 text-indigo-700 transition-colors hover:bg-indigo-600 hover:text-white"
                 >
                   <Icon className="size-[1.1rem]" />
                 </a>
@@ -151,10 +151,10 @@ export function Footer() {
           </ul>
         </div>
 
-        <div className="grid gap-4 py-8 text-sm text-indigo-300 md:grid-cols-[1fr_1.4fr]">
+        <div className="grid gap-4 py-8 text-sm text-ink-3 md:grid-cols-[1fr_1.4fr]">
           <p>© Dutch-Bangla Bank PLC. {d.footer.legal}</p>
           <p className="md:text-right">
-            <span className="mr-2 inline-block rounded-full bg-lime px-2.5 py-0.5 text-xs font-bold text-indigo-950">{d.concept}</span>
+            <span className="mr-2 inline-block rounded-full bg-indigo-50 px-2.5 py-0.5 text-xs font-bold text-indigo-700">{d.concept}</span>
             {d.footer.disclaimer}
           </p>
         </div>

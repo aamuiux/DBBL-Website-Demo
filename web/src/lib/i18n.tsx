@@ -183,6 +183,12 @@ const en = {
       "Log in only at ib.dutchbanglabank.com.",
     ],
     links: { faq: "FAQ", complaint: "Complaint cell", forms: "All forms", charges: "Charges & fees" },
+    card: "Helpdesk",
+    rows: {
+      complaint: "Raise a complaint and follow it up with the bank.",
+      faq: "Quick answers on cards, accounts and apps.",
+      charges: "Published charges and fees for every service.",
+    },
   },
   footer: {
     tagline: "Your Trusted Partner",
@@ -383,6 +389,12 @@ const bn: Dict = {
       "শুধু ib.dutchbanglabank.com-এ লগ ইন করুন।",
     ],
     links: { faq: "সাধারণ প্রশ্ন", complaint: "অভিযোগ সেল", forms: "সব ফর্ম", charges: "চার্জ ও ফি" },
+    card: "হেল্পডেস্ক",
+    rows: {
+      complaint: "অভিযোগ জানান এবং ব্যাংকের সঙ্গে ফলো-আপ করুন।",
+      faq: "কার্ড, অ্যাকাউন্ট ও অ্যাপ নিয়ে দ্রুত উত্তর।",
+      charges: "প্রতিটি সেবার প্রকাশিত চার্জ ও ফি।",
+    },
   },
   footer: {
     tagline: "আপনার বিশ্বস্ত সঙ্গী",

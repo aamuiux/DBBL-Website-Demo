@@ -6,7 +6,6 @@ import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from
 import { Pause, Play } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
-import { BD_DOTS, BD_PATH, BD_VIEWBOX } from "@/lib/bangladeshMap";
 import { Button, easeOut, useReduce } from "./ui";
 
 // Unsplash photography (free licence), chosen as stand-ins for DBBL's own lifestyle shoots.
@@ -171,8 +170,8 @@ export function Hero() {
         }`}
       />
 
-      {/* All of Bangladesh behind the Rocket slide, above the colour wash so the ATM points stay bright */}
-      <AnimatePresence>{slide.tint === "rocket" && <BangladeshMap key="bd-map" reduce={!!reduce} />}</AnimatePresence>
+      {/* The Rocket logo behind the phone, above the colour wash */}
+      <AnimatePresence>{slide.tint === "rocket" && <RocketLogoArt key="rocket-logo" reduce={!!reduce} />}</AnimatePresence>
 
       {/* The real Rocket app, in a phone (large screens) */}
       <AnimatePresence>{slide.tint === "rocket" && <RocketPhone key="rocket-phone" src={slide.src} alt={slide.alt} reduce={!!reduce} />}</AnimatePresence>
@@ -272,42 +271,29 @@ export function Hero() {
   );
 }
 
-/** All of Bangladesh behind the Rocket slide: a dotted country with points pulsing everywhere, because Rocket is used in every corner. */
-function BangladeshMap({ reduce }: { reduce: boolean }) {
+/** The Rocket logo, large and glowing, behind the phone. */
+function RocketLogoArt({ reduce }: { reduce: boolean }) {
   return (
     <motion.div
       aria-hidden
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 0.4 } }}
-      className="pointer-events-none absolute inset-y-0 right-[-18%] flex items-center pb-24 pt-[calc(var(--header-h)+1rem)] sm:right-[-8%] lg:right-[20%]">
-      <svg viewBox={BD_VIEWBOX} className="h-full w-auto overflow-visible">
-        <defs>
-          <pattern id="bd-dots" width="9" height="9" patternUnits="userSpaceOnUse">
-            <circle cx="4.5" cy="4.5" r="1.7" fill="white" fillOpacity="0.5" />
-          </pattern>
-          <filter id="bd-glow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="10" />
-          </filter>
-        </defs>
-        <path d={BD_PATH} fill="white" fillOpacity="0.18" filter="url(#bd-glow)" />
-        <path d={BD_PATH} fill="url(#bd-dots)" />
-        <path d={BD_PATH} fill="white" fillOpacity="0.07" stroke="white" strokeOpacity="0.55" strokeWidth="2" strokeLinejoin="round" />
-        {BD_DOTS.map(([x, y], i) => {
-          const delay = `${((i * 0.61) % 3.6).toFixed(2)}s`;
-          return (
-            <g key={i} transform={`translate(${x} ${y})`}>
-              {!reduce && (
-                <circle r="4" fill="none" stroke="#c8f169" strokeWidth="1.5">
-                  <animate attributeName="r" values="3;16" dur="3.6s" begin={delay} repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="0.8;0" dur="3.6s" begin={delay} repeatCount="indefinite" />
-                </circle>
-              )}
-              <circle r="3.2" fill="#c8f169" />
-            </g>
-          );
-        })}
-      </svg>
+      className="pointer-events-none absolute inset-y-0 right-[-12%] hidden items-center sm:flex lg:right-[22%]"
+    >
+      <motion.div
+        initial={reduce ? false : { scale: 0.8, rotate: 8, opacity: 0 }}
+        animate={{ scale: 1, rotate: -6, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 70, damping: 16, delay: 0.2 }}
+        className="relative size-[min(28rem,48vh)]"
+      >
+        <span className="absolute -inset-[18%] rounded-full bg-[radial-gradient(circle,rgb(255_255_255/0.28),transparent_62%)]" />
+        <span className="absolute -inset-[7%] rounded-[30%] ring-1 ring-white/25" />
+        <span className="absolute -inset-[16%] rounded-[34%] ring-1 ring-white/12" />
+        <span className="relative block size-full overflow-hidden rounded-[22%] shadow-[0_40px_90px_-30px_rgb(20_0_25/0.8)] ring-4 ring-white/20">
+          <Image src={links.rocketLogo} alt="" fill sizes="28rem" quality={90} preload className="object-cover" />
+        </span>
+      </motion.div>
     </motion.div>
   );
 }
