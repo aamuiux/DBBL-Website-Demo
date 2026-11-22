@@ -8,18 +8,15 @@ import { useReduce } from "./ui";
 
 /**
  * A college/university student's day with DBBL: each moment is a real DBBL service
- * (SMS alerts, debit card, Rocket send money, NexusPay's 10-minute card numbers and free send money,
- * the ATM network, savings interest). Unsplash stand-ins photographed in Bangladesh (Dhaka, incl. Dhaka
- * University's Curzon Hall, Gazipur and Cox's Bazar), marked for replacement.
+ * (debit card, Rocket, NexusPay's 10-minute card numbers, QR payments and free send money). The photos are
+ * client-supplied images in /public/students.
  */
 const slides = [
-  { photo: "photo-1658839128300-901b7070c97b", focus: "50% 35%", when: { en: "8:00 am", bn: "সকাল ৮:০০" }, t: { en: "An SMS for every taka", bn: "প্রতিটি টাকার এসএমএস" } },
-  { photo: "photo-1582749247950-14c6b0014ec7", focus: "50% 40%", when: { en: "9:30 am", bn: "সকাল ৯:৩০" }, t: { en: "Your own debit card, on campus", bn: "ক্যাম্পাসে নিজের ডেবিট কার্ড" } },
-  { photo: "photo-1649298173699-c754c53c4340", focus: "50% 45%", when: { en: "1:00 pm", bn: "দুপুর ১:০০" }, t: { en: "Lunch split, sent by Rocket", bn: "রকেটে লাঞ্চের ভাগ পাঠানো" } },
-  { photo: "photo-1630072923380-982b7356bd69", focus: "60% 50%", when: { en: "3:30 pm", bn: "বিকেল ৩:৩০" }, t: { en: "Online shopping with a 10-minute card number", bn: "১০ মিনিটের কার্ড নম্বরে অনলাইন কেনাকাটা" } },
-  { photo: "photo-1679211744287-4fde44b9cd30", focus: "50% 35%", when: { en: "5:00 pm", bn: "বিকেল ৫:০০" }, t: { en: "Cash from 4,100+ DBBL ATMs", bn: "৪,১০০+ ডিবিবিএল এটিএমে টাকা" } },
-  { photo: "photo-1599409275684-f2381fde0c6a", focus: "50% 45%", when: { en: "7:00 pm", bn: "সন্ধ্যা ৭:০০" }, t: { en: "Send money free with NexusPay", bn: "নেক্সাসপে-তে ফ্রি টাকা পাঠানো" } },
-  { photo: "photo-1662267486436-c2e8bd95c2d4", focus: "50% 35%", when: { en: "Month end", bn: "মাস শেষে" }, t: { en: "Savings that earn interest", bn: "সঞ্চয়ে সুদ" } },
+  { src: "/students/campus.webp", focus: "50% 42%", when: { en: "9:30 am", bn: "সকাল ৯:৩০" }, t: { en: "Your own debit card, on campus", bn: "ক্যাম্পাসে নিজের ডেবিট কার্ড" } },
+  { src: "/students/canteen.webp", focus: "50% 50%", when: { en: "1:00 pm", bn: "দুপুর ১:০০" }, t: { en: "Lunch, paid by Rocket", bn: "রকেটে লাঞ্চের বিল" } },
+  { src: "/students/home.webp", focus: "50% 48%", when: { en: "3:30 pm", bn: "বিকেল ৩:৩০" }, t: { en: "Online shopping with a 10-minute card number", bn: "১০ মিনিটের কার্ড নম্বরে অনলাইন কেনাকাটা" } },
+  { src: "/students/shop.webp", focus: "46% 52%", when: { en: "5:00 pm", bn: "বিকেল ৫:০০" }, t: { en: "A quick shop run, paid by QR with NexusPay", bn: "নেক্সাসপে-তে কিউআর দিয়ে দোকানে পেমেন্ট" } },
+  { src: "/students/friends.webp", focus: "50% 60%", when: { en: "7:00 pm", bn: "সন্ধ্যা ৭:০০" }, t: { en: "Send money free with NexusPay", bn: "নেক্সাসপে-তে ফ্রি টাকা পাঠানো" } },
 ];
 
 const GAP = 16;
@@ -143,7 +140,7 @@ export function StudentSlider({ sectionRef }: { sectionRef: RefObject<HTMLElemen
       <ul className="absolute inset-0">
         {slides.map((s, i) => (
           <Slide
-            key={s.photo}
+            key={s.src}
             i={i}
             pos={pos}
             step={step}
@@ -153,7 +150,7 @@ export function StudentSlider({ sectionRef }: { sectionRef: RefObject<HTMLElemen
             cw={cw}
             reduce={reduce}
             moving={moving}
-            photo={s.photo}
+            src={s.src}
             focus={s.focus}
             when={s.when[lang]}
             title={s.t[lang]}
@@ -174,7 +171,7 @@ function Slide({
   cw,
   reduce,
   moving,
-  photo,
+  src,
   focus,
   when,
   title,
@@ -188,7 +185,7 @@ function Slide({
   cw: number;
   reduce: boolean;
   moving: boolean;
-  photo: string;
+  src: string;
   focus: string;
   when: string;
   title: string;
@@ -203,7 +200,7 @@ function Slide({
       <div className="relative overflow-hidden rounded-3xl bg-indigo-950/10 shadow-[0_24px_50px_-24px_rgb(9_11_58/0.55)]" style={{ height: h }}>
         <motion.div style={{ x: drift }} className="absolute inset-y-0 -left-[30%] -right-[30%]">
           <Image
-            src={`https://images.unsplash.com/${photo}?w=1000&q=80&auto=format`}
+            src={src}
             alt=""
             fill
             loading="eager"
