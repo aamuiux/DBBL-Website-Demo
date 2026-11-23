@@ -162,6 +162,12 @@ export function Hero() {
               <div className="absolute inset-0 bg-[linear-gradient(180deg,#6f9fd3_0%,#a9c6e6_45%,#e4edf8_100%)]">
                 <span className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_50%,rgb(255_255_255/0.45),transparent_60%),linear-gradient(90deg,rgb(255_255_255/0.4),transparent_55%)]" />
               </div>
+            ) : slide.tint === "sky" && brand ? (
+              /* /new-design: the supplied sky shown whole (never cropped); a blurred copy fills any spare width */
+              <div className="absolute inset-0 overflow-hidden">
+                <Image src="/hero-sky-2.webp" alt="" fill sizes="100vw" quality={40} className="scale-110 object-cover blur-2xl" />
+                <Image src="/hero-sky-2.webp" alt={slide.alt} fill sizes="100vw" quality={85} preload={index === 0} className="object-contain" />
+              </div>
             ) : slide.tint === "sky" ? (
               /* The clouds drift slowly sideways: the photo is wider than the hero and pans back and forth */
               <motion.div
@@ -169,7 +175,7 @@ export function Hero() {
                 animate={reduce ? undefined : { x: ["0%", "-18%"] }}
                 transition={{ duration: 45, ease: "linear", repeat: Infinity, repeatType: "mirror" }}
               >
-                <Image src={brand ? "/hero-sky.webp" : slide.src} alt={slide.alt} fill sizes="125vw" quality={80} preload={index === 0} className="object-cover" style={{ objectPosition: slide.position }} />
+                <Image src={slide.src} alt={slide.alt} fill sizes="125vw" quality={80} preload={index === 0} className="object-cover" style={{ objectPosition: slide.position }} />
               </motion.div>
             ) : (
               <Image
