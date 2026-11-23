@@ -409,3 +409,13 @@ a {
 :root:has(.brand2) .hours-card {
   border-radius: 1.25rem;
 }
+/* Offers ribbon text: capitals, 4px larger, airier, in purple */
+:root:has(.brand2) .ticker-item {
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-rocket-700);
+}
+:root:has(.brand2) .ticker-item > span {
+  background: var(--color-rocket-700);
+}
