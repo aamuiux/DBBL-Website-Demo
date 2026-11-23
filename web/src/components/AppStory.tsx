@@ -304,26 +304,111 @@ export function AppStory() {
   );
 }
 
-/** Corner motif: DBBL's ATM network as nodes and links, kept faint so it reads as texture. */
-function NetworkCorners() {
-  const nodes = [
-    [40, 60], [120, 30], [200, 90], [90, 150], [260, 40], [170, 190], [300, 140], [30, 230],
-  ];
-  const linksIdx = [[0, 1], [1, 2], [0, 3], [2, 3], [1, 4], [2, 4], [3, 5], [2, 6], [4, 6], [5, 6], [3, 7], [5, 7]];
-  const art = (
+const netNodes: [number, number][] = [
+  [40, 60], [120, 30], [200, 90], [90, 150], [260, 40], [170, 190], [300, 140], [30, 230],
+];
+const netLinks = [[0, 1], [1, 2], [0, 3], [2, 3], [1, 4], [2, 4], [3, 5], [2, 6], [4, 6], [5, 6], [3, 7], [5, 7]];
+
+/** One copy of the network. When `animate` is on, the big dot hops from node to node along the links. */
+function NetworkArt({ animate, delay = 0 }: { animate: boolean; delay?: number }) {
+  const dot = useRef<SVGCircleElement>(null);
+  const halo = useRef<SVGCircleElement>(null);
+  const trail = useRef<SVGLineElement>(null);
+
+  useEffect(() => {
+    if (!animate) return;
+    const MOVE = 1250;
+    const REST = 500;
+    const neighbours = (n: number) => netLinks.flatMap(([a, b]) => (a === n ? [b] : b === n ? [a] : []));
+    let cur = 2;
+    let prev = -1;
+    let next = -1;
+    let start = 0;
+    let raf = 0;
+    let phase: "rest" | "move" = "rest";
+    let phaseStart = performance.now() + delay;
+
+    const pick = () => {
+      const all = neighbours(cur);
+      const pool = all.filter((n) => n !== prev);
+      const from = pool.length ? pool : all;
+      return from[Math.floor(Math.random() * from.length)];
+    };
+    const place = (x: number, y: number) => {
+      dot.current?.setAttribute("cx", String(x));
+      dot.current?.setAttribute("cy", String(y));
+      halo.current?.setAttribute("cx", String(x));
+      halo.current?.setAttribute("cy", String(y));
+    };
+    const tick = (now: number) => {
+      if (phase === "rest") {
+        if (now - phaseStart >= REST) {
+          next = pick();
+          start = now;
+          phase = "move";
+        }
+      } else {
+        const k = Math.min(1, (now - start) / MOVE);
+        const e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+        const [x0, y0] = netNodes[cur];
+        const [x1, y1] = netNodes[next];
+        const x = x0 + (x1 - x0) * e;
+        const y = y0 + (y1 - y0) * e;
+        place(x, y);
+        const t = trail.current;
+        if (t) {
+          t.setAttribute("x1", String(x0));
+          t.setAttribute("y1", String(y0));
+          t.setAttribute("x2", String(x));
+          t.setAttribute("y2", String(y));
+          t.setAttribute("stroke-opacity", String(0.7 * (1 - k * k)));
+        }
+        if (k >= 1) {
+          prev = cur;
+          cur = next;
+          phase = "rest";
+          phaseStart = now;
+        }
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [animate, delay]);
+
+  const [sx, sy] = netNodes[2];
+  return (
     <svg viewBox="0 0 340 260" className="h-full w-full" aria-hidden>
-      {linksIdx.map(([a, b], i) => (
-        <line key={i} x1={nodes[a][0]} y1={nodes[a][1]} x2={nodes[b][0]} y2={nodes[b][1]} stroke="rgb(255 255 255 / 0.1)" strokeWidth="1.2" />
+      {netLinks.map(([a, b], i) => (
+        <line key={i} x1={netNodes[a][0]} y1={netNodes[a][1]} x2={netNodes[b][0]} y2={netNodes[b][1]} stroke="rgb(255 255 255 / 0.1)" strokeWidth="1.2" />
       ))}
-      {nodes.map(([x, y], i) => (
-        <circle key={i} cx={x} cy={y} r={i === 2 ? 5 : 3.2} style={{ fill: i === 2 ? "var(--color-lime)" : "rgb(255 255 255 / 0.28)" }} />
+      {animate && <line ref={trail} x1={sx} y1={sy} x2={sx} y2={sy} strokeWidth="2" strokeLinecap="round" strokeOpacity="0" style={{ stroke: "var(--color-lime)" }} />}
+      {netNodes.map(([x, y], i) => (
+        <circle key={i} cx={x} cy={y} r={i === 2 && !animate ? 5 : 3.2} style={{ fill: i === 2 && !animate ? "var(--color-lime)" : "rgb(255 255 255 / 0.28)" }} />
       ))}
+      {animate && (
+        <>
+          <circle ref={halo} cx={sx} cy={sy} r="11" style={{ fill: "var(--color-lime)" }} fillOpacity="0.22" />
+          <circle ref={dot} cx={sx} cy={sy} r="5" style={{ fill: "var(--color-lime)" }} />
+        </>
+      )}
     </svg>
   );
+}
+
+/** Corner motif: DBBL's ATM network as nodes and links, kept faint so it reads as texture. */
+function NetworkCorners() {
+  const reduce = useReduce();
+  const brand = usePathname()?.startsWith("/new-design") ?? false;
+  const animate = brand && !reduce;
   return (
     <>
-      <div className="pointer-events-none absolute right-0 top-0 h-[34%] w-[34%] max-w-[30rem]">{art}</div>
-      <div className="pointer-events-none absolute bottom-0 left-0 h-[34%] w-[34%] max-w-[30rem] rotate-180">{art}</div>
+      <div className="pointer-events-none absolute right-0 top-0 h-[34%] w-[34%] max-w-[30rem]">
+        <NetworkArt animate={animate} />
+      </div>
+      <div className="pointer-events-none absolute bottom-0 left-0 h-[34%] w-[34%] max-w-[30rem] rotate-180">
+        <NetworkArt animate={animate} delay={900} />
+      </div>
     </>
   );
 }
