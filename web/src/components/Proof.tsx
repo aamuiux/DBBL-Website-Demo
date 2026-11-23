@@ -124,6 +124,17 @@ function NetworkArt() {
         sizes="(min-width:1024px) 40vw, 100vw"
         className="mx-auto mt-6 h-auto w-full max-w-[34rem]"
       />
+      <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-indigo-200">
+        <li className="flex items-center gap-2">
+          <span className="size-3 rounded-full bg-lime" aria-hidden /> {d.proof.networkCenter}
+        </li>
+        <li className="flex items-center gap-2">
+          <span className="size-3 rounded-full bg-green-600" aria-hidden /> {d.proof.networkBB}
+        </li>
+        <li className="flex items-center gap-2">
+          <span className="size-3 rounded-full bg-indigo-600 ring-1 ring-white/55" aria-hidden /> {d.proof.networkPartner} × 23
+        </li>
+      </ul>
     </div>
   );
 }

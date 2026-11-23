@@ -110,7 +110,7 @@ export function FastTrack() {
               <p className="mt-4 text-lg font-semibold">{bn ? "এটিএম সারা দেশে, দেশের সবচেয়ে বড় নেটওয়ার্ক" : "ATMs nationwide, the country's largest network"}</p>
             </Reveal>
             <Reveal delay={0.08} className="flex flex-col justify-between rounded-[1.75rem] bg-indigo-950 p-7 text-white">
-              <p className="font-display tabular text-[clamp(3.5rem,7vw,5.5rem)] font-bold leading-[0.85] tracking-[-0.05em] text-lime">{num(fastTrack.count)}</p>
+              <p className="font-display tabular text-[clamp(3.5rem,7vw,5.5rem)] font-bold leading-[0.85] tracking-[-0.05em] text-green-500">{num(fastTrack.count)}</p>
               <div className="mt-4">
                 <p className="text-lg font-semibold">{bn ? "ফাস্ট ট্র্যাক" : "Fast Tracks"}</p>
                 <p className="text-indigo-200">
