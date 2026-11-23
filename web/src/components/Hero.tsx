@@ -118,6 +118,11 @@ export function Hero() {
   const ty = useTransform(sy, (v) => v * -10);
 
   const brand = usePathname()?.startsWith("/new-design") ?? false; // /new-design uses its own cloud photo
+  // /new-design: the copy follows the pointer (a small step, so it stays readable) and the cloud photo moves further the other way
+  const textX = useTransform(sx, (v) => (brand ? v * 34 : 0));
+  const textY = useTransform(sy, (v) => (brand ? v * 20 : 0));
+  const cloudX = useTransform(sx, (v) => v * -70);
+  const cloudY = useTransform(sy, (v) => v * -40);
   const slide = slides[index];
   const copy = d.hero.slides[index];
   const sky = slide.tint === "sky";
@@ -165,8 +170,16 @@ export function Hero() {
             ) : slide.tint === "sky" && brand ? (
               /* /new-design: the supplied sky shown whole (never cropped); a blurred copy fills any spare width */
               <div className="absolute inset-0 overflow-hidden">
-                <Image src="/hero-sky-3.webp" alt="" fill sizes="100vw" quality={40} className="scale-110 object-cover blur-2xl" />
-                <Image src="/hero-sky-3.webp" alt={slide.alt} fill sizes="100vw" quality={85} preload={index === 0} className="object-contain" />
+                {/* The clouds drift slowly on their own and shift with the pointer; the photo is oversized so its edges never show */}
+                <motion.div className="absolute inset-[-6%]" style={{ x: cloudX, y: cloudY }}>
+                  <motion.div
+                    className="absolute inset-0"
+                    animate={reduce ? undefined : { x: ["-2.5%", "2.5%"], y: ["-0.8%", "0.8%"] }}
+                    transition={{ duration: 28, ease: "easeInOut", repeat: Infinity, repeatType: "mirror" }}
+                  >
+                    <Image src="/hero-sky-3.webp" alt={slide.alt} fill sizes="115vw" quality={85} preload={index === 0} className="object-cover" />
+                  </motion.div>
+                </motion.div>
               </div>
             ) : slide.tint === "sky" ? (
               /* The clouds drift slowly sideways: the photo is wider than the hero and pans back and forth */
@@ -220,7 +233,7 @@ export function Hero() {
       <AnimatePresence>{slide.tint === "agent" && <AgentArt key="agent-art" reduce={!!reduce} />}</AnimatePresence>
 
       <div className="mx-auto flex w-full max-w-[1360px] flex-1 flex-col justify-end px-5 pb-36 pt-[calc(var(--header-h)+4rem)] sm:px-6 sm:pb-40 xl:px-10">
-        <div className="max-w-[44rem]" aria-live={playing ? "off" : "polite"}>
+        <motion.div className="max-w-[44rem]" style={brand ? { x: textX, y: textY } : undefined} aria-live={playing ? "off" : "polite"}>
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={index}
@@ -277,7 +290,7 @@ export function Hero() {
               </motion.div>
             </motion.div>
           </AnimatePresence>
-        </div>
+        </motion.div>
       </div>
 
       {/* Slide controls: dots only (the active one is a pill that fills with the slide's progress), plus pause */}

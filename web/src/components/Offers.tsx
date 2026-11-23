@@ -24,7 +24,7 @@ export function OffersTicker() {
   const row = offers.map((o) => `${o.partner} · ${o.title[lang]}`);
   const items = [...row, ...row];
   return (
-    <div className="marquee relative z-10 mt-12 -rotate-1 overflow-hidden bg-lime py-3.5 text-indigo-950 shadow-[var(--shadow-card)]" aria-label={lang === "bn" ? "চলমান অফার" : "Live offers"}>
+    <div className="marquee ticker relative z-10 mt-12 -rotate-1 overflow-hidden bg-lime py-3.5 text-indigo-950 shadow-[var(--shadow-card)]" aria-label={lang === "bn" ? "চলমান অফার" : "Live offers"}>
       <div className="marquee-track flex w-max gap-10 whitespace-nowrap [--marquee-duration:55s]">
         {items.map((t, i) => (
           <a
@@ -32,7 +32,7 @@ export function OffersTicker() {
             href="#offers"
             aria-hidden={i >= row.length}
             tabIndex={i >= row.length ? -1 : 0}
-            className="font-display inline-flex items-center gap-3 text-lg font-semibold tracking-[-0.01em]"
+            className="ticker-item font-display inline-flex items-center gap-3 text-lg font-semibold tracking-[-0.01em]"
           >
             <span className="size-2 rounded-full bg-indigo-950" aria-hidden />
             {t}
