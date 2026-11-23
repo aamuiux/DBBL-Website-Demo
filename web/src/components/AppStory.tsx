@@ -280,12 +280,15 @@ function NetworkCorners() {
 export function StoreBadges({
   light = false,
   outline = false,
+  small = false,
   play = links.nexusPayPlay,
   appStore = links.nexusPayAppStore,
   app,
 }: {
   light?: boolean;
   outline?: boolean;
+  /** Official badges at a compact height (/new-design only) */
+  small?: boolean;
   play?: string;
   appStore?: string;
   /** App name for screen readers, e.g. "Rocket". */
@@ -305,12 +308,12 @@ export function StoreBadges({
       <>
         <a href={play} target="_blank" rel="noopener noreferrer" className="inline-block rounded-lg transition-transform hover:-translate-y-0.5">
           {/* eslint-disable-next-line @next/next/no-img-element -- official badge SVG */}
-          <img src="/badge-google-play.svg" alt={`Get it on Google Play${app ? `: ${app}` : ""}`} className="h-14 w-auto" />
+          <img src="/badge-google-play.svg" alt={`Get it on Google Play${app ? `: ${app}` : ""}`} className={small ? "h-10 w-auto" : "h-14 w-auto"} />
           <span className="sr-only">(opens in a new tab)</span>
         </a>
         <a href={appStore} target="_blank" rel="noopener noreferrer" className="inline-block rounded-lg transition-transform hover:-translate-y-0.5">
           {/* eslint-disable-next-line @next/next/no-img-element -- official badge SVG */}
-          <img src="/badge-app-store.svg" alt={`Download on the App Store${app ? `: ${app}` : ""}`} className="h-14 w-auto" />
+          <img src="/badge-app-store.svg" alt={`Download on the App Store${app ? `: ${app}` : ""}`} className={small ? "h-10 w-auto" : "h-14 w-auto"} />
           <span className="sr-only">(opens in a new tab)</span>
         </a>
       </>

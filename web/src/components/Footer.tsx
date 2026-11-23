@@ -101,7 +101,7 @@ export function Footer() {
             </div>
             <p className="mt-10 text-sm font-semibold text-ink">{d.footer.getApp}</p>
             <div className="mt-3 flex flex-wrap gap-3">
-              <StoreBadges light />
+              <StoreBadges light small />
             </div>
             <ul className="mt-6 flex items-center gap-2" aria-label={d.footer.follow}>
               {social.map(({ href, icon: Icon, label }) => (

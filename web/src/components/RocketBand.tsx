@@ -276,7 +276,7 @@ export function RocketBand() {
                 : "Rocket was Bangladesh's first mobile financial service. No app, no smartphone needed: dial *322# and you're banking."}
             </p>
             <div data-copy className="mt-6 flex flex-wrap gap-3">
-              <StoreBadges outline play={links.rocketPlay} appStore={links.rocketAppStore} app="Rocket" />
+              <StoreBadges outline small play={links.rocketPlay} appStore={links.rocketAppStore} app="Rocket" />
             </div>
 
             {/* What to do: pick a service */}
