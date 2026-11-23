@@ -254,7 +254,41 @@ export function AppStory() {
           </Reveal>
         </div>
 
-        <div className="mt-14 grid items-center gap-12 md:grid-cols-[auto_1fr] md:gap-16">
+        {brand && (
+          /* /new-design, phones: step buttons directly above the phone, the chosen step's text below it */
+          <div className="mt-12 md:hidden">
+            <h3 className="font-display text-balance text-[clamp(1.8rem,7vw,2.4rem)] font-semibold leading-[1.06] tracking-[-0.025em]">{d.app.title}</h3>
+            <p className="mt-3 text-pretty text-base text-indigo-100">{d.app.lede}</p>
+            <div role="tablist" aria-label="NexusPay features" className="mt-6 grid grid-cols-2 gap-2">
+              {d.app.steps.map((st, i) => {
+                const active = i === step;
+                return (
+                  <button
+                    key={st.title}
+                    type="button"
+                    role="tab"
+                    aria-selected={active}
+                    onClick={() => setStep(i)}
+                    className={`flex items-center gap-2.5 rounded-2xl px-3 py-3 text-left text-sm font-semibold leading-tight transition-colors duration-300 ${active ? "bg-white text-indigo-950" : "bg-white/10 text-white"}`}
+                  >
+                    <span className={`tabular grid size-7 shrink-0 place-items-center rounded-full text-xs font-bold ${active ? "step-num-active bg-lime text-indigo-950" : "bg-white/15 text-white"}`}>{i + 1}</span>
+                    {st.title}
+                  </button>
+                );
+              })}
+            </div>
+            <div className="mt-8">
+              <Phone step={step} />
+              <p className="mt-4 text-center text-xs text-indigo-300">{d.app.illustrative}</p>
+            </div>
+            <div className="mt-6 rounded-2xl bg-white/10 p-5">
+              <p className="font-display text-lg font-semibold tracking-[-0.015em]">{d.app.steps[step].title}</p>
+              <p className="mt-1.5 text-indigo-100">{d.app.steps[step].body}</p>
+            </div>
+          </div>
+        )}
+
+        <div className={`mt-14 grid items-center gap-12 md:grid-cols-[auto_1fr] md:gap-16 ${brand ? "hidden md:grid" : ""}`}>
           <div className="mx-auto">
             <Phone step={step} />
             <p className="mt-4 text-center text-xs text-indigo-300">{d.app.illustrative}</p>

@@ -84,7 +84,7 @@ export function Footer() {
       <div className="mx-auto max-w-[1360px] px-5 pt-20 sm:px-6 xl:px-10">
         <div className="grid gap-12 border-b border-line pb-12 lg:grid-cols-[1.1fr_2fr]">
           <div>
-            <Logo />
+            <Logo large />
             <div className="mt-8 space-y-3 text-[0.95rem]">
               <a href={`tel:${phone.hotline}`} className="flex flex-wrap items-center gap-x-3 gap-y-1 hover:text-indigo-700">
                 <Phone className="size-4 text-indigo-600" aria-hidden />
