@@ -13,9 +13,9 @@ type Key = keyof ReturnType<typeof useLang>["d"]["dock"]["items"];
 const items: { key: Key; href: string; tile: string; sub: { en: string; bn: string } }[] = [
   { key: "atm", href: links.atmLocator, tile: "bg-indigo-600 text-white", sub: { en: "4,100+ ATMs", bn: "৪,১০০+ এটিএম" } },
   { key: "open", href: links.personalAccounts, tile: "bg-green-600 text-white", sub: { en: "Personal accounts", bn: "ব্যক্তিগত অ্যাকাউন্ট" } },
-  { key: "nexus", href: links.nexusPay, tile: "bg-indigo-950 text-lime", sub: { en: "Pay by QR or tap", bn: "কিউআর বা ট্যাপে পেমেন্ট" } },
+  { key: "nexus", href: links.nexusPay, tile: "dock-nexus bg-indigo-950 text-lime", sub: { en: "Pay by QR or tap", bn: "কিউআর বা ট্যাপে পেমেন্ট" } },
   { key: "rocket", href: links.rocket, tile: "bg-rocket text-white", sub: { en: "Dial *322#", bn: "ডায়াল *৩২২#" } },
-  { key: "call", href: `tel:${phone.hotline}`, tile: "bg-lime text-indigo-950", sub: { en: "24/7 hotline", bn: "২৪/৭ হটলাইন" } },
+  { key: "call", href: `tel:${phone.hotline}`, tile: "dock-call bg-lime text-indigo-950", sub: { en: "24/7 hotline", bn: "২৪/৭ হটলাইন" } },
 ];
 
 /**

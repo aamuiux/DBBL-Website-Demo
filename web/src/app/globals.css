@@ -449,3 +449,12 @@ a {
 :root:has(.brand2) .sky-wind-line {
   stroke-opacity: 0.5 !important;
 }
+/* Quick dock: NexusPay in brand red, Call in navy, both with white glyphs */
+:root:has(.brand2) .dock-nexus {
+  background: var(--color-red-600);
+  color: #fff;
+}
+:root:has(.brand2) .dock-call {
+  background: var(--color-indigo-950);
+  color: #fff;
+}
