@@ -171,8 +171,8 @@ export function Hero() {
         const dy = e.changedTouches[0].clientY - t.y;
         if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4) go(index + (dx < 0 ? 1 : -1));
       }}
-      onMouseEnter={() => setHovering(true)}
-      onMouseLeave={() => setHovering(false)}
+      onMouseEnter={() => !brand && setHovering(true)} // /new-design: hovering with the mouse does not pause the slider
+      onMouseLeave={() => !brand && setHovering(false)}
       onFocus={() => setHovering(true)}
       onBlur={() => setHovering(false)}
     >
