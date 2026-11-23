@@ -522,7 +522,7 @@ function SkyArt({ reduce }: { reduce: boolean }) {
       >
         <svg className="size-full overflow-visible" viewBox="76 94 205 172">
           {swooshes.map((s) => (
-            <path key={s.c} d={s.d} style={{ fill: s.c, fillOpacity: 0.38 }} />
+            <path key={s.c} className="sky-swoosh-path" d={s.d} style={{ fill: s.c, fillOpacity: 0.38 }} />
           ))}
         </svg>
       </motion.div>
@@ -531,6 +531,7 @@ function SkyArt({ reduce }: { reduce: boolean }) {
         {winds.map((dy, i) => (
           <motion.path
             key={dy}
+            className="sky-wind-line"
             d={`M-40 ${780 + dy} C 120 ${650 + dy}, 230 ${900 + dy}, 400 ${760 + dy} S 640 ${640 + dy}, 820 ${790 + dy}`}
             fill="none"
             stroke="#fff"
