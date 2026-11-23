@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useId } from "react";
 import { ArrowUpRight, Building2, Crown } from "lucide-react";
 import { useLang } from "@/lib/i18n";
@@ -12,6 +13,7 @@ export function Segments() {
   const { d } = useLang();
   const id = useId();
   const it = d.segments.items;
+  const brand = usePathname()?.startsWith("/new-design") ?? false;
 
   return (
     <section aria-labelledby={`${id}-h`} className="mx-auto max-w-[1360px] px-5 py-24 sm:px-6 md:py-32 xl:px-10">
@@ -20,9 +22,9 @@ export function Segments() {
       <div className="mt-12 grid auto-rows-[minmax(15rem,auto)] gap-4 md:grid-cols-6 lg:grid-cols-12">
         {/* Personal: photographic, the widest tile */}
         <Reveal className="md:col-span-6 lg:col-span-7 lg:row-span-2">
-          <Tile href={links.personalAccounts} label={it.personal.name} className="min-h-[24rem] text-indigo-950 lg:min-h-full">
+          <Tile href={links.personalAccounts} label={it.personal.name} className={`text-indigo-950 lg:min-h-full ${brand ? "min-h-[32rem]" : "min-h-[24rem]"}`}>
             <PersonalPhoto />
-            <TileCopy name={it.personal.name} body={it.personal.body} cta={d.segments.cta} big dark />
+            <TileCopy name={it.personal.name} body={it.personal.body} cta={d.segments.cta} big dark narrow={brand} />
           </Tile>
         </Reveal>
 
@@ -85,6 +87,28 @@ export function Segments() {
 
 /** Personal: a young man smiling at his phone, on the warm cream of the loan campaign it is drawn from. */
 function PersonalPhoto() {
+  const brand = usePathname()?.startsWith("/new-design") ?? false;
+  if (brand) {
+    /* /new-design: the supplied artwork fills the tile; its pale left side carries the copy */
+    return (
+      <div className="absolute inset-0 -z-20 overflow-hidden bg-[#d6e8fb]">
+        {/* Full-height artwork pinned to the right (pushed a little past the edge) so the pale left side stays free for the copy */}
+        <div className="absolute inset-y-0 -right-[12%] aspect-[16/9] min-w-full transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-[1.03] lg:min-w-0">
+          <Image
+            src="/personal-banner.webp"
+            alt="A young man smiling at his phone, with a card, bank, wallet and shopping cart icons around him"
+            fill
+            sizes="(min-width:1024px) 60vw, 130vw"
+            quality={80}
+            className="object-cover"
+          />
+        </div>
+        <span aria-hidden className="absolute inset-0 bg-[linear-gradient(90deg,rgb(255_255_255/0.5),rgb(255_255_255/0)_50%)]" />
+        {/* Small screens: the copy sits under the artwork, on a soft fade */}
+        <span aria-hidden className="absolute inset-0 bg-[linear-gradient(0deg,rgb(222_236_252/0.96)_30%,rgb(222_236_252/0)_62%)] lg:hidden" />
+      </div>
+    );
+  }
   return (
     <div aria-hidden={false} className="absolute inset-0 -z-20 overflow-hidden bg-[linear-gradient(120deg,var(--k-cream-a),var(--k-cream-b))]">
       <span className="absolute -left-24 top-0 size-[30rem] rounded-full bg-[radial-gradient(circle,rgb(255_255_255/0.9),transparent_65%)]" />
