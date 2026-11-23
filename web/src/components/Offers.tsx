@@ -133,13 +133,13 @@ export function Offers() {
               </div>
             </div>
             {/* 5,000 as the graphic: the number is the campaign */}
-            <div aria-hidden className="relative flex min-h-80 items-end justify-end overflow-hidden p-6 md:min-h-0">
+            <div aria-hidden className="@container relative flex min-h-80 items-end justify-center overflow-hidden p-6 md:min-h-0 md:justify-end">
               <motion.span
                 initial={reduce ? false : { y: 80, rotate: -8, opacity: 0 }}
                 whileInView={{ y: 0, rotate: -6, opacity: 1 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ type: "spring", stiffness: 120, damping: 14 }}
-                className="font-display tabular block select-none text-[clamp(7rem,17vw,15rem)] font-bold leading-[0.8] tracking-[-0.06em] text-white/95"
+                className="font-display tabular block select-none text-[27cqw] font-bold leading-[0.8] tracking-[-0.05em] text-white/95"
               >
                 5,000
               </motion.span>
