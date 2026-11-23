@@ -433,3 +433,12 @@ a {
     fill-opacity: 0.7 !important;
   }
 }
+/* Hero on desktop: the field patterns sit softer */
+@media (min-width: 1024px) {
+  :root:has(.brand2) .nexus-zig-line {
+    stroke-opacity: 0.06;
+  }
+  :root:has(.brand2) .hero-swoosh-path {
+    fill-opacity: 0.18 !important;
+  }
+}
