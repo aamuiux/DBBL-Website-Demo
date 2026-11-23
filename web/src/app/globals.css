@@ -339,10 +339,6 @@ a {
   background: linear-gradient(115deg, #a9abaf 0%, #dcdde0 20%, #ffffff 36%, #c4c5c9 54%, #eeeff0 72%, #b4b5b9 100%);
   color: var(--color-indigo-950);
 }
-/* "One network, many banks" card: guideline red */
-:root:has(.brand2) .network-card {
-  background: var(--color-red-600);
-}
 /* Silver School Savers card needs an edge so it reads against the silver section */
 :root:has(.brand2) .saver-tone-3 {
   background: linear-gradient(115deg, #8f9195 0%, #d5d6d9 24%, #ffffff 42%, #b9babe 62%, #e6e7e9 80%, #9b9da1 100%);

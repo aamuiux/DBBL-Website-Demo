@@ -232,8 +232,7 @@ export function VideoStory() {
           {/* /new-design: DBBL's own mark and wordmark */}
           <div data-chip aria-hidden className="brand-only pointer-events-none absolute left-[6%] top-[9%] items-center gap-[0.8vw]">
             {/* eslint-disable-next-line @next/next/no-img-element -- small static SVG */}
-            <img src="/dbbl-mark.svg" alt="" className="h-[2.9vw] w-auto drop-shadow" />
-            <span className="font-display text-[1.15vw] font-bold leading-none text-white drop-shadow">Dutch-Bangla Bank</span>
+            <img src="/dbbl-logo.svg" alt="" className="h-[2.1vw] w-auto rounded-[0.7vw] bg-white/95 px-[0.9vw] py-[0.6vw] box-content shadow-md" />
           </div>
         </div>
       </section>

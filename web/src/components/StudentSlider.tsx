@@ -41,7 +41,9 @@ export function StudentSlider({ sectionRef }: { sectionRef: RefObject<HTMLElemen
   const slideW = cw < 520 ? 184 : cw < 620 ? 228 : 252;
   const slideH = Math.round(slideW * 2.15); // tall portrait frames
   const step = slideW + GAP;
-  const total = step * slides.length;
+  // Repeat the set so the strip always runs past both edges, however wide the screen
+  const count = Math.ceil((cw + step * 2) / step / slides.length) * slides.length;
+  const total = step * count;
 
   const x = useMotionValue(0);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
@@ -139,9 +141,9 @@ export function StudentSlider({ sectionRef }: { sectionRef: RefObject<HTMLElemen
       style={{ height: slideH + 52 }}
     >
       <ul className="absolute inset-0">
-        {slides.map((s, i) => (
+        {Array.from({ length: count }, (_, i) => [slides[i % slides.length], i] as const).map(([s, i]) => (
           <Slide
-            key={s.src}
+            key={`${s.src}-${i}`}
             i={i}
             pos={pos}
             step={step}
