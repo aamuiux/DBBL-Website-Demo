@@ -32,8 +32,8 @@
   --color-ink-3: #6b6f8e;
   --color-line: #e2e4ee;
 
-  --font-display: var(--font-sora), var(--font-anek), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-stack-sans), var(--font-anek), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bricolage), var(--font-anek), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-hanken), var(--font-anek), ui-sans-serif, system-ui, sans-serif;
   --font-bangla: var(--font-anek), ui-sans-serif, sans-serif;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -69,6 +69,8 @@
    Concept colours outside the guideline map to the nearest guideline role: lime (light accent) to light
    silver, sun (stickers) to white. Rocket keeps its own magenta. */
 :root:has(.brand2) {
+  --font-display: var(--font-sora), var(--font-anek), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-stack-sans), var(--font-anek), ui-sans-serif, system-ui, sans-serif;
   --color-indigo-950: #0f1145;
   --color-indigo-900: #161960;
   --color-indigo-800: #1f2274;

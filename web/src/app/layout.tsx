@@ -1,20 +1,37 @@
 import type { Metadata, Viewport } from "next";
-import { Anek_Bangla, Sora, Stack_Sans_Headline } from "next/font/google";
+import { Anek_Bangla, Bricolage_Grotesque, Hanken_Grotesk, Sora, Stack_Sans_Headline } from "next/font/google";
 import { LanguageProvider } from "@/lib/i18n";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Preloader } from "@/components/Preloader";
 import "./globals.css";
 
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin"],
+  axes: ["opsz", "wdth"],
+  display: "swap",
+});
+
+const hanken = Hanken_Grotesk({
+  variable: "--font-hanken",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+/* Sora and Stack Sans Headline are only used on /new-design (see :root:has(.brand2) in globals.css);
+   preload is off so / never downloads them. */
 const sora = Sora({
   variable: "--font-sora",
   subsets: ["latin"],
   display: "swap",
+  preload: false,
 });
 
 const stackSans = Stack_Sans_Headline({
   variable: "--font-stack-sans",
   subsets: ["latin"],
   display: "swap",
+  preload: false,
 });
 
 const anek = Anek_Bangla({
@@ -35,7 +52,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${sora.variable} ${stackSans.variable} ${anek.variable}`}>
+    <html lang="en" className={`${bricolage.variable} ${hanken.variable} ${sora.variable} ${stackSans.variable} ${anek.variable}`}>
       <body>
         <LanguageProvider>
           <Preloader />

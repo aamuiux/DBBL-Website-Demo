@@ -95,6 +95,7 @@ export function Offers() {
   const id = useId();
   const railRef = useRef<HTMLDivElement>(null);
   const bn = lang === "bn";
+  const brand = usePathname()?.startsWith("/new-design") ?? false;
 
   return (
     <section id="offers" aria-labelledby={`${id}-h`} className="relative overflow-hidden bg-paper pb-24 pt-24 md:pb-32 md:pt-32">
@@ -133,13 +134,13 @@ export function Offers() {
               </div>
             </div>
             {/* 5,000 as the graphic: the number is the campaign */}
-            <div aria-hidden className="@container relative flex min-h-80 items-end justify-center overflow-hidden p-6 md:min-h-0 md:justify-end">
+            <div aria-hidden className={`relative flex min-h-80 items-end overflow-hidden p-6 md:min-h-0 ${brand ? "@container justify-center md:justify-end" : "justify-end"}`}>
               <motion.span
                 initial={reduce ? false : { y: 80, rotate: -8, opacity: 0 }}
                 whileInView={{ y: 0, rotate: -6, opacity: 1 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ type: "spring", stiffness: 120, damping: 14 }}
-                className="font-display tabular block select-none text-[34cqw] font-bold leading-[0.8] tracking-[-0.05em] text-white/95"
+                className={`font-display tabular block select-none font-bold leading-[0.8] text-white/95 ${brand ? "text-[34cqw] tracking-[-0.05em]" : "text-[clamp(7rem,17vw,15rem)] tracking-[-0.06em]"}`}
               >
                 5,000
               </motion.span>

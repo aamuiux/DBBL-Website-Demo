@@ -31,72 +31,72 @@ colors:
   line: "#e2e4ee"
 typography:
   display:
-    fontFamily: "Sora, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Bricolage Grotesque, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
     fontSize: "clamp(2.9rem, 7.2vw, 6rem)"
     fontWeight: 600
     lineHeight: 0.98
     letterSpacing: "-0.035em"
   numeral:
-    fontFamily: "Sora, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Bricolage Grotesque, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
     fontSize: "clamp(3.2rem, 8.4vw, 6rem)"
     fontWeight: 600
     lineHeight: 0.9
     letterSpacing: "-0.04em"
     fontFeature: "\"tnum\", \"lnum\""
   numeral-tile:
-    fontFamily: "Sora, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Bricolage Grotesque, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
     fontSize: "clamp(3.5rem, 7vw, 5.5rem)"
     fontWeight: 700
     lineHeight: 0.85
     letterSpacing: "-0.05em"
     fontFeature: "\"tnum\", \"lnum\""
   headline-field:
-    fontFamily: "Sora, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Bricolage Grotesque, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
     fontSize: "clamp(2.4rem, 5.4vw, 4.75rem)"
     fontWeight: 600
     lineHeight: 0.98
     letterSpacing: "-0.04em"
   headline:
-    fontFamily: "Sora, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Bricolage Grotesque, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
     fontSize: "clamp(2.1rem, 4.4vw, 3.75rem)"
     fontWeight: 600
     lineHeight: 1.02
     letterSpacing: "-0.03em"
   headline-sm:
-    fontFamily: "Sora, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Bricolage Grotesque, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
     fontSize: "clamp(1.9rem, 3.2vw, 2.75rem)"
     fontWeight: 600
     lineHeight: 1.04
     letterSpacing: "-0.03em"
   title:
-    fontFamily: "Sora, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Bricolage Grotesque, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
     fontSize: "1.5rem"
     fontWeight: 600
     lineHeight: 1.25
     letterSpacing: "-0.02em"
   title-sm:
-    fontFamily: "Sora, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Bricolage Grotesque, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
     fontSize: "1.25rem"
     fontWeight: 600
     lineHeight: 1.4
     letterSpacing: "-0.015em"
   lede:
-    fontFamily: "Stack Sans Headline, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Hanken Grotesk, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
     fontSize: "1.125rem"
     fontWeight: 400
     lineHeight: 1.56
   body:
-    fontFamily: "Stack Sans Headline, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Hanken Grotesk, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
     fontSize: "1.0625rem"
     fontWeight: 400
     lineHeight: 1.6
   label:
-    fontFamily: "Stack Sans Headline, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Hanken Grotesk, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
     fontSize: "0.95rem"
     fontWeight: 600
     lineHeight: 1.375
   label-sm:
-    fontFamily: "Stack Sans Headline, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "Hanken Grotesk, Anek Bangla, ui-sans-serif, system-ui, sans-serif"
     fontSize: "0.8125rem"
     fontWeight: 600
     lineHeight: 1.4
@@ -278,7 +278,7 @@ components:
 
 **Creative North Star: "The Indigo Rails"**
 
-DBBL built the country's digital rails (the first ATM network, the first mobile bank, NexusPay), and the system is the visual voice of a bank that does not need to shout, now turned up for Gen Z. It plays the consumer-bank category standard straight, at Revolut and Monzo craft: deep indigo is the base (the hero, Loans, Media, the NexusPay story and every dark band), and full-colour section fields carry the energy, one per section, each with a job. Lime is the Students field and the offers ticker, Rocket magenta is the Rocket field, DBBL green is the CSR field and the Fast Track and ATM accent, red is the live campaign. Sun yellow is the sticker colour and never a ground. Paper and white sections sit between the fields so the colour reads as rhythm, not noise. Persuasion comes from real proof and live campaigns (counted numbers, a dated set of firsts, the UDYOG feature, real offer terms) set in big, tight Sora.
+DBBL built the country's digital rails (the first ATM network, the first mobile bank, NexusPay), and the system is the visual voice of a bank that does not need to shout, now turned up for Gen Z. It plays the consumer-bank category standard straight, at Revolut and Monzo craft: deep indigo is the base (the hero, Loans, Media, the NexusPay story and every dark band), and full-colour section fields carry the energy, one per section, each with a job. Lime is the Students field and the offers ticker, Rocket magenta is the Rocket field, DBBL green is the CSR field and the Fast Track and ATM accent, red is the live campaign. Sun yellow is the sticker colour and never a ground. Paper and white sections sit between the fields so the colour reads as rhythm, not noise. Persuasion comes from real proof and live campaigns (counted numbers, a dated set of firsts, the UDYOG feature, real offer terms) set in big, tight Bricolage Grotesque.
 
 Density is generous: sections breathe at 96 to 128px of vertical padding inside a 1360px container, headlines are left-aligned and large, and each section has one job. Rounding scales with the object: 16px for interface surfaces, 24px for tickets and stickers, 28 to 32px for the big colour tiles and the campaign feature. Shadows stay ambient and indigo-tinted. Photography is full-bleed and graded with indigo or green, never a grey scrim. Motion has two registers: calm and expensive for structure (long ease-out-expo curves, 24px rises, pinned scroll stories), and springy for the Gen Z layer (stickers that pop in tilted, tickets you can drag, a ticker that never stops, a dial pad that types itself). All of it turns off under reduced motion.
 
@@ -287,7 +287,7 @@ The system rejects the cluttered link-farm bank portal (the mega menu holds the 
 **Key Characteristics:**
 - Indigo base with one full-colour field per section, each colour owning a job: lime (students, offers), magenta (Rocket), green (CSR, Fast Track, ATMs), red (live campaigns), sun (stickers only).
 - Lime is still the primary action on every dark ground.
-- Sora display set tight (-0.03 to -0.05em) and big; Stack Sans Headline text at 17px.
+- Bricolage Grotesque display set tight (-0.03 to -0.05em) and big; Hanken Grotesk text at 17px.
 - Pill buttons with a circular arrow chip whose arrow slides through on hover.
 - Radius scales with size: 16px surfaces, 24px tickets and stickers, 28 to 32px colour tiles and features.
 - Sticker badges, ticket-shaped offer cards, colour tiles with oversized numerals.
@@ -334,8 +334,8 @@ A saturated indigo base on cool paper, with five brand-bright field colours, eac
 
 ## Typography
 
-**Display Font:** Sora (opsz and wdth axes loaded), falling back to Anek Bangla, ui-sans-serif, system-ui
-**Body Font:** Stack Sans Headline, falling back to Anek Bangla, ui-sans-serif, system-ui
+**Display Font:** Bricolage Grotesque (opsz and wdth axes loaded), falling back to Anek Bangla, ui-sans-serif, system-ui
+**Body Font:** Hanken Grotesk, falling back to Anek Bangla, ui-sans-serif, system-ui
 **Bangla Font:** Anek Bangla (bengali and latin subsets)
 
 **Character:** A characterful, slightly quirky grotesque set very tight and very large for headlines and numbers, against a clean, warm, highly legible grotesque for everything people actually read. Semibold (600) is the house weight; bold (700) is reserved for oversized numerals and sticker text.
@@ -471,7 +471,7 @@ Lenis smooth scroll. Reveals rise 24px and fade in over 800ms on ease-out-expo, 
 - **Do** scale radius with the object: 16px surfaces, 24px tickets and stickers, 28 to 32px colour tiles and features, full pills for controls.
 - **Do** let stickers and tickets tilt and spring, and straighten them on hover.
 - **Do** grade every photograph with an indigo-950 or green gradient from the text side.
-- **Do** set headlines in Sora 600 with negative tracking and line height at or below 1.04.
+- **Do** set headlines in Bricolage Grotesque 600 with negative tracking and line height at or below 1.04.
 - **Do** set every money, count, phone, code and card number in tabular lining figures.
 - **Do** rest cards on the Card shadow and move them to Lift on hover.
 - **Do** turn off every loop, spring, drag, pin and parallax under reduced motion, leaving the final state in place.
