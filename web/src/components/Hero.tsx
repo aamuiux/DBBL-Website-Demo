@@ -65,6 +65,17 @@ const slides: Slide[] = [
 
 const DURATION = 7000;
 
+const ecosystemCopy = {
+  en: {
+    title: "Everything Banking. All in One Place.",
+    body: "From accounts and cards to Rocket, NexusPay, loans and agent banking — your financial world starts here.",
+  },
+  bn: {
+    title: "সবকিছু ব্যাংকিং। এক জায়গায়।",
+    body: "অ্যাকাউন্ট ও কার্ড থেকে রকেট, নেক্সাসপে, ঋণ ও এজেন্ট ব্যাংকিং — আপনার আর্থিক জগৎ শুরু এখানেই।",
+  },
+};
+
 export function Hero() {
   const { d, lang } = useLang();
   const reduce = useReduce();
@@ -129,7 +140,11 @@ export function Hero() {
   const cloudX = useTransform(sx, (v) => v * -70);
   const cloudY = useTransform(sy, (v) => v * -40);
   const slide = slides[index];
-  const copy = d.hero.slides[index];
+  // /new-design: the first slide leads with the ecosystem message instead of the campaign lockup
+  const copy =
+    brand && index === 0
+      ? { ...d.hero.slides[0], ...(lang === "bn" ? ecosystemCopy.bn : ecosystemCopy.en) }
+      : d.hero.slides[index];
   const sky = slide.tint === "sky";
   const light = sky || slide.tint === "agent"; // dark text and controls
 
@@ -263,7 +278,7 @@ export function Hero() {
                 exit: { transition: { staggerChildren: 0.03 } },
               }}
             >
-              {sky ? (
+              {sky && !brand ? (
                 <>
                   {/* Campaign lockup: the red panel with the Bangla line, then "from Good to Great" */}
                   <h1 className="font-display">
@@ -281,13 +296,6 @@ export function Hero() {
                     <span className="text-[clamp(1.25rem,2vw,1.75rem)] font-semibold text-green-600">from</span>
                     <span className="text-[clamp(2rem,4.4vw,3.75rem)] font-bold text-indigo-600">Good to Great</span>
                   </motion.p>
-                  {brand && (
-                    <motion.p variants={lineVariants(reduce)} className="mt-5 max-w-[30rem] text-pretty text-lg text-indigo-950 sm:text-xl">
-                      {lang === "bn"
-                        ? "অ্যাকাউন্ট, কার্ড, ঋণ, নেক্সাসপে, রকেট, এটিএম আর এজেন্ট ব্যাংকিং: এক ব্যাংকে সব সেবা।"
-                        : "Accounts, cards, loans, NexusPay, Rocket, ATMs and agents: one bank, every way to bank."}
-                    </motion.p>
-                  )}
                 </>
               ) : (
                 <>
@@ -305,7 +313,7 @@ export function Hero() {
                       </span>
                     </motion.div>
                   )}
-                  <h1 className={`font-display text-balance text-[clamp(2.9rem,7.2vw,6rem)] font-semibold leading-[0.98] tracking-[-0.035em] ${light ? "text-indigo-950" : ""}`}>
+                  <h1 className={`font-display text-balance ${brand && index === 0 ? "text-[clamp(2.6rem,5.6vw,5rem)]" : "text-[clamp(2.9rem,7.2vw,6rem)]"} font-semibold leading-[0.98] tracking-[-0.035em] ${light ? "text-indigo-950" : ""}`}>
                     <motion.span variants={lineVariants(reduce)} className="block">
                       {copy.title}
                     </motion.span>
