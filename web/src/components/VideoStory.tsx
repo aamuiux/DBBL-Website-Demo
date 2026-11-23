@@ -31,7 +31,7 @@ function subscribeMq(cb: () => void) {
  * Touch, narrow screens and reduced motion get a static layout: copy, then a full-width film.
  */
 export function VideoStory() {
-  const { d } = useLang();
+  const { d, lang } = useLang();
   const reduce = useReduce();
   const id = useId();
   const sectionRef = useRef<HTMLElement>(null);
@@ -232,7 +232,7 @@ export function VideoStory() {
           {/* /new-design: DBBL's own mark and wordmark */}
           <div data-chip aria-hidden className="brand-only pointer-events-none absolute left-[6%] top-[9%] items-center gap-[0.8vw]">
             {/* eslint-disable-next-line @next/next/no-img-element -- small static SVG */}
-            <img src="/dbbl-logo.svg" alt="" className="h-[2.1vw] w-auto rounded-[0.7vw] bg-white/95 px-[0.9vw] py-[0.6vw] box-content shadow-md" />
+            <img src={lang === "bn" ? "/dbbl-logo-bn.svg" : "/dbbl-logo.svg"} alt="" className="h-[2.1vw] w-auto rounded-[0.7vw] bg-white/95 px-[0.9vw] py-[0.6vw] box-content shadow-md" />
           </div>
         </div>
       </section>
