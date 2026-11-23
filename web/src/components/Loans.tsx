@@ -73,10 +73,10 @@ export function Loans() {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ type: "spring", stiffness: 140, damping: 18, delay: i * 0.08 }}
               >
-                <div className={`group relative isolate flex h-full min-h-80 flex-col justify-between overflow-hidden rounded-[1.75rem] p-7 ${look.tone} ${l.key === "car" ? "loan-silver" : ""}`}>
+                <div className={`group relative isolate flex h-full min-h-80 flex-col justify-between overflow-hidden rounded-[1.75rem] p-7 ${look.tone} loan-glass loan-glass-${l.key}`}>
                   <Pattern variant={l.key === "home" ? "rings" : l.key === "car" ? "zigzag" : "waves"} className={look.pattern} />
                   <Art className="pointer-events-none absolute -bottom-7 -right-7 size-48 opacity-55 drop-shadow-[0_18px_22px_rgba(0,0,0,0.25)] transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-rotate-6 group-hover:scale-105" />
-                  <span className={`relative grid size-14 place-items-center rounded-2xl ${look.chip}`}>
+                  <span className={`loan-chip relative grid size-14 place-items-center rounded-2xl ${look.chip}`}>
                     <Icon className="size-6" aria-hidden />
                   </span>
                   <div className="relative mt-16">
