@@ -154,10 +154,10 @@ export function Header() {
         className="fixed inset-x-0 top-0 z-50"
       >
         {/* Main bar: always a floating, rounded glass island; it tightens as the page scrolls */}
-        <div className="px-3 pt-3 sm:px-5 sm:pt-4">
+        <div className={`px-3 pt-3 sm:pt-4 ${brand ? "sm:px-7" : "sm:px-5"}`}>
         <div
           ref={barRef}
-          className="relative mx-auto max-w-[calc(1320px-var(--k)*150px)]"
+          className={`relative mx-auto ${brand ? "w-[calc(100%-var(--k)*150px)]" : "max-w-[calc(1320px-var(--k)*150px)]"}`}
         >
           {/* Background: translucent glass, light or dark to match the section underneath */}
           <div
