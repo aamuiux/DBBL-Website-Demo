@@ -32,7 +32,7 @@ export function OffersTicker() {
             href="#offers"
             aria-hidden={i >= row.length}
             tabIndex={i >= row.length ? -1 : 0}
-            className="font-display inline-flex items-center gap-3 text-lg font-semibold tracking-[-0.01em]"
+            className="ticker-item font-display inline-flex items-center gap-3 text-lg font-semibold tracking-[-0.01em]"
           >
             <span className="size-2 rounded-full bg-indigo-950" aria-hidden />
             {t}
