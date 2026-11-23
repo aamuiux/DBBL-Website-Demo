@@ -380,15 +380,7 @@ a {
 :root:has(.brand2) .loan-glass .btn-ink {
   background: #fff;
 }
-/* Offers ribbon under the hero: taller and bolder so it draws the eye */
+/* Offers ribbon under the hero: taller so it draws the eye; the text keeps its size */
 :root:has(.brand2) .ticker {
   padding-block: 2.1rem;
-}
-:root:has(.brand2) .ticker-item {
-  font-size: clamp(1.6rem, 2.6vw, 2.25rem);
-  gap: 1.1rem;
-}
-:root:has(.brand2) .ticker-item > span {
-  width: 0.75rem;
-  height: 0.75rem;
 }
