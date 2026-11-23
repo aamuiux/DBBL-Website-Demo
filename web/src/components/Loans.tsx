@@ -24,9 +24,9 @@ const loanLook: Record<
 
 /** /new-design: soft brand-tinted cards (blue, green, red) with a real-life photo cut-out fading into the tint and a solid Details pill. */
 const softTile = {
-  personal: { bg: "bg-[linear-gradient(150deg,#e9eafa_0%,#c9cbf0_100%)]", pill: "bg-indigo-600", blob: "bg-indigo-400/30", photo: "/loans/personal-art.webp", w: 220, h: 428, size: "w-[34%] md:w-[42%]" },
-  home: { bg: "bg-[linear-gradient(150deg,#e6f6ec_0%,#b9e5cc_100%)]", pill: "bg-green-700", blob: "bg-green-500/25", photo: "/loans/home-art.webp", w: 300, h: 388, size: "w-[46%]" },
-  car: { bg: "bg-[linear-gradient(150deg,#fde9ea_0%,#f8bcc0_100%)]", pill: "bg-red-600", blob: "bg-red-600/20", photo: "/loans/car-art.webp", w: 360, h: 283, size: "w-[60%]" },
+  personal: { bg: "bg-[linear-gradient(150deg,#e9eafa_0%,#c9cbf0_100%)]", pill: "bg-indigo-600", blob: "bg-indigo-400/30", photo: "/loans/personal-art.webp", w: 220, h: 428, size: "w-[min(24%,6rem)] lg:w-[min(28%,7.5rem)] xl:w-[min(34%,8.5rem)]" },
+  home: { bg: "bg-[linear-gradient(150deg,#e6f6ec_0%,#b9e5cc_100%)]", pill: "bg-green-700", blob: "bg-green-500/25", photo: "/loans/home-art.webp", w: 300, h: 388, size: "w-[min(32%,7.5rem)] lg:w-[min(40%,9.5rem)]" },
+  car: { bg: "bg-[linear-gradient(150deg,#fde9ea_0%,#f8bcc0_100%)]", pill: "bg-red-600", blob: "bg-red-600/20", photo: "/loans/car-art.webp", w: 360, h: 283, size: "w-[min(42%,8.5rem)] lg:w-[min(50%,11.5rem)]" },
 } as const;
 
 /** Fades the photo crop's left and top edges into the card tint so it reads as cut out. */
