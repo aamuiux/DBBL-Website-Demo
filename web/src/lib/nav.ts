@@ -5,7 +5,7 @@ type L = Record<Lang, string>;
 export type NavLink = { label: L; href: string; note?: L };
 export type NavColumn = { heading: L; links: NavLink[] };
 export type NavFeature = { title: L; body: L; href: string; cta: L; tone: "indigo" | "green" | "rocket" | "lime" };
-export type NavItem = { key: "accounts" | "cards" | "loans" | "digital" | "business" | "about"; columns: NavColumn[]; feature: NavFeature };
+export type NavItem = { key: "accounts" | "cards" | "loans" | "digital" | "business" | "payroll" | "about"; columns: NavColumn[]; feature: NavFeature };
 
 const s = (en: string, bn?: string): L => ({ en, bn: bn ?? en });
 
@@ -194,6 +194,44 @@ export const nav: NavItem[] = [
       href: links.ipg,
       cta: s("See the gateway", "গেটওয়ে দেখুন"),
       tone: "indigo",
+    },
+  },
+  {
+    key: "payroll",
+    columns: [
+      {
+        heading: s("For employers", "নিয়োগকর্তার জন্য"),
+        links: [
+          { label: s("Corporate banking overview", "কর্পোরেট ব্যাংকিং"), href: links.corporate },
+          { label: s("Electronic banking for business", "ব্যবসার জন্য ইলেকট্রনিক ব্যাংকিং"), href: links.corporateEbanking },
+          { label: s("Payroll Card", "পে-রোল কার্ড"), href: links.prepaidCards, note: s("Salary on a prepaid card", "প্রিপেইড কার্ডে বেতন") },
+          { label: s("Salary disbursement on Rocket", "রকেটে বেতন বিতরণ"), href: links.rocket },
+        ],
+      },
+      {
+        heading: s("For employees", "কর্মচারীর জন্য"),
+        links: [
+          { label: s("Salary & savings accounts", "বেতন ও সঞ্চয়ী হিসাব"), href: links.personalAccounts },
+          { label: s("Nexus Debit Cards", "নেক্সাস ডেবিট কার্ড"), href: links.debitCards },
+          { label: s("NexusPay", "নেক্সাসপে"), href: links.nexusPay, note: s("Cardless digital banking", "কার্ডলেস ডিজিটাল ব্যাংকিং") },
+          { label: s("Rocket: receive your salary", "রকেট: বেতন গ্রহণ"), href: links.rocket },
+        ],
+      },
+      {
+        heading: s("Borrow & plan", "ঋণ ও পরিকল্পনা"),
+        links: [
+          { label: s("Retail Loan Products", "রিটেইল ঋণ"), href: links.retailLoan },
+          { label: s("Lending interest rates", "ঋণের সুদের হার"), href: links.lendingRate },
+          { label: s("EMI calculator", "ইএমআই ক্যালকুলেটর"), href: links.emiCalc },
+        ],
+      },
+    ],
+    feature: {
+      title: s("Payroll Card for your team", "আপনার দলের জন্য পে-রোল কার্ড"),
+      body: s("A prepaid card that carries your team's salary.", "প্রিপেইড কার্ডে কর্মচারীদের বেতন।"),
+      href: links.prepaidCards,
+      cta: s("See prepaid cards", "প্রিপেইড কার্ড দেখুন"),
+      tone: "green",
     },
   },
   {

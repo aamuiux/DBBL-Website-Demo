@@ -6,7 +6,10 @@ import { AnimatePresence, motion, useScroll, useSpring, useTransform } from "mot
 import { ChevronDown, Globe, MapPin, Menu, Phone, X, ArrowUpRight, Lock } from "lucide-react";
 import { Logo } from "./Logo";
 import { useLang } from "@/lib/i18n";
-import { nav, type NavItem } from "@/lib/nav";
+import { nav as allNav, type NavItem } from "@/lib/nav";
+
+/** The Employee/Payroll menu is part of the /new-design concept only. */
+const navFor = (brand: boolean) => (brand ? allNav : allNav.filter((n) => n.key !== "payroll"));
 import { links, phone } from "@/lib/links";
 import { easeOut, useReduce } from "./ui";
 
@@ -125,10 +128,11 @@ export function Header() {
     else lenis?.start();
   }, [drawer]);
 
+  const brand = usePathname()?.startsWith("/new-design") ?? false;
+  const nav = navFor(brand);
   const active = nav.find((n) => n.key === open);
   // A solid white bar at the top of the page; as an island it takes the tone underneath; an open mega menu is light.
   // /new-design: the bar is white at every scroll position, whatever section is underneath.
-  const brand = usePathname()?.startsWith("/new-design") ?? false;
   const tone: "dark" | "light" = brand || open || !scrolled ? "light" : under;
   const lightUi = tone === "light"; // dark text on light glass
   const bubble = lightUi ? "bg-indigo-50" : "bg-white/14";
@@ -200,7 +204,7 @@ export function Header() {
                         onClick={() => setOpen(isOpen ? null : item.key)}
                         onFocus={() => setHoverKey(item.key)}
                         onBlur={() => setHoverKey(null)}
-                        className={`relative isolate inline-flex h-11 items-center gap-1 whitespace-nowrap rounded-full px-2.5 text-[0.95rem] font-semibold transition-colors xl:px-3.5 ${
+                        className={`relative isolate inline-flex h-11 items-center gap-1 whitespace-nowrap rounded-full font-semibold transition-colors ${brand ? "px-1.5 text-[0.875rem] xl:px-3.5 xl:text-[0.95rem]" : "px-2.5 text-[0.95rem] xl:px-3.5"} ${
                           lightUi ? (isOpen ? "text-indigo-700" : "text-ink hover:text-indigo-700") : "text-white/90 hover:text-white"
                         }`}
                       >
@@ -209,7 +213,7 @@ export function Header() {
                         )}
                         {d.nav[item.key]}
                         <ChevronDown
-                          className={`size-4 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                          className={`size-4 transition-transform duration-300 ${brand ? "max-xl:hidden" : ""} ${isOpen ? "rotate-180" : ""}`}
                           aria-hidden
                           strokeWidth={2.25}
                         />
@@ -422,6 +426,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
   const { d, lang, toggle } = useLang();
   const reduce = useReduce();
   const [section, setSection] = useState<NavItem["key"] | null>(null);
+  const nav = navFor(usePathname()?.startsWith("/new-design") ?? false);
   const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
