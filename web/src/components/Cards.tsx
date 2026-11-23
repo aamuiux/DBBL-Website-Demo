@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useId, useLayoutEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
 import { motion } from "motion/react";
 import { gsap } from "gsap";
@@ -36,6 +37,7 @@ export function Cards() {
   const reduce = useReduce();
   const id = useId();
   const bn = lang === "bn";
+  const brand = usePathname()?.startsWith("/new-design") ?? false;
   const sectionRef = useRef<HTMLElement>(null);
   const stRef = useRef<ScrollTrigger | null>(null);
   const [step, setStep] = useState(0);
@@ -186,6 +188,70 @@ export function Cards() {
             ))}
             <p className="absolute inset-x-0 bottom-6 text-center text-sm text-ink-3">{bn ? "চিত্রণমূলক কার্ড ডিজাইন, আসল কার্ড নয়" : "Illustrative card designs, not actual DBBL cards"}</p>
           </div>
+        </div>
+      </section>
+    );
+  }
+
+  /* ───────── /new-design, small screens: family chips, then the cards, then the description ───────── */
+  if (brand) {
+    return (
+      <section ref={sectionRef} aria-labelledby={`${id}-h`} className="cards-bg relative overflow-hidden py-16 sm:py-20">
+        <div className="mx-auto max-w-[1360px] px-5 sm:px-6 xl:px-10">
+          <h2 id={`${id}-h`} className="font-display text-balance text-[clamp(2.2rem,8vw,3.25rem)] font-semibold leading-[1] tracking-[-0.04em] text-ink">
+            {d.cards.title}
+          </h2>
+          <p className="mt-4 max-w-[48ch] text-pretty text-base text-ink-2 sm:text-lg">{d.cards.lede}</p>
+
+          {/* Family chips: all three visible, wrapping onto a second line on narrow screens */}
+          <div role="tablist" aria-label={bn ? "কার্ডের ধরন" : "Card families"} className="mt-8 flex flex-wrap gap-2">
+            {d.cards.list.map((c, i) => {
+              const active = i === step;
+              return (
+                <button
+                  key={c.name}
+                  type="button"
+                  role="tab"
+                  aria-selected={active}
+                  onClick={() => setStep(i)}
+                  className={`card-chip flex items-center gap-2 rounded-full px-4 py-2.5 text-[0.95rem] font-semibold transition-colors duration-300 ${
+                    active ? "card-chip-active" : ""
+                  }`}
+                >
+                  {c.name}
+                  <span className="tabular rounded-full px-2 py-0.5 text-xs font-semibold">{cardGroups[i].cards.length}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* The chosen deck, fanned out */}
+          <div className="relative mx-auto mt-6 h-[17rem] w-full max-w-[28rem] sm:h-[21rem]">
+            {group.cards.map((c, i) => {
+              const n = group.cards.length;
+              return (
+                <motion.div
+                  key={`${group.key}-${c.name}`}
+                  initial={reduce ? false : { y: 140, opacity: 0, rotate: 0 }}
+                  animate={{ y: -Math.abs(fanAngle(i, n)) * 0.3, opacity: 1, rotate: fanAngle(i, n) * 0.5 }}
+                  transition={{ type: "spring", stiffness: 140, damping: 18, delay: i * 0.05 }}
+                  className="absolute left-1/2 top-[28%] w-[min(15rem,62vw)] -translate-x-1/2"
+                  style={{ zIndex: i, transformOrigin: PIVOT }}
+                >
+                  <CardFace spec={c} />
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* What the chosen family is, and where to go next */}
+          <div className="mt-4 rounded-2xl bg-white/70 p-5 ring-1 ring-inset ring-white">
+            <p className="font-display text-xl font-semibold tracking-[-0.02em] text-ink">{d.cards.list[step].name}</p>
+            <p className="mt-2 text-ink-2">{d.cards.list[step].body}</p>
+            <p className="mt-3 text-sm text-ink-3">{group.cards.map((x) => x.name).join(" · ")}</p>
+          </div>
+          {footer}
+          <p className="mt-6 text-center text-xs text-ink-3">{bn ? "চিত্রণমূলক কার্ড ডিজাইন, আসল কার্ড নয়" : "Illustrative card designs, not actual DBBL cards"}</p>
         </div>
       </section>
     );

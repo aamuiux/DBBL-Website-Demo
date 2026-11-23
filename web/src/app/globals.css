@@ -405,3 +405,21 @@ a {
 :root:has(.brand2) .loan-soft .icon3d {
   filter: none;
 }
+/* Cards section, small screens: the family chips. Selected is solid blue with white text; the rest are soft white. */
+:root:has(.brand2) .card-chip {
+  background: rgb(255 255 255 / 0.55);
+  color: var(--color-ink-2);
+}
+:root:has(.brand2) .card-chip .tabular {
+  background: var(--color-indigo-50);
+  color: var(--color-indigo-700);
+}
+:root:has(.brand2) .card-chip-active {
+  background: var(--color-indigo-600);
+  color: #fff;
+  box-shadow: 0 10px 22px -12px rgb(45 49 146 / 0.7);
+}
+:root:has(.brand2) .card-chip-active .tabular {
+  background: #fff;
+  color: var(--color-indigo-600);
+}
