@@ -1,6 +1,7 @@
 "use client";
 
-import { useId, useRef } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useId, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowUpRight, CalendarDays, Clapperboard, FileText, Globe2, Plane, ShoppingBasket, Sparkles, Trophy, Tv, type LucideIcon } from "lucide-react";
 import { useLang } from "@/lib/i18n";
@@ -18,13 +19,46 @@ const kindIcon: Record<Offer["kind"], LucideIcon> = {
   card: Sparkles,
 };
 
+/** Partner logo files live in /public/partners/<slug>.svg; a missing file falls back to the partner's name as text. */
+const partnerSlug: Record<string, string> = {
+  Mastercard: "mastercard",
+  Visa: "visa",
+  Walton: "walton",
+  "US-Bangla Airlines": "us-bangla",
+  "Star Cineplex": "star-cineplex",
+  Firsttrip: "firsttrip",
+};
+
+function PartnerMark({ partner }: { partner: string }) {
+  const slug = partnerSlug[partner];
+  const [hasLogo, setHasLogo] = useState(false);
+  // Show the logo only once its file is confirmed to exist, so a missing file never shows a broken-image icon
+  useEffect(() => {
+    if (!slug) return;
+    const img = new window.Image();
+    img.onload = () => setHasLogo(true);
+    img.src = `/partners/${slug}.svg`;
+  }, [slug]);
+  return (
+    <span className="partner-mark inline-flex h-11 min-w-24 items-center justify-center rounded-xl bg-white px-4 shadow-sm ring-1 ring-black/5">
+      {hasLogo ? (
+        // eslint-disable-next-line @next/next/no-img-element -- small static logo files
+        <img src={`/partners/${slug}.svg`} alt={partner} height={28} className="h-7 w-auto max-w-[8rem] object-contain" />
+      ) : (
+        <span className="font-display text-base font-bold tracking-[-0.01em] text-indigo-950">{partner}</span>
+      )}
+    </span>
+  );
+}
+
 /** Offers ticker: a strip of live DBBL card campaigns, sliding forever, paused on hover/focus. */
 export function OffersTicker() {
   const { lang } = useLang();
-  const row = offers.map((o) => `${o.partner} · ${o.title[lang]}`);
+  const brand = usePathname()?.startsWith("/new-design") ?? false;
+  const row = offers.map((o) => ({ partner: o.partner, title: o.title[lang], text: `${o.partner} · ${o.title[lang]}` }));
   const items = [...row, ...row];
   return (
-    <div className="marquee relative z-10 mt-12 -rotate-1 overflow-hidden bg-lime py-3.5 text-indigo-950 shadow-[var(--shadow-card)]" aria-label={lang === "bn" ? "চলমান অফার" : "Live offers"}>
+    <div className={`marquee relative z-10 mt-12 -rotate-1 overflow-hidden bg-lime text-indigo-950 shadow-[var(--shadow-card)] ${brand ? "py-6" : "py-3.5"}`} aria-label={lang === "bn" ? "চলমান অফার" : "Live offers"}>
       <div className="marquee-track flex w-max gap-10 whitespace-nowrap [--marquee-duration:55s]">
         {items.map((t, i) => (
           <a
@@ -32,10 +66,21 @@ export function OffersTicker() {
             href="#offers"
             aria-hidden={i >= row.length}
             tabIndex={i >= row.length ? -1 : 0}
+            aria-label={brand ? t.text : undefined}
             className="font-display inline-flex items-center gap-3 text-lg font-semibold tracking-[-0.01em]"
           >
-            <span className="size-2 rounded-full bg-indigo-950" aria-hidden />
-            {t}
+            {brand ? (
+              /* /new-design: the partner's logo (or its name) in a white tab, then the offer */
+              <>
+                <PartnerMark partner={t.partner} />
+                <span aria-hidden>{t.title}</span>
+              </>
+            ) : (
+              <>
+                <span className="size-2 rounded-full bg-indigo-950" aria-hidden />
+                {t.text}
+              </>
+            )}
           </a>
         ))}
       </div>
