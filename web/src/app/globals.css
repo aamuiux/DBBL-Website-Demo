@@ -409,13 +409,18 @@ a {
 :root:has(.brand2) .hours-card {
   border-radius: 1.25rem;
 }
-/* Offers ribbon text: capitals, 4px larger, airier, in purple */
-:root:has(.brand2) .ticker-item {
+/* Offers ribbon: purple band, white capitals, 4px larger and airier */
+:root:has(.brand2) .ticker-item,
+:root:has(.brand2) .marquee .ticker-item {
   font-size: 22px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--color-rocket-700);
+  color: #fff;
 }
 :root:has(.brand2) .ticker-item > span {
-  background: var(--color-rocket-700);
+  background: #fff;
+}
+:root:has(.brand2) .ticker {
+  background: var(--color-rocket);
+  background-image: none;
 }

@@ -24,7 +24,7 @@ export function OffersTicker() {
   const row = offers.map((o) => `${o.partner} · ${o.title[lang]}`);
   const items = [...row, ...row];
   return (
-    <div className="marquee relative z-10 mt-12 -rotate-1 overflow-hidden bg-lime py-3.5 text-indigo-950 shadow-[var(--shadow-card)]" aria-label={lang === "bn" ? "চলমান অফার" : "Live offers"}>
+    <div className="marquee ticker relative z-10 mt-12 -rotate-1 overflow-hidden bg-lime py-3.5 text-indigo-950 shadow-[var(--shadow-card)]" aria-label={lang === "bn" ? "চলমান অফার" : "Live offers"}>
       <div className="marquee-track flex w-max gap-10 whitespace-nowrap [--marquee-duration:55s]">
         {items.map((t, i) => (
           <a
