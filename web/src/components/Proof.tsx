@@ -1,5 +1,7 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+import { ArrowUpRight } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 import { animate, motion, useInView } from "motion/react";
 import { useLang } from "@/lib/i18n";
@@ -102,6 +104,109 @@ export function Proof() {
 
 /** 23 partner banks + Bangladesh Bank around DBBL's network. Partner positions are schematic, not geographic. */
 export function Network() {
+  const brand = usePathname()?.startsWith("/new-design") ?? false;
+  return brand ? <NetworkMap /> : <NetworkHub />;
+}
+
+/* Schematic map of Bangladesh (simplified outline, not survey-accurate) and city positions for the partner-bank nodes. */
+const BD = {"d": "M132.0 44.4 L156.5 35.0 L183.1 56.7 L196.4 49.5 L239.5 69.7 L249.5 94.9 L249.5 127.3 L286.0 134.5 L325.8 136.0 L365.7 138.1 L405.5 145.4 L422.1 170.6 L408.8 195.8 L392.2 213.9 L375.6 242.7 L388.9 264.3 L412.2 304.0 L415.5 365.3 L412.2 422.9 L405.5 455.4 L395.6 430.2 L388.9 394.1 L379.0 347.2 L352.4 311.2 L329.2 314.8 L312.6 340.0 L292.6 365.3 L266.1 379.7 L232.9 379.7 L206.3 372.5 L189.7 350.8 L193.0 322.0 L179.8 304.0 L176.4 271.5 L156.5 246.3 L169.8 206.6 L133.3 185.0 L146.6 145.4 L163.2 120.1 L133.3 80.5 Z", "nodes": [[209.6, 94.9], [169.8, 103.5], [217.6, 159.8], [166.5, 194.4], [209.6, 221.1], [201.0, 228.3], [206.3, 280.9], [229.6, 307.6], [284.0, 314.8], [281.4, 340.0], [248.8, 249.9], [286.0, 167.0], [255.5, 154.7], [254.1, 203.0], [383.6, 156.2], [377.6, 186.5], [337.8, 260.0], [332.5, 305.4], [379.0, 340.0], [390.9, 404.9], [405.5, 318.4], [287.3, 221.1], [197.7, 314.8]], "centre": [286.0, 236.9], "bb": [287.3, 253.5]} as const;
+
+/** /new-design: the network drawn on a glowing map of Bangladesh, DBBL's mark at Dhaka. */
+function NetworkMap() {
+  const { d } = useLang();
+  const reduce = useReduce();
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { amount: 0.35 });
+  const [cx, cy] = BD.centre;
+  const [bx, by] = BD.bb;
+
+  return (
+    <div ref={ref} className="on-dark relative isolate overflow-hidden rounded-[1.75rem] bg-[linear-gradient(160deg,#161960_0%,#0f1145_55%,#0b0d36_100%)] p-7 text-white sm:p-10">
+      <span aria-hidden className="absolute -bottom-24 -right-16 -z-10 size-[28rem] rounded-full bg-[radial-gradient(circle,rgb(0_152_75/0.5),transparent_65%)]" />
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h3 className="font-display text-2xl font-semibold tracking-[-0.02em]">{d.proof.networkTitle}</h3>
+          <p className="mt-3 max-w-[44ch] text-indigo-100">{d.proof.networkBody}</p>
+        </div>
+        <a
+          href={links.atmLocator}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="grid size-11 shrink-0 place-items-center rounded-full bg-white/15 text-white ring-1 ring-inset ring-white/25 transition-colors hover:bg-white hover:text-indigo-950"
+        >
+          <ArrowUpRight className="size-5" aria-hidden />
+          <span className="sr-only">{d.proof.networkTitle} (opens in a new tab)</span>
+        </a>
+      </div>
+
+      <svg viewBox="55 10 460 470" className="mx-auto mt-4 w-full max-w-[30rem]" role="img" aria-label={`${d.proof.networkCenter}: ${d.proof.networkBB} + 23 ${d.proof.networkPartner}`}>
+        <defs>
+          <linearGradient id="bd-fill" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#1fbf72" />
+            <stop offset="1" stopColor="#00984b" />
+          </linearGradient>
+          <filter id="bd-glow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="9" />
+          </filter>
+        </defs>
+        {[150, 215].map((r, i) => (
+          <ellipse key={r} cx={cx} cy={cy} rx={r} ry={r * 0.52} fill="none" stroke="rgb(120 220 255 / 0.28)" strokeWidth="1.2" transform={`rotate(${i ? 18 : -14} ${cx} ${cy})`} />
+        ))}
+        <path d={BD.d} fill="#00984b" opacity="0.55" filter="url(#bd-glow)" />
+        <path d={BD.d} fill="url(#bd-fill)" fillOpacity="0.92" stroke="rgb(190 255 220 / 0.7)" strokeWidth="1.5" strokeLinejoin="round" />
+        {BD.nodes.map(([x, y], i) => (
+          <line key={`l${i}`} x1={cx} y1={cy} x2={x} y2={y} stroke="rgb(255 255 255 / 0.28)" strokeWidth="0.9" />
+        ))}
+        {!reduce &&
+          inView &&
+          BD.nodes
+            .filter((_, i) => i % 3 === 0)
+            .map(([x, y], k) => (
+              <motion.circle
+                key={`p${k}`}
+                r="3.2"
+                fill="#fff"
+                initial={{ cx, cy, opacity: 0 }}
+                animate={{ cx: [cx, x], cy: [cy, y], opacity: [0, 1, 0] }}
+                transition={{ duration: 1.8, repeat: Infinity, repeatDelay: 1.2 + (k % 3) * 0.5, delay: k * 0.35, ease: "easeInOut" }}
+              />
+            ))}
+        {BD.nodes.map(([x, y], i) => (
+          <motion.g
+            key={`n${i}`}
+            initial={reduce ? false : { scale: 0, opacity: 0 }}
+            animate={inView ? { scale: 1, opacity: 1 } : undefined}
+            transition={{ duration: 0.5, ease: easeOut, delay: 0.2 + i * 0.03 }}
+            style={{ transformOrigin: `${x}px ${y}px` }}
+          >
+            <circle cx={x} cy={y} r="9" fill="#9fb2ff" opacity="0.28" />
+            <circle cx={x} cy={y} r="4.6" fill="#c9d3ff" stroke="#fff" strokeWidth="1.2" />
+          </motion.g>
+        ))}
+        <circle cx={bx} cy={by} r="9" fill="#2d6bff" stroke="#fff" strokeWidth="2" />
+        <circle cx={cx} cy={cy} r="36" fill="#fff" />
+        <image href="/dbbl-mark.svg" x={cx - 24} y={cy - 22} width="48" height="30" />
+        <text x={cx} y={cy + 25} textAnchor="middle" fill="#0f1145" fontSize="13" fontWeight="800">
+          DBBL
+        </text>
+      </svg>
+
+      <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-indigo-100">
+        <li className="flex items-center gap-2">
+          <span className="size-3 rounded-full bg-green-500" aria-hidden /> {d.proof.networkCenter}
+        </li>
+        <li className="flex items-center gap-2">
+          <span className="size-3 rounded-full bg-[#2d6bff] ring-1 ring-white/70" aria-hidden /> {d.proof.networkBB}
+        </li>
+        <li className="flex items-center gap-2">
+          <span className="size-3 rounded-full bg-[#c9d3ff] ring-1 ring-white/70" aria-hidden /> {d.proof.networkPartner} × 23
+        </li>
+      </ul>
+    </div>
+  );
+}
+
+function NetworkHub() {
   const { d } = useLang();
   const reduce = useReduce();
   const ref = useRef<HTMLDivElement>(null);
