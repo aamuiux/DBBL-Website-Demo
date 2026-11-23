@@ -19,31 +19,31 @@ const kindIcon: Record<Offer["kind"], LucideIcon> = {
   card: Sparkles,
 };
 
-/** Partner logo files live in /public/partners/<slug>.svg; a missing file falls back to the partner's name as text. */
-const partnerSlug: Record<string, string> = {
-  Mastercard: "mastercard",
-  Visa: "visa",
-  Walton: "walton",
-  "US-Bangla Airlines": "us-bangla",
-  "Star Cineplex": "star-cineplex",
-  Firsttrip: "firsttrip",
+/** Partner logo files live in /public/partners/; a missing file falls back to the partner's name as text. */
+const partnerFile: Record<string, string> = {
+  Mastercard: "mastercard.svg",
+  Visa: "visa.svg",
+  Walton: "walton.svg",
+  "US-Bangla Airlines": "us-bangla.svg",
+  "Star Cineplex": "star-cineplex.svg",
+  Firsttrip: "firsttrip.png",
 };
 
 function PartnerMark({ partner }: { partner: string }) {
-  const slug = partnerSlug[partner];
+  const file = partnerFile[partner];
   const [hasLogo, setHasLogo] = useState(false);
   // Show the logo only once its file is confirmed to exist, so a missing file never shows a broken-image icon
   useEffect(() => {
-    if (!slug) return;
+    if (!file) return;
     const img = new window.Image();
     img.onload = () => setHasLogo(true);
-    img.src = `/partners/${slug}.svg`;
-  }, [slug]);
+    img.src = `/partners/${file}`;
+  }, [file]);
   return (
     <span className="partner-mark inline-flex h-11 min-w-24 items-center justify-center rounded-xl bg-white px-4 shadow-sm ring-1 ring-black/5">
       {hasLogo ? (
         // eslint-disable-next-line @next/next/no-img-element -- small static logo files
-        <img src={`/partners/${slug}.svg`} alt={partner} height={28} className="h-7 w-auto max-w-[8rem] object-contain" />
+        <img src={`/partners/${file}`} alt={partner} height={28} className="h-7 w-auto max-w-[8rem] object-contain" />
       ) : (
         <span className="font-display text-base font-bold tracking-[-0.01em] text-indigo-950">{partner}</span>
       )}
