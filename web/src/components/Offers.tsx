@@ -139,7 +139,7 @@ export function Offers() {
                 whileInView={{ y: 0, rotate: -6, opacity: 1 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ type: "spring", stiffness: 120, damping: 14 }}
-                className="font-display tabular block select-none text-[27cqw] font-bold leading-[0.8] tracking-[-0.05em] text-white/95"
+                className="font-display tabular block select-none text-[34cqw] font-bold leading-[0.8] tracking-[-0.05em] text-white/95"
               >
                 5,000
               </motion.span>
