@@ -21,16 +21,14 @@ const baseSlides = [
   { src: "/students/friends.webp", focus: "50% 60%", when: { en: "7:00 pm", bn: "সন্ধ্যা ৭:০০" }, t: { en: "Send money free with NexusPay", bn: "নেক্সাসপে-তে ফ্রি টাকা পাঠানো" } },
 ];
 
-/** /new-design uses a newer set: three of the moments swap to the new photos (fees, metro, pocket money). */
-const brandSlides = baseSlides.map((s, i) =>
-  i === 1
-    ? { src: "/students/fees.webp", fit: "whole", focus: "50% 50%", when: s.when, t: s.t }
-    : i === 2
-      ? { src: "/students/metro.webp", fit: "whole", focus: "50% 50%", when: s.when, t: { en: "Metro fare, tapped with your debit card", bn: "ডেবিট কার্ড ট্যাপ করে মেট্রোর ভাড়া" } }
-      : i === 3
-        ? { src: "/students/wallet.webp", fit: "whole", focus: "50% 50%", when: s.when, t: { en: "Pocket money from home, straight to your wallet", bn: "বাসা থেকে হাতখরচ, সরাসরি ওয়ালেটে" } }
-        : s,
-);
+/** /new-design: the newer photo set, each shown whole (they already match the frame's shape). */
+const brandSlides = [
+  { src: "/students/s-campus.webp", fit: "whole", focus: "50% 50%", when: { en: "9:30 am", bn: "সকাল ৯:৩০" }, t: { en: "Education fees, paid from your phone", bn: "ফোন থেকে শিক্ষা ফি পরিশোধ" } },
+  { src: "/students/s-transfer.webp", fit: "whole", focus: "50% 50%", when: { en: "11:00 am", bn: "সকাল ১১:০০" }, t: { en: "Money from home, straight to your account", bn: "বাসা থেকে টাকা, সরাসরি আপনার অ্যাকাউন্টে" } },
+  { src: "/students/s-metro.webp", fit: "whole", focus: "50% 50%", when: { en: "1:00 pm", bn: "দুপুর ১:০০" }, t: { en: "Metro fare, tapped with your debit card", bn: "ডেবিট কার্ড ট্যাপ করে মেট্রোর ভাড়া" } },
+  { src: "/students/s-atm.webp", fit: "whole", focus: "50% 50%", when: { en: "3:30 pm", bn: "বিকেল ৩:৩০" }, t: { en: "Cash from a DBBL ATM, any time", bn: "যেকোনো সময় ডিবিবিএল এটিএম থেকে নগদ" } },
+  { src: "/students/s-wallet.webp", fit: "whole", focus: "50% 50%", when: { en: "5:00 pm", bn: "বিকেল ৫:০০" }, t: { en: "Pocket money from home, straight to your wallet", bn: "বাসা থেকে হাতখরচ, সরাসরি ওয়ালেটে" } },
+];
 
 const GAP = 16;
 const DRIFT = 0.32; // how far an image slides inside its frame, as a share of the frame width

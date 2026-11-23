@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect, useId, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -290,6 +291,7 @@ export function StoreBadges({
   /** App name for screen readers, e.g. "Rocket". */
   app?: string;
 }) {
+  const brand = usePathname()?.startsWith("/new-design") ?? false;
   const base = `group inline-flex h-14 items-center gap-3 rounded-2xl pl-4 pr-5 transition-colors ${
     outline
       ? "rounded-full text-white ring-1 ring-inset ring-white/70 hover:bg-white hover:text-indigo-950"
@@ -297,6 +299,23 @@ export function StoreBadges({
         ? "bg-indigo-950 text-white hover:bg-indigo-800"
         : "bg-white text-indigo-950 hover:bg-indigo-50"
   }`;
+  // /new-design: the official store badges, unaltered, at the size the guidelines ask for
+  if (brand) {
+    return (
+      <>
+        <a href={play} target="_blank" rel="noopener noreferrer" className="inline-block rounded-lg transition-transform hover:-translate-y-0.5">
+          {/* eslint-disable-next-line @next/next/no-img-element -- official badge SVG */}
+          <img src="/badge-google-play.svg" alt={`Get it on Google Play${app ? `: ${app}` : ""}`} className="h-14 w-auto" />
+          <span className="sr-only">(opens in a new tab)</span>
+        </a>
+        <a href={appStore} target="_blank" rel="noopener noreferrer" className="inline-block rounded-lg transition-transform hover:-translate-y-0.5">
+          {/* eslint-disable-next-line @next/next/no-img-element -- official badge SVG */}
+          <img src="/badge-app-store.svg" alt={`Download on the App Store${app ? `: ${app}` : ""}`} className="h-14 w-auto" />
+          <span className="sr-only">(opens in a new tab)</span>
+        </a>
+      </>
+    );
+  }
   return (
     <>
       <a href={play} target="_blank" rel="noopener noreferrer" className={base}>
