@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { animate, motion, useInView } from "motion/react";
 import { useLang } from "@/lib/i18n";
@@ -102,6 +104,31 @@ export function Proof() {
 
 /** 23 partner banks + Bangladesh Bank around DBBL's network. Partner positions are schematic, not geographic. */
 export function Network() {
+  const brand = usePathname()?.startsWith("/new-design") ?? false;
+  return brand ? <NetworkArt /> : <NetworkHub />;
+}
+
+/** /new-design: the supplied glowing map of Bangladesh, in place of the hub-and-spoke diagram. */
+function NetworkArt() {
+  const { d } = useLang();
+  return (
+    <div className="on-dark relative isolate overflow-hidden rounded-2xl bg-indigo-950 p-7 text-white sm:p-10">
+      <span aria-hidden className="absolute left-1/2 top-[58%] -z-10 size-[26rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgb(0_152_75/0.35),transparent_68%)]" />
+      <h3 className="font-display text-2xl font-semibold tracking-[-0.02em]">{d.proof.networkTitle}</h3>
+      <p className="mt-3 max-w-[44ch] text-indigo-200">{d.proof.networkBody}</p>
+      <Image
+        src="/network-bd.webp"
+        alt={`${d.proof.networkCenter}: ${d.proof.networkBB} + 23 ${d.proof.networkPartner}`}
+        width={1536}
+        height={1024}
+        sizes="(min-width:1024px) 40vw, 100vw"
+        className="mx-auto mt-6 h-auto w-full max-w-[34rem]"
+      />
+    </div>
+  );
+}
+
+function NetworkHub() {
   const { d } = useLang();
   const reduce = useReduce();
   const ref = useRef<HTMLDivElement>(null);
