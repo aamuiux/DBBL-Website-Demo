@@ -449,3 +449,58 @@ a {
 :root:has(.brand2) .sky-wind-line {
   stroke-opacity: 0.5 !important;
 }
+/* Offers ribbon, flip style: each offer is a two-faced tile that turns over on a stagger */
+@keyframes flip-turn {
+  0%, 38% {
+    transform: rotateX(0deg);
+  }
+  50%, 88% {
+    transform: rotateX(-180deg);
+  }
+  100% {
+    transform: rotateX(-360deg);
+  }
+}
+:root:has(.brand2) .flip-card {
+  display: inline-grid;
+  perspective: 700px;
+}
+:root:has(.brand2) .flip-inner {
+  display: grid;
+  transform-style: preserve-3d;
+  animation: flip-turn 7s ease-in-out infinite;
+  animation-delay: var(--flip-delay, 0s);
+}
+:root:has(.brand2) .flip-face {
+  grid-area: 1 / 1;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  padding: 0.35rem 1.1rem;
+  border-radius: 0.6rem;
+  text-align: center;
+}
+:root:has(.brand2) .flip-front {
+  background: var(--color-indigo-950);
+  color: #fff;
+}
+:root:has(.brand2) .flip-back {
+  background: #fff;
+  color: var(--color-indigo-950);
+  transform: rotateX(180deg);
+  box-shadow: inset 0 0 0 1.5px var(--color-indigo-950);
+}
+.marquee:hover .flip-inner,
+.marquee:focus-within .flip-inner {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root:has(.brand2) .flip-inner {
+    animation: none;
+    display: flex;
+    gap: 0.5rem;
+  }
+  :root:has(.brand2) .flip-face {
+    transform: none;
+    backface-visibility: visible;
+  }
+}
