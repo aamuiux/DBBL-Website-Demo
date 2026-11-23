@@ -169,7 +169,7 @@ export function Hero() {
                 animate={reduce ? undefined : { x: ["0%", "-18%"] }}
                 transition={{ duration: 45, ease: "linear", repeat: Infinity, repeatType: "mirror" }}
               >
-                <Image src={brand ? "/hero-clouds.webp" : slide.src} alt={slide.alt} fill sizes="125vw" quality={80} preload={index === 0} className="object-cover" style={{ objectPosition: slide.position }} />
+                <Image src={brand ? "/hero-sky.webp" : slide.src} alt={slide.alt} fill sizes="125vw" quality={80} preload={index === 0} className="object-cover" style={{ objectPosition: slide.position }} />
               </motion.div>
             ) : (
               <Image
