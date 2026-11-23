@@ -409,7 +409,7 @@ a {
 :root:has(.brand2) .hours-card {
   border-radius: 1.25rem;
 }
-/* Offers ribbon: purple band, white capitals, 4px larger and airier */
+/* Offers ribbon: brand green band, white capitals, 4px larger and airier */
 :root:has(.brand2) .ticker-item,
 :root:has(.brand2) .marquee .ticker-item {
   font-size: 22px;
@@ -421,6 +421,6 @@ a {
   background: #fff;
 }
 :root:has(.brand2) .ticker {
-  background: var(--color-rocket);
+  background: var(--color-green-600);
   background-image: none;
 }
