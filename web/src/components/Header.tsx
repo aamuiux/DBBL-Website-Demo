@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion, useScroll, useSpring, useTransform } from "motion/react";
 import { ChevronDown, Globe, MapPin, Menu, Phone, X, ArrowUpRight, Lock } from "lucide-react";
@@ -126,7 +127,9 @@ export function Header() {
 
   const active = nav.find((n) => n.key === open);
   // A solid white bar at the top of the page; as an island it takes the tone underneath; an open mega menu is light.
-  const tone: "dark" | "light" = open || !scrolled ? "light" : under;
+  // /new-design: the bar is white at every scroll position, whatever section is underneath.
+  const brand = usePathname()?.startsWith("/new-design") ?? false;
+  const tone: "dark" | "light" = brand || open || !scrolled ? "light" : under;
   const lightUi = tone === "light"; // dark text on light glass
   const bubble = lightUi ? "bg-indigo-50" : "bg-white/14";
   const bubbleSpring = reduce ? { duration: 0 } : { type: "spring" as const, stiffness: 420, damping: 34 };
@@ -161,7 +164,7 @@ export function Header() {
                 : "shadow-[0_18px_44px_-20px_rgb(0_0_0/0.6)] ring-1 ring-inset ring-white/12"
             }`}
           >
-            <span className={`absolute inset-0 bg-white/78 transition-opacity duration-500 ${lightUi ? "opacity-100" : "opacity-0"}`} />
+            <span className={`absolute inset-0 ${brand ? "bg-white" : "bg-white/78"} transition-opacity duration-500 ${lightUi ? "opacity-100" : "opacity-0"}`} />
             <span className={`absolute inset-0 bg-indigo-950/72 transition-opacity duration-500 ${lightUi ? "opacity-0" : "opacity-100"}`} />
             {/* Reading progress along the island's lower edge */}
             <motion.span
