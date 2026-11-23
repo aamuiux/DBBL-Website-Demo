@@ -244,7 +244,7 @@ function CardFace({ spec }: { spec: CardSpec }) {
         <div className="absolute inset-x-[6%] top-[8%] flex items-start justify-between">
           <span className="flex items-center gap-[2cqw]">
             <span className="grid h-[11cqw] w-[15cqw] place-items-center rounded-[1.6cqw] bg-white/90">
-              <Image src="/dbbl-mark.svg" alt="" width={80} height={50} className="w-[10.5cqw]" />
+              <Image src="/dbbl-mark.svg" alt="" width={80} height={53} className="w-[10.5cqw]" />
             </span>
             <span className="font-display text-[4.4cqw] font-bold leading-none tracking-[-0.01em]">Dutch-Bangla Bank</span>
           </span>

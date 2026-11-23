@@ -58,7 +58,7 @@ export function Preloader() {
               className="relative"
             >
               {/* eslint-disable-next-line @next/next/no-img-element -- a small static SVG; no optimisation needed */}
-              <img src="/dbbl-mark.svg" alt="" width={174} height={108} className="h-24 w-auto drop-shadow-[0_18px_30px_rgba(0,0,0,0.35)] sm:h-28" />
+              <img src="/dbbl-mark.svg" alt="" width={174} height={116} className="h-24 w-auto drop-shadow-[0_18px_30px_rgba(0,0,0,0.35)] sm:h-28" />
             </motion.div>
             <motion.p
               initial={{ opacity: 0, y: 12 }}

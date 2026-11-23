@@ -365,7 +365,7 @@ function NexusPhone({ reduce }: { reduce: boolean }) {
                 <span>বাং</span>
               </span>
               <span className="mt-[10cqw] grid size-[19cqw] place-items-center rounded-[5cqw] bg-[#ececee]">
-                <Image src="/dbbl-mark.svg" alt="" width={80} height={50} className="w-[12cqw]" />
+                <Image src="/dbbl-mark.svg" alt="" width={80} height={53} className="w-[12cqw]" />
               </span>
               <span className="mt-[4cqw] text-[4.4cqw] font-medium">{bn ? "স্বাগতম" : "Welcome To"}</span>
               <span className="font-display text-[10cqw] font-bold leading-none text-[var(--k-nexus-ink)]">NexusPay</span>
