@@ -165,8 +165,8 @@ export function Hero() {
             ) : slide.tint === "sky" && brand ? (
               /* /new-design: the supplied sky shown whole (never cropped); a blurred copy fills any spare width */
               <div className="absolute inset-0 overflow-hidden">
-                <Image src="/hero-sky-2.webp" alt="" fill sizes="100vw" quality={40} className="scale-110 object-cover blur-2xl" />
-                <Image src="/hero-sky-2.webp" alt={slide.alt} fill sizes="100vw" quality={85} preload={index === 0} className="object-contain" />
+                <Image src="/hero-sky-3.webp" alt="" fill sizes="100vw" quality={40} className="scale-110 object-cover blur-2xl" />
+                <Image src="/hero-sky-3.webp" alt={slide.alt} fill sizes="100vw" quality={85} preload={index === 0} className="object-contain" />
               </div>
             ) : slide.tint === "sky" ? (
               /* The clouds drift slowly sideways: the photo is wider than the hero and pans back and forth */
