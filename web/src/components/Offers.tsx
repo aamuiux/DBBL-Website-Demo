@@ -24,7 +24,7 @@ const partnerFile: Record<string, string> = {
   Mastercard: "mastercard.svg",
   Visa: "visa.svg",
   Walton: "walton.svg",
-  "US-Bangla Airlines": "us-bangla.svg",
+  "US-Bangla Airlines": "us-bangla.png",
   "Star Cineplex": "star-cineplex.svg",
   Firsttrip: "firsttrip.png",
 };
@@ -40,12 +40,12 @@ function PartnerMark({ partner }: { partner: string }) {
     img.src = `/partners/${file}`;
   }, [file]);
   return (
-    <span className="partner-mark inline-flex h-11 min-w-24 items-center justify-center rounded-xl bg-white px-4 shadow-sm ring-1 ring-black/5">
+    <span className="partner-mark inline-flex items-center">
       {hasLogo ? (
         // eslint-disable-next-line @next/next/no-img-element -- small static logo files
-        <img src={`/partners/${file}`} alt={partner} height={28} className="h-7 w-auto max-w-[8rem] object-contain" />
+        <img src={`/partners/${file}`} alt={partner} height={28} className="h-6 w-auto max-w-[6.5rem] object-contain" />
       ) : (
-        <span className="font-display text-base font-bold tracking-[-0.01em] text-indigo-950">{partner}</span>
+        <span className="font-display text-base font-bold tracking-[-0.01em]">{partner}</span>
       )}
     </span>
   );
@@ -70,8 +70,9 @@ export function OffersTicker() {
             className="font-display inline-flex items-center gap-3 text-lg font-semibold tracking-[-0.01em]"
           >
             {brand ? (
-              /* /new-design: the partner's logo (or its name) in a white tab, then the offer */
+              /* /new-design: a dot, the partner's logo (or its name), then the offer */
               <>
+                <span className="size-2 rounded-full bg-indigo-950" aria-hidden />
                 <PartnerMark partner={t.partner} />
                 <span aria-hidden>{t.title}</span>
               </>
