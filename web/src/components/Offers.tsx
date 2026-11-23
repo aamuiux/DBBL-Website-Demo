@@ -1,6 +1,5 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import { useId, useRef } from "react";
 import { motion } from "motion/react";
 import { ArrowUpRight, CalendarDays, Clapperboard, FileText, Globe2, Plane, ShoppingBasket, Sparkles, Trophy, Tv, type LucideIcon } from "lucide-react";
@@ -22,33 +21,21 @@ const kindIcon: Record<Offer["kind"], LucideIcon> = {
 /** Offers ticker: a strip of live DBBL card campaigns, sliding forever, paused on hover/focus. */
 export function OffersTicker() {
   const { lang } = useLang();
-  const brand = usePathname()?.startsWith("/new-design") ?? false;
-  const row = offers.map((o) => ({ partner: o.partner, title: o.title[lang], text: `${o.partner} · ${o.title[lang]}` }));
+  const row = offers.map((o) => `${o.partner} · ${o.title[lang]}`);
   const items = [...row, ...row];
   return (
     <div className="marquee relative z-10 mt-12 -rotate-1 overflow-hidden bg-lime py-3.5 text-indigo-950 shadow-[var(--shadow-card)]" aria-label={lang === "bn" ? "চলমান অফার" : "Live offers"}>
-      <div className={`marquee-track flex w-max whitespace-nowrap [--marquee-duration:55s] ${brand ? "gap-6" : "gap-10"}`}>
+      <div className="marquee-track flex w-max gap-10 whitespace-nowrap [--marquee-duration:55s]">
         {items.map((t, i) => (
           <a
             key={i}
             href="#offers"
             aria-hidden={i >= row.length}
             tabIndex={i >= row.length ? -1 : 0}
-            aria-label={brand ? t.text : undefined}
             className="font-display inline-flex items-center gap-3 text-lg font-semibold tracking-[-0.01em]"
           >
             <span className="size-2 rounded-full bg-indigo-950" aria-hidden />
-            {brand ? (
-              /* /new-design: a flip ribbon. Each offer turns over, partner on one face, the offer on the other, staggered along the strip. */
-              <span className="flip-card" aria-hidden style={{ "--flip-delay": `${(i % row.length) * 0.7}s` } as React.CSSProperties}>
-                <span className="flip-inner">
-                  <span className="flip-face flip-front">{t.partner}</span>
-                  <span className="flip-face flip-back">{t.title}</span>
-                </span>
-              </span>
-            ) : (
-              t.text
-            )}
+            {t}
           </a>
         ))}
       </div>
