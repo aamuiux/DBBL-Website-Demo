@@ -348,7 +348,7 @@ function NexusField() {
         <defs>
           <pattern id="nexus-zig" width="140" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(-8)">
             {rows.map((y) => (
-              <path key={y} d={`M0 ${y + 30} L40 ${y - 30} L140 ${y + 30}`} fill="none" stroke="white" strokeOpacity="0.12" strokeWidth="1" />
+              <path key={y} className="nexus-zig-line" d={`M0 ${y + 30} L40 ${y - 30} L140 ${y + 30}`} fill="none" stroke="white" strokeOpacity="0.12" strokeWidth="1" />
             ))}
           </pattern>
         </defs>
@@ -465,7 +465,7 @@ function HeroSwooshes({ tint, reduce }: { tint: Slide["tint"]; reduce: boolean }
     >
       <svg className="size-full overflow-visible" viewBox="76 94 205 172">
         {[dbblSwoosh.blue, dbblSwoosh.red, dbblSwoosh.green].map((d, i) => (
-          <path key={i} d={d} style={{ fill: fills[i], fillOpacity: strength }} />
+          <path key={i} className="hero-swoosh-path" d={d} style={{ fill: fills[i], fillOpacity: strength }} />
         ))}
       </svg>
     </motion.div>

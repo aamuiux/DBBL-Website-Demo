@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useId, useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
+import { usePathname } from "next/navigation";
 import { Check, Clock3, MapPin } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
@@ -16,11 +17,12 @@ export function FastTrack() {
   const reduce = useReduce();
   const id = useId();
   const bn = lang === "bn";
+  const brand = usePathname()?.startsWith("/new-design") ?? false;
   // The photo eases from a slight zoom to rest while it crosses the viewport.
   const photoRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: photoRef, offset: ["start end", "end start"] });
-  const photoScale = useTransform(scrollYProgress, [0, 1], reduce ? [1, 1] : [1.18, 1.02]);
-  const photoY = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["-4%", "4%"]);
+  const photoScale = useTransform(scrollYProgress, [0, 1], reduce ? [1, 1] : brand ? [1.06, 1] : [1.18, 1.02]);
+  const photoY = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : brand ? ["0%", "0%"] : ["-4%", "4%"]);
 
   return (
     <section id="fast-track" aria-labelledby={`${id}-h`} className="relative overflow-hidden bg-white py-24 md:py-32">
@@ -62,12 +64,12 @@ export function FastTrack() {
             <div ref={photoRef} className="absolute inset-0">
               <motion.div style={{ scale: photoScale, y: photoY }} className="absolute inset-0">
                 <Image
-                  src="https://images.unsplash.com/photo-1682344059600-a869f15f3ace?w=1600&q=80&auto=format"
-                  alt={bn ? "পাশাপাশি দুটি আধুনিক এটিএম, উজ্জ্বল নীল স্ক্রিন" : "Two modern ATMs side by side with glowing blue screens"}
+                  src={brand ? "/fast-track.webp" : "https://images.unsplash.com/photo-1682344059600-a869f15f3ace?w=1600&q=80&auto=format"}
+                  alt={brand ? (bn ? "ডিবিবিএল ফাস্ট ট্র্যাক: পাশাপাশি দুটি এটিএম" : "A DBBL Fast Track booth with two ATMs side by side") : bn ? "পাশাপাশি দুটি আধুনিক এটিএম, উজ্জ্বল নীল স্ক্রিন" : "Two modern ATMs side by side with glowing blue screens"}
                   fill
                   sizes="(min-width:1024px) 60vw, 100vw"
                   quality={80}
-                  className="object-cover"
+                  className={`object-cover ${brand ? "object-[50%_8%]" : ""}`}
                 />
               </motion.div>
             </div>
@@ -77,7 +79,7 @@ export function FastTrack() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.5 }}
               transition={{ type: "spring", stiffness: 180, damping: 20, delay: 0.35 }}
-              className="absolute right-5 top-5 rounded-full bg-white/15 px-4 py-2 text-sm font-semibold text-white ring-1 ring-inset ring-white/30 backdrop-blur-md sm:right-7 sm:top-7"
+              className={`absolute right-5 rounded-full bg-white/15 px-4 py-2 text-sm font-semibold text-white ring-1 ring-inset ring-white/30 backdrop-blur-md sm:right-7 ${brand ? "bottom-5 bg-indigo-950/55 sm:bottom-7" : "top-5 sm:top-7"}`}
             >
               {fastTrack.perTrack[lang]}
             </motion.p>

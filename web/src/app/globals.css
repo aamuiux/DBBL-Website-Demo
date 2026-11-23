@@ -423,3 +423,13 @@ a {
   background: #fff;
   color: var(--color-indigo-600);
 }
+/* Hero on small screens: the field patterns (zigzag lines, logo swooshes) read stronger */
+@media (max-width: 1023px) {
+  :root:has(.brand2) .nexus-zig-line {
+    stroke-opacity: 0.38;
+    stroke-width: 1.4;
+  }
+  :root:has(.brand2) .hero-swoosh-path {
+    fill-opacity: 0.7 !important;
+  }
+}
