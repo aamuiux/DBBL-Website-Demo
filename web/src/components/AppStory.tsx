@@ -36,6 +36,7 @@ export function AppStory() {
   const id = useId();
   const [step, setStep] = useState(0);
   const [qr, setQr] = useState("");
+  const brand = usePathname()?.startsWith("/new-design") ?? false;
   const sectionRef = useRef<HTMLElement>(null);
   const stRef = useRef<ScrollTrigger | null>(null);
 
@@ -79,7 +80,16 @@ export function AppStory() {
         scrollTrigger: {
           trigger: el,
           start: "top top",
-          end: () => `+=${window.innerHeight * 3.4}`,
+          end: () => `+=${window.innerHeight * (brand ? 5 : 3.4)}`,
+          // /new-design: once the reveal is done, the scroll settles on each step so the phone and the list change together
+          snap: brand
+            ? {
+                snapTo: (p: number) => (p < 0.5 ? p : 0.5 + (Math.min(3, Math.floor(((p - 0.5) / 0.5) * 4)) + 0.5) / 8),
+                delay: 0.12,
+                duration: { min: 0.3, max: 0.7 },
+                ease: "power2.inOut",
+              }
+            : undefined,
           pin: true,
           scrub: 0.8,
           invalidateOnRefresh: true,
@@ -109,7 +119,7 @@ export function AppStory() {
       stRef.current = null;
       ctx.revert();
     };
-  }, [pinned]);
+  }, [pinned, brand]);
 
   const choose = (i: number) => {
     const st = stRef.current;
@@ -207,13 +217,20 @@ export function AppStory() {
             <div data-copy className="mt-7">
               {steps}
             </div>
-            <div data-copy className="mt-7 flex items-center gap-5">
-              <div className="size-[4.5rem] shrink-0 rounded-lg bg-white p-1.5" aria-hidden dangerouslySetInnerHTML={{ __html: qr }} />
-              <div>
-                <p className="text-sm font-semibold">{d.app.scan}</p>
-                <p className="mt-0.5 text-xs text-indigo-300">{d.app.illustrative}</p>
+            {brand ? (
+              /* /new-design: the store badges in place of the QR code */
+              <div data-copy className="mt-7 flex flex-wrap items-center gap-3">
+                <StoreBadges />
               </div>
-            </div>
+            ) : (
+              <div data-copy className="mt-7 flex items-center gap-5">
+                <div className="size-[4.5rem] shrink-0 rounded-lg bg-white p-1.5" aria-hidden dangerouslySetInnerHTML={{ __html: qr }} />
+                <div>
+                  <p className="text-sm font-semibold">{d.app.scan}</p>
+                  <p className="mt-0.5 text-xs text-indigo-300">{d.app.illustrative}</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>

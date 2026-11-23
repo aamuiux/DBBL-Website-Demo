@@ -142,7 +142,7 @@ export function FastTrack() {
               ))}
             </ul>
             <div className="mt-auto pt-10">
-              <div className="flex flex-col gap-3 rounded-3xl bg-lime p-6 text-indigo-950 sm:flex-row sm:items-end sm:gap-4">
+              <div className="fast-247 flex flex-col gap-3 rounded-3xl bg-lime p-6 text-indigo-950 sm:flex-row sm:items-end sm:gap-4">
                 <p className="font-display text-[clamp(3.5rem,6vw,5rem)] font-bold leading-[0.8] tracking-[-0.05em]">24/7</p>
                 <p className="pb-1 text-lg font-semibold leading-snug">{bn ? "প্রতিটি ফাস্ট ট্র্যাক এটিএমে টাকা তোলা, ইউপিএস ব্যাকআপসহ" : "cash withdrawal at every Fast Track ATM, with UPS power backup"}</p>
               </div>

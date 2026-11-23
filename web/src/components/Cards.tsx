@@ -111,7 +111,7 @@ export function Cards() {
               onClick={() => choose(i)}
               aria-current={active ? "step" : undefined}
               className={`w-full rounded-2xl px-5 py-4 text-left transition-[background-color,box-shadow] duration-500 ${
-                active ? "bg-white shadow-[var(--shadow-card)] ring-1 ring-inset ring-line" : "hover:bg-white/60"
+                active ? "card-tab-active bg-white shadow-[var(--shadow-card)] ring-1 ring-inset ring-line" : "hover:bg-white/60"
               }`}
             >
               <span className="flex items-center justify-between gap-4">
