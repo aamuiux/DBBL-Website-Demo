@@ -263,7 +263,7 @@ export function Hero() {
                 <Button href={slide.cta} tone={light ? "primary" : slide.tint === "indigo" ? "lime" : "white"} size="lg">
                   {copy.cta}
                 </Button>
-                <Button href={slide.cta2} tone={light ? "ghost-light" : "ghost-dark"} size="lg">
+                <Button href={slide.cta2} tone={light ? "ghost-light" : "ghost-dark"} size="lg" className={index === 0 ? "btn-arrow-green" : ""}>
                   {copy.cta2}
                 </Button>
               </motion.div>

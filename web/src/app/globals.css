@@ -167,8 +167,7 @@
 /* Cards section: a full-width brushed silver, the logo's K50-to-white, kept light so the card faces lead */
 :root:has(.brand2) .cards-bg {
   background:
-    radial-gradient(ellipse 60% 70% at 72% 50%, rgb(255 255 255 / 0.9), transparent 70%),
-    linear-gradient(115deg, #d9dadd 0%, #f1f2f3 22%, #ffffff 38%, #e2e3e6 56%, #f6f6f7 72%, #cfd0d4 100%);
+    linear-gradient(100deg, #9fa1a5 0%, #cfd0d3 14%, #f4f4f5 27%, #ffffff 33%, #c3c4c8 47%, #8f9195 58%, #d9dadd 70%, #f6f6f7 80%, #b3b5b9 92%, #a2a4a8 100%);
 }
 /* The 3D loan icons go silver */
 :root:has(.brand2) .icon3d {
@@ -314,4 +313,38 @@ a {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ─── Round of tweaks, /new-design only ─── */
+.concept-only {
+  display: flex;
+}
+:root:has(.brand2) .concept-only {
+  display: none;
+}
+:root:has(.brand2) .brand-only[data-chip] {
+  display: flex;
+}
+/* The icon circle of these two CTAs is green (hero "Our story", Students "DBBL Scholarship") and sweeps green on hover */
+:root:has(.brand2) .btn-arrow-green .btn-fill {
+  background: var(--color-green-600);
+}
+:root:has(.brand2) .btn-arrow-green .btn-on,
+:root:has(.brand2) .btn-arrow-green:hover .btn-label,
+:root:has(.brand2) .btn-arrow-green:focus-visible .btn-label {
+  color: #fff;
+}
+/* Car loan tile: brushed silver */
+:root:has(.brand2) .loan-silver {
+  background: linear-gradient(115deg, #a9abaf 0%, #dcdde0 20%, #ffffff 36%, #c4c5c9 54%, #eeeff0 72%, #b4b5b9 100%);
+  color: var(--color-indigo-950);
+}
+/* "One network, many banks" card: guideline red */
+:root:has(.brand2) .network-card {
+  background: var(--color-red-600);
+}
+/* Silver School Savers card needs an edge so it reads against the silver section */
+:root:has(.brand2) .saver-tone-3 {
+  background: linear-gradient(115deg, #8f9195 0%, #d5d6d9 24%, #ffffff 42%, #b9babe 62%, #e6e7e9 80%, #9b9da1 100%);
+  box-shadow: 0 0 0 1.5px rgb(13 13 16 / 0.28), 0 18px 30px -14px rgb(13 13 16 / 0.45);
 }

@@ -117,7 +117,7 @@ export function Network() {
   const bb = { x: cx, y: cy + 104 };
 
   return (
-    <div ref={ref} className="on-dark relative overflow-hidden rounded-2xl bg-indigo-950 p-7 text-white sm:p-10">
+    <div ref={ref} className="on-dark network-card relative overflow-hidden rounded-2xl bg-indigo-950 p-7 text-white sm:p-10">
       <h3 className="font-display text-2xl font-semibold tracking-[-0.02em]">{d.proof.networkTitle}</h3>
       <p className="mt-3 max-w-[44ch] text-indigo-200">{d.proof.networkBody}</p>
 

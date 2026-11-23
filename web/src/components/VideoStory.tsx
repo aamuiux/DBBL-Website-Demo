@@ -225,9 +225,15 @@ export function VideoStory() {
           className="on-dark absolute left-1/2 top-1/2 h-[calc(30vw/1.586)] w-[30vw] overflow-hidden rounded-3xl bg-indigo-950 shadow-[var(--shadow-float)] will-change-[width,height]"
         >
           {film}
-          <div data-chip aria-hidden className="pointer-events-none absolute left-[6%] top-[9%] flex items-center gap-3">
+          <div data-chip aria-hidden className="concept-only pointer-events-none absolute left-[6%] top-[9%] flex items-center gap-3">
             <span className="block h-[2.4vw] w-[3.2vw] rounded-md bg-[linear-gradient(135deg,var(--k-gold-a),var(--k-gold-c))] shadow-sm" />
             <span className="font-display text-[1.05vw] font-bold text-white drop-shadow">Dutch-Bangla Bank</span>
+          </div>
+          {/* /new-design: DBBL's own mark and wordmark */}
+          <div data-chip aria-hidden className="brand-only pointer-events-none absolute left-[6%] top-[9%] items-center gap-[0.8vw]">
+            {/* eslint-disable-next-line @next/next/no-img-element -- small static SVG */}
+            <img src="/dbbl-mark.svg" alt="" className="h-[2.9vw] w-auto drop-shadow" />
+            <span className="font-display text-[1.15vw] font-bold leading-none text-white drop-shadow">Dutch-Bangla Bank</span>
           </div>
         </div>
       </section>
