@@ -157,7 +157,7 @@ export function Header() {
         <div className={`px-3 pt-3 sm:pt-4 ${brand ? "sm:px-7" : "sm:px-5"}`}>
         <div
           ref={barRef}
-          className={`relative mx-auto ${brand ? "w-[calc(100%-var(--k)*150px)]" : "max-w-[calc(1320px-var(--k)*150px)]"}`}
+          className={`relative mx-auto ${brand ? "w-[calc(100%-var(--k)*60px)] min-[1700px]:w-[calc(100%-var(--k)*372px)]" : "max-w-[calc(1320px-var(--k)*150px)]"}`}
         >
           {/* Background: translucent glass, light or dark to match the section underneath */}
           <div
@@ -204,7 +204,7 @@ export function Header() {
                         onClick={() => setOpen(isOpen ? null : item.key)}
                         onFocus={() => setHoverKey(item.key)}
                         onBlur={() => setHoverKey(null)}
-                        className={`relative isolate inline-flex h-11 items-center gap-1 whitespace-nowrap rounded-full font-semibold transition-colors ${brand ? "px-1.5 text-[0.875rem] xl:px-3.5 xl:text-[0.95rem]" : "px-2.5 text-[0.95rem] xl:px-3.5"} ${
+                        className={`relative isolate inline-flex h-11 items-center gap-1 whitespace-nowrap rounded-full font-semibold transition-colors ${brand ? "px-1.5 text-[0.875rem] min-[1440px]:px-3.5 min-[1440px]:text-[0.95rem]" : "px-2.5 text-[0.95rem] xl:px-3.5"} ${
                           lightUi ? (isOpen ? "text-indigo-700" : "text-ink hover:text-indigo-700") : "text-white/90 hover:text-white"
                         }`}
                       >
@@ -213,7 +213,7 @@ export function Header() {
                         )}
                         {d.nav[item.key]}
                         <ChevronDown
-                          className={`size-4 transition-transform duration-300 ${brand ? "max-xl:hidden" : ""} ${isOpen ? "rotate-180" : ""}`}
+                          className={`size-4 transition-transform duration-300 ${brand ? "max-[1439px]:hidden" : ""} ${isOpen ? "rotate-180" : ""}`}
                           aria-hidden
                           strokeWidth={2.25}
                         />
