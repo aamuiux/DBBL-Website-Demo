@@ -192,7 +192,7 @@ export function AppStory() {
             {d.app.intro}
           </h2>
           <div data-intro className="pointer-events-auto mt-7 flex gap-3">
-            <StoreBadges light />
+            <StoreBadges light small />
           </div>
         </div>
 
@@ -220,7 +220,7 @@ export function AppStory() {
             {brand ? (
               /* /new-design: the store badges in place of the QR code */
               <div data-copy className="mt-7 flex flex-wrap items-center gap-3">
-                <StoreBadges />
+                <StoreBadges small />
               </div>
             ) : (
               <div data-copy className="mt-7 flex items-center gap-5">
@@ -250,7 +250,7 @@ export function AppStory() {
             </h2>
           </Reveal>
           <Reveal delay={0.06} className="mt-7 flex flex-wrap justify-center gap-3">
-            <StoreBadges outline />
+            <StoreBadges outline small />
           </Reveal>
         </div>
 
