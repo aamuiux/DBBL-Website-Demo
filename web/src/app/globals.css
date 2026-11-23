@@ -370,9 +370,13 @@ a {
   box-shadow: 0 0 0 1.5px rgb(13 13 16 / 0.28), 0 18px 30px -14px rgb(13 13 16 / 0.45);
 }
 /* The car tile's light "Apply" pill keeps a dark label on glass */
+:root:has(.brand2) .loan-glass .btn-lime:not(:hover):not(:focus-visible) .btn-label,
+:root:has(.brand2) .loan-glass .btn-white:not(:hover):not(:focus-visible) .btn-label,
 :root:has(.brand2) .loan-glass .btn-ink:not(:hover):not(:focus-visible) .btn-label {
   color: var(--color-indigo-950);
 }
+:root:has(.brand2) .loan-glass .btn-lime,
+:root:has(.brand2) .loan-glass .btn-white,
 :root:has(.brand2) .loan-glass .btn-ink {
   background: #fff;
 }

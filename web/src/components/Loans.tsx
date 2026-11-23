@@ -1,6 +1,7 @@
 "use client";
 
 import { useId } from "react";
+import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
 import { Calculator, Car, FileText, Home, Sparkles, Wallet, type LucideIcon } from "lucide-react";
 import { useLang } from "@/lib/i18n";
@@ -25,6 +26,7 @@ export function Loans() {
   const reduce = useReduce();
   const id = useId();
   const bn = lang === "bn";
+  const brand = usePathname()?.startsWith("/new-design") ?? false;
 
   return (
     <section id="loans" aria-labelledby={`${id}-h`} className="on-dark relative isolate overflow-hidden bg-indigo-950 py-24 text-white md:py-32">
@@ -83,12 +85,21 @@ export function Loans() {
                     <h3 className="font-display text-[2.25rem] font-semibold leading-none tracking-[-0.035em]">{l.name[lang]}</h3>
                     <p className="mt-3 max-w-[23ch] text-lg opacity-85">{l.body[lang]}</p>
                     <div className="mt-7 flex flex-wrap gap-2">
-                      <Button href={links.loanApply} tone={look.apply} size="sm">
-                        {bn ? "আবেদন" : "Apply"}
-                      </Button>
-                      <Button href={l.faq} tone={look.faq} size="sm" icon={FileText}>
-                        FAQ
-                      </Button>
+                      {brand ? (
+                        /* /new-design: one button per tile, to the loan's details */
+                        <Button href={l.faq} tone={look.apply} size="sm">
+                          {bn ? "বিস্তারিত" : "Details"}
+                        </Button>
+                      ) : (
+                        <>
+                          <Button href={links.loanApply} tone={look.apply} size="sm">
+                            {bn ? "আবেদন" : "Apply"}
+                          </Button>
+                          <Button href={l.faq} tone={look.faq} size="sm" icon={FileText}>
+                            FAQ
+                          </Button>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
