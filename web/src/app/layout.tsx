@@ -1,19 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Anek_Bangla, Bricolage_Grotesque, Hanken_Grotesk } from "next/font/google";
+import { Anek_Bangla, Sora, Stack_Sans_Headline } from "next/font/google";
 import { LanguageProvider } from "@/lib/i18n";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Preloader } from "@/components/Preloader";
 import "./globals.css";
 
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
-  axes: ["opsz", "wdth"],
   display: "swap",
 });
 
-const hanken = Hanken_Grotesk({
-  variable: "--font-hanken",
+const stackSans = Stack_Sans_Headline({
+  variable: "--font-stack-sans",
   subsets: ["latin"],
   display: "swap",
 });
@@ -36,7 +35,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${bricolage.variable} ${hanken.variable} ${anek.variable}`}>
+    <html lang="en" className={`${sora.variable} ${stackSans.variable} ${anek.variable}`}>
       <body>
         <LanguageProvider>
           <Preloader />
