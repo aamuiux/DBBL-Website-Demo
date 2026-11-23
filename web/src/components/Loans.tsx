@@ -2,6 +2,7 @@
 
 import { useId } from "react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { ArrowUpRight, Calculator, Car, FileText, Home, Sparkles, Wallet, type LucideIcon } from "lucide-react";
 import { useLang } from "@/lib/i18n";
@@ -21,12 +22,20 @@ const loanLook: Record<
   car: { Art: CarIcon3D, icon: Car, chip: "bg-indigo-950 text-white", tone: "bg-sun text-indigo-950", pattern: "text-indigo-950/[0.035]", apply: "ink", faq: "ghost-light" },
 };
 
-/** /new-design: soft brand-tinted cards (blue, green, red) with their own illustration and a solid Details pill. */
+/** /new-design: soft brand-tinted cards (blue, green, red) with a real-life photo cut-out fading into the tint and a solid Details pill. */
 const softTile = {
-  personal: { bg: "bg-[linear-gradient(150deg,#e9eafa_0%,#c9cbf0_100%)]", pill: "bg-indigo-600", blob: "bg-indigo-400/30", Art: CoinsIcon3D },
-  home: { bg: "bg-[linear-gradient(150deg,#e6f6ec_0%,#b9e5cc_100%)]", pill: "bg-green-700", blob: "bg-green-500/25", Art: HouseIcon3D },
-  car: { bg: "bg-[linear-gradient(150deg,#fde9ea_0%,#f8bcc0_100%)]", pill: "bg-red-600", blob: "bg-red-600/20", Art: CarIcon3D },
+  personal: { bg: "bg-[linear-gradient(150deg,#e9eafa_0%,#c9cbf0_100%)]", pill: "bg-indigo-600", blob: "bg-indigo-400/30", photo: "/loans/personal-art.webp", w: 220, h: 428, size: "w-[34%] md:w-[42%]" },
+  home: { bg: "bg-[linear-gradient(150deg,#e6f6ec_0%,#b9e5cc_100%)]", pill: "bg-green-700", blob: "bg-green-500/25", photo: "/loans/home-art.webp", w: 300, h: 388, size: "w-[46%]" },
+  car: { bg: "bg-[linear-gradient(150deg,#fde9ea_0%,#f8bcc0_100%)]", pill: "bg-red-600", blob: "bg-red-600/20", photo: "/loans/car-art.webp", w: 360, h: 283, size: "w-[60%]" },
 } as const;
+
+/** Fades the photo crop's left and top edges into the card tint so it reads as cut out. */
+const fadeMask: React.CSSProperties = {
+  maskImage: "linear-gradient(to right, transparent 0%, #000 30%), linear-gradient(to bottom, transparent 0%, #000 24%)",
+  maskComposite: "intersect",
+  WebkitMaskImage: "linear-gradient(to right, transparent 0%, #000 30%), linear-gradient(to bottom, transparent 0%, #000 24%)",
+  WebkitMaskComposite: "source-in",
+};
 
 function LoansConcept() {
   const { lang } = useLang();
@@ -86,13 +95,21 @@ function LoansConcept() {
                   /* /new-design: soft brand-tinted card with its own illustration and a solid Details pill */
                   <div className={`loan-soft group relative isolate flex h-full min-h-80 flex-col justify-between overflow-hidden rounded-[2rem] p-7 text-indigo-950 ${softTile[l.key].bg}`}>
                     <span aria-hidden className={`absolute -right-16 top-1/3 -z-10 size-72 rounded-full blur-2xl ${softTile[l.key].blob}`} />
-                    <Art className="pointer-events-none absolute -bottom-6 -right-4 size-52 drop-shadow-[0_18px_22px_rgba(13,13,16,0.22)] transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-rotate-3 group-hover:scale-105" />
+                    <Image
+                      src={softTile[l.key].photo}
+                      alt=""
+                      width={softTile[l.key].w}
+                      height={softTile[l.key].h}
+                      sizes="220px"
+                      style={fadeMask}
+                      className={`pointer-events-none absolute bottom-0 right-0 h-auto select-none transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.03] ${softTile[l.key].size}`}
+                    />
                     <span className="relative grid size-14 place-items-center rounded-2xl bg-white shadow-sm">
                       {l.key === "personal" ? <Wallet className="size-6 text-indigo-600" aria-hidden /> : l.key === "home" ? <Home className="size-6 text-green-700" aria-hidden /> : <Car className="size-6 text-red-600" aria-hidden />}
                     </span>
                     <div className="relative mt-16">
                       <h3 className="font-display text-[2.25rem] font-semibold leading-none tracking-[-0.035em]">{l.name[lang]}</h3>
-                      <p className="mt-3 max-w-[22ch] text-lg text-ink-2">{l.body[lang]}</p>
+                      <p className="mt-3 max-w-[17ch] text-lg text-ink-2">{l.body[lang]}</p>
                       <a
                         href={l.faq}
                         target="_blank"
