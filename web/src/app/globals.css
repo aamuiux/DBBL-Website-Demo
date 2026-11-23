@@ -444,8 +444,8 @@ a {
 }
 /* First hero slide (sky): the logo swooshes and wind lines sit much softer, at every screen size */
 :root:has(.brand2) .sky-swoosh-path {
-  fill-opacity: 0.07 !important;
+  fill-opacity: 0.13 !important;
 }
 :root:has(.brand2) .sky-wind-line {
-  stroke-opacity: 0.3 !important;
+  stroke-opacity: 0.5 !important;
 }

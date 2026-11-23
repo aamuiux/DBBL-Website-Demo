@@ -40,6 +40,7 @@ export function Proof() {
   const id = useId();
   const reduce = useReduce();
   const [big, ...rest] = d.proof.stats;
+  const brand = usePathname()?.startsWith("/new-design") ?? false;
 
   return (
     <section aria-labelledby={`${id}-h`} className="bg-white py-24 md:py-32">
@@ -80,13 +81,13 @@ export function Proof() {
             initial={reduce ? false : "hidden"}
             whileInView="show"
             viewport={{ once: true, amount: 0.3 }}
-            className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+            className={`mt-8 gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-4 ${brand ? "no-scrollbar -mx-5 flex snap-x snap-mandatory scroll-px-5 overflow-x-auto px-5 pb-2 sm:mx-0 sm:px-0 sm:pb-0" : "grid"}`}
           >
             {d.proof.firsts.map((f, i) => (
               <motion.li
                 key={f.title}
                 variants={rise}
-                className={`flex min-h-72 flex-col rounded-3xl p-6 ${["bg-indigo-600 text-white", "bg-green-600 text-white", "bg-rocket text-white", "bg-lime text-indigo-950"][i]}`}
+                className={`flex min-h-72 flex-col rounded-3xl p-6 ${brand ? "w-[17rem] shrink-0 snap-start sm:w-auto" : ""} ${["bg-indigo-600 text-white", "bg-green-600 text-white", "bg-rocket text-white", "bg-lime text-indigo-950"][i]}`}
               >
                 {/* The year (or "First") is part of the title, not a label above it */}
                 <p className="font-display text-[1.85rem] font-semibold leading-[1.02] tracking-[-0.03em]">

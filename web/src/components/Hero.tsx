@@ -78,6 +78,9 @@ export function Hero() {
   const start = useRef<number>(0);
   const elapsedBeforePause = useRef(0);
 
+  // Swipe sideways on touch screens to change slide
+  const touch = useRef<{ x: number; y: number } | null>(null);
+
   const go = useCallback((i: number) => {
     setIndex((i + slides.length) % slides.length);
     elapsedBeforePause.current = 0;
@@ -133,12 +136,23 @@ export function Hero() {
       id="top"
       aria-roledescription="carousel"
       aria-label="Highlights"
-      className={`relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-indigo-950 text-white ${light ? "" : "on-dark"}`}
+      className={`relative isolate flex min-h-[100svh] touch-pan-y flex-col overflow-hidden bg-indigo-950 text-white ${light ? "" : "on-dark"}`}
       onPointerMove={(e) => {
         if (reduce || e.pointerType !== "mouse") return;
         const r = e.currentTarget.getBoundingClientRect();
         mx.set((e.clientX - r.left) / r.width - 0.5);
         my.set((e.clientY - r.top) / r.height - 0.5);
+      }}
+      onTouchStart={(e) => {
+        touch.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }}
+      onTouchEnd={(e) => {
+        const t = touch.current;
+        touch.current = null;
+        if (!t) return;
+        const dx = e.changedTouches[0].clientX - t.x;
+        const dy = e.changedTouches[0].clientY - t.y;
+        if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4) go(index + (dx < 0 ? 1 : -1));
       }}
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
@@ -267,6 +281,20 @@ export function Hero() {
                 </>
               ) : (
                 <>
+                  {/* /new-design, phones: the product's own logo above the headline */}
+                  {brand && slide.tint === "rocket" && (
+                    <motion.div variants={lineVariants(reduce)} className="mb-5 lg:hidden">
+                      <Image src="/rocket-logo.png" alt="Rocket" width={96} height={96} className="size-20" />
+                    </motion.div>
+                  )}
+                  {brand && slide.tint === "nexus" && (
+                    <motion.div variants={lineVariants(reduce)} className="mb-5 lg:hidden">
+                      <span className="inline-block rounded-2xl bg-white p-2.5 shadow-[0_18px_36px_-18px_rgb(0_0_0/0.55)]">
+                        {/* eslint-disable-next-line @next/next/no-img-element -- supplied static SVG */}
+                        <img src="/nexuspay-logo.svg" alt="NexusPay" width={164} height={180} className="h-20 w-auto" />
+                      </span>
+                    </motion.div>
+                  )}
                   <h1 className={`font-display text-balance text-[clamp(2.9rem,7.2vw,6rem)] font-semibold leading-[0.98] tracking-[-0.035em] ${light ? "text-indigo-950" : ""}`}>
                     <motion.span variants={lineVariants(reduce)} className="block">
                       {copy.title}
