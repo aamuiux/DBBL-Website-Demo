@@ -148,7 +148,7 @@ export function AppStory() {
               <span className="flex items-start gap-3.5">
                 <span
                   className={`tabular mt-0.5 grid size-7 shrink-0 place-items-center rounded-full text-xs font-bold transition-colors duration-500 ${
-                    active ? "bg-lime text-indigo-950" : "bg-white/12 text-white"
+                    active ? "step-num-active bg-lime text-indigo-950" : "bg-white/12 text-white"
                   }`}
                 >
                   {i + 1}

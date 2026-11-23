@@ -396,3 +396,12 @@ a {
 :root:has(.brand2) .offer-card:hover {
   box-shadow: none;
 }
+/* NexusPay steps: the active number is green with a white numeral */
+:root:has(.brand2) .step-num-active {
+  background: var(--color-green-600);
+  color: #fff;
+}
+/* Light Loans section: keep the 3D icons in their own colours */
+:root:has(.brand2) .loan-soft .icon3d {
+  filter: none;
+}
