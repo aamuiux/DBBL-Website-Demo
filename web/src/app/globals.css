@@ -380,13 +380,12 @@ a {
 :root:has(.brand2) .loan-glass .btn-ink {
   background: #fff;
 }
-/* Offers ribbon under the hero: the original silver, tilted band, just taller */
-:root:has(.brand2) .ticker {
-  padding-block: 2.1rem;
-}
 /* Cards section: the chosen family is a blue tab with white text */
 :root:has(.brand2) .card-tab:not(.card-tab-active) {
-  background: #fff;
+  background: rgb(255 255 255 / 0.4);
+}
+:root:has(.brand2) .card-tab:not(.card-tab-active):hover {
+  background: rgb(255 255 255 / 0.65);
 }
 :root:has(.brand2) .card-tab-active {
   background: var(--color-indigo-600);
