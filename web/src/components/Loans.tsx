@@ -3,7 +3,7 @@
 import { useId } from "react";
 import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
-import { ArrowUpRight, Calculator, Car, FileText, Home, Sparkles, Wallet, type LucideIcon } from "lucide-react";
+import { Calculator, Car, FileText, Home, Sparkles, Wallet, type LucideIcon } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
 import { retailLoans, smeLoans } from "@/lib/content";
@@ -148,126 +148,6 @@ function LoansConcept() {
   );
 }
 
-/** /new-design: three big rows on a light field instead of three boxes on navy. Each row floods with its brand colour on hover. */
-const rowTone = {
-  personal: { hover: "hover:bg-indigo-600", chip: "bg-indigo-600", Art: CoinsIcon3D },
-  home: { hover: "hover:bg-green-600", chip: "bg-green-600", Art: HouseIcon3D },
-  car: { hover: "hover:bg-red-600", chip: "bg-red-600", Art: CarIcon3D },
-} as const;
-
-function LoansBrand() {
-  const { lang } = useLang();
-  const reduce = useReduce();
-  const id = useId();
-  const bn = lang === "bn";
-
-  return (
-    <section id="loans" aria-labelledby={`${id}-h`} className="relative isolate overflow-hidden bg-white py-24 text-ink md:py-32">
-      <div className="mx-auto max-w-[1360px] px-5 sm:px-6 xl:px-10">
-        <div className="grid gap-14 lg:grid-cols-[0.8fr_1.4fr] lg:gap-20">
-          {/* Left: the pitch stays in view while the rows scroll past */}
-          <div className="lg:sticky lg:top-32 lg:self-start">
-            <Reveal>
-              <p className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-indigo-600">{bn ? "ঋণ" : "Loans"}</p>
-              <h2 id={`${id}-h`} className="font-display mt-4 text-balance text-[clamp(2.6rem,5vw,4.5rem)] font-semibold leading-[0.98] tracking-[-0.04em] text-indigo-950">
-                {bn ? (
-                  <>
-                    ঋণ, <span className="text-red-600">কোনো গোলকধাঁধা ছাড়াই।</span>
-                  </>
-                ) : (
-                  <>
-                    Loans, <span className="text-red-600">minus the maze.</span>
-                  </>
-                )}
-              </h2>
-              <p className="mt-6 max-w-[38ch] text-lg text-ink-2">
-                {bn ? "অনলাইনে আবেদন করুন, আগে কিস্তি হিসাব করে নিন।" : "Apply online, and work out your monthly instalment before you do."}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button href={links.loanApply} tone="primary" size="lg">
-                  {bn ? "অনলাইনে আবেদন" : "Apply online"}
-                </Button>
-                <Button href={links.emiCalc} tone="ghost-light" size="lg" icon={Calculator}>
-                  {bn ? "ইএমআই ক্যালকুলেটর" : "EMI calculator"}
-                </Button>
-              </div>
-            </Reveal>
-          </div>
-
-          {/* Right: one big row per loan */}
-          <ul className="border-t border-line">
-            {retailLoans.map((l, i) => {
-              const t = rowTone[l.key];
-              const Art = t.Art;
-              return (
-                <motion.li
-                  key={l.key}
-                  initial={reduce ? false : { opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ type: "spring", stiffness: 140, damping: 20, delay: i * 0.05 }}
-                  className="border-b border-line"
-                >
-                  <a
-                    href={l.faq}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`group relative isolate flex items-center gap-6 overflow-hidden px-3 py-9 transition-colors duration-500 sm:gap-10 sm:px-6 sm:py-11 ${t.hover} hover:text-white focus-visible:text-white`}
-                  >
-                    <span className="font-display tabular w-10 shrink-0 text-lg font-semibold text-ink-3 transition-colors group-hover:text-white/70">0{i + 1}</span>
-                    <span className="min-w-0 flex-1">
-                      <span className="font-display block text-[clamp(2rem,4.2vw,3.5rem)] font-semibold leading-none tracking-[-0.035em]">{l.name[lang]}</span>
-                      <span className="mt-3 block max-w-[34ch] text-lg text-ink-2 transition-colors group-hover:text-white/90">{l.body[lang]}</span>
-                    </span>
-                    <Art className="pointer-events-none size-24 shrink-0 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-rotate-6 group-hover:scale-110 sm:size-32" />
-                    <span className="flex shrink-0 items-center gap-3 font-semibold">
-                      <span className="hidden sm:inline">{bn ? "বিস্তারিত" : "Details"}</span>
-                      <span className={`grid size-12 place-items-center rounded-full text-white transition-[background-color,color,transform] duration-500 group-hover:rotate-45 group-hover:bg-white group-hover:text-indigo-950 ${t.chip}`}>
-                        <ArrowUpRight className="size-5" aria-hidden />
-                      </span>
-                    </span>
-                  </a>
-                </motion.li>
-              );
-            })}
-          </ul>
-        </div>
-
-        {/* SME loans: a navy band under the rows */}
-        <div className="on-dark mt-16 flex flex-col gap-6 rounded-[1.75rem] bg-indigo-950 p-7 text-white sm:p-9 lg:flex-row lg:items-center lg:gap-10">
-          <div className="lg:w-80 lg:shrink-0">
-            <p className="flex items-center gap-2 font-display text-2xl font-semibold tracking-[-0.02em]">
-              <Sparkles className="size-5 text-lime" aria-hidden /> {bn ? "ব্যবসার জন্য সাতটি ঋণ" : "Seven loans for your business"}
-            </p>
-            <p className="mt-2 text-indigo-200">{bn ? "দুটি তৈরি নারীদের জন্য।" : "Two of them made for women."}</p>
-          </div>
-          <ul className="flex flex-wrap gap-2.5">
-            {smeLoans.map((l) => {
-              const women = l.name === "Uthsaho" || l.name === "Shofolota";
-              return (
-                <li key={l.name}>
-                  <a
-                    href={l.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`inline-flex min-h-12 items-center gap-2 rounded-full px-4 transition-transform duration-300 hover:-translate-y-0.5 ${
-                      women ? "brand-red bg-rocket text-white" : "bg-white text-indigo-950"
-                    }`}
-                  >
-                    <span className="font-display font-semibold">{l.name}</span>
-                    <span className="text-sm opacity-70">{l.note[lang]}</span>
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export function Loans() {
-  const brand = usePathname()?.startsWith("/new-design") ?? false;
-  return brand ? <LoansBrand /> : <LoansConcept />;
+  return <LoansConcept />;
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowRight, Newspaper, Play, X } from "lucide-react";
@@ -16,6 +17,7 @@ export function Media() {
   const reduce = useReduce();
   const id = useId();
   const bn = lang === "bn";
+  const brand = usePathname()?.startsWith("/new-design") ?? false;
   const dialogRef = useRef<HTMLDialogElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [current, setCurrent] = useState<(typeof tvAds)[number] | null>(null);
@@ -137,6 +139,35 @@ export function Media() {
 
         {/* The one landscape board gets its own row, paired with what it advertises */}
         <div className="mt-4 grid gap-4 lg:grid-cols-[1.7fr_1fr]">
+          {brand ? (
+            /* /new-design: a Rocket billboard built from Rocket's own logo and app screen, in place of the photographed board */
+            <a
+              href="#rocket"
+              className="group relative isolate flex min-h-[19rem] overflow-hidden rounded-2xl bg-rocket text-white"
+              aria-label={bn ? "রকেট: যেকোনো ফোনে ব্যাংকিং" : "Rocket: banking on any phone"}
+            >
+              <span aria-hidden className="absolute -left-24 -top-24 size-[26rem] rounded-full bg-white/10" />
+              <span aria-hidden className="absolute -bottom-40 left-1/3 size-[30rem] rounded-full bg-black/15" />
+              <span aria-hidden className="absolute right-[18%] top-1/2 size-[24rem] -translate-y-1/2 rounded-full bg-white/12" />
+              <div className="relative z-10 flex max-w-[26rem] flex-col justify-center gap-5 p-8 sm:p-10">
+                <Image src="/rocket-logo.png" alt="" width={64} height={64} className="size-16" />
+                <p className="font-display text-[clamp(2rem,3.6vw,3.25rem)] font-bold leading-[1] tracking-[-0.035em]">
+                  {bn ? "যেকোনো ফোনে ব্যাংকিং।" : "Banking on any phone."}
+                </p>
+                <p className="max-w-[30ch] text-lg text-white/85">
+                  {bn ? "অ্যাপ লাগবে না, স্মার্টফোনও না।" : "No app, no smartphone needed."}
+                </p>
+              </div>
+              <Image
+                src="/rocket-app.webp"
+                alt=""
+                width={369}
+                height={800}
+                sizes="260px"
+                className="absolute -bottom-16 right-[6%] z-10 w-[min(16rem,34%)] rotate-[7deg] rounded-[1.75rem] shadow-[0_30px_60px_-20px_rgb(0_0_0/0.55)] transition-transform duration-700 group-hover:-translate-y-2 group-hover:rotate-[4deg]"
+              />
+            </a>
+          ) : (
           <a href={links.allBillboards} target="_blank" rel="noopener noreferrer" className="block overflow-hidden rounded-2xl bg-white/5">
             <Image
               src={billboards[5]}
@@ -148,6 +179,7 @@ export function Media() {
               className="h-auto w-full transition-transform duration-700 hover:scale-[1.02]"
             />
           </a>
+          )}
           <a href="#rocket" className="group flex flex-col justify-between rounded-2xl bg-rocket p-7 text-white">
             <p className="font-display text-[clamp(2.5rem,5vw,4rem)] font-bold leading-none tracking-[-0.04em] text-sun">*322#</p>
             <ol className="mt-6 space-y-3">

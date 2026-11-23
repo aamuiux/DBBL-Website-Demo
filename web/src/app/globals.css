@@ -380,22 +380,14 @@ a {
 :root:has(.brand2) .loan-glass .btn-ink {
   background: #fff;
 }
-/* Offers ribbon under the hero: a straight, solid blue band with white text and red dots, taller than before */
+/* Offers ribbon under the hero: the original silver, tilted band, just taller */
 :root:has(.brand2) .ticker {
-  rotate: 0deg;
-  background: var(--color-indigo-600);
-  color: #fff;
   padding-block: 2.1rem;
-  box-shadow: none;
-}
-:root:has(.brand2) .ticker-item {
-  color: #fff;
-}
-:root:has(.brand2) .ticker-item > span {
-  background: var(--color-red-600);
-  box-shadow: 0 0 0 3px rgb(255 255 255 / 0.9);
 }
 /* Cards section: the chosen family is a blue tab with white text */
+:root:has(.brand2) .card-tab:not(.card-tab-active) {
+  background: #fff;
+}
 :root:has(.brand2) .card-tab-active {
   background: var(--color-indigo-600);
   --tw-ring-color: var(--color-indigo-600);
@@ -410,5 +402,5 @@ a {
 /* Fast Track "24/7" card: light green */
 :root:has(.brand2) .fast-247 {
   background: var(--color-green-100);
-  color: var(--color-indigo-950);
+  color: var(--color-green-700);
 }
