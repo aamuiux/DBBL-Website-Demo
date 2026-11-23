@@ -3,8 +3,7 @@
 import Image from "next/image";
 import { useId, useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
-import { usePathname } from "next/navigation";
-import { ArrowRight, Banknote, Check, Clock3, MapPin, Zap } from "lucide-react";
+import { Check, Clock3, MapPin } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
 import { fastTrack } from "@/lib/content";
@@ -17,7 +16,6 @@ export function FastTrack() {
   const reduce = useReduce();
   const id = useId();
   const bn = lang === "bn";
-  const brand = usePathname()?.startsWith("/new-design") ?? false;
   // The photo eases from a slight zoom to rest while it crosses the viewport.
   const photoRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: photoRef, offset: ["start end", "end start"] });
@@ -85,10 +83,10 @@ export function FastTrack() {
             </motion.p>
             <motion.div
               initial={reduce ? false : { opacity: 0, y: 30, rotate: -6 }}
-              whileInView={{ opacity: 1, y: 0, rotate: brand ? 0 : -3 }}
+              whileInView={{ opacity: 1, y: 0, rotate: -3 }}
               viewport={{ once: true, amount: 0.5 }}
               transition={{ type: "spring", stiffness: 180, damping: 16, delay: 0.2 }}
-              className="absolute bottom-5 left-5 rounded-2xl bg-sun p-5 text-indigo-950 shadow-[var(--shadow-lift)] sm:bottom-7 sm:left-7 hours-card"
+              className="absolute bottom-5 left-5 rounded-2xl bg-sun p-5 text-indigo-950 shadow-[var(--shadow-lift)] sm:bottom-7 sm:left-7"
             >
               <p className="flex items-center gap-2 text-sm font-bold">
                 <Clock3 className="size-4" aria-hidden /> {bn ? "নগদ ও চেক জমা" : "Cash & cheque deposits"}
@@ -106,38 +104,6 @@ export function FastTrack() {
           </Reveal>
 
           {/* The numbers, big */}
-          {brand ? (
-            /* /new-design: icon, number and caption side by side, with an arrow through to the locator */
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-              <Reveal className="relative flex items-center gap-5 overflow-hidden rounded-[1.75rem] bg-[linear-gradient(135deg,#00984b_0%,#1fbf72_100%)] p-7 text-white">
-                <span className="grid size-20 shrink-0 place-items-center rounded-full bg-white/22 ring-1 ring-inset ring-white/35">
-                  <Banknote className="size-9" aria-hidden />
-                </span>
-                <div>
-                  <p className="font-display tabular text-[clamp(2.75rem,5vw,4rem)] font-bold leading-[0.9] tracking-[-0.045em]">{num(4100)}+</p>
-                  <p className="mt-2 max-w-[24ch] text-base font-medium text-white/90">{bn ? "এটিএম সারা দেশে, দেশের সবচেয়ে বড় নেটওয়ার্ক" : "ATMs nationwide, the country's largest network"}</p>
-                </div>
-                <a href={links.atmLocator} target="_blank" rel="noopener noreferrer" className="absolute right-5 top-5 grid size-10 place-items-center rounded-full bg-white/22 ring-1 ring-inset ring-white/35 transition-colors hover:bg-white hover:text-green-700">
-                  <ArrowRight className="size-5" aria-hidden />
-                  <span className="sr-only">{bn ? "এটিএম খুঁজুন" : "Find an ATM"} (opens in a new tab)</span>
-                </a>
-              </Reveal>
-              <Reveal delay={0.08} className="relative flex items-center gap-5 overflow-hidden rounded-[1.75rem] bg-[linear-gradient(135deg,#161960_0%,#2d3192_100%)] p-7 text-white">
-                <span className="grid size-20 shrink-0 place-items-center rounded-full bg-white/16 ring-1 ring-inset ring-white/30">
-                  <Zap className="size-9" aria-hidden />
-                </span>
-                <div>
-                  <p className="font-display tabular text-[clamp(2.75rem,5vw,4rem)] font-bold leading-[0.9] tracking-[-0.045em]">{num(fastTrack.count)}</p>
-                  <p className="mt-2 text-base font-semibold">{bn ? "ফাস্ট ট্র্যাক" : "Fast Tracks"}</p>
-                  <p className="text-sm text-indigo-100">{fastTrack.launched[lang]}</p>
-                </div>
-                <a href={links.fastTrackLocator} target="_blank" rel="noopener noreferrer" className="absolute right-5 top-5 grid size-10 place-items-center rounded-full bg-white/16 ring-1 ring-inset ring-white/30 transition-colors hover:bg-white hover:text-indigo-950">
-                  <ArrowRight className="size-5" aria-hidden />
-                  <span className="sr-only">{bn ? "ফাস্ট ট্র্যাক খুঁজুন" : "Find a Fast Track"} (opens in a new tab)</span>
-                </a>
-              </Reveal>
-            </div>
-          ) : (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
             <Reveal className="flex flex-col justify-between rounded-[1.75rem] bg-green-600 p-7 text-white">
               <p className="font-display tabular text-[clamp(3.5rem,7vw,5.5rem)] font-bold leading-[0.85] tracking-[-0.05em]">{num(4100)}+</p>
@@ -153,7 +119,6 @@ export function FastTrack() {
               </div>
             </Reveal>
           </div>
-          )}
         </div>
 
         <div className="mt-4 grid gap-4 lg:grid-cols-[1fr_1.05fr]">

@@ -405,7 +405,3 @@ a {
 :root:has(.brand2) .loan-soft .icon3d {
   filter: none;
 }
-/* Fast Track: the opening-hours card sits square, not tilted */
-:root:has(.brand2) .hours-card {
-  border-radius: 1.25rem;
-}
