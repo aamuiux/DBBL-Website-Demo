@@ -10,6 +10,7 @@ import { links } from "@/lib/links";
 import { dbblSwoosh } from "@/lib/dbbl-mark";
 import { Button, easeOut, useReduce } from "./ui";
 import { swooshTones } from "./BrandSwooshes";
+import { EcosystemChips, HeroEcosystem, useEcoDirection } from "./HeroEcosystem";
 
 // Unsplash photography (free licence), chosen as stand-ins for DBBL's own lifestyle shoots.
 // Every slide has a prominent colour field. Photo slides sit under an indigo wash; the Rocket slide is a magenta
@@ -65,7 +66,7 @@ const slides: Slide[] = [
 const DURATION = 7000;
 
 export function Hero() {
-  const { d } = useLang();
+  const { d, lang } = useLang();
   const reduce = useReduce();
   const [index, setIndex] = useState(0);
   // Autoplay by default; off for reduced motion until the visitor presses play.
@@ -121,6 +122,7 @@ export function Hero() {
   const ty = useTransform(sy, (v) => v * -10);
 
   const brand = usePathname()?.startsWith("/new-design") ?? false; // /new-design uses its own cloud photo
+  const ecoDirection = useEcoDirection(); // ?hero=orbit | bento | trail on /new-design
   // /new-design: the copy follows the pointer (a small step, so it stays readable) and the cloud photo moves further the other way
   const textX = useTransform(sx, (v) => (brand ? v * 34 : 0));
   const textY = useTransform(sy, (v) => (brand ? v * 20 : 0));
@@ -243,6 +245,7 @@ export function Hero() {
       <AnimatePresence>{slide.tint === "nexus" && <NexusPhone key="nexus-phone" reduce={!!reduce} />}</AnimatePresence>
       <AnimatePresence>{slide.art === "atm" && <AtmArt key="atm-art" reduce={!!reduce} />}</AnimatePresence>
       <AnimatePresence>{sky && <SkyArt key="sky-art" reduce={!!reduce} />}</AnimatePresence>
+      <AnimatePresence>{sky && brand && <HeroEcosystem key="eco" direction={ecoDirection} reduce={!!reduce} />}</AnimatePresence>
       <AnimatePresence>{!sky && <HeroSwooshes key={`swooshes-${slide.tint}`} tint={slide.tint} reduce={!!reduce} />}</AnimatePresence>
       <AnimatePresence>{slide.tint === "agent" && <AgentArt key="agent-art" reduce={!!reduce} />}</AnimatePresence>
 
@@ -278,6 +281,13 @@ export function Hero() {
                     <span className="text-[clamp(1.25rem,2vw,1.75rem)] font-semibold text-green-600">from</span>
                     <span className="text-[clamp(2rem,4.4vw,3.75rem)] font-bold text-indigo-600">Good to Great</span>
                   </motion.p>
+                  {brand && (
+                    <motion.p variants={lineVariants(reduce)} className="mt-5 max-w-[30rem] text-pretty text-lg text-indigo-950 sm:text-xl">
+                      {lang === "bn"
+                        ? "অ্যাকাউন্ট, কার্ড, ঋণ, নেক্সাসপে, রকেট, এটিএম আর এজেন্ট ব্যাংকিং: এক ব্যাংকে সব সেবা।"
+                        : "Accounts, cards, loans, NexusPay, Rocket, ATMs and agents: one bank, every way to bank."}
+                    </motion.p>
+                  )}
                 </>
               ) : (
                 <>
@@ -316,6 +326,7 @@ export function Hero() {
                   {copy.cta2}
                 </Button>
               </motion.div>
+              {brand && sky && <EcosystemChips />}
             </motion.div>
           </AnimatePresence>
         </motion.div>

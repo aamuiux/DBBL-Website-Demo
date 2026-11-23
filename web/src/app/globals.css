@@ -69,6 +69,7 @@
    Concept colours outside the guideline map to the nearest guideline role: lime (light accent) to light
    silver, sun (stickers) to white. Rocket keeps its own magenta. */
 :root:has(.brand2) {
+  --font-bangla: var(--font-noto-serif-bengali), ui-serif, Georgia, serif;
   --font-display: var(--font-sora), var(--font-anek), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-stack-sans), var(--font-anek), ui-sans-serif, system-ui, sans-serif;
   --color-indigo-950: #0f1145;
@@ -459,4 +460,39 @@ a {
 :root:has(.brand2) .dock-call {
   background: var(--color-indigo-950);
   color: #fff;
+}
+
+/* Hero ecosystem showcase (/new-design, first slide): orbiting products */
+@keyframes eco-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes eco-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+.eco-spin {
+  animation: eco-spin var(--eco-d, 60s) linear infinite;
+}
+.eco-spin-reverse {
+  animation-direction: reverse;
+}
+.eco-pulse {
+  animation: eco-pulse 2.6s ease-out infinite;
+}
+.eco-orbit:hover .eco-spin {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .eco-spin,
+  .eco-pulse {
+    animation: none;
+  }
 }
