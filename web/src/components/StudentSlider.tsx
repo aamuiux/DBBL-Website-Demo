@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { animate, motion, useMotionValue, useScroll, useTransform, type AnimationPlaybackControls, type MotionValue } from "motion/react";
 import { useLang } from "@/lib/i18n";
@@ -11,7 +12,7 @@ import { useReduce } from "./ui";
  * (debit card, Rocket, NexusPay's 10-minute card numbers, QR payments and free send money). The photos are
  * client-supplied images in /public/students.
  */
-const slides = [
+const baseSlides = [
   { src: "/students/campus.webp", focus: "50% 42%", when: { en: "9:30 am", bn: "সকাল ৯:৩০" }, t: { en: "Your own debit card, on campus", bn: "ক্যাম্পাসে নিজের ডেবিট কার্ড" } },
   { src: "/students/fees-full.webp", fit: "whole", focus: "50% 50%", when: { en: "11:00 am", bn: "সকাল ১১:০০" }, t: { en: "Education fees, paid from your phone", bn: "ফোন থেকে শিক্ষা ফি পরিশোধ" } },
   { src: "/students/canteen.webp", focus: "50% 50%", when: { en: "1:00 pm", bn: "দুপুর ১:০০" }, t: { en: "Lunch, paid by Rocket", bn: "রকেটে লাঞ্চের বিল" } },
@@ -19,6 +20,17 @@ const slides = [
   { src: "/students/shop.webp", focus: "46% 52%", when: { en: "5:00 pm", bn: "বিকেল ৫:০০" }, t: { en: "A quick shop run, paid by QR with NexusPay", bn: "নেক্সাসপে-তে কিউআর দিয়ে দোকানে পেমেন্ট" } },
   { src: "/students/friends.webp", focus: "50% 60%", when: { en: "7:00 pm", bn: "সন্ধ্যা ৭:০০" }, t: { en: "Send money free with NexusPay", bn: "নেক্সাসপে-তে ফ্রি টাকা পাঠানো" } },
 ];
+
+/** /new-design uses a newer set: three of the moments swap to the new photos (fees, metro, pocket money). */
+const brandSlides = baseSlides.map((s, i) =>
+  i === 1
+    ? { src: "/students/fees.webp", fit: "whole", focus: "50% 50%", when: s.when, t: s.t }
+    : i === 2
+      ? { src: "/students/metro.webp", fit: "whole", focus: "50% 50%", when: s.when, t: { en: "Metro fare, tapped with your debit card", bn: "ডেবিট কার্ড ট্যাপ করে মেট্রোর ভাড়া" } }
+      : i === 3
+        ? { src: "/students/wallet.webp", fit: "whole", focus: "50% 50%", when: s.when, t: { en: "Pocket money from home, straight to your wallet", bn: "বাসা থেকে হাতখরচ, সরাসরি ওয়ালেটে" } }
+        : s,
+);
 
 const GAP = 16;
 const DRIFT = 0.32; // how far an image slides inside its frame, as a share of the frame width
@@ -35,6 +47,8 @@ const wrap = (min: number, max: number, v: number) => {
 export function StudentSlider({ sectionRef }: { sectionRef: RefObject<HTMLElement | null> }) {
   const { lang } = useLang();
   const reduce = useReduce();
+  const brand = usePathname()?.startsWith("/new-design") ?? false;
+  const slides = brand ? brandSlides : baseSlides;
   const boxRef = useRef<HTMLDivElement>(null);
   const [cw, setCw] = useState(600);
   const [moving, setMoving] = useState(false);
