@@ -72,7 +72,7 @@ export function OffersTicker() {
             {brand ? (
               /* /new-design: a dot, the partner's logo (or its name), then the offer */
               <>
-                <span className="size-2 rounded-full bg-indigo-950" aria-hidden />
+                <span className="size-1.5 rounded-full bg-indigo-950/35" aria-hidden />
                 <PartnerMark partner={t.partner} />
                 <span aria-hidden>{t.title}</span>
               </>
