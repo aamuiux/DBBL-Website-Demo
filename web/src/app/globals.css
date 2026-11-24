@@ -509,3 +509,16 @@ a {
   background: #fff;
   color: #ed1b24;
 }
+/* NexusPay steps on red: inactive items stay clearly readable (the base dim is tuned for the blue panel) */
+.nexus-red ol button {
+  opacity: 0.95;
+}
+.nexus-red ol button:hover {
+  opacity: 1;
+}
+.nexus-red ol button span.text-indigo-200 {
+  color: #fff;
+}
+.nexus-red ol button[aria-current="step"] span.text-indigo-200 {
+  color: #fff;
+}
