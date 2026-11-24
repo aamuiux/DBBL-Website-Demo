@@ -30,9 +30,17 @@ export function Segments() {
 
         {/* VIP */}
         <Reveal delay={0.06} className="md:col-span-3 lg:col-span-5">
-          <Tile href={links.vip} label={it.vip.name} className="bg-indigo-950 text-white">
-            <Pattern variant="waves" className="text-lime/[0.10]" />
-            <Crown className="relative size-8 text-lime transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-rotate-12" aria-hidden />
+          <Tile href={links.vip} label={it.vip.name} className={brand ? "bg-[#0b0a08] text-white" : "bg-indigo-950 text-white"}>
+            {brand && (
+              <>
+                {/* Black to elite gold: a dark base with a sweeping golden glow from the lower right, like the Nexus card */}
+                <span aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(135deg,#050505_0%,#14110b_45%,#5a4420_78%,#c9a24d_100%)]" />
+                <span aria-hidden className="absolute -bottom-24 -right-20 -z-10 size-80 rounded-full bg-[radial-gradient(circle,rgb(240_208_130/0.45),transparent_65%)] transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-110" />
+                <span aria-hidden className="absolute inset-x-0 top-0 -z-10 h-px bg-[linear-gradient(90deg,transparent,#e8c875,transparent)]" />
+              </>
+            )}
+            <Pattern variant="waves" className={brand ? "text-[#e8c875]/[0.12]" : "text-lime/[0.10]"} />
+            <Crown className={`relative size-8 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-rotate-12 ${brand ? "text-[#e8c875]" : "text-lime"}`} aria-hidden />
             <TileCopy name={it.vip.name} body={it.vip.body} cta={d.segments.cta} />
           </Tile>
         </Reveal>
