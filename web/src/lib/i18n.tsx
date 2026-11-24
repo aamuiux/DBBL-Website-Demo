@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useSyncExternalStore } from "react";
+import { usePathname } from "next/navigation";
 
 export type Lang = "en" | "bn";
 
@@ -443,17 +444,17 @@ type Ctx = {
 
 const LangContext = createContext<Ctx | null>(null);
 
-// The chosen language lives in localStorage (a per-visitor convenience); the server always renders English.
+// The chosen language lives in localStorage (a per-visitor convenience). With no choice yet, /new-design opens in Bangla and / in English.
 const KEY = "dbbl-lang";
 const EVT = "dbbl-lang-change";
-let memoryLang: Lang = "en"; // fallback when storage is blocked
+let memoryLang: Lang | null = null; // fallback when storage is blocked
 
-function readLang(): Lang {
+function readLang(fallback: Lang): Lang {
   try {
     const v = localStorage.getItem(KEY);
     if (v === "bn" || v === "en") return v;
   } catch {}
-  return memoryLang;
+  return memoryLang ?? fallback;
 }
 function subscribe(cb: () => void) {
   window.addEventListener(EVT, cb);
@@ -465,20 +466,21 @@ function subscribe(cb: () => void) {
 }
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const lang = useSyncExternalStore(subscribe, readLang, () => "en" as Lang);
+  const fallback: Lang = usePathname()?.startsWith("/new-design") ? "bn" : "en";
+  const lang = useSyncExternalStore(subscribe, () => readLang(fallback), () => fallback);
 
   useEffect(() => {
     document.documentElement.lang = lang;
   }, [lang]);
 
   const toggle = useCallback(() => {
-    const next: Lang = readLang() === "en" ? "bn" : "en";
+    const next: Lang = readLang(fallback) === "en" ? "bn" : "en";
     memoryLang = next;
     try {
       localStorage.setItem(KEY, next);
     } catch {}
     window.dispatchEvent(new Event(EVT));
-  }, []);
+  }, [fallback]);
 
   const num = useCallback(
     (n: number) => {
