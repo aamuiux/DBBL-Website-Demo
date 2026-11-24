@@ -37,8 +37,6 @@ export const links = {
   retailLoan: `${B}/personal-banking/retail-loan.html`,
   futureLine: `${B}/personal-banking/future-line.html`,
   vip: `${B}/vip-banking/vip-banking.html`,
-  /* Unverified: the Islamic Banking page URL still needs confirming with DBBL */
-  islamic: `${B}/islamic-banking/islamic-banking.html`,
   gsiw: `${B}/gsiw/gsiw.html`,
 
   debitCards: `${B}/electronic-banking/debit-cards.html`,

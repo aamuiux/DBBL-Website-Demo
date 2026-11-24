@@ -1,7 +1,7 @@
 "use client";
 
 import { useId } from "react";
-import { ArrowUpRight, Crown, Flower2, MoonStar } from "lucide-react";
+import { ArrowUpRight, Clock3, Crown, Flower2, MoonStar } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
 import { Reveal, SectionHeading } from "./ui";
@@ -36,15 +36,16 @@ const areas = [
   },
   {
     key: "islamic",
-    href: links.islamic,
+    href: "",
+    soon: true,
     icon: MoonStar,
     bg: "linear-gradient(135deg,#03231a 0%,#06503a 55%,#0b8a5c 100%)",
     accent: "#e8c875",
     name: s("Islamic Banking", "ইসলামিক ব্যাংকিং"),
-    tag: s("Shariah-compliant", "শরিয়াহ-সম্মত"),
+    tag: s("Coming soon", "খুব শীঘ্রই আসছে"),
     body: s("Banking that follows Shariah principles, for deposits, financing and everyday needs.", "শরিয়াহ নীতি অনুসরণ করা ব্যাংকিং: আমানত, বিনিয়োগ ও দৈনন্দিন প্রয়োজনে।"),
     points: [s("Shariah-compliant deposits", "শরিয়াহ-সম্মত আমানত"), s("Islamic financing", "ইসলামিক বিনিয়োগ"), s("Guided by Shariah principles", "শরিয়াহ নীতিতে পরিচালিত")],
-    cta: s("Explore Islamic Banking", "ইসলামিক ব্যাংকিং দেখুন"),
+    cta: s("Launching soon", "শীঘ্রই আসছে"),
   },
 ];
 
@@ -64,15 +65,13 @@ export function FocusAreas() {
       <div className="mt-12 grid gap-4 md:grid-cols-2">
         {areas.map((a, i) => {
           const big = i === 0;
+          const Wrap = (a.soon ? "div" : "a") as "a";
           return (
             <Reveal key={a.key} delay={i * 0.07} className={big ? "md:col-span-2" : ""}>
-              <a
-                href={a.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${a.name[lang]} (${bn ? "নতুন ট্যাবে খুলবে" : "opens in a new tab"})`}
+              <Wrap
+                {...(a.soon ? {} : { href: a.href, target: "_blank", rel: "noopener noreferrer", "aria-label": `${a.name[lang]} (${bn ? "নতুন ট্যাবে খুলবে" : "opens in a new tab"})` })}
                 style={{ background: a.bg }}
-                className={`group relative isolate flex h-full flex-col overflow-hidden rounded-[1.75rem] p-7 text-white transition-shadow duration-500 hover:shadow-[var(--shadow-lift)] sm:p-8 ${big ? "min-h-[26rem] lg:p-12" : "min-h-[22rem]"}`}
+                className={`group relative isolate flex h-full flex-col overflow-hidden rounded-[1.75rem] p-7 text-white transition-shadow duration-500 sm:p-8 ${a.soon ? "" : "hover:shadow-[var(--shadow-lift)]"} ${big ? "min-h-[26rem] lg:p-12" : "min-h-[22rem]"}`}
               >
                 <span aria-hidden className="absolute -right-16 -top-16 -z-10 size-64 rounded-full opacity-40 blur-2xl transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-125" style={{ background: a.accent }} />
                 <div className={`flex items-start gap-4 ${big ? "" : "justify-between"}`}>
@@ -101,10 +100,10 @@ export function FocusAreas() {
                   </ul>
                   <span className="mt-6 inline-flex items-center gap-2 font-semibold">
                     {a.cta[lang]}
-                    <ArrowUpRight className="size-4 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
+                    {a.soon ? <Clock3 className="size-4" aria-hidden /> : <ArrowUpRight className="size-4 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />}
                   </span>
                 </div>
-              </a>
+              </Wrap>
             </Reveal>
           );
         })}
