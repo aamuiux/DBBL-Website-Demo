@@ -168,13 +168,13 @@ export function AppStory() {
   /* ───────────── Pinned, choreographed layout (desktop, fine pointer) ───────────── */
   if (pinned) {
     return (
-      <section id="app" ref={sectionRef} aria-labelledby={`${id}-h`} className="on-dark relative h-[100svh] overflow-hidden bg-paper">
+      <section id="app" ref={sectionRef} aria-labelledby={`${id}-h`} className={`on-dark relative h-[100svh] overflow-hidden bg-paper ${brand ? "nexus-red" : ""}`}>
         {/* The card: clip-path grows it from an inset rounded panel to full bleed */}
         <div data-card className="absolute inset-0 overflow-hidden bg-indigo-700 will-change-[clip-path]">
           <div
             data-glow
             aria-hidden
-            className="absolute left-1/2 top-[38%] size-[64rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgb(58_64_168/0.9),rgb(30_35_120/0)_62%)] opacity-70"
+            className={`absolute left-1/2 top-[38%] size-[64rem] -translate-x-1/2 -translate-y-1/2 rounded-full ${brand ? "bg-[radial-gradient(circle,rgb(255_96_104/0.85),rgb(237_27_36/0)_62%)]" : "bg-[radial-gradient(circle,rgb(58_64_168/0.9),rgb(30_35_120/0)_62%)]"} opacity-70`}
           />
           <NetworkCorners />
         </div>
@@ -202,7 +202,7 @@ export function AppStory() {
             <div data-phone className="will-change-transform">
               {/* phone is decorative to the pointer; its content is mirrored by the step list */}
               <div className="origin-center scale-[1.12] [@media(max-height:760px)]:scale-100">
-                <Phone step={step} />
+                {brand ? <NexusShot step={step} /> : <Phone step={step} />}
               </div>
             </div>
           </div>
@@ -239,8 +239,8 @@ export function AppStory() {
 
   /* ───────────── Static end state (touch, narrow, reduced motion, first paint) ───────────── */
   return (
-    <section id="app" ref={sectionRef} aria-labelledby={`${id}-h`} className="on-dark relative overflow-hidden bg-indigo-700 text-white">
-      <div aria-hidden className="absolute left-1/2 top-0 size-[48rem] -translate-x-1/2 -translate-y-1/3 rounded-full bg-[radial-gradient(circle,rgb(58_64_168/0.9),rgb(30_35_120/0)_62%)]" />
+    <section id="app" ref={sectionRef} aria-labelledby={`${id}-h`} className={`on-dark relative overflow-hidden bg-indigo-700 text-white ${brand ? "nexus-red" : ""}`}>
+      <div aria-hidden className={`absolute left-1/2 top-0 size-[48rem] -translate-x-1/2 -translate-y-1/3 rounded-full ${brand ? "bg-[radial-gradient(circle,rgb(255_96_104/0.85),rgb(237_27_36/0)_62%)]" : "bg-[radial-gradient(circle,rgb(58_64_168/0.9),rgb(30_35_120/0)_62%)]"}`} />
       <NetworkCorners />
       <div className="relative mx-auto max-w-[1360px] px-5 py-20 sm:px-6 md:py-28">
         <div className="flex flex-col items-center text-center">
@@ -278,7 +278,7 @@ export function AppStory() {
               })}
             </div>
             <div className="mt-8">
-              <Phone step={step} />
+              {brand ? <NexusShot step={step} /> : <Phone step={step} />}
               <p className="mt-4 text-center text-xs text-indigo-300">{d.app.illustrative}</p>
             </div>
             <div className="mt-6 rounded-2xl bg-white/10 p-5">
@@ -290,7 +290,7 @@ export function AppStory() {
 
         <div className={`mt-14 grid items-center gap-12 md:grid-cols-[auto_1fr] md:gap-16 ${brand ? "hidden md:grid" : ""}`}>
           <div className="mx-auto">
-            <Phone step={step} />
+            {brand ? <NexusShot step={step} /> : <Phone step={step} />}
             <p className="mt-4 text-center text-xs text-indigo-300">{d.app.illustrative}</p>
           </div>
           <div>
@@ -301,6 +301,33 @@ export function AppStory() {
         </div>
       </div>
     </section>
+  );
+}
+
+const shots = [
+  { src: "/nexuspay/fund-transfer.webp", alt: "NexusPay Fund Transfer screen: sending 2,500 taka to a mobile number with a 0.00 transfer fee" },
+  { src: "/nexuspay/scan-pay.webp", alt: "NexusPay Scan & Pay screen: a QR code in the frame, with a Payment Successful note for Karim Store" },
+  { src: "/nexuspay/cardless.webp", alt: "NexusPay Cardless Cash Out screen: a six-digit cash out code, and an ATM asking for it" },
+  { src: "/nexuspay/virtual-card.webp", alt: "NexusPay Virtual Card screen: a one-time card that expires in 10 minutes" },
+];
+
+/** /new-design: the supplied NexusPay screens (phone frame and floating cards included), cross-fading as the step changes. */
+function NexusShot({ step }: { step: number }) {
+  return (
+    <div className="relative mx-auto aspect-[7/8] h-[min(74svh,44rem)] max-h-none w-auto max-w-[100%] max-md:h-auto max-md:w-[min(30rem,100%)]">
+      {shots.map((sh, i) => (
+        // eslint-disable-next-line @next/next/no-img-element -- supplied artwork with transparency
+        <img
+          key={sh.src}
+          src={sh.src}
+          alt={i === step ? sh.alt : ""}
+          aria-hidden={i !== step}
+          width={1120}
+          height={1280}
+          className={`absolute inset-0 h-full w-full object-contain drop-shadow-[0_30px_40px_rgb(90_0_8/0.35)] transition-[opacity,transform] duration-500 ease-[var(--ease-out-expo)] ${i === step ? "translate-x-0 opacity-100" : "pointer-events-none translate-x-4 opacity-0"}`}
+        />
+      ))}
+    </div>
   );
 }
 
