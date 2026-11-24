@@ -163,9 +163,9 @@ export function FastTrack() {
 const s2 = (en: string, bn: string) => ({ en, bn });
 const reach: { to: number; suffix: string; text?: { en: string; bn: string }; en: string; bn: string; dot: string; r: number; n: number }[] = [
   { to: 243, suffix: "", en: "Branches", bn: "শাখা", dot: "#c8f169", r: 92, n: 24 },
-  { to: 350, suffix: "", en: "Sub-branches", bn: "উপ-শাখা", dot: "#00984b", r: 68, n: 14 },
-  { to: 5600, suffix: "", en: "Agent-banking outlets", bn: "এজেন্ট ব্যাংকিং আউটলেট", dot: "#ffc83d", r: 45, n: 8 },
-  { to: 0, suffix: "", text: s2("4.7+ lakh", "৪.৭+ লাখ"), en: "Rocket agents", bn: "রকেট এজেন্ট", dot: "#ffffff", r: 22, n: 4 },
+  { to: 350, suffix: "", en: "Sub-branches", bn: "উপ-শাখা", dot: "#00984b", r: 74, n: 14 },
+  { to: 5600, suffix: "", en: "Agent-banking outlets", bn: "এজেন্ট ব্যাংকিং আউটলেট", dot: "#ffc83d", r: 56, n: 8 },
+  { to: 0, suffix: "", text: s2("4.7+ lakh", "৪.৭+ লাখ"), en: "Rocket agents", bn: "রকেট এজেন্ট", dot: "#ffffff", r: 38, n: 5 },
 ];
 
 /** The physical footprint: branches, sub-branches, agent outlets and machines, as rings around DBBL. */
@@ -177,25 +177,29 @@ function Footprint() {
     <Reveal className="on-dark relative isolate mt-4 overflow-hidden rounded-[1.75rem] bg-indigo-950 p-7 text-white sm:p-10">
       <span aria-hidden className="absolute -left-24 top-1/2 -z-10 size-[28rem] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgb(0_152_75/0.3),transparent_68%)]" />
       <div className="grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-        <svg viewBox="0 0 200 200" role="img" aria-label={bn ? "ডিবিবিএল-এর শাখা, উপ-শাখা, এজেন্ট আউটলেট ও মেশিনের নেটওয়ার্ক" : "DBBL's network of branches, sub-branches, agent outlets and machines"} className="mx-auto w-full max-w-[22rem]">
-          {reach.map((g, i) => (
-            <g key={g.en}>
-              <circle cx="100" cy="100" r={g.r} fill="none" stroke="rgb(255 255 255 / 0.16)" strokeWidth="0.6" strokeDasharray="1.5 2.5" />
-              <motion.g
-                animate={reduce ? undefined : { rotate: i % 2 ? -360 : 360 }}
-                transition={{ duration: 50 + i * 20, repeat: Infinity, ease: "linear" }}
-                style={{ transformBox: "fill-box", transformOrigin: "center" }}
-              >
-                {Array.from({ length: g.n }, (_, k) => {
-                  const a = (k / g.n) * Math.PI * 2;
-                  return <circle key={k} cx={100 + g.r * Math.cos(a)} cy={100 + g.r * Math.sin(a)} r={i === 0 ? 1.8 : 2.2} fill={g.dot} />;
-                })}
-              </motion.g>
-            </g>
-          ))}
-          <circle cx="100" cy="100" r="9" fill="#e30613" />
-          <circle cx="100" cy="100" r="13" fill="none" stroke="#e30613" strokeOpacity="0.4" />
-        </svg>
+        <div className="relative mx-auto w-full max-w-[22rem]">
+        <svg viewBox="0 0 200 200" role="img" aria-label={bn ? "ডিবিবিএল-এর শাখা, উপ-শাখা, এজেন্ট আউটলেট ও মেশিনের নেটওয়ার্ক" : "DBBL's network of branches, sub-branches, agent outlets and machines"} className="w-full">
+            {reach.map((g, i) => (
+              <g key={g.en}>
+                <circle cx="100" cy="100" r={g.r} fill="none" stroke="rgb(255 255 255 / 0.16)" strokeWidth="0.6" strokeDasharray="1.5 2.5" />
+                <motion.g
+                  animate={reduce ? undefined : { rotate: i % 2 ? -360 : 360 }}
+                  transition={{ duration: 50 + i * 20, repeat: Infinity, ease: "linear" }}
+                  style={{ transformBox: "fill-box", transformOrigin: "center" }}
+                >
+                  {Array.from({ length: g.n }, (_, k) => {
+                    const a = (k / g.n) * Math.PI * 2;
+                    return <circle key={k} cx={100 + g.r * Math.cos(a)} cy={100 + g.r * Math.sin(a)} r={i === 0 ? 1.8 : 2.2} fill={g.dot} />;
+                  })}
+                </motion.g>
+              </g>
+            ))}
+          </svg>
+          <span aria-hidden className="absolute left-1/2 top-1/2 grid size-[19%] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white shadow-[0_0_0_6px_rgb(255_255_255/0.12),0_10px_30px_rgb(0_0_0/0.35)]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/dbbl-mark.svg" alt="" width={123} height={82} className="w-[68%]" />
+          </span>
+        </div>
 
         <div>
           <h3 className="font-display text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">{bn ? "সারা দেশে ডিবিবিএল-এর উপস্থিতি" : "DBBL, close to you across the country"}</h3>
