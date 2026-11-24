@@ -69,9 +69,8 @@
    Concept colours outside the guideline map to the nearest guideline role: lime (light accent) to light
    silver, sun (stickers) to white. Rocket keeps its own magenta. */
 :root:has(.brand2) {
-  --font-bangla: var(--font-hind-siliguri), var(--font-anek), ui-sans-serif, sans-serif;
-  --font-display: var(--font-sora), var(--font-hind-siliguri), var(--font-anek), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-stack-sans), var(--font-hind-siliguri), var(--font-anek), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-sora), var(--font-anek), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-stack-sans), var(--font-anek), ui-sans-serif, system-ui, sans-serif;
   --color-indigo-950: #0f1145;
   --color-indigo-900: #161960;
   --color-indigo-800: #1f2274;
