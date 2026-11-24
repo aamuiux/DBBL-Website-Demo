@@ -506,8 +506,8 @@ a {
   --color-indigo-100: #fff0f0;
 }
 :root:has(.brand2) .nexus-red .step-num-active {
-  background: #fff;
-  color: #ed1b24;
+  background: #ed1b24;
+  color: #fff;
 }
 /* NexusPay steps on red: inactive items stay clearly readable (the base dim is tuned for the blue panel) */
 .nexus-red ol button {
@@ -519,6 +519,13 @@ a {
 .nexus-red ol button span.text-indigo-200 {
   color: #fff;
 }
+/* The active step is a white card with red type */
+.nexus-red ol button[aria-current="step"] {
+  background: #fff;
+  opacity: 1;
+  box-shadow: 0 18px 40px -18px rgb(90 0 8 / 0.5);
+}
+.nexus-red ol button[aria-current="step"] .font-display,
 .nexus-red ol button[aria-current="step"] span.text-indigo-200 {
-  color: #fff;
+  color: #ed1b24;
 }
