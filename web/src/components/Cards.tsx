@@ -119,7 +119,7 @@ export function Cards() {
               <span className="flex items-center justify-between gap-4">
                 <span className={`font-display text-2xl font-semibold tracking-[-0.02em] transition-colors ${active ? "text-indigo-700" : "text-ink-2"}`}>{c.name}</span>
                 <span className={`tabular rounded-full px-2.5 py-0.5 text-sm font-semibold transition-colors ${active ? "bg-indigo-600 text-white" : "bg-indigo-50 text-indigo-700"}`}>
-                  {group.cards.length} {bn ? "টি কার্ড" : "cards"}
+                  {bn ? `${"০১২৩৪৫৬৭৮৯"[group.cards.length] ?? group.cards.length}টি কার্ড` : `${group.cards.length} cards`}
                 </span>
               </span>
               <span
