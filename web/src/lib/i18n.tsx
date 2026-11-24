@@ -124,7 +124,7 @@ const en = {
       { name: "Visa & Mastercard Credit", body: "Local and international, from Classic and Gold up to Platinum, Signature, Titanium and World.", href: "creditCards" },
       { name: "Prepaid", body: "Load it, spend it, control it. Good for travel and online payments.", href: "prepaidCards" },
     ],
-    cta: "Compare cards",
+    cta: "Apply for Cards",
   },
   video: {
     title: "The bank behind the screen.",
@@ -338,7 +338,7 @@ const bn: Dict = {
       { name: "ভিসা ও মাস্টারকার্ড ক্রেডিট", body: "লোকাল ও ইন্টারন্যাশনাল, ক্লাসিক ও গোল্ড থেকে প্লাটিনাম, সিগনেচার, টাইটানিয়াম ও ওয়ার্ল্ড।", href: "creditCards" },
       { name: "প্রিপেইড", body: "টাকা লোড করুন, খরচ করুন, নিয়ন্ত্রণ রাখুন। ভ্রমণ ও অনলাইন পেমেন্টের জন্য ভালো।", href: "prepaidCards" },
     ],
-    cta: "কার্ড তুলনা করুন",
+    cta: "কার্ডের জন্য আবেদন করুন",
   },
   video: {
     title: "পর্দার পেছনের ব্যাংক।",
