@@ -574,24 +574,3 @@ a {
     transition: none;
   }
 }
-
-/* Cards "Apply for Cards": a solid brand-green pill, white label, white arrow circle that sweeps across on hover */
-:root:has(.brand2) .btn-solid-green {
-  background: var(--color-green-600);
-  color: #fff;
-  --tw-ring-color: var(--color-green-600);
-}
-:root:has(.brand2) .btn-solid-green .btn-fill {
-  background: #fff;
-}
-:root:has(.brand2) .btn-solid-green .btn-on {
-  color: var(--color-green-600);
-}
-:root:has(.brand2) .btn-solid-green .btn-label,
-:root:has(.brand2) .btn-solid-green:hover .btn-label,
-:root:has(.brand2) .btn-solid-green:focus-visible .btn-label {
-  color: #fff;
-}
-:root:has(.brand2) .btn-solid-green:hover .btn-fill {
-  background: var(--color-green-700);
-}
