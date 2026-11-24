@@ -149,7 +149,7 @@ export function Cards() {
   const group = cardGroups[step];
   const footer = (
     <div className="mt-8 flex flex-wrap items-center gap-4">
-      <Button href={links.creditCards} tone="primary" size="lg">
+      <Button href={links.creditCards} tone={brand ? "green" : "primary"} size="lg" className={brand ? "btn-solid-green" : ""}>
         {d.cards.cta}
       </Button>
       <a
