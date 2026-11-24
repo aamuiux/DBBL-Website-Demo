@@ -31,11 +31,11 @@ export function HomePage({ variant = "classic" }: { variant?: "classic" | "new" 
           <FastTrack />
           <Loans />
           <Cards />
+          <FocusAreas />
           <Students />
           <AppStory />
           <RocketBand />
           <VideoStory />
-          <FocusAreas />
           <Segments />
           <Media />
           <Proof />
