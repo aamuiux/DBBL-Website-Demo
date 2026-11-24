@@ -25,7 +25,7 @@ const items: Item[] = [
   { key: "loans", en: "Loans", bn: "ঋণ", icon: HandCoins, tone: "bg-red-600", href: links.retailLoan, stat: { en: "Personal, home, car", bn: "ব্যক্তিগত, বাড়ি, গাড়ি" } },
   { key: "nexuspay", en: "NexusPay", bn: "নেক্সাসপে", icon: Smartphone, tone: "bg-red-600", href: links.nexusPay, stat: { en: "Banking in your pocket", bn: "পকেটেই ব্যাংকিং" } },
   { key: "rocket", en: "Rocket", bn: "রকেট", icon: Rocket, tone: "bg-rocket", href: links.rocket, stat: { en: "First MFS in Bangladesh", bn: "দেশের প্রথম এমএফএস" } },
-  { key: "atm", en: "ATMs", bn: "এটিএম", icon: MapPin, tone: "bg-indigo-600", href: links.atmLocator, stat: { en: "4,100+ across the country", bn: "সারা দেশে ৪,১০০+" } },
+  { key: "atm", en: "ATMs", bn: "এটিএম", icon: MapPin, tone: "bg-indigo-600", href: links.atmLocator, stat: { en: "9,083 ATMs, CRMs & Fast Tracks", bn: "৯,০৮৩ এটিএম, সিআরএম ও ফাস্ট ট্র্যাক" } },
   { key: "agent", en: "Agent Banking", bn: "এজেন্ট ব্যাংকিং", icon: Store, tone: "bg-green-600", href: links.agentBanking, stat: { en: "The shop next door", bn: "পাশের দোকানেই" } },
   { key: "business", en: "Business", bn: "ব্যবসা", icon: Briefcase, tone: "bg-indigo-600", href: links.corporate, stat: { en: "SME and corporate", bn: "এসএমই ও কর্পোরেট" } },
 ];

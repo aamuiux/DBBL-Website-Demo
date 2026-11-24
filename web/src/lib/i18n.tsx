@@ -58,7 +58,7 @@ const en = {
       },
       {
         title: "An ATM is never far away.",
-        body: "Over 4,100 DBBL ATMs across Bangladesh, free and unlimited for DBBL customers.",
+        body: "Over 9,000 DBBL ATMs, CRMs and Fast Tracks across Bangladesh, free and unlimited for DBBL customers.",
         cta: "Find an ATM",
         cta2: "Open an account",
         tag: "Largest ATM network",
@@ -154,7 +154,7 @@ const en = {
     lede: "Most local banks use DBBL's ATM and card infrastructure instead of building their own.",
     stats: [
       { value: 64120000, suffix: "+", label: "customers use Dutch-Bangla Bank" },
-      { value: 4100, suffix: "+", label: "ATMs nationwide" },
+      { value: 9083, suffix: "", label: "ATMs, CRMs & Fast Tracks" },
       { value: 23, suffix: "", label: "commercial banks connected to our ATM network" },
     ],
     source: "Figures as published on dutchbanglabank.com",
@@ -272,7 +272,7 @@ const bn: Dict = {
       },
       {
         title: "এটিএম সবসময় কাছেই।",
-        body: "সারা দেশে ৪,১০০-এরও বেশি ডিবিবিএল এটিএম, ডিবিবিএল গ্রাহকদের জন্য বিনামূল্যে ও সীমাহীন।",
+        body: "সারা দেশে ৯,০০০-এরও বেশি ডিবিবিএল এটিএম, সিআরএম ও ফাস্ট ট্র্যাক, ডিবিবিএল গ্রাহকদের জন্য বিনামূল্যে ও সীমাহীন।",
         cta: "এটিএম খুঁজুন",
         cta2: "অ্যাকাউন্ট খুলুন",
         tag: "সবচেয়ে বড় এটিএম নেটওয়ার্ক",
@@ -368,7 +368,7 @@ const bn: Dict = {
     lede: "দেশের বেশিরভাগ ব্যাংক নিজস্ব অবকাঠামো না গড়ে ডিবিবিএলের এটিএম ও কার্ড নেটওয়ার্ক ব্যবহার করে।",
     stats: [
       { value: 64120000, suffix: "+", label: "গ্রাহক ডাচ-বাংলা ব্যাংক ব্যবহার করেন" },
-      { value: 4100, suffix: "+", label: "এটিএম সারা দেশে" },
+      { value: 9083, suffix: "", label: "এটিএম, সিআরএম ও ফাস্ট ট্র্যাক" },
       { value: 23, suffix: "", label: "বাণিজ্যিক ব্যাংক আমাদের এটিএম নেটওয়ার্কে যুক্ত" },
     ],
     source: "সংখ্যাগুলো dutchbanglabank.com-এ প্রকাশিত",

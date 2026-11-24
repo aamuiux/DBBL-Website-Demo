@@ -8,7 +8,7 @@ import { Check, Clock3, MapPin } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
 import { fastTrack } from "@/lib/content";
-import { Network } from "./Proof";
+import { Count, Network } from "./Proof";
 import { Button, Reveal, useReduce } from "./ui";
 
 /** Fast Track (branchless banking hubs) and the ATM network: where DBBL physically meets people. */
@@ -108,8 +108,8 @@ export function FastTrack() {
           {/* The numbers, big */}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
             <Reveal className="flex flex-col justify-between rounded-[1.75rem] bg-green-600 p-7 text-white">
-              <p className="font-display tabular text-[clamp(3.5rem,7vw,5.5rem)] font-bold leading-[0.85] tracking-[-0.05em]">{num(4100)}+</p>
-              <p className="mt-4 text-lg font-semibold">{bn ? "এটিএম সারা দেশে, দেশের সবচেয়ে বড় নেটওয়ার্ক" : "ATMs nationwide, the country's largest network"}</p>
+              <p className="font-display tabular text-[clamp(3.5rem,7vw,5.5rem)] font-bold leading-[0.85] tracking-[-0.05em]">{num(9083)}</p>
+              <p className="mt-4 text-lg font-semibold">{bn ? "ডিবিবিএল এটিএম, সিআরএম ও ফাস্ট ট্র্যাক, দেশের সবচেয়ে বড় নেটওয়ার্ক" : "DBBL ATMs, CRMs and Fast Tracks, the country's largest network"}</p>
             </Reveal>
             <Reveal delay={0.08} className="flex flex-col justify-between rounded-[1.75rem] bg-indigo-950 p-7 text-white">
               <p className="font-display tabular text-[clamp(3.5rem,7vw,5.5rem)] font-bold leading-[0.85] tracking-[-0.05em] text-green-500">{num(fastTrack.count)}</p>
@@ -122,6 +122,8 @@ export function FastTrack() {
             </Reveal>
           </div>
         </div>
+
+        <Footprint />
 
         <div className="mt-4 grid gap-4 lg:grid-cols-[1fr_1.05fr]">
           <Reveal className="flex flex-col rounded-[1.75rem] bg-paper p-7 sm:p-10">
@@ -155,5 +157,66 @@ export function FastTrack() {
         </div>
       </div>
     </section>
+  );
+}
+
+const s2 = (en: string, bn: string) => ({ en, bn });
+const reach: { to: number; suffix: string; text?: { en: string; bn: string }; en: string; bn: string; dot: string; r: number; n: number }[] = [
+  { to: 243, suffix: "", en: "Branches", bn: "শাখা", dot: "#c8f169", r: 92, n: 24 },
+  { to: 350, suffix: "", en: "Sub-branches", bn: "উপ-শাখা", dot: "#00984b", r: 68, n: 14 },
+  { to: 5600, suffix: "", en: "Agent-banking outlets", bn: "এজেন্ট ব্যাংকিং আউটলেট", dot: "#ffc83d", r: 45, n: 8 },
+  { to: 0, suffix: "", text: s2("4.7+ lakh", "৪.৭+ লাখ"), en: "Rocket agents", bn: "রকেট এজেন্ট", dot: "#ffffff", r: 22, n: 4 },
+];
+
+/** The physical footprint: branches, sub-branches, agent outlets and machines, as rings around DBBL. */
+function Footprint() {
+  const { lang } = useLang();
+  const reduce = useReduce();
+  const bn = lang === "bn";
+  return (
+    <Reveal className="on-dark relative isolate mt-4 overflow-hidden rounded-[1.75rem] bg-indigo-950 p-7 text-white sm:p-10">
+      <span aria-hidden className="absolute -left-24 top-1/2 -z-10 size-[28rem] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgb(0_152_75/0.3),transparent_68%)]" />
+      <div className="grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+        <svg viewBox="0 0 200 200" role="img" aria-label={bn ? "ডিবিবিএল-এর শাখা, উপ-শাখা, এজেন্ট আউটলেট ও মেশিনের নেটওয়ার্ক" : "DBBL's network of branches, sub-branches, agent outlets and machines"} className="mx-auto w-full max-w-[22rem]">
+          {reach.map((g, i) => (
+            <g key={g.en}>
+              <circle cx="100" cy="100" r={g.r} fill="none" stroke="rgb(255 255 255 / 0.16)" strokeWidth="0.6" strokeDasharray="1.5 2.5" />
+              <motion.g
+                animate={reduce ? undefined : { rotate: i % 2 ? -360 : 360 }}
+                transition={{ duration: 50 + i * 20, repeat: Infinity, ease: "linear" }}
+                style={{ transformBox: "fill-box", transformOrigin: "center" }}
+              >
+                {Array.from({ length: g.n }, (_, k) => {
+                  const a = (k / g.n) * Math.PI * 2;
+                  return <circle key={k} cx={100 + g.r * Math.cos(a)} cy={100 + g.r * Math.sin(a)} r={i === 0 ? 1.8 : 2.2} fill={g.dot} />;
+                })}
+              </motion.g>
+            </g>
+          ))}
+          <circle cx="100" cy="100" r="9" fill="#e30613" />
+          <circle cx="100" cy="100" r="13" fill="none" stroke="#e30613" strokeOpacity="0.4" />
+        </svg>
+
+        <div>
+          <h3 className="font-display text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">{bn ? "সারা দেশে ডিবিবিএল-এর উপস্থিতি" : "DBBL, close to you across the country"}</h3>
+          <p className="mt-3 max-w-[48ch] text-indigo-200">
+            {bn ? "শাখা থেকে এজেন্ট আউটলেট, প্রতিটি স্তরে ব্যাংকিং আপনার কাছাকাছি।" : "From full branches to agent outlets, every layer puts banking a little closer to home."}
+          </p>
+          <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-8">
+            {reach.map((g) => (
+              <div key={g.en} className="border-t border-white/15 pt-4">
+                <dt className="flex items-center gap-2 text-sm font-semibold text-indigo-200">
+                  <span aria-hidden className="size-2.5 rounded-full" style={{ background: g.dot }} />
+                  {bn ? g.bn : g.en}
+                </dt>
+                <dd className="font-display mt-1 text-[clamp(2.4rem,4.4vw,3.5rem)] font-bold leading-none tracking-[-0.04em]">
+                  {g.text ? g.text[lang] : <Count to={g.to} suffix={g.suffix} />}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </Reveal>
   );
 }

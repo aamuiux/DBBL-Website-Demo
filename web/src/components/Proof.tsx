@@ -8,7 +8,7 @@ import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
 import { Reveal, SectionHeading, TextLink, easeOut, rise, stagger, useReduce } from "./ui";
 
-function Count({ to, suffix }: { to: number; suffix: string }) {
+export function Count({ to, suffix }: { to: number; suffix: string }) {
   const { num } = useLang();
   const reduce = useReduce();
   const ref = useRef<HTMLSpanElement>(null);

@@ -11,7 +11,7 @@ import { easeOut, useReduce } from "./ui";
 type Key = keyof ReturnType<typeof useLang>["d"]["dock"]["items"];
 
 const items: { key: Key; href: string; tile: string; sub: { en: string; bn: string } }[] = [
-  { key: "atm", href: links.atmLocator, tile: "bg-indigo-600 text-white", sub: { en: "4,100+ ATMs", bn: "৪,১০০+ এটিএম" } },
+  { key: "atm", href: links.atmLocator, tile: "bg-indigo-600 text-white", sub: { en: "9,083 ATMs & CRMs", bn: "৯,০৮৩ এটিএম ও সিআরএম" } },
   { key: "open", href: links.personalAccounts, tile: "bg-green-600 text-white", sub: { en: "Personal accounts", bn: "ব্যক্তিগত অ্যাকাউন্ট" } },
   { key: "nexus", href: links.nexusPay, tile: "dock-nexus bg-indigo-950 text-lime", sub: { en: "Pay by QR or tap", bn: "কিউআর বা ট্যাপে পেমেন্ট" } },
   { key: "rocket", href: links.rocket, tile: "bg-rocket text-white", sub: { en: "Dial *322#", bn: "ডায়াল *৩২২#" } },
