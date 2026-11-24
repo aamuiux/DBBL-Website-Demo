@@ -3,17 +3,23 @@
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useId } from "react";
-import { ArrowUpRight, Building2, Crown } from "lucide-react";
+import { ArrowUpRight, Briefcase, Building2, Crown } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
 import { Reveal, SectionHeading } from "./ui";
 import { Pattern } from "./Patterns";
 
 export function Segments() {
-  const { d } = useLang();
+  const { d, lang } = useLang();
   const id = useId();
   const it = d.segments.items;
   const brand = usePathname()?.startsWith("/new-design") ?? false;
+  const bn = lang === "bn";
+  const payroll = {
+    name: bn ? "কর্মচারী/বেতন" : "Employee/Payroll",
+    body: bn ? "নিয়োগকর্তার জন্য বেতন বিতরণ, কর্মচারীর জন্য পে-রোল কার্ড, বেতন হিসাব ও রকেট।" : "Salary disbursement for employers, and a payroll card, salary account and Rocket for employees.",
+    chips: bn ? ["পে-রোল কার্ড", "বেতন হিসাব", "রকেট"] : ["Payroll Card", "Salary account", "Rocket"],
+  };
 
   return (
     <section aria-labelledby={`${id}-h`} className="mx-auto max-w-[1360px] px-5 py-24 sm:px-6 md:py-32 xl:px-10">
@@ -28,6 +34,27 @@ export function Segments() {
           </Tile>
         </Reveal>
 
+        {brand ? (
+          <>
+        {/* /new-design: Employee/Payroll replaces VIP here, as VIP Banking now has its own Specialised banking tile above */}
+        <Reveal delay={0.06} className="md:col-span-3 lg:col-span-5">
+          <Tile href={links.prepaidCards} label={payroll.name} className="bg-[linear-gradient(135deg,#0f1145_0%,#0b5a6f_55%,#00984b_100%)] text-white">
+            <Pattern variant="rings" className="text-white/[0.07]" />
+            <Briefcase className="relative size-8 text-white transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-rotate-6" aria-hidden />
+            <ul className="relative mt-5 flex flex-wrap gap-2" aria-label={payroll.name}>
+              {payroll.chips.map((c, i) => (
+                <li key={c} className="rounded-full bg-white/12 px-3.5 py-1.5 text-sm font-semibold ring-1 ring-inset ring-white/25 transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:-translate-y-1" style={{ transitionDelay: `${i * 40}ms` }}>
+                  {c}
+                </li>
+              ))}
+            </ul>
+            <TileCopy name={payroll.name} body={payroll.body} cta={d.segments.cta} />
+          </Tile>
+        </Reveal>
+
+          </>
+        ) : (
+          <>
         {/* VIP */}
         <Reveal delay={0.06} className="md:col-span-3 lg:col-span-5">
           <Tile href={links.vip} label={it.vip.name} className={brand ? "bg-[#0b0a08] text-white" : "bg-indigo-950 text-white"}>
@@ -50,6 +77,9 @@ export function Segments() {
             <TileCopy name={it.vip.name} body={it.vip.body} cta={d.segments.cta} />
           </Tile>
         </Reveal>
+
+          </>
+        )}
 
         {/* SME */}
         <Reveal delay={0.1} className="md:col-span-3 lg:col-span-5">
