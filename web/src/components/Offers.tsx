@@ -102,7 +102,7 @@ export function Offers() {
       <div className="mx-auto max-w-[1360px] px-5 sm:px-6 xl:px-10">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <Reveal>
-            <h2 id={`${id}-h`} className="font-display max-w-[14ch] text-balance text-[clamp(2.4rem,5.4vw,4.75rem)] font-semibold leading-[0.98] tracking-[-0.04em] text-ink">
+            <h2 id={`${id}-h`} className={`font-display text-balance ${brand && bn ? "max-w-[22ch]" : "max-w-[14ch]"} text-[clamp(2.4rem,5.4vw,4.75rem)] font-semibold leading-[0.98] tracking-[-0.04em] text-ink`}>
               {bn ? "অফার আর ক্যাম্পেইন, এখনই চলছে।" : "Offers & campaigns, live right now."}
             </h2>
           </Reveal>
@@ -122,7 +122,7 @@ export function Offers() {
               <span className="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-sm font-bold text-red-600">
                 <CalendarDays className="size-4" aria-hidden /> {udyog.dates[lang]}
               </span>
-              <h3 className="font-display mt-6 max-w-[16ch] text-balance text-[clamp(2.1rem,4vw,3.5rem)] font-semibold leading-[1] tracking-[-0.035em]">{udyog.title[lang]}</h3>
+              <h3 className="font-display mt-6 max-w-[16ch] text-balance text-[clamp(2.1rem,4vw,3.5rem)] font-semibold leading-[1] tracking-[-0.035em]">{brand && bn ? udyog.title.bn.replace("৫,০০০", "5,000") : udyog.title[lang]}</h3>
               <p className="mt-5 max-w-[46ch] text-pretty text-lg text-white/85">{udyog.body[lang]}</p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button href={links.udyogForm} tone="white" size="lg">
