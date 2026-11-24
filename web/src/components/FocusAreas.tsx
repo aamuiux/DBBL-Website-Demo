@@ -5,7 +5,6 @@ import { ArrowUpRight, Crown, Flower2, MoonStar } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
 import { Reveal, SectionHeading } from "./ui";
-import { Pattern } from "./Patterns";
 
 type L = { en: string; bn: string };
 const s = (en: string, bn: string): L => ({ en, bn });
@@ -75,7 +74,6 @@ export function FocusAreas() {
                 style={{ background: a.bg }}
                 className={`group relative isolate flex h-full flex-col overflow-hidden rounded-[1.75rem] p-7 text-white transition-shadow duration-500 hover:shadow-[var(--shadow-lift)] sm:p-8 ${big ? "min-h-[26rem] lg:p-12" : "min-h-[22rem]"}`}
               >
-                <Pattern variant={i === 2 ? "rings" : "waves"} className="text-white/[0.09]" />
                 <span aria-hidden className="absolute -right-16 -top-16 -z-10 size-64 rounded-full opacity-40 blur-2xl transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-125" style={{ background: a.accent }} />
                 <div className={`flex items-start gap-4 ${big ? "" : "justify-between"}`}>
                   <span className="grid size-14 place-items-center rounded-2xl ring-1 ring-inset ring-white/25" style={{ background: "rgb(255 255 255 / 0.1)", color: a.accent }}>
@@ -88,7 +86,7 @@ export function FocusAreas() {
                 {big && (
                   <div aria-hidden className="pointer-events-none absolute -bottom-6 right-6 hidden w-[19rem] rotate-[-6deg] transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:rotate-[-2deg] group-hover:scale-105 sm:block md:right-10 md:top-1/2 md:bottom-auto md:w-[24rem] md:-translate-y-1/2 lg:right-16 lg:w-[28rem]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/nexus-signature-card.png" alt="" width={800} height={504} className="h-auto w-full rounded-[4.5%] shadow-[0_40px_70px_rgb(0_0_0/0.55),0_0_0_1px_rgb(232_200_117/0.35)]" />
+                    <img src="/nexus-signature-card.png" alt="" width={1368} height={864} className="h-auto w-full rounded-[7%] shadow-[0_40px_70px_rgb(0_0_0/0.55),0_0_0_1px_rgb(232_200_117/0.35)]" />
                   </div>
                 )}
                 <div className={`mt-auto pt-10 ${big ? "md:max-w-[48%]" : ""}`}>
