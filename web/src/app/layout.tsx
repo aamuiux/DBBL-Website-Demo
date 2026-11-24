@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Anek_Bangla, Bricolage_Grotesque, Hanken_Grotesk, Noto_Serif_Bengali, Sora, Stack_Sans_Headline } from "next/font/google";
+import { Anek_Bangla, Bricolage_Grotesque, Hanken_Grotesk, Hind_Siliguri, Sora, Stack_Sans_Headline } from "next/font/google";
 import { LanguageProvider } from "@/lib/i18n";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Preloader } from "@/components/Preloader";
@@ -21,9 +21,10 @@ const hanken = Hanken_Grotesk({
 /* Sora and Stack Sans Headline are only used on /new-design (see :root:has(.brand2) in globals.css);
    preload is off so / never downloads them. */
 /* Bangla text on /new-design (see :root:has(.brand2) in globals.css); preload is off so / never downloads it. */
-const notoSerifBengali = Noto_Serif_Bengali({
-  variable: "--font-noto-serif-bengali",
+const hindSiliguri = Hind_Siliguri({
+  variable: "--font-hind-siliguri",
   subsets: ["bengali", "latin"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
   preload: false,
 });
@@ -60,7 +61,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${bricolage.variable} ${hanken.variable} ${sora.variable} ${stackSans.variable} ${notoSerifBengali.variable} ${anek.variable}`}>
+    <html lang="en" className={`${bricolage.variable} ${hanken.variable} ${sora.variable} ${stackSans.variable} ${hindSiliguri.variable} ${anek.variable}`}>
       <body>
         <LanguageProvider>
           <Preloader />
