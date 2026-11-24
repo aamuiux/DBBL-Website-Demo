@@ -91,7 +91,7 @@ export function AppStory() {
             // Second half of the scroll walks the four NexusPay jobs.
             const p = self.progress;
             const [a, b] = spanRef.current;
-            setStep(p < a ? 0 : Math.min(3, Math.floor(((p - a) / (b - a)) * 4)));
+            setStep(p < a ? 0 : p >= b + 0.01 && b < 1 ? 4 : Math.min(3, Math.floor(((p - a) / (b - a)) * 4)));
           },
         },
       });
@@ -113,7 +113,7 @@ export function AppStory() {
         const t2 = tl.duration();
         const pillars = q("[data-pillars]")[0];
         tl.to(copy, { autoAlpha: 0, y: -30, duration: 0.4, stagger: 0.04, ease: "power2.in" }, t2)
-          .to(phone, { x: () => -Math.min(60, window.innerWidth * 0.035), scale: 0.82, duration: 0.8, ease: "power2.inOut" }, t2 + 0.1)
+          .to(phone, { x: () => -Math.min(90, window.innerWidth * 0.055), scale: 0.82, duration: 0.8, ease: "power2.inOut" }, t2 + 0.1)
           .fromTo(pillars, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, t2 + 0.35)
           .fromTo(q("[data-pillar-head]"), { y: 30 }, { y: 0, duration: 0.5, ease: "power2.out" }, t2 + 0.35)
           .fromTo(q("[data-pillar]"), { y: 60, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.55, stagger: 0.12, ease: "power2.out" }, t2 + 0.5)
@@ -353,6 +353,13 @@ const shots: { alt: string; cards: { src: string; box: [number, number, number, 
     cards: [
       { src: "card-4-1", box: [-28, 256, 218, 176], depth: [-16, 8], float: "6.2s" },
       { src: "card-4-2", box: [344, 396, 232, 128], depth: [16, -8], float: "7.2s" },
+    ],
+  },
+  {
+    alt: "NexusPay Bill Payment screen: a Secured by Dutch-Bangla Bank note, bill services, and a Confirm Payment sheet with a shuffled PIN keypad",
+    cards: [
+      { src: "card-5-1", box: [-20, 440, 204, 122], depth: [-16, 8], float: "6.4s" },
+      { src: "card-5-2", box: [368, 170, 206, 164], depth: [14, -8], float: "7s" },
     ],
   },
 ];
