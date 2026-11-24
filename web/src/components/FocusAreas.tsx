@@ -61,41 +61,37 @@ export function FocusAreas() {
         title={bn ? "বিশেষ ব্যাংকিং, আপনার জন্য।" : "Specialised banking, made for you."}
         lede={bn ? "ভিআইপি, নারী ও ইসলামিক ব্যাংকিং: তিনটি বিশেষ সেবা, প্রত্যেকটি নির্দিষ্ট প্রয়োজন মাথায় রেখে।" : "VIP, Female and Islamic Banking: three focused services, each built around a specific need."}
       />
-      {/* Bento: VIP is the tall hero tile; Female and Islamic stack beside it */}
-      <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-12 lg:grid-rows-2">
+      {/* Bento: VIP is the wide hero tile on top; Female and Islamic sit side by side below */}
+      <div className="mt-12 grid gap-4 md:grid-cols-2">
         {areas.map((a, i) => {
           const big = i === 0;
           return (
-            <Reveal key={a.key} delay={i * 0.07} className={big ? "md:col-span-2 lg:col-span-7 lg:row-span-2" : "lg:col-span-5"}>
+            <Reveal key={a.key} delay={i * 0.07} className={big ? "md:col-span-2" : ""}>
               <a
                 href={a.href}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${a.name[lang]} (${bn ? "নতুন ট্যাবে খুলবে" : "opens in a new tab"})`}
                 style={{ background: a.bg }}
-                className={`group relative isolate flex h-full flex-col overflow-hidden rounded-[1.75rem] p-7 text-white transition-shadow duration-500 hover:shadow-[var(--shadow-lift)] sm:p-8 ${big ? "min-h-[30rem] lg:p-10" : "min-h-[15.5rem]"}`}
+                className={`group relative isolate flex h-full flex-col overflow-hidden rounded-[1.75rem] p-7 text-white transition-shadow duration-500 hover:shadow-[var(--shadow-lift)] sm:p-8 ${big ? "min-h-[26rem] lg:p-12" : "min-h-[22rem]"}`}
               >
                 <Pattern variant={i === 2 ? "rings" : "waves"} className="text-white/[0.09]" />
                 <span aria-hidden className="absolute -right-16 -top-16 -z-10 size-64 rounded-full opacity-40 blur-2xl transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-125" style={{ background: a.accent }} />
-                <div className="flex items-start justify-between gap-4">
+                <div className={`flex items-start gap-4 ${big ? "" : "justify-between"}`}>
                   <span className="grid size-14 place-items-center rounded-2xl ring-1 ring-inset ring-white/25" style={{ background: "rgb(255 255 255 / 0.1)", color: a.accent }}>
                     <a.icon className="size-7 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-rotate-12" aria-hidden />
                   </span>
-                  <span className="rounded-full px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] ring-1 ring-inset ring-white/25" style={{ color: a.accent }}>
+                  <span className={`rounded-full px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] ring-1 ring-inset ring-white/25 ${big ? "self-center" : ""}`} style={{ color: a.accent }}>
                     {a.tag[lang]}
                   </span>
                 </div>
                 {big && (
-                  <div aria-hidden className="pointer-events-none absolute right-8 top-24 hidden w-[19rem] rotate-[-8deg] transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:rotate-[-4deg] group-hover:scale-105 sm:block lg:right-12 lg:top-28 lg:w-[22rem]">
-                    <div className="relative aspect-[1.586] rounded-2xl bg-[linear-gradient(135deg,#1b1710,#050505_55%,#3a2c12)] p-5 shadow-[0_30px_60px_rgb(0_0_0/0.5)] ring-1 ring-inset ring-[#e8c875]/40">
-                      <span className="absolute left-5 top-14 h-7 w-9 rounded-md bg-[linear-gradient(135deg,#f2d98f,#b8893a)]" />
-                      <span className="absolute right-5 top-5 text-xs font-bold tracking-[0.2em] text-[#e8c875]">NEXUS</span>
-                      <span className="absolute bottom-5 left-5 text-sm font-semibold tracking-wide text-[#e8c875]/90">Visa Signature</span>
-                      <span className="absolute bottom-5 right-5 text-lg font-bold italic text-white/90">VISA</span>
-                    </div>
+                  <div aria-hidden className="pointer-events-none absolute -bottom-6 right-6 hidden w-[19rem] rotate-[-6deg] transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:rotate-[-2deg] group-hover:scale-105 sm:block md:right-10 md:top-1/2 md:bottom-auto md:w-[24rem] md:-translate-y-1/2 lg:right-16 lg:w-[28rem]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/nexus-signature-card.png" alt="" width={800} height={504} className="h-auto w-full rounded-[4.5%] shadow-[0_40px_70px_rgb(0_0_0/0.55),0_0_0_1px_rgb(232_200_117/0.35)]" />
                   </div>
                 )}
-                <div className="mt-auto pt-10">
+                <div className={`mt-auto pt-10 ${big ? "md:max-w-[48%]" : ""}`}>
                   <h3 className={`font-display font-semibold leading-[1.02] tracking-[-0.03em] ${big ? "text-[clamp(2.6rem,5vw,4.5rem)]" : "text-3xl"}`}>{a.name[lang]}</h3>
                   <p className={`mt-3 text-pretty text-white/80 ${big ? "max-w-[44ch] text-lg" : "max-w-[40ch]"}`}>{a.body[lang]}</p>
                   <ul className="mt-5 flex flex-wrap gap-2 text-sm font-semibold">
