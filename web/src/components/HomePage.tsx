@@ -16,6 +16,7 @@ import { Help } from "./Help";
 import { Footer } from "./Footer";
 import { CaptureRange } from "./CaptureRange";
 import { FocusAreas } from "./FocusAreas";
+import { NexusPillars } from "./NexusPillars";
 
 /** The homepage. Rendered at / and, in the brand-guideline colours, at /new-design. */
 export function HomePage({ variant = "classic" }: { variant?: "classic" | "new" }) {
@@ -34,6 +35,7 @@ export function HomePage({ variant = "classic" }: { variant?: "classic" | "new" 
           <FocusAreas />
           <Students />
           <AppStory />
+          <NexusPillars />
           <RocketBand />
           <VideoStory />
           <Segments />
