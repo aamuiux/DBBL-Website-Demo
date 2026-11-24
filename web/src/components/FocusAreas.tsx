@@ -86,7 +86,7 @@ export function FocusAreas() {
                 {big && (
                   <div aria-hidden className="pointer-events-none absolute -bottom-6 right-6 hidden w-[19rem] rotate-[-6deg] transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:rotate-[-2deg] group-hover:scale-105 sm:block md:right-10 md:top-1/2 md:bottom-auto md:w-[24rem] md:-translate-y-1/2 lg:right-16 lg:w-[28rem]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/nexus-signature-card.png" alt="" width={1368} height={864} className="h-auto w-full rounded-[7%] shadow-[0_40px_70px_rgb(0_0_0/0.55),0_0_0_1px_rgb(232_200_117/0.35)]" />
+                    <img src="/nexus-signature-card.png" alt="" width={459} height={292} className="h-auto w-full drop-shadow-[0_30px_40px_rgb(0_0_0/0.55)]" />
                   </div>
                 )}
                 <div className={`mt-auto pt-10 ${big ? "md:max-w-[48%]" : ""}`}>

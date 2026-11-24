@@ -43,7 +43,7 @@ export function Segments() {
             {brand && (
               <div aria-hidden className="pointer-events-none absolute right-5 top-5 w-[11rem] rotate-[6deg] transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:rotate-[3deg] group-hover:scale-105 sm:right-7 sm:w-[13rem]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/nexus-signature-card.png" alt="" width={1368} height={864} className="h-auto w-full rounded-[7%] shadow-[0_24px_40px_rgb(0_0_0/0.5),0_0_0_1px_rgb(232_200_117/0.35)]" />
+                <img src="/nexus-signature-card.png" alt="" width={459} height={292} className="h-auto w-full drop-shadow-[0_18px_24px_rgb(0_0_0/0.5)]" />
               </div>
             )}
             <Crown className={`relative size-8 transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-rotate-12 ${brand ? "text-[#e8c875]" : "text-lime"}`} aria-hidden />
