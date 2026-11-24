@@ -15,9 +15,37 @@ import { Proof } from "./Proof";
 import { Help } from "./Help";
 import { Footer } from "./Footer";
 import { CaptureRange } from "./CaptureRange";
+import { FocusAreas } from "./FocusAreas";
 
 /** The homepage. Rendered at / and, in the brand-guideline colours, at /new-design. */
-export function HomePage() {
+export function HomePage({ variant = "classic" }: { variant?: "classic" | "new" }) {
+  if (variant === "new") {
+    return (
+      <>
+        <Header />
+        <main id="main" tabIndex={-1} className="outline-none">
+          <Hero />
+          <QuickDock />
+          <OffersTicker />
+          <Offers />
+          <FastTrack />
+          <Loans />
+          <Cards />
+          <Students />
+          <AppStory />
+          <RocketBand />
+          <VideoStory />
+          <FocusAreas />
+          <Segments />
+          <Media />
+          <Proof />
+          <Help />
+        </main>
+        <Footer />
+        <CaptureRange />
+      </>
+    );
+  }
   return (
     <>
       <Header />
