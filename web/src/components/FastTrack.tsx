@@ -174,17 +174,17 @@ function Footprint() {
   const reduce = useReduce();
   const bn = lang === "bn";
   const brand = usePathname()?.startsWith("/new-design") ?? false;
-  /* /new-design: a light card with navy type, so it rests between the dark and green tiles above instead of adding a third navy block */
-  const dotOf = (d: string) => (brand ? ({ "#c8f169": "#00984b", "#ffffff": "#ed1b24" } as Record<string, string>)[d] ?? d : d);
+  /* /new-design: a blue-to-green gradient card with white type */
+  const dotOf = (d: string) => (brand ? ({ "#00984b": "#9af0c0" } as Record<string, string>)[d] ?? d : d);
   return (
-    <Reveal className={`relative isolate mt-4 overflow-hidden rounded-[1.75rem] p-7 sm:p-10 ${brand ? "bg-[#eef1f8] text-indigo-950 ring-1 ring-inset ring-indigo-950/8" : "on-dark bg-indigo-950 text-white"}`}>
-      <span aria-hidden className={`absolute -left-24 top-1/2 -z-10 size-[28rem] -translate-y-1/2 rounded-full ${brand ? "bg-[radial-gradient(circle,rgb(255_255_255),transparent_68%)]" : "bg-[radial-gradient(circle,rgb(0_152_75/0.3),transparent_68%)]"}`} />
+    <Reveal className={`relative isolate mt-4 overflow-hidden rounded-[1.75rem] p-7 sm:p-10 on-dark text-white ${brand ? "bg-[linear-gradient(120deg,#1a1f8f_0%,#0f5f8a_50%,#00904a_100%)]" : "bg-indigo-950"}`}>
+      <span aria-hidden className={`absolute -left-24 top-1/2 -z-10 size-[28rem] -translate-y-1/2 rounded-full ${brand ? "bg-[radial-gradient(circle,rgb(255_255_255/0.14),transparent_68%)]" : "bg-[radial-gradient(circle,rgb(0_152_75/0.3),transparent_68%)]"}`} />
       <div className="grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr]">
         <div className="relative mx-auto w-full max-w-[22rem]">
         <svg viewBox="0 0 200 200" role="img" aria-label={bn ? "ডিবিবিএল-এর শাখা, উপ-শাখা, এজেন্ট আউটলেট ও মেশিনের নেটওয়ার্ক" : "DBBL's network of branches, sub-branches, agent outlets and machines"} className="w-full">
             {reach.map((g, i) => (
               <g key={g.en}>
-                <circle cx="100" cy="100" r={g.r} fill="none" stroke={brand ? "rgb(15 17 69 / 0.18)" : "rgb(255 255 255 / 0.16)"} strokeWidth="0.6" strokeDasharray="1.5 2.5" />
+                <circle cx="100" cy="100" r={g.r} fill="none" stroke="rgb(255 255 255 / 0.22)" strokeWidth="0.6" strokeDasharray="1.5 2.5" />
                 <motion.g
                   animate={reduce ? undefined : { rotate: i % 2 ? -360 : 360 }}
                   transition={{ duration: 50 + i * 20, repeat: Infinity, ease: "linear" }}
@@ -206,13 +206,13 @@ function Footprint() {
 
         <div>
           <h3 className="font-display text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">{bn ? "সারা দেশে ডিবিবিএল-এর উপস্থিতি" : "DBBL, close to you across the country"}</h3>
-          <p className={`mt-3 max-w-[48ch] ${brand ? "text-indigo-900/75" : "text-indigo-200"}`}>
+          <p className={`mt-3 max-w-[48ch] ${brand ? "text-white/85" : "text-indigo-200"}`}>
             {bn ? "শাখা থেকে এজেন্ট আউটলেট, প্রতিটি স্তরে ব্যাংকিং আপনার কাছাকাছি।" : "From full branches to agent outlets, every layer puts banking a little closer to home."}
           </p>
           <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-8">
             {reach.map((g) => (
-              <div key={g.en} className={`border-t pt-4 ${brand ? "border-indigo-950/15" : "border-white/15"}`}>
-                <dt className={`flex items-center gap-2 text-sm font-semibold ${brand ? "text-indigo-900/80" : "text-indigo-200"}`}>
+              <div key={g.en} className={`border-t pt-4 border-white/20`}>
+                <dt className={`flex items-center gap-2 text-sm font-semibold ${brand ? "text-white/90" : "text-indigo-200"}`}>
                   <span aria-hidden className="size-2.5 rounded-full" style={{ background: dotOf(g.dot) }} />
                   {bn ? g.bn : g.en}
                 </dt>
