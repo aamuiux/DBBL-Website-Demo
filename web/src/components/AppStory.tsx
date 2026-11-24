@@ -198,7 +198,11 @@ export function AppStory() {
         </div>
 
         {/* Intro: headline in ink on the light page, store buttons below */}
-        <div className="pointer-events-none absolute inset-x-0 top-[13%] z-10 flex flex-col items-center px-6 text-center text-ink">
+        <div className={`pointer-events-none absolute inset-x-0 z-10 flex flex-col items-center px-6 text-center text-ink ${brand ? "top-[11.5%]" : "top-[13%]"}`}>
+          {brand && (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img data-intro src="/nexuspay/logo.webp" alt="NexusPay, মানেই সবকিছু" width={2000} height={621} className="mb-3 h-[clamp(2.75rem,6vh,4.25rem)] w-auto" />
+          )}
           <h2 data-intro id={`${id}-h`} className="font-display max-w-[24ch] text-balance text-[clamp(2.4rem,3.9vw,3.75rem)] font-semibold leading-[1.04] tracking-[-0.03em]">
             {d.app.intro}
           </h2>
@@ -260,6 +264,13 @@ export function AppStory() {
       <NetworkCorners />
       <div className="relative mx-auto max-w-[1360px] px-5 py-20 sm:px-6 md:py-28">
         <div className="flex flex-col items-center text-center">
+          {brand && (
+            <Reveal>
+              {/* The red wordmark, turned white for the red page */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/nexuspay/logo.webp" alt="NexusPay, মানেই সবকিছু" width={2000} height={621} className="mb-6 h-16 w-auto brightness-0 invert" />
+            </Reveal>
+          )}
           <Reveal>
             <h2 id={`${id}-h`} className="font-display max-w-[18ch] text-balance text-[clamp(2.1rem,6vw,3.5rem)] font-semibold leading-[1.04] tracking-[-0.03em]">
               {d.app.intro}
