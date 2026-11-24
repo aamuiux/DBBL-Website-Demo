@@ -8,6 +8,7 @@ import QRCode from "qrcode";
 import { useLang } from "@/lib/i18n";
 import { links } from "@/lib/links";
 import { Phone } from "./PhoneScreens";
+import { NexusPillarCols } from "./NexusPillars";
 import { Reveal, useReduce } from "./ui";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -39,6 +40,8 @@ export function AppStory() {
   const brand = usePathname()?.startsWith("/new-design") ?? false;
   const sectionRef = useRef<HTMLElement>(null);
   const stRef = useRef<ScrollTrigger | null>(null);
+  // Where in the scroll (0 to 1) the four steps play; /new-design shortens it to make room for the pillars reveal
+  const spanRef = useRef<[number, number]>([0.5, 1]);
 
   useEffect(() => {
     QRCode.toString(links.nexusPayPlay, { type: "svg", margin: 0, color: { dark: "#0e1150", light: "#ffffff" } }).then(setQr);
@@ -80,14 +83,15 @@ export function AppStory() {
         scrollTrigger: {
           trigger: el,
           start: "top top",
-          end: () => `+=${window.innerHeight * (brand ? 4.4 : 3.4)}`,
+          end: () => `+=${window.innerHeight * (brand ? 6.2 : 3.4)}`,
           pin: true,
           scrub: 0.8,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             // Second half of the scroll walks the four NexusPay jobs.
             const p = self.progress;
-            setStep(p < 0.5 ? 0 : Math.min(3, Math.floor(((p - 0.5) / 0.5) * 4)));
+            const [a, b] = spanRef.current;
+            setStep(p < a ? 0 : Math.min(3, Math.floor(((p - a) / (b - a)) * 4)));
           },
         },
       });
@@ -100,8 +104,23 @@ export function AppStory() {
         .to(glow, { scale: 1.35, opacity: 0.9, duration: 1 }, 0)
         .fromTo(phone, { x: toCentreX, y: toLowerY, scale: 1.3 }, { x: 0, y: 0, scale: 1, duration: 1, ease: "power2.inOut" }, 0.05)
         .fromTo(copy, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.45, stagger: 0.06, ease: "power2.out" }, 0.55)
-        // Phase 2 (1 → 2): hold while the steps play (driven by onUpdate)
+        // Phase 2: hold while the steps play (driven by onUpdate)
         .to({}, { duration: 1 });
+
+      if (brand) {
+        // Phase 3 (/new-design): the steps give way and the phone steps aside for three columns: security, trust, bills
+        const t1 = tl.duration() - 1;
+        const t2 = tl.duration();
+        const pillars = q("[data-pillars]")[0];
+        tl.to(copy, { autoAlpha: 0, y: -30, duration: 0.4, stagger: 0.04, ease: "power2.in" }, t2)
+          .to(phone, { x: () => -Math.min(60, window.innerWidth * 0.035), scale: 0.82, duration: 0.8, ease: "power2.inOut" }, t2 + 0.1)
+          .fromTo(pillars, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, t2 + 0.35)
+          .fromTo(q("[data-pillar-head]"), { y: 30 }, { y: 0, duration: 0.5, ease: "power2.out" }, t2 + 0.35)
+          .fromTo(q("[data-pillar]"), { y: 60, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.55, stagger: 0.12, ease: "power2.out" }, t2 + 0.5)
+          .to({}, { duration: 0.6 });
+        const total = tl.duration();
+        spanRef.current = [t1 / total, t2 / total];
+      } else spanRef.current = [0.5, 1];
 
       stRef.current = tl.scrollTrigger ?? null;
     }, el);
@@ -115,7 +134,8 @@ export function AppStory() {
   const choose = (i: number) => {
     const st = stRef.current;
     if (st) {
-      const y = st.start + (st.end - st.start) * (0.5 + ((i + 0.5) / 4) * 0.5);
+      const [a, b] = spanRef.current;
+      const y = st.start + (st.end - st.start) * (a + ((i + 0.5) / 4) * (b - a));
       const lenis = (window as unknown as { __lenis?: { scrollTo(y: number, o?: object): void } }).__lenis;
       if (lenis) lenis.scrollTo(y, { duration: 1.1 });
       else window.scrollTo({ top: y, behavior: "smooth" });
@@ -223,6 +243,11 @@ export function AppStory() {
               </div>
             )}
           </div>
+
+          {/* /new-design: revealed after the four steps, to the right of the (smaller) phone */}
+          <div className="pointer-events-auto absolute right-6 top-1/2 w-[57%] -translate-y-1/2 xl:right-10">
+            <NexusPillarCols pinned />
+          </div>
         </div>
       </section>
     );
@@ -290,6 +315,7 @@ export function AppStory() {
             <div className="mt-7">{steps}</div>
           </div>
         </div>
+        {brand && <NexusPillarCols />}
       </div>
     </section>
   );
