@@ -122,7 +122,7 @@ export function Offers() {
               <span className="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-sm font-bold text-red-600">
                 <CalendarDays className="size-4" aria-hidden /> {udyog.dates[lang]}
               </span>
-              <h3 className="font-display mt-6 max-w-[16ch] text-balance text-[clamp(2.1rem,4vw,3.5rem)] font-semibold leading-[1] tracking-[-0.035em]">{brand && bn ? udyog.title.bn.replace("৫,০০০", "5,000") : udyog.title[lang]}</h3>
+              <h3 className="font-display mt-6 max-w-[16ch] text-balance text-[clamp(2.1rem,4vw,3.5rem)] font-semibold leading-[1] tracking-[-0.035em]">{udyog.title[lang]}</h3>
               <p className="mt-5 max-w-[46ch] text-pretty text-lg text-white/85">{udyog.body[lang]}</p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button href={links.udyogForm} tone="white" size="lg">
@@ -142,7 +142,7 @@ export function Offers() {
                 transition={{ type: "spring", stiffness: 120, damping: 14 }}
                 className={`font-display tabular block select-none font-bold leading-[0.8] text-white/95 ${brand ? "text-[34cqw] tracking-[-0.05em]" : "text-[clamp(7rem,17vw,15rem)] tracking-[-0.06em]"}`}
               >
-                5,000
+                {bn ? "৫,০০০" : "5,000"}
               </motion.span>
               <motion.span
                 initial={reduce ? false : { scale: 0, rotate: 20 }}
