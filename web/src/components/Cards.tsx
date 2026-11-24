@@ -186,7 +186,7 @@ export function Cards() {
                 ))}
               </div>
             ))}
-            <p className="absolute inset-x-0 bottom-6 text-center text-sm text-ink-3">{bn ? "চিত্রণমূলক কার্ড ডিজাইন, আসল কার্ড নয়" : "Illustrative card designs, not actual DBBL cards"}</p>
+            {!brand && <p className="absolute inset-x-0 bottom-6 text-center text-sm text-ink-3">{bn ? "চিত্রণমূলক কার্ড ডিজাইন, আসল কার্ড নয়" : "Illustrative card designs, not actual DBBL cards"}</p>}
           </div>
         </div>
       </section>
@@ -251,7 +251,7 @@ export function Cards() {
             <p className="mt-3 text-sm text-ink-3">{group.cards.map((x) => x.name).join(" · ")}</p>
           </div>
           {footer}
-          <p className="mt-6 text-center text-xs text-ink-3">{bn ? "চিত্রণমূলক কার্ড ডিজাইন, আসল কার্ড নয়" : "Illustrative card designs, not actual DBBL cards"}</p>
+          {!brand && <p className="mt-6 text-center text-xs text-ink-3">{bn ? "চিত্রণমূলক কার্ড ডিজাইন, আসল কার্ড নয়" : "Illustrative card designs, not actual DBBL cards"}</p>}
         </div>
       </section>
     );

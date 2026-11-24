@@ -150,7 +150,7 @@ export function FastTrack() {
                 <p className="font-display text-[clamp(3.5rem,6vw,5rem)] font-bold leading-[0.8] tracking-[-0.05em]">24/7</p>
                 <p className="pb-1 text-lg font-semibold leading-snug">{bn ? "প্রতিটি ফাস্ট ট্র্যাক এটিএমে টাকা তোলা, ইউপিএস ব্যাকআপসহ" : "cash withdrawal at every Fast Track ATM, with UPS power backup"}</p>
               </div>
-              <p className="mt-4 text-sm text-ink-3">{bn ? "সংখ্যাগুলো dutchbanglabank.com-এ প্রকাশিত।" : "Figures as published on dutchbanglabank.com."}</p>
+              {!brand && <p className="mt-4 text-sm text-ink-3">{bn ? "সংখ্যাগুলো dutchbanglabank.com-এ প্রকাশিত।" : "Figures as published on dutchbanglabank.com."}</p>}
             </div>
           </Reveal>
           <Network />

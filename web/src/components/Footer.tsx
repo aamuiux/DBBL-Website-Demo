@@ -154,9 +154,9 @@ export function Footer() {
             ))}
           </ul>
           <div className="flex flex-wrap items-center gap-4 md:justify-end">
-            <Link href={brand ? "/" : "/new-design"} className="inline-flex items-center gap-2 rounded-full bg-indigo-50 px-4 py-2 text-sm font-semibold text-indigo-700 transition-colors hover:bg-indigo-600 hover:text-white">
-              {brand ? (bn ? "কনসেপ্ট রঙে দেখুন" : "View in concept colours") : bn ? "ব্র্যান্ড রঙে দেখুন" : "View in brand colours"} →
-            </Link>
+            {!brand && <Link href="/new-design" className="inline-flex items-center gap-2 rounded-full bg-indigo-50 px-4 py-2 text-sm font-semibold text-indigo-700 transition-colors hover:bg-indigo-600 hover:text-white">
+              {bn ? "ব্র্যান্ড রঙে দেখুন" : "View in brand colours"} →
+            </Link>}
             <p className="text-sm text-ink-3 md:text-right">© {d.footer.legal}</p>
           </div>
         </div>

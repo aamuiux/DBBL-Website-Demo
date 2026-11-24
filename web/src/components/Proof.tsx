@@ -64,11 +64,11 @@ export function Proof() {
             </Reveal>
           ))}
         </div>
-        <p className="mt-6 text-sm text-ink-3">
+        {!brand && <p className="mt-6 text-sm text-ink-3">
           <a href={links.eBankingIntro} target="_blank" rel="noopener noreferrer" className="underline decoration-line underline-offset-4 hover:text-indigo-600">
             {d.proof.source}
           </a>
-        </p>
+        </p>}
 
         {/* Firsts: four bold tiles */}
         <div className="mt-20">
