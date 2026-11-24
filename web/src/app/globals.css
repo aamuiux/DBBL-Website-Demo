@@ -529,3 +529,48 @@ a {
 .nexus-red ol button[aria-current="step"] span.text-indigo-200 {
   color: #ed1b24;
 }
+
+/* NexusPay floating cards: layered motion on separate elements so each only animates transform or opacity */
+.nx-depth {
+  transform: translate3d(calc(var(--px, 0) * var(--dx, 0px)), calc(var(--py, 0) * var(--dy, 0px)), 0);
+  transition: transform 0.35s ease-out;
+  will-change: transform;
+}
+.nx-pop {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0) scale(0.88);
+  transition: opacity 0.4s ease-out, transform 0.7s var(--ease-out-expo);
+  will-change: transform, opacity;
+}
+.nx-pop-on {
+  opacity: 1;
+  transform: none;
+}
+.nx-card {
+  transition: transform 0.4s var(--ease-out-expo), filter 0.4s;
+}
+.nx-card:hover {
+  transform: scale(1.06) translateY(-3px);
+  filter: drop-shadow(0 14px 18px rgb(90 0 8 / 0.28));
+}
+@keyframes nx-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -7px, 0);
+  }
+}
+.nx-float {
+  animation: nx-float 6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nx-float {
+    animation: none;
+  }
+  .nx-pop,
+  .nx-depth {
+    transition: none;
+  }
+}

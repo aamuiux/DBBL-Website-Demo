@@ -80,16 +80,7 @@ export function AppStory() {
         scrollTrigger: {
           trigger: el,
           start: "top top",
-          end: () => `+=${window.innerHeight * (brand ? 5 : 3.4)}`,
-          // /new-design: once the reveal is done, the scroll settles on each step so the phone and the list change together
-          snap: brand
-            ? {
-                snapTo: (p: number) => (p < 0.5 ? p : 0.5 + (Math.min(3, Math.floor(((p - 0.5) / 0.5) * 4)) + 0.5) / 8),
-                delay: 0.12,
-                duration: { min: 0.3, max: 0.7 },
-                ease: "power2.inOut",
-              }
-            : undefined,
+          end: () => `+=${window.innerHeight * (brand ? 4.4 : 3.4)}`,
           pin: true,
           scrub: 0.8,
           invalidateOnRefresh: true,
@@ -281,7 +272,7 @@ export function AppStory() {
               {brand ? <NexusShot step={step} /> : <Phone step={step} />}
               <p className="mt-4 text-center text-xs text-indigo-300">{d.app.illustrative}</p>
             </div>
-            <div className="mt-6 rounded-2xl bg-white/10 p-5">
+            <div className="mt-6 min-h-[9.5rem] rounded-2xl bg-white/10 p-5">
               <p className="font-display text-lg font-semibold tracking-[-0.015em]">{d.app.steps[step].title}</p>
               <p className="mt-1.5 text-indigo-100">{d.app.steps[step].body}</p>
             </div>
@@ -304,29 +295,99 @@ export function AppStory() {
   );
 }
 
-const shots = [
-  { src: "/nexuspay/fund-transfer.webp", alt: "NexusPay Fund Transfer screen: sending 2,500 taka to a mobile number with a 0.00 transfer fee" },
-  { src: "/nexuspay/scan-pay.webp", alt: "NexusPay Scan & Pay screen: a QR code in the frame, with a Payment Successful note for Karim Store" },
-  { src: "/nexuspay/cardless.webp", alt: "NexusPay Cardless Cash Out screen: a six-digit cash out code, and an ATM asking for it" },
-  { src: "/nexuspay/virtual-card.webp", alt: "NexusPay Virtual Card screen: a one-time card that expires in 10 minutes" },
+/* The supplied NexusPay screens, split into the phone and its floating cards (all 560x640 artwork; card boxes are in that space). */
+const VBW = 560;
+const VBH = 640;
+const shots: { alt: string; cards: { src: string; box: [number, number, number, number]; depth: [number, number]; float: string }[] }[] = [
+  {
+    alt: "NexusPay Fund Transfer screen: sending 2,500 taka to a mobile number with a 0.00 transfer fee",
+    cards: [{ src: "card-1-1", box: [336, 394, 240, 142], depth: [16, 10], float: "6s" }],
+  },
+  {
+    alt: "NexusPay Scan & Pay screen: a QR code in the frame, with a Payment Successful note for Karim Store",
+    cards: [{ src: "card-2-1", box: [-22, 134, 256, 168], depth: [-16, 8], float: "6.5s" }],
+  },
+  {
+    alt: "NexusPay Cardless Cash Out screen: a six-digit cash out code, and an ATM asking for it",
+    cards: [{ src: "card-3-1", box: [-18, 264, 222, 276], depth: [-18, 12], float: "7s" }],
+  },
+  {
+    alt: "NexusPay Virtual Card screen: a one-time card that expires in 10 minutes",
+    cards: [
+      { src: "card-4-1", box: [-28, 256, 218, 176], depth: [-16, 8], float: "6.2s" },
+      { src: "card-4-2", box: [344, 396, 232, 128], depth: [16, -8], float: "7.2s" },
+    ],
+  },
 ];
 
-/** /new-design: the supplied NexusPay screens (phone frame and floating cards included), cross-fading as the step changes. */
+/**
+ * /new-design: the supplied NexusPay screens as light SVGs. The phone cross-fades (opacity only, so scrolling stays smooth);
+ * the floating cards are separate layers that pop in on each step, drift gently, follow the pointer and lift on hover.
+ */
 function NexusShot({ step }: { step: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const onMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const el = ref.current;
+    if (!el || e.pointerType !== "mouse") return;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty("--px", String(((e.clientX - r.left) / r.width - 0.5) * 2));
+    el.style.setProperty("--py", String(((e.clientY - r.top) / r.height - 0.5) * 2));
+  };
+  const onLeave = () => {
+    ref.current?.style.setProperty("--px", "0");
+    ref.current?.style.setProperty("--py", "0");
+  };
   return (
-    <div className="relative mx-auto aspect-[7/8] h-[min(74svh,44rem)] max-h-none w-auto max-w-[100%] max-md:h-auto max-md:w-[min(30rem,100%)]">
-      {shots.map((sh, i) => (
-        // eslint-disable-next-line @next/next/no-img-element -- supplied artwork with transparency
-        <img
-          key={sh.src}
-          src={sh.src}
-          alt={i === step ? sh.alt : ""}
-          aria-hidden={i !== step}
-          width={1120}
-          height={1280}
-          className={`absolute inset-0 h-full w-full object-contain drop-shadow-[0_30px_40px_rgb(90_0_8/0.35)] transition-[opacity,transform] duration-500 ease-[var(--ease-out-expo)] ${i === step ? "translate-x-0 opacity-100" : "pointer-events-none translate-x-4 opacity-0"}`}
-        />
-      ))}
+    <div
+      ref={ref}
+      onPointerMove={onMove}
+      onPointerLeave={onLeave}
+      className="pointer-events-auto relative mx-auto aspect-[7/8] h-[min(74svh,44rem)] w-auto max-w-[100%] max-md:h-auto max-md:w-[min(30rem,100%)]"
+    >
+      {shots.map((sh, i) => {
+        const on = i === step;
+        return (
+          <div key={i}>
+            {/* eslint-disable-next-line @next/next/no-img-element -- light vector artwork */}
+            <img
+              src={`/nexuspay/phone-${i + 1}.svg`}
+              alt={on ? sh.alt : ""}
+              aria-hidden={!on}
+              width={640}
+              height={720}
+              decoding="async"
+              draggable={false}
+              style={{ left: `${(-40 / VBW) * 100}%`, top: `${(-10 / VBH) * 100}%`, width: `${(640 / VBW) * 100}%`, height: `${(720 / VBH) * 100}%` }}
+              className={`absolute max-w-none select-none transition-opacity duration-500 ease-out ${on ? "opacity-100" : "pointer-events-none opacity-0"}`}
+            />
+            {sh.cards.map((c, k) => {
+              const [x, y, w, h] = c.box;
+              return (
+                <div
+                  key={c.src}
+                  aria-hidden
+                  className="nx-depth absolute"
+                  style={{
+                    left: `${(x / VBW) * 100}%`,
+                    top: `${(y / VBH) * 100}%`,
+                    width: `${(w / VBW) * 100}%`,
+                    height: `${(h / VBH) * 100}%`,
+                    ["--dx" as string]: `${c.depth[0]}px`,
+                    ["--dy" as string]: `${c.depth[1]}px`,
+                  }}
+                >
+                  <div className={`nx-pop h-full w-full ${on ? "nx-pop-on" : ""}`} style={{ transitionDelay: on ? `${260 + k * 140}ms` : "0ms" }}>
+                    <div className="nx-float h-full w-full" style={{ animationDuration: c.float, animationDelay: `${k * -2}s` }}>
+                      {/* eslint-disable-next-line @next/next/no-img-element -- light vector artwork */}
+                      <img src={`/nexuspay/${c.src}.svg`} alt="" width={w} height={h} decoding="async" draggable={false} className={`nx-card h-full w-full select-none ${on ? "" : "pointer-events-none"}`} />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        );
+      })}
     </div>
   );
 }
